@@ -4,7 +4,9 @@ export const catch404 = (req, res, next) =>
     status: 404,
   });
 
-export const handleError = (err, req, res) => {
+export const handleError = (err, req, res, next) => {
+  console.log('An error occurred:', err);
+
   res.status(err.status || 500);
   res.json({
     error: {

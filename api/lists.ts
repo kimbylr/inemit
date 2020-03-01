@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import { List } from './models';
 import items from './items';
+import slugify from 'slugify';
 
 const router = Router();
 
@@ -20,6 +21,24 @@ router.param('listId', async (req, res, next) => {
   }
 });
 
+// get list by slug
+router.get('/', async ({ query: { slug } }, res, next) => {
+  if (!slug) {
+    return next();
+  }
+
+  try {
+    const list = await List.find({ slug });
+    if (!list.length) {
+      return next({ status: 404 });
+    }
+
+    res.json(list);
+  } catch (error) {
+    next(error);
+  }
+});
+
 // ===========================
 
 // get all lists
@@ -27,9 +46,10 @@ router.get('/', async (req, res, next) => {
   try {
     const lists = await List.find();
     const listsWithoutItems = lists.map(
-      ({ _id, name, created, updated, items }) => ({
+      ({ _id, name, slug, created, updated, items }) => ({
         _id,
         name,
+        slug,
         created,
         updated,
         itemsCount: items.length,
@@ -56,8 +76,18 @@ router.post('/', async ({ body: { name } }, res, next) => {
     return next(new Error('Name must be provided.'));
   }
 
+  const slug = slugify(name, { lower: true, remove: /[*+~.()'"!:@]/g });
+  const listsWithSlug = await List.find({ slug });
+
+  if (listsWithSlug.length > 0) {
+    return next({
+      message: `Slug already exists: ${slug}`,
+      status: 409,
+    });
+  }
+
   try {
-    const list = await new List({ name }).save();
+    const list = await new List({ name, slug }).save();
     res.json(list);
   } catch (error) {
     next(error);
