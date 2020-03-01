@@ -2,20 +2,41 @@ export const theme = {
   colors: {
     primary: {
       150: '#00A878',
-      120: '#1f4132',
       100: '#6CC17A', // green = primary
-      50: '#8CD867',
-      10: '#E5E059', // yellow
+      75: '#86CC92',
+      50: '#A1D7AA',
+      25: '#BCE2C2',
     },
-    aubergine: '#49475B',
+    secondary: {
+      100: '#8CD867',
+      50: '#ABE290',
+    },
+    yellow: '#E5E059',
+    aubergine: '#49475B', // needed?
     grey: {
-      10: '#121212',
+      10: '#121212', // aka black
       25: '#3e3e3e',
       50: '#808080',
       75: '#c0c0c0',
       85: '#dadada',
       95: '#f2f2f2',
-      98: '#fafafa',
+      98: '#fafafa', // aka white
+    },
+  },
+  font: {
+    sizes: {
+      xs: '0.833em',
+      sm: '1em', // text (20px)
+      md: '1.2em', // h3?
+      lg: '1.44em',
+      xl: '1.728em',
+      xxl: '2.074em', // h1
+      // xxxl: '2.488em',
+    },
+    weights: {
+      light: '300',
+      bold: '600',
+      massive: '800',
     },
   },
 };

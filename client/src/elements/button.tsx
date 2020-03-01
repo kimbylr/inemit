@@ -8,9 +8,8 @@ export const Button = styled.button<{ primary?: boolean }>`
   text-align: center;
   text-decoration: none;
   text-transform: uppercase;
-  letter-spacing: 1px;
   white-space: nowrap;
-  font-size: 1rem;
+  font-size: ${({ theme: { font } }) => font.sizes.xs};
   font-weight: 600;
 
   cursor: pointer;
@@ -20,7 +19,7 @@ export const Button = styled.button<{ primary?: boolean }>`
   box-shadow: 0 4px
     ${({ primary, theme: { colors } }) =>
       primary ? colors.primary[150] : colors.grey[50]};
-  padding: 0.625rem 1rem;
+  padding: 0.5rem 1rem;
   margin: 4px 0;
 
   :hover,
