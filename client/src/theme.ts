@@ -17,6 +17,7 @@ export const theme = {
       10: '#121212', // aka black
       25: '#3e3e3e',
       50: '#808080',
+      60: '#9a9a9a',
       75: '#c0c0c0',
       85: '#dadada',
       95: '#f2f2f2',
@@ -25,13 +26,13 @@ export const theme = {
   },
   font: {
     sizes: {
-      xs: '0.833em',
-      sm: '1em', // text (20px)
-      md: '1.2em', // h3?
-      lg: '1.44em',
-      xl: '1.728em',
-      xxl: '2.074em', // h1
-      // xxxl: '2.488em',
+      xs: '1.04125rem',
+      sm: '1.25rem', // text (20px)
+      md: '1.5rem', // h3?
+      lg: '1.8rem',
+      xl: '2.16rem', // h2
+      xxl: '2.5925rem', // h1
+      xxxl: '3.11rem',
     },
     weights: {
       light: '300',

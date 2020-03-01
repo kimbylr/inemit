@@ -18,7 +18,7 @@ export const Button = styled.button<{ primary?: boolean }>`
   border-radius: 4px;
   box-shadow: 0 4px
     ${({ primary, theme: { colors } }) =>
-      primary ? colors.primary[150] : colors.grey[50]};
+      primary ? colors.primary[150] : colors.grey[60]};
   padding: 0.5rem 1rem;
   margin: 4px 0;
 
@@ -29,7 +29,7 @@ export const Button = styled.button<{ primary?: boolean }>`
 
   :active {
     background: ${({ primary, theme: { colors } }) =>
-      primary ? colors.primary[150] : colors.grey[50]};
+      primary ? colors.primary[150] : colors.grey[60]};
     box-shadow: none;
     position: relative;
     top: 4px;

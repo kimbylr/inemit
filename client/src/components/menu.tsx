@@ -43,6 +43,19 @@ const Container = styled.div`
     ${({ theme: { colors } }) => colors.primary[50]}
   );
 
+  position: relative;
+  overflow: hidden;
+  ::before {
+    content: '';
+    pointer-events: none;
+    position: absolute;
+    left: -20px;
+    top: 0;
+    right: -20px;
+    bottom: -10px;
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 1);
+  }
+
   .ReactCollapse--collapse {
     transition: height 0.2s;
   }

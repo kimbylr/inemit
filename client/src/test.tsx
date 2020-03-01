@@ -2,52 +2,46 @@ import 'normalize.css';
 import React from 'react';
 import styled from 'styled-components';
 import { Button } from './elements/button';
-import { Paragraph } from './elements/paragraph';
+import { Paragraph, Heading } from './elements/typography';
 
-const Title = styled.h1`
-  color: ${({ theme: { colors } }) => colors.primary[100]};
-  font-size: 2.074rem;
-  font-weight: 800;
-`;
-
-const Strong = styled.strong`
-  font-weight: 600;
-  color: ${({ theme: { colors } }) => colors.grey[25]};
-`;
-
-const Box = styled.div<{ yolor: number }>`
-  background: ${({ yolor, theme: { colors } }) => colors.grey[yolor]};
+const Box = styled.div<{ tint: number }>`
+  background: ${({ tint, theme: { colors } }) => colors.grey[tint]};
+  color: ${({ tint, theme: { colors } }) => (tint < 50 ? colors.grey[98] : '')};
   width: 100px;
   height: 100px;
   float: left;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 export const Test = () => {
   return (
     <>
-      <Title>inemit! Wörter lernen!</Title>
+      <Heading>inemit! Wörter lernen!</Heading>
       <Paragraph>
         Hello. Lorem ipsum dolor sit amet, consectetur adipisicing elit.
         Excepturi, <em>laborum. Lorem ipsum dolor sit amet</em> consectetur
         adipisicing{' '}
-        <Strong>
+        <strong>
           elit. Quo, hic. Dolores unde <em>necessitatibus</em>
-        </Strong>{' '}
+        </strong>{' '}
         cumque omnis quis laborum exercitationem alias reiciendis?
       </Paragraph>
-      <p>
+      <Paragraph>
         <Button>asdf</Button>
         <Button primary>primary</Button>
-      </p>
-      <p>
-        <Box yolor={10} />
-        <Box yolor={25} />
-        <Box yolor={50} />
-        <Box yolor={75} />
-        <Box yolor={85} />
-        <Box yolor={95} />
-        <Box yolor={98} />
-      </p>
+      </Paragraph>
+      <div>
+        <Box tint={10}>10</Box>
+        <Box tint={25}>25</Box>
+        <Box tint={50}>50</Box>
+        <Box tint={60}>60</Box>
+        <Box tint={75}>75</Box>
+        <Box tint={85}>85</Box>
+        <Box tint={95}>95</Box>
+        <Box tint={98}>98</Box>
+      </div>
     </>
   );
 };
