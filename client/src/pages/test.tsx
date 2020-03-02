@@ -1,8 +1,8 @@
 import 'normalize.css';
 import React from 'react';
 import styled from 'styled-components';
-import { Button } from './elements/button';
-import { Paragraph, Heading } from './elements/typography';
+import { Button } from '../elements/button';
+import { Paragraph, Heading } from '../elements/typography';
 
 const Box = styled.div<{ tint: number }>`
   background: ${({ tint, theme: { colors } }) => colors.grey[tint]};

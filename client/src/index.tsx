@@ -1,25 +1,30 @@
 import 'normalize.css';
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { createGlobalStyle, ThemeProvider } from 'styled-components';
 import { Header } from './components/header';
 import { Main } from './components/main';
 import { Menu } from './components/menu';
-import { Test } from './test';
+import { Home } from './pages/home';
+import { Test } from './pages/test';
 import { theme } from './theme';
 
-const App = () => {
-  return (
-    <ThemeProvider theme={theme}>
+const App = () => (
+  <ThemeProvider theme={theme}>
+    <BrowserRouter>
       <GlobalStyle />
       <Header />
       <Menu />
       <Main>
-        <Test />
+        <Switch>
+          <Route exact path="/" component={Home} />
+          <Route exact path="/test" component={Test} />
+        </Switch>
       </Main>
-    </ThemeProvider>
-  );
-};
+    </BrowserRouter>
+  </ThemeProvider>
+);
 
 const GlobalStyle = createGlobalStyle`
   html {
