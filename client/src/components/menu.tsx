@@ -52,7 +52,7 @@ const Container = styled.div`
     left: -20px;
     top: 0;
     right: -20px;
-    bottom: -10px;
+    bottom: -20px;
     box-shadow: inset 0 0 10px rgba(0, 0, 0, 1);
   }
 
