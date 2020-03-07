@@ -1,7 +1,16 @@
 const webpack = require('webpack');
+const dotenv = require('dotenv');
 const path = require('path');
 
-const config = {
+const env = dotenv.config().parsed;
+
+// https://medium.com/@trekinbami/using-environment-variables-in-react-6b0a99d83cf5
+const envKeys = Object.keys(env).reduce((prev, next) => {
+  prev[`process.env.${next}`] = JSON.stringify(env[next]);
+  return prev;
+}, {});
+
+module.exports = {
   entry: ['react-hot-loader/patch', './src/index.tsx'],
   output: {
     path: path.resolve(__dirname, 'dist'),
@@ -52,6 +61,7 @@ const config = {
     contentBase: './dist',
     historyApiFallback: true,
   },
+  // define plugin + node handle .env variable replacement
+  plugins: [new webpack.DefinePlugin(envKeys)],
+  node: { fs: 'empty' },
 };
-
-module.exports = config;

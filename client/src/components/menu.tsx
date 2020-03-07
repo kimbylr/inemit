@@ -1,34 +1,68 @@
 import React, { useState } from 'react';
+import { Collapse } from 'react-collapse';
 import styled from 'styled-components';
 import { Icon } from '../elements/icon';
-import { Collapse } from 'react-collapse';
+import { useFetchLists } from '../hooks/use-fetch-lists';
+import { useStore } from '../store';
 
 export const Menu = () => {
   const [open, toggle] = useState(false);
+  const { activeListId, lists, state } = useStore();
+
+  useFetchLists();
+
+  if (state === 'loading' || state === 'initial') {
+    return (
+      <Container>
+        <Title>Loading...</Title>
+      </Container>
+    );
+  }
+
+  if (state === 'error') {
+    return (
+      <Container>
+        <Title>Error! TODO: add reload button</Title>
+      </Container>
+    );
+  }
+
+  const hasLists = lists.length > 0;
+  const inactiveLists = lists.filter(({ id }) => id !== activeListId);
+  const activeList = !activeListId
+    ? null
+    : lists.find(({ id }) => id === activeListId);
 
   return (
     <Container>
       <ToggleButton isOpened={open} onClick={() => toggle(o => !o)}>
-        <Title>jtalänisch</Title>
-        <ToggleButtonIcon isOpened={open}>
-          <Icon type="chevronDown" />
-        </ToggleButtonIcon>
+        <Title>
+          {!hasLists && <em>+ Neue Liste anlegen +</em>}
+          {hasLists && !activeList && 'Liste auswählen...'}
+          {hasLists && activeList && activeList.name}
+        </Title>
+        {hasLists && (
+          <ToggleButtonIcon isOpened={open}>
+            <Icon type="chevronDown" />
+          </ToggleButtonIcon>
+        )}
       </ToggleButton>
 
       <Collapse isOpened={open}>
-        <List>
-          <ListItem>
-            <ListLink as="a">schwedisch</ListLink>
-          </ListItem>
-          <ListItem>
-            <ListLink as="a">englisch</ListLink>
-          </ListItem>
-          <ListItem>
-            <ListLink as="a">
-              <em>+ neu...</em>
-            </ListLink>
-          </ListItem>
-        </List>
+        {hasLists && (
+          <List>
+            {inactiveLists.map(list => (
+              <ListItem key={list.id}>
+                <ListLink as="a">{list.name}</ListLink>
+              </ListItem>
+            ))}
+            <ListItem>
+              <ListLink as="a">
+                <em>+ Neue Liste anlegen +</em>
+              </ListLink>
+            </ListItem>
+          </List>
+        )}
       </Collapse>
     </Container>
   );
@@ -36,7 +70,7 @@ export const Menu = () => {
 
 const Container = styled.div`
   width: 100%;
-  padding: 0.5rem 0;
+  padding: 0.75rem 0 0.5rem;
   background: linear-gradient(
     to bottom,
     ${({ theme: { colors } }) => colors.secondary[50]},

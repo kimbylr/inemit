@@ -13,6 +13,7 @@ export const Button = styled.button<{ primary?: boolean }>`
   font-weight: 600;
 
   cursor: pointer;
+  user-select: none;
   outline: none; /** TODO: make accessible */
   border: none;
   border-radius: 4px;

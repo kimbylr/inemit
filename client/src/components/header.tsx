@@ -18,6 +18,7 @@ const Container = styled.div`
     ${({ theme: { colors } }) => colors.primary[150]}
   );
   text-align: center;
+  user-select: none;
 `;
 
 const StyledLink = styled(Link)`
