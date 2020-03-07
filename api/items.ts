@@ -1,6 +1,6 @@
-import { Router } from 'express';
-import { List, LearnItem, Progress } from './models';
 import * as dayjs from 'dayjs';
+import { Router } from 'express';
+import { Progress } from './models';
 
 const router = Router();
 
@@ -73,36 +73,6 @@ router.delete('/:itemId', async ({ list, params: { itemId } }, res, next) => {
 });
 
 // ============
-
-// get overall progress
-router.get('/progress', async ({ list: { items } }, res, next) => {
-  try {
-    const stages = items.reduce(
-      (acc, { progress: { stage } }) => ({
-        ...acc,
-        [stage]: acc[stage] + 1,
-      }),
-      { 1: 0, 2: 0, 3: 0, 4: 0 },
-    );
-
-    const dayIntervals = [0, 2, 7, 14, 30];
-    const intervalObj = { more: 0 };
-    dayIntervals.forEach(i => (intervalObj[i] = 0));
-    const dueBeforeDays = items.reduce((acc, { progress: { due } }) => {
-      const dueIn = dayIntervals.find(interval =>
-        dayjs(due).isBefore(dayjs().add(interval, 'day')),
-      );
-
-      return typeof dueIn === 'number'
-        ? { ...acc, [dueIn]: (acc[dueIn] || 0) + 1 }
-        : { ...acc, more: acc.more + 1 };
-    }, intervalObj);
-
-    res.json({ stages, dueBeforeDays });
-  } catch (error) {
-    next(error);
-  }
-});
 
 // get items to learn
 const DEFAULT_AMOUNT = 20;

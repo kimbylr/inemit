@@ -1,11 +1,5 @@
 import React, { useReducer, FC, useContext } from 'react';
-
-export interface LearnList {
-  id: string;
-  name: string;
-  slug: string;
-  itemsCount: number;
-}
+import { ListSummary } from './models';
 
 enum LoadingStates {
   initial = 'initial',
@@ -15,7 +9,7 @@ enum LoadingStates {
 }
 
 interface StoreData {
-  lists: LearnList[];
+  lists: ListSummary[];
   activeListId: string | null;
   state: LoadingStates;
 }

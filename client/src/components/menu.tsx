@@ -1,13 +1,16 @@
 import React, { useState } from 'react';
 import { Collapse } from 'react-collapse';
+import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import { Icon } from '../elements/icon';
 import { useFetchLists } from '../hooks/use-fetch-lists';
+import { ListSummary } from '../models';
 import { useStore } from '../store';
 
 export const Menu = () => {
-  const [open, toggle] = useState(false);
-  const { activeListId, lists, state } = useStore();
+  const [open, setOpen] = useState(false);
+  const { activeListId, lists, state, dispatch } = useStore();
+  const history = useHistory();
 
   useFetchLists();
 
@@ -29,13 +32,18 @@ export const Menu = () => {
 
   const hasLists = lists.length > 0;
   const inactiveLists = lists.filter(({ id }) => id !== activeListId);
-  const activeList = !activeListId
-    ? null
-    : lists.find(({ id }) => id === activeListId);
+  const activeList =
+    activeListId && lists.find(({ id }) => id === activeListId);
+
+  const setActiveList = (list: ListSummary) => {
+    dispatch({ activeListId: list.id });
+    setOpen(false);
+    history.push(`/${list.slug}`);
+  };
 
   return (
     <Container>
-      <ToggleButton isOpened={open} onClick={() => toggle(o => !o)}>
+      <ToggleButton isOpened={open} onClick={() => setOpen(o => !o)}>
         <Title>
           {!hasLists && <em>+ Neue Liste anlegen +</em>}
           {hasLists && !activeList && 'Liste auswählen...'}
@@ -53,7 +61,9 @@ export const Menu = () => {
           <List>
             {inactiveLists.map(list => (
               <ListItem key={list.id}>
-                <ListLink as="a">{list.name}</ListLink>
+                <ListLink as="a" onClick={() => setActiveList(list)}>
+                  {list.name}
+                </ListLink>
               </ListItem>
             ))}
             <ListItem>

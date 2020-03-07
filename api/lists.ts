@@ -1,7 +1,8 @@
 import { Router } from 'express';
-import { List } from './models';
-import items from './items';
 import slugify from 'slugify';
+import { getProgressSummary, mapList } from './helpers';
+import items from './items';
+import { List } from './models';
 
 const router = Router();
 
@@ -28,12 +29,13 @@ router.get('/', async ({ query: { slug } }, res, next) => {
   }
 
   try {
-    const list = await List.find({ slug });
-    if (!list.length) {
+    const list = await List.findOne({ slug });
+    if (!list) {
       return next({ status: 404 });
     }
 
-    res.json(list);
+    const progress = getProgressSummary(list.items);
+    res.json({ ...mapList(list), progress });
   } catch (error) {
     next(error);
   }
@@ -45,17 +47,8 @@ router.get('/', async ({ query: { slug } }, res, next) => {
 router.get('/', async (req, res, next) => {
   try {
     const lists = await List.find();
-    const listsWithoutItems = lists.map(
-      ({ _id, name, slug, created, updated, items }) => ({
-        _id,
-        name,
-        slug,
-        created,
-        updated,
-        itemsCount: items.length,
-      }),
-    );
-    res.json(listsWithoutItems);
+    const listsSummary = lists.map(mapList);
+    res.json(listsSummary);
   } catch (error) {
     next(error);
   }
@@ -64,7 +57,8 @@ router.get('/', async (req, res, next) => {
 // get specific list
 router.get('/:listId', ({ list }, res, next) => {
   try {
-    res.json(list);
+    const progress = getProgressSummary(list.items);
+    res.json({ ...mapList(list), progress });
   } catch (error) {
     next(error);
   }

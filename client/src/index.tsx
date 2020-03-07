@@ -7,6 +7,7 @@ import { Header } from './components/header';
 import { Main } from './components/main';
 import { Menu } from './components/menu';
 import { Home } from './pages/home';
+import { List } from './pages/list';
 import { Test } from './pages/test';
 import { StoreProvider } from './store';
 import { theme } from './theme';
@@ -22,6 +23,7 @@ const App = () => (
           <Switch>
             <Route exact path="/" component={Home} />
             <Route exact path="/test" component={Test} />
+            <Route path="/:slug" component={List} />
           </Switch>
         </Main>
       </BrowserRouter>
