@@ -1,12 +1,5 @@
 import React, { useReducer, FC, useContext } from 'react';
-import { ListSummary } from './models';
-
-enum LoadingStates {
-  initial = 'initial',
-  loading = 'loading',
-  loaded = 'loaded',
-  error = 'error',
-}
+import { ListSummary, LoadingStates } from './models';
 
 interface StoreData {
   lists: ListSummary[];

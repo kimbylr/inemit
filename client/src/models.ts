@@ -55,3 +55,10 @@ export interface ListSummary {
   itemsCount: number;
   progress?: ProgressSummary;
 }
+
+export enum LoadingStates {
+  initial = 'initial',
+  loading = 'loading',
+  loaded = 'loaded',
+  error = 'error',
+}

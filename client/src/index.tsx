@@ -18,14 +18,16 @@ const App = () => (
       <BrowserRouter>
         <GlobalStyle />
         <Header />
-        <Menu />
-        <Main>
-          <Switch>
-            <Route exact path="/" component={Home} />
-            <Route exact path="/test" component={Test} />
-            <Route path="/:slug" component={List} />
-          </Switch>
-        </Main>
+        <Route path="/:slug?">
+          <Menu />
+          <Main>
+            <Switch>
+              <Route exact path="/" component={Home} />
+              <Route exact path="/test" component={Test} />
+              <Route path="/:slug" component={List} />
+            </Switch>
+          </Main>
+        </Route>
       </BrowserRouter>
     </StoreProvider>
   </ThemeProvider>

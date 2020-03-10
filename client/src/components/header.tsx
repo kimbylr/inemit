@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { FC } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
-export const Header = () => (
+export const Header: FC = () => (
   <Container>
     <StyledLink to="/">inemit!</StyledLink>
   </Container>
@@ -11,7 +11,6 @@ export const Header = () => (
 const Container = styled.div`
   width: 100%;
   padding: 0.5rem 0;
-  box-shadow: 0px 4px 20px -4px #000000;
   background: linear-gradient(
     to bottom,
     ${({ theme: { colors } }) => colors.primary[100]},

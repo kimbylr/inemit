@@ -1,20 +1,28 @@
 import React, { FC, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { ListSummary } from '../models';
+import { ListSummary, LoadingStates } from '../models';
 
 const API_URL = process.env.API_URL;
 
 export const List: FC = () => {
   const { slug } = useParams();
   const [list, setList] = useState<ListSummary | null>(null);
+  const [state, setState] = useState<LoadingStates>(LoadingStates.initial);
 
   const fetchList = async () => {
     try {
+      setState(LoadingStates.loading);
       const res = await fetch(`${API_URL}/lists?slug=${slug}`);
+      if (res.status !== 200) {
+        throw new Error();
+      }
       const listWithItems: ListSummary = await res.json();
       setList(listWithItems);
+      setState(LoadingStates.loaded);
     } catch (error) {
       console.error(error);
+      setList(null);
+      setState(LoadingStates.error);
     }
   };
 
@@ -24,9 +32,15 @@ export const List: FC = () => {
     }
   }, [slug]);
 
-  if (!list) {
+  if (state === 'loading' || state === 'initial') {
     return <div>fetching {slug}...</div>;
   }
+
+  if (state === 'error') {
+    return <div>error!</div>;
+  }
+
+  if (!list) return null;
 
   return (
     <div>

@@ -1,16 +1,18 @@
-import React, { useState } from 'react';
+import React, { FC, useState } from 'react';
 import { Collapse } from 'react-collapse';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import { Icon } from '../elements/icon';
 import { useFetchLists } from '../hooks/use-fetch-lists';
 import { ListSummary } from '../models';
 import { useStore } from '../store';
 
-export const Menu = () => {
+export const Menu: FC = () => {
   const [open, setOpen] = useState(false);
-  const { activeListId, lists, state, dispatch } = useStore();
+  const { lists, state } = useStore();
+
   const history = useHistory();
+  const { slug } = useParams();
 
   useFetchLists();
 
@@ -31,12 +33,10 @@ export const Menu = () => {
   }
 
   const hasLists = lists.length > 0;
-  const inactiveLists = lists.filter(({ id }) => id !== activeListId);
-  const activeList =
-    activeListId && lists.find(({ id }) => id === activeListId);
+  const inactiveLists = lists.filter(list => list.slug !== slug);
+  const activeList = slug && lists.find(list => list.slug === slug);
 
   const setActiveList = (list: ListSummary) => {
-    dispatch({ activeListId: list.id });
     setOpen(false);
     history.push(`/${list.slug}`);
   };

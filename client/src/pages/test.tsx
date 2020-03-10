@@ -1,8 +1,8 @@
 import 'normalize.css';
-import React from 'react';
+import React, { FC } from 'react';
 import styled from 'styled-components';
 import { Button } from '../elements/button';
-import { Paragraph, Heading } from '../elements/typography';
+import { Heading, Paragraph } from '../elements/typography';
 
 const Box = styled.div<{ tint: number }>`
   background: ${({ tint, theme: { colors } }) => colors.grey[tint]};
@@ -15,7 +15,7 @@ const Box = styled.div<{ tint: number }>`
   align-items: center;
 `;
 
-export const Test = () => {
+export const Test: FC = () => {
   return (
     <>
       <Heading>inemit! Wörter lernen!</Heading>
