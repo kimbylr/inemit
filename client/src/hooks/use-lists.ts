@@ -3,8 +3,8 @@ import { routes } from '../helpers/api-routes';
 import { ListSummary } from '../models';
 import { useStore } from '../store';
 
-export const useFetchLists = () => {
-  const { dispatch } = useStore();
+export const useLists = () => {
+  const { lists, state, dispatch } = useStore();
 
   const fetchLists = async () => {
     dispatch({ state: 'loading' });
@@ -19,6 +19,27 @@ export const useFetchLists = () => {
   };
 
   useEffect(() => {
-    fetchLists();
+    if (state === 'initial') {
+      fetchLists();
+    }
   }, []);
+
+  const storeList = (list: ListSummary) => {
+    dispatch({ lists: [...lists, list] });
+  };
+
+  const updateList = (list: ListSummary) => {
+    dispatch({
+      lists: lists.map(storedList =>
+        storedList.id === list.id ? list : storedList,
+      ),
+    });
+  };
+
+  return {
+    lists,
+    state,
+    storeList,
+    updateList,
+  };
 };

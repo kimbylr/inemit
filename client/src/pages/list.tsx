@@ -6,25 +6,21 @@ import { Spinner } from '../elements/spinner';
 import { Heading, Paragraph } from '../elements/typography';
 import { routes } from '../helpers/api-routes';
 import { useRouting } from '../hooks/use-routing';
-import { ListSummary, LoadingStates } from '../models';
+import { ListWithProgress, LoadingStates } from '../models';
 
 export const List: FC = () => {
-  const [list, setList] = useState<ListSummary | null>(null);
+  const [list, setList] = useState<ListWithProgress | null>(null);
   const [state, setState] = useState<LoadingStates>(LoadingStates.initial);
   const { slug, goTo } = useRouting();
 
   const fetchList = async () => {
-    if (!slug) {
-      return;
-    }
-
     try {
       setState(LoadingStates.loading);
-      const res = await fetch(routes.listBySlug(slug));
+      const res = await fetch(routes.listBySlug(slug!));
       if (res.status !== 200) {
         throw new Error(`Error: ${res.status}`);
       }
-      const list: ListSummary = await res.json();
+      const list: ListWithProgress = await res.json();
       setList(list);
       setState(LoadingStates.loaded);
     } catch (error) {
@@ -44,7 +40,7 @@ export const List: FC = () => {
     return <Spinner />;
   }
 
-  if (state === 'error') {
+  if (state === 'error' || !list) {
     return (
       <>
         <Heading>¯\_(ツ)_/¯</Heading>
@@ -53,10 +49,8 @@ export const List: FC = () => {
     );
   }
 
-  if (!list || !list.progress) return null;
-
   const dueToday = list.progress.dueBeforeDays[0];
-  const editList = () => goTo(slug!, 'edit');
+  const editList = () => goTo(list.slug, 'edit');
   const startLearning = () => {}; // TODO
 
   return (

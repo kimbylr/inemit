@@ -6,58 +6,48 @@ import { Spinner } from '../elements/spinner';
 import { Heading, Paragraph } from '../elements/typography';
 import { routes } from '../helpers/api-routes';
 import { useRouting } from '../hooks/use-routing';
-import { LearnItem, ListWithItems, LoadingStates } from '../models';
-import { useStore } from '../store';
+import { LearnItem, LoadingStates } from '../models';
+import { useLists } from '../hooks/use-lists';
 
 export const EditList: FC = () => {
-  const [list, setList] = useState<ListWithItems | null>(null);
+  const [items, setItems] = useState<LearnItem[]>([]);
   const [state, setState] = useState<LoadingStates>(LoadingStates.initial);
   const { slug, goTo } = useRouting();
-  const { lists } = useStore();
+  const { lists, state: listsState, updateList } = useLists();
+  const list = lists.find(list => list.slug === slug);
 
   const fetchList = async () => {
-    if (!slug) {
+    if (!slug || !list) {
       return;
     }
-
-    let list = lists.find(list => list.slug === slug);
 
     setState(LoadingStates.loading);
 
     try {
-      if (!list) {
-        const res = await fetch(routes.listBySlug(slug));
-        list = await res.json();
-        if (res.status !== 200 || !list) {
-          throw new Error(`Error while getting list by slug: ${res.status}`);
-        }
-      }
-
       const res = await fetch(routes.listItems(list.id));
       if (res.status !== 200) {
         throw new Error(`Error while getting list: ${res.status}`);
       }
-      const listWithItems: LearnItem[] = await res.json();
-      setList({ ...list, items: listWithItems });
+      const items: LearnItem[] = await res.json();
+      setItems(items);
       setState(LoadingStates.loaded);
     } catch (error) {
       console.error(error);
-      setList(null);
       setState(LoadingStates.error);
     }
   };
 
   useEffect(() => {
-    if (slug) {
+    if (slug && listsState === 'loaded') {
       fetchList();
     }
-  }, [slug]);
+  }, [slug, listsState]);
 
   if (state === 'loading' || state === 'initial') {
     return <Spinner />;
   }
 
-  if (state === 'error') {
+  if (state === 'error' || !list) {
     return (
       <>
         <Heading>¯\_(ツ)_/¯</Heading>
@@ -66,22 +56,10 @@ export const EditList: FC = () => {
     );
   }
 
-  if (!list) return null;
-
   const onNameChanged = (name: string) => {
-    setList({ ...list, name });
-
-    // TODO
-    // dispatch(
-    //   lists.map(storeList => {
-    //     if (list.id === storeList.id) {
-    //       return { ...storeList, name: listSummary.name };
-    //     }
-
-    //     return storeList;
-    //   }),
-    // );
+    updateList({ ...list, name });
   };
+
   const finishEditList = () => goTo(slug!);
 
   return (
@@ -105,6 +83,12 @@ export const EditList: FC = () => {
           fertig
         </Button>
       </Paragraph>
+
+      {items.map(item => (
+        <div>
+          {item.prompt}: {item.solution}
+        </div>
+      ))}
     </>
   );
 };

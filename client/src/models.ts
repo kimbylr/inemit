@@ -33,12 +33,10 @@ export interface ListSummary {
   created: ISODate;
   updated: ISODate;
   itemsCount: number;
-  progress?: ProgressSummary;
 }
 
-export interface ListWithItems extends ListSummary {
-  _id?: string; // TODO
-  items: LearnItem[];
+export interface ListWithProgress extends ListSummary {
+  progress: ProgressSummary;
 }
 
 export interface LearnItem {

@@ -5,17 +5,14 @@ import { Button } from '../elements/button';
 import { Icon } from '../elements/icon';
 import { Spinner } from '../elements/spinner';
 import { routes } from '../helpers/api-routes';
-import { useFetchLists } from '../hooks/use-fetch-lists';
+import { useLists } from '../hooks/use-lists';
 import { useRouting } from '../hooks/use-routing';
 import { ListSummary } from '../models';
-import { useStore } from '../store';
 
 export const Menu: FC = () => {
   const [open, setOpen] = useState(false);
-  const { lists, state, dispatch } = useStore();
+  const { lists, state, storeList } = useLists();
   const { goTo, slug } = useRouting();
-
-  useFetchLists();
 
   if (state === 'loading' || state === 'initial') {
     return (
@@ -68,7 +65,7 @@ export const Menu: FC = () => {
       }
 
       const list: ListSummary = await res.json();
-      dispatch({ lists: [...lists, list] });
+      storeList(list);
       selectList(list);
     } catch {
       console.error('Could not add list'); // TODO

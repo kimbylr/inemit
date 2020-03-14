@@ -4,7 +4,7 @@ import { Button } from '../elements/button';
 import { Input } from '../elements/input';
 import { Label } from '../elements/label';
 import { routes } from '../helpers/api-routes';
-import { ListSummary } from '../models';
+import { ListWithProgress } from '../models';
 
 interface Props {
   currentName: string;
@@ -38,7 +38,7 @@ export const EditListName: FC<Props> = ({
       if (res.status !== 200) {
         throw new Error(`Error: ${res.status}`);
       }
-      const listSummary: ListSummary = await res.json();
+      const listSummary: ListWithProgress = await res.json();
       onNameChanged(listSummary.name);
     } catch (error) {
       console.error(error);
