@@ -1,21 +1,19 @@
 import React, { FC, useState } from 'react';
 import { Collapse } from 'react-collapse';
-import { useHistory, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import { Button } from '../elements/button';
 import { Icon } from '../elements/icon';
 import { Spinner } from '../elements/spinner';
+import { routes } from '../helpers/api-routes';
 import { useFetchLists } from '../hooks/use-fetch-lists';
+import { useRouting } from '../hooks/use-routing';
 import { ListSummary } from '../models';
 import { useStore } from '../store';
-import { routes } from '../helpers/api-routes';
 
 export const Menu: FC = () => {
   const [open, setOpen] = useState(false);
   const { lists, state, dispatch } = useStore();
-
-  const history = useHistory();
-  const { slug } = useParams();
+  const { goTo, slug } = useRouting();
 
   useFetchLists();
 
@@ -48,7 +46,7 @@ export const Menu: FC = () => {
 
   const selectList = (list: ListSummary) => {
     setOpen(false);
-    history.push(`/${list.slug}`);
+    goTo(list.slug);
   };
 
   const addList = async () => {

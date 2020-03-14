@@ -6,6 +6,8 @@ export const theme = {
       75: '#86CC92',
       50: '#A1D7AA',
       25: '#BCE2C2',
+      10: '#D6EEDA',
+      5: '#E4F3E6',
     },
     secondary: {
       100: '#8CD867',

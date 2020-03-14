@@ -1,35 +1,11 @@
-export interface Progress {
-  _id?: string; // TODO
-  id: string;
-  lastLearnt?: string; // Date
-  due: string; // Date
-  stage: number;
-  interval: number;
-  easiness: number;
-  timesCorrect: number;
-  timesWrong: number;
-  updated: string; // Date
+export enum LoadingStates {
+  initial = 'initial',
+  loading = 'loading',
+  loaded = 'loaded',
+  error = 'error',
 }
 
-export interface LearnItem {
-  _id?: string; // TODO
-  id: string;
-  created: string; // Date
-  updated: string; // Date
-  prompt: string;
-  solution: string;
-  progress: Progress;
-}
-
-export interface ListWithItems {
-  _id?: string; // TODO
-  id: string;
-  name: string;
-  slug: string;
-  created: string; // Date
-  updated: string; // Date
-  items: LearnItem[];
-}
+type ISODate = string; // e.g. "2020-02-22T17:34:46.822Z"
 
 export interface ProgressSummaryStages {
   '1': number;
@@ -54,13 +30,36 @@ export interface ListSummary {
   id: string;
   name: string;
   slug: string;
+  created: ISODate;
+  updated: ISODate;
   itemsCount: number;
   progress?: ProgressSummary;
 }
 
-export enum LoadingStates {
-  initial = 'initial',
-  loading = 'loading',
-  loaded = 'loaded',
-  error = 'error',
+export interface ListWithItems extends ListSummary {
+  _id?: string; // TODO
+  items: LearnItem[];
+}
+
+export interface LearnItem {
+  _id?: string; // TODO
+  id: string;
+  created: ISODate;
+  updated: ISODate;
+  prompt: string;
+  solution: string;
+  progress: Progress;
+}
+
+export interface Progress {
+  _id?: string; // TODO
+  id: string;
+  lastLearnt?: ISODate;
+  due: ISODate;
+  stage: number;
+  interval: number;
+  easiness: number;
+  timesCorrect: number;
+  timesWrong: number;
+  updated: ISODate;
 }

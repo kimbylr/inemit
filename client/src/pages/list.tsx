@@ -1,17 +1,17 @@
 import React, { FC, useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import { ProgressBar } from '../components/progress-bar';
 import { Button } from '../elements/button';
 import { Spinner } from '../elements/spinner';
 import { Heading, Paragraph } from '../elements/typography';
 import { routes } from '../helpers/api-routes';
+import { useRouting } from '../hooks/use-routing';
 import { ListSummary, LoadingStates } from '../models';
 
 export const List: FC = () => {
-  const { slug } = useParams();
   const [list, setList] = useState<ListSummary | null>(null);
   const [state, setState] = useState<LoadingStates>(LoadingStates.initial);
+  const { slug, goTo } = useRouting();
 
   const fetchList = async () => {
     if (!slug) {
@@ -24,8 +24,8 @@ export const List: FC = () => {
       if (res.status !== 200) {
         throw new Error(`Error: ${res.status}`);
       }
-      const listWithItems: ListSummary = await res.json();
-      setList(listWithItems);
+      const list: ListSummary = await res.json();
+      setList(list);
       setState(LoadingStates.loaded);
     } catch (error) {
       console.error(error);
@@ -56,7 +56,7 @@ export const List: FC = () => {
   if (!list || !list.progress) return null;
 
   const dueToday = list.progress.dueBeforeDays[0];
-  const editList = () => {}; // TODO
+  const editList = () => goTo(slug!, 'edit');
   const startLearning = () => {}; // TODO
 
   return (

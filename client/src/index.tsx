@@ -8,6 +8,7 @@ import { Main } from './components/main';
 import { Menu } from './components/menu';
 import { Home } from './pages/home';
 import { List } from './pages/list';
+import { EditList } from './pages/edit-list';
 import { Test } from './pages/test';
 import { StoreProvider } from './store';
 import { theme } from './theme';
@@ -24,6 +25,7 @@ const App = () => (
             <Switch>
               <Route exact path="/" component={Home} />
               <Route exact path="/test" component={Test} />
+              <Route path="/:slug/edit" component={EditList} />
               <Route path="/:slug" component={List} />
             </Switch>
           </Main>
@@ -36,6 +38,7 @@ const App = () => (
 const GlobalStyle = createGlobalStyle`
   html {
     font-family: 'Work Sans', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+    background: #fafafa;
   }
   h1, h2, h3, h4 { margin: 0 }
 `;

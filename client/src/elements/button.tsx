@@ -23,9 +23,9 @@ export const Button = styled.button<{ primary?: boolean }>`
   padding: 0.5rem 1rem;
   margin: 4px 0;
 
-  :hover,
-  :active {
-    color: ${({ theme: { colors } }) => colors.grey[95]};
+  :hover:not(:disabled),
+  :active:not(:disabled) {
+    color: ${({ theme: { colors } }) => colors.grey[98]};
   }
 
   :active {
@@ -34,6 +34,10 @@ export const Button = styled.button<{ primary?: boolean }>`
     box-shadow: none;
     position: relative;
     top: 4px;
+  }
+
+  :disabled {
+    opacity: 0.5;
   }
 `;
 

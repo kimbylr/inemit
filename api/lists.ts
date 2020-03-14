@@ -98,7 +98,7 @@ router.put('/:listId', async ({ list, body: { name } }, res, next) => {
     list.name = name;
     list.updated = new Date();
     const changedList = await list.save();
-    res.json(changedList);
+    res.json(mapList(changedList));
   } catch (error) {
     next(error);
   }
