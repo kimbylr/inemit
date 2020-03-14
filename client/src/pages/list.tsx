@@ -2,9 +2,8 @@ import React, { FC, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Spinner } from '../elements/spinner';
 import { Heading, Paragraph } from '../elements/typography';
+import { routes } from '../helpers/api-routes';
 import { ListSummary, LoadingStates } from '../models';
-
-const API_URL = process.env.API_URL;
 
 export const List: FC = () => {
   const { slug } = useParams();
@@ -12,9 +11,13 @@ export const List: FC = () => {
   const [state, setState] = useState<LoadingStates>(LoadingStates.initial);
 
   const fetchList = async () => {
+    if (!slug) {
+      return;
+    }
+
     try {
       setState(LoadingStates.loading);
-      const res = await fetch(`${API_URL}/lists?slug=${slug}`);
+      const res = await fetch(routes.listBySlug(slug));
       if (res.status !== 200) {
         throw new Error();
       }

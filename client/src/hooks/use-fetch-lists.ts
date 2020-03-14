@@ -1,8 +1,7 @@
-import { useStore } from '../store';
 import { useEffect } from 'react';
+import { routes } from '../helpers/api-routes';
 import { ListSummary } from '../models';
-
-const API_URL = process.env.API_URL;
+import { useStore } from '../store';
 
 export const useFetchLists = () => {
   const { dispatch } = useStore();
@@ -10,7 +9,7 @@ export const useFetchLists = () => {
   const fetchLists = async () => {
     dispatch({ state: 'loading' });
     try {
-      const res = await fetch(`${API_URL}/lists`);
+      const res = await fetch(routes.lists());
       const lists: ListSummary[] = await res.json();
       dispatch({ state: 'loaded', lists });
     } catch (error) {
