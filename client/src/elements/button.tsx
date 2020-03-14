@@ -24,7 +24,7 @@ export const Button = styled.button<{ primary?: boolean }>`
   margin: 4px 0;
 
   :hover:not(:disabled),
-  :active:not(:disabled) {
+  :active {
     color: ${({ theme: { colors } }) => colors.grey[98]};
   }
 

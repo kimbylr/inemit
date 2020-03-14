@@ -214,7 +214,8 @@ const OutlineButton = styled(Button)`
   background: none;
   box-shadow: none;
 
-  :hover {
+  :hover:not(:disabled),
+  :active {
     color: ${({ theme: { colors } }) => colors.grey[25]};
     border-color: ${({ theme: { colors } }) => colors.grey[25]};
   }
