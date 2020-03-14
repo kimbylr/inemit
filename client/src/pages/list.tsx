@@ -1,5 +1,7 @@
 import React, { FC, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { Spinner } from '../elements/spinner';
+import { Heading, Paragraph } from '../elements/typography';
 import { ListSummary, LoadingStates } from '../models';
 
 const API_URL = process.env.API_URL;
@@ -33,11 +35,16 @@ export const List: FC = () => {
   }, [slug]);
 
   if (state === 'loading' || state === 'initial') {
-    return <div>fetching {slug}...</div>;
+    return <Spinner />;
   }
 
   if (state === 'error') {
-    return <div>error!</div>;
+    return (
+      <>
+        <Heading>Leider nein ¯\_(ツ)_/¯</Heading>
+        <Paragraph>Unter dieser Adresse existiert keine Liste.</Paragraph>
+      </>
+    );
   }
 
   if (!list) return null;

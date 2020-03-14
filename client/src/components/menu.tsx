@@ -3,6 +3,7 @@ import { Collapse } from 'react-collapse';
 import { useHistory, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import { Icon } from '../elements/icon';
+import { Spinner } from '../elements/spinner';
 import { useFetchLists } from '../hooks/use-fetch-lists';
 import { ListSummary } from '../models';
 import { useStore } from '../store';
@@ -19,7 +20,9 @@ export const Menu: FC = () => {
   if (state === 'loading' || state === 'initial') {
     return (
       <Container>
-        <Title>Loading...</Title>
+        <Title>
+          <Spinner small white />
+        </Title>
       </Container>
     );
   }
@@ -36,7 +39,7 @@ export const Menu: FC = () => {
   const inactiveLists = lists.filter(list => list.slug !== slug);
   const activeList = slug && lists.find(list => list.slug === slug);
 
-  const setActiveList = (list: ListSummary) => {
+  const changeList = (list: ListSummary) => {
     setOpen(false);
     history.push(`/${list.slug}`);
   };
@@ -61,7 +64,7 @@ export const Menu: FC = () => {
           <List>
             {inactiveLists.map(list => (
               <ListItem key={list.id}>
-                <ListLink as="a" onClick={() => setActiveList(list)}>
+                <ListLink as="a" onClick={() => changeList(list)}>
                   {list.name}
                 </ListLink>
               </ListItem>

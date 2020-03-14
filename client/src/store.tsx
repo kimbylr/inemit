@@ -3,7 +3,6 @@ import { ListSummary, LoadingStates } from './models';
 
 interface StoreData {
   lists: ListSummary[];
-  activeListId: string | null;
   state: LoadingStates;
 }
 
@@ -13,7 +12,6 @@ interface DispatchToStore {
 
 const INITIAL_DATA = {
   lists: [],
-  activeListId: null,
   state: LoadingStates.initial,
 };
 
