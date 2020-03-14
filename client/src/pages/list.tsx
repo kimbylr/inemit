@@ -19,7 +19,7 @@ export const List: FC = () => {
       setState(LoadingStates.loading);
       const res = await fetch(routes.listBySlug(slug));
       if (res.status !== 200) {
-        throw new Error();
+        throw new Error(`Error: ${res.status}`);
       }
       const listWithItems: ListSummary = await res.json();
       setList(listWithItems);
@@ -44,7 +44,7 @@ export const List: FC = () => {
   if (state === 'error') {
     return (
       <>
-        <Heading>Leider nein ¯\_(ツ)_/¯</Heading>
+        <Heading>¯\_(ツ)_/¯</Heading>
         <Paragraph>Unter dieser Adresse existiert keine Liste.</Paragraph>
       </>
     );

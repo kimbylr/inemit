@@ -82,7 +82,7 @@ router.post('/', async ({ body: { name } }, res, next) => {
 
   try {
     const list = await new List({ name, slug }).save();
-    res.json(list);
+    res.json(mapList(list));
   } catch (error) {
     next(error);
   }

@@ -49,15 +49,4 @@ button.small {
 button.small .icon {
   margin-right: 6px;
 }
-
-button:disabled,
-button:disabled:hover,
-button:disabled:active {
-  color: #bbb;
-  background-color: #e6e6e6;
-  box-shadow: 0 3px #ccc;
-  cursor: default;
-  transition-duration: 0.2s;
-  top: 0; /* patch for weird behaviour when :active
-}
 */

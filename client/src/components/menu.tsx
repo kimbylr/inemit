@@ -2,15 +2,17 @@ import React, { FC, useState } from 'react';
 import { Collapse } from 'react-collapse';
 import { useHistory, useParams } from 'react-router-dom';
 import styled from 'styled-components';
+import { Button } from '../elements/button';
 import { Icon } from '../elements/icon';
 import { Spinner } from '../elements/spinner';
 import { useFetchLists } from '../hooks/use-fetch-lists';
 import { ListSummary } from '../models';
 import { useStore } from '../store';
+import { routes } from '../helpers/api-routes';
 
 export const Menu: FC = () => {
   const [open, setOpen] = useState(false);
-  const { lists, state } = useStore();
+  const { lists, state, dispatch } = useStore();
 
   const history = useHistory();
   const { slug } = useParams();
@@ -30,7 +32,12 @@ export const Menu: FC = () => {
   if (state === 'error') {
     return (
       <Container>
-        <Title>Error! TODO: add reload button</Title>
+        <ErrorContainer>
+          <Title>Habemus Fehler 🙄</Title>
+          <OutlineButton onClick={() => window.location.reload()}>
+            Neu laden
+          </OutlineButton>
+        </ErrorContainer>
       </Container>
     );
   }
@@ -39,16 +46,44 @@ export const Menu: FC = () => {
   const inactiveLists = lists.filter(list => list.slug !== slug);
   const activeList = slug && lists.find(list => list.slug === slug);
 
-  const changeList = (list: ListSummary) => {
+  const selectList = (list: ListSummary) => {
     setOpen(false);
     history.push(`/${list.slug}`);
+  };
+
+  const addList = async () => {
+    const name = prompt('Name der neuen Liste:');
+
+    if (!name) {
+      return;
+    }
+
+    try {
+      const res = await fetch(routes.lists(), {
+        method: 'POST',
+        headers: { 'Content-type': 'application/json' },
+        body: JSON.stringify({ name }),
+      });
+
+      if (res.status !== 200) {
+        throw new Error();
+      }
+
+      const list: ListSummary = await res.json();
+      dispatch({ lists: [...lists, list] });
+      selectList(list);
+    } catch {
+      console.error('Could not add list'); // TODO
+    }
   };
 
   return (
     <Container>
       <ToggleButton isOpened={open} onClick={() => setOpen(o => !o)}>
         <Title>
-          {!hasLists && <em>+ Neue Liste anlegen +</em>}
+          {!hasLists && (
+            <OutlineButton onClick={addList}>Neue Liste</OutlineButton>
+          )}
           {hasLists && !activeList && 'Liste auswählen...'}
           {hasLists && activeList && activeList.name}
         </Title>
@@ -64,15 +99,13 @@ export const Menu: FC = () => {
           <List>
             {inactiveLists.map(list => (
               <ListItem key={list.id}>
-                <ListLink as="a" onClick={() => changeList(list)}>
+                <ListLink as="a" onClick={() => selectList(list)}>
                   {list.name}
                 </ListLink>
               </ListItem>
             ))}
             <ListItem>
-              <ListLink as="a">
-                <em>+ Neue Liste anlegen +</em>
-              </ListLink>
+              <OutlineButton onClick={addList}>Neue Liste</OutlineButton>
             </ListItem>
           </List>
         )}
@@ -175,4 +208,30 @@ const ToggleButtonIcon = styled.div<{ isOpened: boolean }>`
 
   transform: rotate(${({ isOpened }) => (isOpened ? '-180' : '0')}deg);
   transition: transform 0.2s ease-in-out;
+`;
+
+const OutlineButton = styled(Button)`
+  color: ${({ theme: { colors } }) => colors.primary[150]};
+  border: 1px solid ${({ theme: { colors } }) => colors.primary[150]};
+  background: none;
+  box-shadow: none;
+
+  :hover {
+    color: ${({ theme: { colors } }) => colors.grey[25]};
+    border-color: ${({ theme: { colors } }) => colors.grey[25]};
+  }
+
+  :active {
+    background: none;
+    top: 0;
+  }
+`;
+
+const ErrorContainer = styled.div`
+  margin: 0.5rem 0;
+  text-align: center;
+
+  > :first-child {
+    margin-bottom: 0.5rem;
+  }
 `;
