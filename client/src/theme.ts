@@ -11,8 +11,10 @@ export const theme = {
       100: '#8CD867',
       50: '#ABE290',
     },
-    yellow: '#E5E059',
-    aubergine: '#49475B', // needed?
+    yellow: {
+      100: '#E5E059',
+      50: '#EFEC9C',
+    },
     grey: {
       10: '#121212', // aka black
       25: '#3e3e3e',
@@ -28,8 +30,8 @@ export const theme = {
     sizes: {
       xs: '1.04125rem',
       sm: '1.25rem', // text (20px)
-      md: '1.5rem', // h3?
-      lg: '1.8rem',
+      md: '1.5rem',
+      lg: '1.8rem', // h3
       xl: '2.16rem', // h2
       xxl: '2.5925rem', // h1
       xxxl: '3.11rem',

@@ -31,21 +31,23 @@ export interface ListWithItems {
   items: LearnItem[];
 }
 
+export interface ProgressSummaryStages {
+  '1': number;
+  '2': number;
+  '3': number;
+  '4': number;
+}
+export interface ProgressSummaryDue {
+  '0': number;
+  '2': number;
+  '7': number;
+  '14': number;
+  '30': number;
+  more: number;
+}
 export interface ProgressSummary {
-  stages: {
-    '1': number;
-    '2': number;
-    '3': number;
-    '4': number;
-  };
-  dueBeforeDays: {
-    '0': number;
-    '2': number;
-    '7': number;
-    '14': number;
-    '30': number;
-    more: number;
-  };
+  stages: ProgressSummaryStages;
+  dueBeforeDays: ProgressSummaryDue;
 }
 
 export interface ListSummary {

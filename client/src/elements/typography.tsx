@@ -16,3 +16,10 @@ export const Heading = styled.h2`
   font-size: ${({ theme: { font } }) => font.sizes.xl};
   font-weight: ${({ theme: { font } }) => font.weights.massive};
 `;
+
+export const SubHeading = styled.h3`
+  color: ${({ theme: { colors } }) => colors.primary[100]};
+  font-size: ${({ theme: { font } }) => font.sizes.lg};
+  font-weight: ${({ theme: { font } }) => font.weights.massive};
+  margin-top: 2rem;
+`;

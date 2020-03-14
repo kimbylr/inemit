@@ -1,4 +1,3 @@
-import 'normalize.css';
 import React, { FC } from 'react';
 import styled from 'styled-components';
 import { Button } from '../elements/button';
