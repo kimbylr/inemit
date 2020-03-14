@@ -9,7 +9,7 @@ interface ProgressBarProps {
 export const ProgressBar: FC<ProgressBarProps> = ({ stages }) => (
   <Bar>
     {Object.entries(stages).map(([stage, count]) => (
-      <BarPart stage={stage} count={count}>
+      <BarPart stage={stage} count={count} key={stage}>
         {mapLegendToStage[stage]}
       </BarPart>
     ))}
