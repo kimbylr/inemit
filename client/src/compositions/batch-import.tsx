@@ -2,7 +2,7 @@ import React, { FC, useState } from 'react';
 import styled from 'styled-components';
 import { Button } from '../elements/button';
 import { Textarea } from '../elements/textarea';
-import { addItems } from '../helpers/api-routes';
+import { addItems } from '../helpers/api';
 import { BaseLearnItem, ExcludesNull, LearnItem } from '../models';
 
 const PLACEHOLDER = `to learn	lernen
@@ -70,6 +70,7 @@ const Container = styled.form`
   align-items: flex-end;
 `;
 
+// TODO: more info about wrong formatting
 const parseList = (lines: string): BaseLearnItem[] | null => {
   const items = lines
     .split('\n')

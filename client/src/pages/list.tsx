@@ -4,7 +4,7 @@ import { ProgressBar } from '../components/progress-bar';
 import { Button } from '../elements/button';
 import { Spinner } from '../elements/spinner';
 import { Heading, Paragraph } from '../elements/typography';
-import { routes } from '../helpers/api-routes';
+import { getListBySlug } from '../helpers/api';
 import { useRouting } from '../hooks/use-routing';
 import { ListWithProgress, LoadingStates } from '../models';
 
@@ -14,13 +14,13 @@ export const List: FC = () => {
   const { slug, goTo } = useRouting();
 
   const fetchList = async () => {
+    if (!slug) {
+      return;
+    }
+
+    setState(LoadingStates.loading);
     try {
-      setState(LoadingStates.loading);
-      const res = await fetch(routes.listBySlug(slug!));
-      if (res.status !== 200) {
-        throw new Error(`Error: ${res.status}`);
-      }
-      const list: ListWithProgress = await res.json();
+      const list = await getListBySlug(slug);
       setList(list);
       setState(LoadingStates.loaded);
     } catch (error) {

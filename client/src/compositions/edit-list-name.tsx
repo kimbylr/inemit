@@ -3,8 +3,7 @@ import styled from 'styled-components';
 import { Button } from '../elements/button';
 import { Input } from '../elements/input';
 import { Label } from '../elements/label';
-import { routes, editListName } from '../helpers/api-routes';
-import { ListWithProgress } from '../models';
+import { editListName } from '../helpers/api';
 
 interface Props {
   currentName: string;

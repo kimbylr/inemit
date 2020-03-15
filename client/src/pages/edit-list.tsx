@@ -5,7 +5,7 @@ import { EditListName } from '../compositions/edit-list-name';
 import { Button } from '../elements/button';
 import { Spinner } from '../elements/spinner';
 import { Heading, Paragraph, SubHeading } from '../elements/typography';
-import { routes } from '../helpers/api-routes';
+import { getItems } from '../helpers/api';
 import { useLists } from '../hooks/use-lists';
 import { useRouting } from '../hooks/use-routing';
 import { LearnItem, LoadingStates } from '../models';
@@ -17,19 +17,15 @@ export const EditList: FC = () => {
   const { lists, state: listsState, updateList } = useLists();
   const list = lists.find(list => list.slug === slug);
 
-  const fetchList = async () => {
-    if (!slug || !list) {
+  const fetchItems = async () => {
+    if (!list) {
       return;
     }
 
     setState(LoadingStates.loading);
 
     try {
-      const res = await fetch(routes.listItems(list.id));
-      if (res.status !== 200) {
-        throw new Error(`Error while getting list: ${res.status}`);
-      }
-      const items: LearnItem[] = await res.json();
+      const items = await getItems(list.id);
       setItems(items);
       setState(LoadingStates.loaded);
     } catch (error) {
@@ -40,7 +36,7 @@ export const EditList: FC = () => {
 
   useEffect(() => {
     if (slug && listsState === 'loaded') {
-      fetchList();
+      fetchItems();
     }
   }, [slug, listsState]);
 

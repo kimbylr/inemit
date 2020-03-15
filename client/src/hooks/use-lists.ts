@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { routes } from '../helpers/api-routes';
+import { getLists } from '../helpers/api';
 import { ListSummary } from '../models';
 import { useStore } from '../store';
 
@@ -9,8 +9,7 @@ export const useLists = () => {
   const fetchLists = async () => {
     dispatch({ state: 'loading' });
     try {
-      const res = await fetch(routes.lists());
-      const lists: ListSummary[] = await res.json();
+      const lists = await getLists();
       dispatch({ state: 'loaded', lists });
     } catch (error) {
       console.error(error);

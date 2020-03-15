@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { Button } from '../elements/button';
 import { Icon } from '../elements/icon';
 import { Spinner } from '../elements/spinner';
-import { routes } from '../helpers/api-routes';
+import { addList } from '../helpers/api';
 import { useLists } from '../hooks/use-lists';
 import { useRouting } from '../hooks/use-routing';
 import { ListSummary } from '../models';
@@ -46,7 +46,7 @@ export const Menu: FC = () => {
     goTo(list.slug);
   };
 
-  const addList = async () => {
+  const onAddList = async () => {
     const name = prompt('Name der neuen Liste:');
 
     if (!name) {
@@ -54,17 +54,7 @@ export const Menu: FC = () => {
     }
 
     try {
-      const res = await fetch(routes.lists(), {
-        method: 'POST',
-        headers: { 'Content-type': 'application/json' },
-        body: JSON.stringify({ name }),
-      });
-
-      if (res.status !== 200) {
-        throw new Error();
-      }
-
-      const list: ListSummary = await res.json();
+      const list = await addList(name);
       storeList(list);
       selectList(list);
     } catch {
@@ -77,7 +67,7 @@ export const Menu: FC = () => {
       <ToggleButton isOpened={open} onClick={() => setOpen(o => !o)}>
         <Title>
           {!hasLists && (
-            <OutlineButton onClick={addList}>Neue Liste</OutlineButton>
+            <OutlineButton onClick={onAddList}>Neue Liste</OutlineButton>
           )}
           {hasLists && !activeList && 'Liste auswählen...'}
           {hasLists && activeList && activeList.name}
@@ -100,7 +90,7 @@ export const Menu: FC = () => {
               </ListItem>
             ))}
             <ListItem>
-              <OutlineButton onClick={addList}>Neue Liste</OutlineButton>
+              <OutlineButton onClick={onAddList}>Neue Liste</OutlineButton>
             </ListItem>
           </List>
         )}

@@ -1,9 +1,13 @@
-import { BaseLearnItem, ListWithProgress, LearnItem } from '../models';
+import {
+  BaseLearnItem,
+  ListWithProgress,
+  LearnItem,
+  ListSummary,
+} from '../models';
 
 const API_URL = process.env.API_URL;
 
-// TODO: make fns and use everywhere
-export const routes = {
+const routes = {
   lists: () => `${API_URL}/lists`,
   listById: (listId: string) => `${API_URL}/lists/${listId}`,
   listBySlug: (slug: string) => `${API_URL}/lists?slug=${slug}`,
@@ -20,7 +24,7 @@ const getOptions = (method: 'PUT' | 'POST' | 'DELETE', body: any) => ({
 
 const fetchAndUnpack = async <T>(
   url: RequestInfo,
-  options: RequestInit,
+  options?: RequestInit,
 ): Promise<T> => {
   try {
     const res: Response = await fetch(url, options);
@@ -33,6 +37,23 @@ const fetchAndUnpack = async <T>(
   }
 };
 
+// ===
+
+export const getLists = async () =>
+  fetchAndUnpack<ListSummary[]>(routes.lists());
+
+// ====
+
+export const addList = async (name: string) =>
+  fetchAndUnpack<ListSummary>(routes.lists(), getOptions('POST', { name }));
+
+// ===
+
+export const getListBySlug = async (slug: string) =>
+  fetchAndUnpack<ListWithProgress>(routes.listBySlug(slug));
+
+// ====
+
 interface EditListName {
   listId: string;
   name: string;
@@ -44,6 +65,13 @@ export const editListName = async ({ listId, name }: EditListName) => {
   );
   return res.name;
 };
+
+// ====
+
+export const getItems = async (listId: string) =>
+  fetchAndUnpack<LearnItem[]>(routes.listItems(listId));
+
+// ====
 
 interface AddItems {
   listId: string;
