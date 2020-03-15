@@ -1,10 +1,16 @@
+import React, { FC } from 'react';
 import styled from 'styled-components';
 
-export const Main = styled.main`
+export const Container = styled.main`
   padding: 1.5rem 1rem 1rem;
-
   position: relative;
+`;
+
+const Shadow = styled.div`
+  width: 100%;
+  height: 20px;
   overflow: hidden;
+  position: absolute;
   ::before {
     content: '';
     pointer-events: none;
@@ -16,3 +22,11 @@ export const Main = styled.main`
     box-shadow: inset 0 0px 10px rgba(0, 0, 0, 1);
   }
 `;
+
+// separate Shadow element because "overflow: hidden" prevents sticky elements inside children
+export const Main: FC = ({ children }) => (
+  <>
+    <Shadow />
+    <Container>{children}</Container>
+  </>
+);

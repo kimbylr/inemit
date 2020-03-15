@@ -11,15 +11,27 @@ export const Paragraph = styled.p`
   }
 `;
 
+export const StickyParagraph = styled(Paragraph)`
+  position: sticky;
+  top: 0;
+  padding: 10px 0;
+  background: ${({ theme: { colors } }) => colors.grey[98]};
+`;
+
+// ====
+
 export const Heading = styled.h2`
   color: ${({ theme: { colors } }) => colors.primary[100]};
   font-size: ${({ theme: { font } }) => font.sizes.xl};
   font-weight: ${({ theme: { font } }) => font.weights.massive};
 `;
 
-export const SubHeading = styled.h3`
-  color: ${({ theme: { colors } }) => colors.primary[100]};
-  font-size: ${({ theme: { font } }) => font.sizes.lg};
+export const SubHeadingUncolored = styled.h3`
+  font-size: ${({ theme: { font } }) => font.sizes.md};
   font-weight: ${({ theme: { font } }) => font.weights.massive};
-  margin: 2.5rem 0 1rem;
+  margin: 1.5rem 0 1rem;
+`;
+
+export const SubHeading = styled(SubHeadingUncolored)`
+  color: ${({ theme: { colors } }) => colors.primary[100]};
 `;

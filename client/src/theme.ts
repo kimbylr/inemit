@@ -32,8 +32,8 @@ export const theme = {
     sizes: {
       xs: '1.04125rem',
       sm: '1.25rem', // text (20px)
-      md: '1.5rem',
-      lg: '1.8rem', // h3
+      md: '1.5rem', // h3
+      lg: '1.8rem',
       xl: '2.16rem', // h2
       xxl: '2.5925rem', // h1
       xxxl: '3.11rem',

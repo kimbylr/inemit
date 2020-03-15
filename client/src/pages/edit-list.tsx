@@ -1,10 +1,17 @@
 import React, { FC, useEffect, useState } from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
+import { ExpandableArea } from '../components/expandable-area';
 import { BatchImport } from '../compositions/batch-import';
 import { EditListName } from '../compositions/edit-list-name';
 import { Button } from '../elements/button';
 import { Spinner } from '../elements/spinner';
-import { Heading, Paragraph, SubHeading } from '../elements/typography';
+import {
+  Heading,
+  Paragraph,
+  StickyParagraph,
+  SubHeading,
+  SubHeadingUncolored,
+} from '../elements/typography';
 import { getItems } from '../helpers/api';
 import { useLists } from '../hooks/use-lists';
 import { useRouting } from '../hooks/use-routing';
@@ -63,7 +70,10 @@ export const EditList: FC = () => {
     updateList({ ...list, itemsCount: itemsCombined.length });
   };
 
-  const finishEditList = () => goTo(slug!);
+  const finishEditing = () => {
+    // TODO: check if unsaved items, notify
+    goTo(slug!);
+  };
 
   return (
     <>
@@ -71,36 +81,59 @@ export const EditList: FC = () => {
       <Paragraph>
         In dieser Liste gibt es <strong>{list.itemsCount} Vokabeln</strong>.
       </Paragraph>
-      <Paragraph>&lt;- Zurück zur Übersicht</Paragraph>
 
-      <SubHeading>Name ändern</SubHeading>
-      <EditListName
-        currentName={list.name}
-        listId={list.id}
-        onNameChanged={onNameChanged}
-      />
-
-      <SubHeading>Serienimport</SubHeading>
-      <Paragraph>
-        1 Eintrag pro Zeile. Vokabel und Abfrage mit Tabulator trennen.
-      </Paragraph>
-      <BatchImport listId={list.id} onBatchImportDone={onBatchImportDone} />
-
-      <Paragraph>
-        scrollen -> position fixed, top 0
-        <Button primary onClick={finishEditList}>
-          fertig
+      <StickyParagraph>
+        <Button primary onClick={finishEditing}>
+          bearbeiten abschliessen
         </Button>
-      </Paragraph>
+      </StickyParagraph>
 
+      <ExpandableArea
+        canExpand
+        teaserStyles={TeaserStyles}
+        teaser={<SubHeadingUncolored>Umbenennen</SubHeadingUncolored>}
+      >
+        <EditListName
+          currentName={list.name}
+          listId={list.id}
+          onNameChanged={onNameChanged}
+        />
+      </ExpandableArea>
+
+      <ExpandableArea
+        canExpand
+        teaserStyles={TeaserStyles}
+        teaser={<SubHeadingUncolored>Serienimport</SubHeadingUncolored>}
+      >
+        <BatchImportIntro>
+          1 Eintrag pro Zeile. Vokabel und Abfrage mit Tabulator trennen.
+        </BatchImportIntro>
+        <BatchImport listId={list.id} onBatchImportDone={onBatchImportDone} />
+      </ExpandableArea>
+
+      <SubHeading>Vokabeln</SubHeading>
       {items.map(item => (
         <div>
-          {item.prompt}: {item.solution}
+          {item.solution}: {item.prompt}
         </div>
       ))}
     </>
   );
 };
+
+const TeaserStyles = css`
+  width: 100%;
+  color: ${({ theme: { colors } }) => colors.primary[100]};
+
+  :hover {
+    color: ${({ theme: { colors } }) => colors.primary[150]};
+  }
+`;
+
+const BatchImportIntro = styled(Paragraph)`
+  margin-top: 0;
+  font-size: ${({ theme: { font } }) => font.sizes.xs};
+`;
 
 const Yolo = styled.section`
   border-top: 4px dotted ${({ theme: { colors } }) => colors.grey[85]};

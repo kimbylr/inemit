@@ -3,7 +3,8 @@ import styled from 'styled-components';
 export const Button = styled.button<{ primary?: boolean }>`
   background: ${({ primary, theme: { colors } }) =>
     primary ? colors.primary[100] : colors.grey[75]};
-  color: ${({ theme: { colors } }) => colors.grey[25]};
+  color: ${({ primary, theme: { colors } }) =>
+    primary ? colors.grey[98] : colors.grey[25]};
 
   text-align: center;
   text-decoration: none;
@@ -25,7 +26,8 @@ export const Button = styled.button<{ primary?: boolean }>`
 
   :hover:not(:disabled),
   :active {
-    color: ${({ theme: { colors } }) => colors.grey[98]};
+    color: ${({ primary, theme: { colors } }) =>
+      primary ? colors.grey[25] : colors.grey[98]};
   }
 
   :active {
@@ -40,17 +42,3 @@ export const Button = styled.button<{ primary?: boolean }>`
     opacity: 0.5;
   }
 `;
-
-/*
-button .icon {
-  margin-right: 10px;
-}
-
-button.small {
-  padding: 6px 12px;
-}
-
-button.small .icon {
-  margin-right: 6px;
-}
-*/
