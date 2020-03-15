@@ -5,7 +5,10 @@ export enum LoadingStates {
   error = 'error',
 }
 
-type ISODate = string; // e.g. "2020-02-22T17:34:46.822Z"
+// see https://stackoverflow.com/questions/47632622/typescript-and-filter-boolean
+export type ExcludesNull = <T>(x: T | null) => x is T;
+
+export type ISODate = string; // e.g. "2020-02-22T17:34:46.822Z"
 
 export interface ProgressSummaryStages {
   '1': number;
@@ -39,13 +42,15 @@ export interface ListWithProgress extends ListSummary {
   progress: ProgressSummary;
 }
 
-export interface LearnItem {
+export interface BaseLearnItem {
+  prompt: string;
+  solution: string;
+}
+export interface LearnItem extends BaseLearnItem {
   _id?: string; // TODO
   id: string;
   created: ISODate;
   updated: ISODate;
-  prompt: string;
-  solution: string;
   progress: Progress;
 }
 

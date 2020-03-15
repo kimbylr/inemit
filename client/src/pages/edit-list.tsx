@@ -1,13 +1,14 @@
 import React, { FC, useEffect, useState } from 'react';
 import styled from 'styled-components';
+import { BatchImport } from '../compositions/batch-import';
 import { EditListName } from '../compositions/edit-list-name';
 import { Button } from '../elements/button';
 import { Spinner } from '../elements/spinner';
-import { Heading, Paragraph } from '../elements/typography';
+import { Heading, Paragraph, SubHeading } from '../elements/typography';
 import { routes } from '../helpers/api-routes';
+import { useLists } from '../hooks/use-lists';
 import { useRouting } from '../hooks/use-routing';
 import { LearnItem, LoadingStates } from '../models';
-import { useLists } from '../hooks/use-lists';
 
 export const EditList: FC = () => {
   const [items, setItems] = useState<LearnItem[]>([]);
@@ -60,6 +61,12 @@ export const EditList: FC = () => {
     updateList({ ...list, name });
   };
 
+  const onBatchImportDone = (newItems: LearnItem[]) => {
+    const itemsCombined = [...items, ...newItems];
+    setItems(itemsCombined);
+    updateList({ ...list, itemsCount: itemsCombined.length });
+  };
+
   const finishEditList = () => goTo(slug!);
 
   return (
@@ -68,14 +75,20 @@ export const EditList: FC = () => {
       <Paragraph>
         In dieser Liste gibt es <strong>{list.itemsCount} Vokabeln</strong>.
       </Paragraph>
+      <Paragraph>&lt;- Zurück zur Übersicht</Paragraph>
 
-      <ChangeName>
-        <EditListName
-          currentName={list.name}
-          listId={list.id}
-          onNameChanged={onNameChanged}
-        />
-      </ChangeName>
+      <SubHeading>Name ändern</SubHeading>
+      <EditListName
+        currentName={list.name}
+        listId={list.id}
+        onNameChanged={onNameChanged}
+      />
+
+      <SubHeading>Serienimport</SubHeading>
+      <Paragraph>
+        1 Eintrag pro Zeile. Vokabel und Abfrage mit Tabulator trennen.
+      </Paragraph>
+      <BatchImport listId={list.id} onBatchImportDone={onBatchImportDone} />
 
       <Paragraph>
         scrollen -> position fixed, top 0
@@ -93,7 +106,7 @@ export const EditList: FC = () => {
   );
 };
 
-const ChangeName = styled.section`
+const Yolo = styled.section`
   border-top: 4px dotted ${({ theme: { colors } }) => colors.grey[85]};
   border-bottom: 4px dotted ${({ theme: { colors } }) => colors.grey[85]};
   padding: 28px 0;

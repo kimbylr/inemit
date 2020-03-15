@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { Button } from '../elements/button';
 import { Input } from '../elements/input';
 import { Label } from '../elements/label';
-import { routes } from '../helpers/api-routes';
+import { routes, editListName } from '../helpers/api-routes';
 import { ListWithProgress } from '../models';
 
 interface Props {
@@ -30,16 +30,8 @@ export const EditListName: FC<Props> = ({
     setDisabled(true);
 
     try {
-      const res = await fetch(routes.listById(listId), {
-        method: 'PUT',
-        headers: { 'Content-type': 'application/json' },
-        body: JSON.stringify({ name }),
-      });
-      if (res.status !== 200) {
-        throw new Error(`Error: ${res.status}`);
-      }
-      const listSummary: ListWithProgress = await res.json();
-      onNameChanged(listSummary.name);
+      const newName = await editListName({ listId, name });
+      onNameChanged(newName);
     } catch (error) {
       console.error(error);
     } finally {
