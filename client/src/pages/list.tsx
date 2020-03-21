@@ -2,6 +2,7 @@ import React, { FC, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { ProgressBar } from '../components/progress-bar';
 import { Button } from '../elements/button';
+import { Icon } from '../elements/icon';
 import { Spinner } from '../elements/spinner';
 import { Heading, Paragraph } from '../elements/typography';
 import { getListBySlug } from '../helpers/api';
@@ -68,10 +69,13 @@ export const List: FC = () => {
       <Paragraph>
         {dueToday > 0 && (
           <ButtonWithSpacing primary onClick={startLearning}>
+            <Icon type="learn" width="14px" />
             Jetzt lernen!
           </ButtonWithSpacing>
         )}
-        <Button onClick={editList}>bearbeiten</Button>
+        <Button onClick={editList}>
+          <Icon type="edit" width="14px" /> bearbeiten
+        </Button>
       </Paragraph>
     </>
   );

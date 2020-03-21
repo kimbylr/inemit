@@ -1,6 +1,7 @@
 import React, { FC, useState } from 'react';
 import styled, { css } from 'styled-components';
 import { Button } from '../elements/button';
+import { Icon } from '../elements/icon';
 import { Spinner } from '../elements/spinner';
 import { addList } from '../helpers/api';
 import { useLists } from '../hooks/use-lists';
@@ -70,7 +71,9 @@ export const Menu: FC = () => {
         teaser={
           <Title>
             {!hasLists && (
-              <OutlineButton onClick={onAddList}>Neue Liste</OutlineButton>
+              <OutlineButton onClick={onAddList}>
+                <Icon type="addList" width="14px" /> Neue Liste
+              </OutlineButton>
             )}
             {hasLists && !activeList && 'Liste auswählen...'}
             {hasLists && activeList && activeList.name}
@@ -87,7 +90,9 @@ export const Menu: FC = () => {
               </ListItem>
             ))}
             <ListItem>
-              <OutlineButton onClick={onAddList}>Neue Liste</OutlineButton>
+              <OutlineButton onClick={onAddList}>
+                <Icon type="addList" width="14px" /> Neue Liste
+              </OutlineButton>
             </ListItem>
           </List>
         )}

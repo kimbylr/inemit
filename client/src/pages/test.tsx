@@ -1,7 +1,8 @@
 import React, { FC } from 'react';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import { Button } from '../elements/button';
 import { Heading, Paragraph } from '../elements/typography';
+import { Icon } from '../elements/icon';
 
 const Box = styled.div<{ tint: number }>`
   background: ${({ tint, theme: { colors } }) => colors.grey[tint]};
@@ -12,6 +13,25 @@ const Box = styled.div<{ tint: number }>`
   display: flex;
   justify-content: center;
   align-items: center;
+`;
+
+const Böxli = styled(Box)`
+  width: 20px;
+  height: 20px;
+`;
+
+const rotate = keyframes`
+from {
+  transform: rotate(0deg);
+}
+to {
+  transform: rotate(360deg);
+}
+`;
+
+const Rotating = styled.div`
+  animation: ${rotate} 2s infinite linear;
+  height: 100%;
 `;
 
 export const Test: FC = () => {
@@ -31,6 +51,51 @@ export const Test: FC = () => {
         <Button>asdf</Button>
         <Button primary>primary</Button>
       </Paragraph>
+
+      <div>
+        <Box tint={98}>
+          <Icon type="chevronDown" />
+        </Box>
+        <Box tint={98}>
+          <Icon type="ok" />
+        </Box>
+        <Box tint={98}>
+          <Icon type="attention" />
+        </Box>
+
+        <Box tint={98}>
+          <Icon type="syncing" />
+        </Box>
+        <Box tint={98}>
+          <Rotating>
+            <Icon type="syncing" />
+          </Rotating>
+        </Box>
+        <Box tint={98}>
+          <Icon type="delete" />
+        </Box>
+        <Box tint={98}>
+          <Icon type="edit" />
+        </Box>
+
+        <Böxli tint={98}>
+          <Icon type="attention" />
+        </Böxli>
+        <Böxli tint={98}>
+          <Icon type="ok" />
+        </Böxli>
+        <Böxli tint={98}>
+          <Icon type="syncing" />
+        </Böxli>
+        <Böxli tint={98}>
+          <Rotating>
+            <Icon type="syncing" />
+          </Rotating>
+        </Böxli>
+      </div>
+
+      <div style={{ clear: 'both', margin: '10px 0' }}>&nbsp;</div>
+
       <div>
         <Box tint={10}>10</Box>
         <Box tint={25}>25</Box>

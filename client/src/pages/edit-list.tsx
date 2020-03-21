@@ -4,6 +4,7 @@ import { ExpandableArea } from '../components/expandable-area';
 import { BatchImport } from '../compositions/batch-import';
 import { EditListName } from '../compositions/edit-list-name';
 import { Button } from '../elements/button';
+import { Icon } from '../elements/icon';
 import { Spinner } from '../elements/spinner';
 import {
   Heading,
@@ -84,7 +85,7 @@ export const EditList: FC = () => {
 
       <StickyParagraph>
         <Button primary onClick={finishEditing}>
-          bearbeiten abschliessen
+          <Icon type="done" width="14px" /> bearbeiten abschliessen
         </Button>
       </StickyParagraph>
 
@@ -103,7 +104,7 @@ export const EditList: FC = () => {
       <ExpandableArea
         canExpand
         teaserStyles={TeaserStyles}
-        teaser={<SubHeadingUncolored>Serienimport</SubHeadingUncolored>}
+        teaser={<SubHeadingUncolored>Import</SubHeadingUncolored>}
       >
         <BatchImportIntro>
           1 Eintrag pro Zeile. Vokabel und Abfrage mit Tabulator trennen.
@@ -113,9 +114,9 @@ export const EditList: FC = () => {
 
       <SubHeading>Vokabeln</SubHeading>
       {items.map(item => (
-        <div>
+        <El>
           {item.solution}: {item.prompt}
-        </div>
+        </El>
       ))}
     </>
   );
@@ -135,9 +136,7 @@ const BatchImportIntro = styled(Paragraph)`
   font-size: ${({ theme: { font } }) => font.sizes.xs};
 `;
 
-const Yolo = styled.section`
+const El = styled.li`
   border-top: 4px dotted ${({ theme: { colors } }) => colors.grey[85]};
-  border-bottom: 4px dotted ${({ theme: { colors } }) => colors.grey[85]};
   padding: 28px 0;
-  margin: 28px 0;
 `;

@@ -41,4 +41,10 @@ export const Button = styled.button<{ primary?: boolean }>`
   :disabled {
     opacity: 0.5;
   }
+
+  svg {
+    position: relative;
+    top: 1px;
+    margin-right: 4px;
+  }
 `;
