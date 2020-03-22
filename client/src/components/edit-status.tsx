@@ -3,16 +3,16 @@ import { Icon } from '../elements/icon';
 import styled, { keyframes, css } from 'styled-components';
 
 interface Props {
-  error: boolean;
   saved: boolean;
   saving: boolean;
+  error: string | null;
   submit: (event: React.MouseEvent<Element, MouseEvent>) => Promise<void>;
 }
 
 export const EditStatus: FC<Props> = ({ saving, saved, error, submit }) => {
   if (saving) {
     return (
-      <Saving>
+      <Saving title="speichern...">
         <Icon type="sync" />
       </Saving>
     );
@@ -20,7 +20,13 @@ export const EditStatus: FC<Props> = ({ saving, saved, error, submit }) => {
 
   if (error) {
     return (
-      <SaveButton type="submit" error={error} onClick={submit} tabIndex={-1}>
+      <SaveButton
+        type="submit"
+        error
+        onClick={submit}
+        tabIndex={-1}
+        title={error}
+      >
         <Icon type="attention" />
       </SaveButton>
     );
@@ -28,14 +34,14 @@ export const EditStatus: FC<Props> = ({ saving, saved, error, submit }) => {
 
   if (saved) {
     return (
-      <Saved>
+      <Saved title="gespeichert">
         <Icon type="ok" />
       </Saved>
     );
   }
 
   return (
-    <SaveButton type="submit" onClick={submit} tabIndex={-1}>
+    <SaveButton type="submit" onClick={submit} tabIndex={-1} title="speichern">
       <Icon type="ok" />
     </SaveButton>
   );

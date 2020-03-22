@@ -16,7 +16,7 @@ const routes = {
     `${API_URL}/lists/${listId}/items/${itemId}`,
 };
 
-const getOptions = (method: 'PUT' | 'POST' | 'DELETE', body: any) => ({
+const getOptions = (method: 'PUT' | 'POST', body: any) => ({
   method,
   headers: { 'Content-type': 'application/json' },
   body: JSON.stringify(body),
@@ -26,15 +26,12 @@ const fetchAndUnpack = async <T>(
   url: RequestInfo,
   options?: RequestInit,
 ): Promise<T> => {
-  try {
-    const res: Response = await fetch(url, options);
-    if (res.status !== 200) {
-      throw new Error(`Error: ${res.status}`);
-    }
-    return await res.json();
-  } catch (error) {
-    throw new Error(error);
+  const res: Response = await fetch(url, options);
+  if (res.status !== 200) {
+    throw new Error(`Error: ${res.status}`);
   }
+
+  return await res.json();
 };
 
 // ===
@@ -95,3 +92,17 @@ export const editItem = async ({ listId, itemId, item }: EditItem) =>
     routes.listItem(listId, itemId),
     getOptions('PUT', item),
   );
+
+// ===
+
+interface DeleteItem {
+  listId: string;
+  itemId: string;
+}
+export const deleteItem = async ({ listId, itemId }: DeleteItem) => {
+  const url = routes.listItem(listId, itemId);
+  const res: Response = await fetch(url, { method: 'DELETE' });
+  if (res.status !== 200) {
+    throw new Error(`Error: ${res.status}`);
+  }
+};

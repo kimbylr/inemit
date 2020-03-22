@@ -72,6 +72,12 @@ export const EditList: FC = () => {
     updateList({ ...list, itemsCount: itemsCombined.length });
   };
 
+  const onItemDeleted = (id: string) => {
+    const itemsWithoutDeleted = items.filter(item => item.id !== id);
+    setItems(itemsWithoutDeleted);
+    updateList({ ...list, itemsCount: itemsWithoutDeleted.length });
+  };
+
   const finishEditing = () => {
     // TODO: check if unsaved items, notify
     goTo(slug!);
@@ -116,8 +122,13 @@ export const EditList: FC = () => {
       <SubHeading>Vokabeln</SubHeading>
       <LearnItemList>
         {items.map((item, index) => (
-          <LearnItem key={index}>
-            <EditableItem item={item} index={index + 1} listId={list.id} />
+          <LearnItem key={item.id}>
+            <EditableItem
+              item={item}
+              index={index + 1}
+              listId={list.id}
+              onItemDeleted={onItemDeleted}
+            />
           </LearnItem>
         ))}
       </LearnItemList>

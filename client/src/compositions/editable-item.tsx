@@ -4,16 +4,22 @@ import { EditStatus } from '../components/edit-status';
 import { Icon } from '../elements/icon';
 import { Input } from '../elements/input';
 import { Label } from '../elements/label';
-import { editItem } from '../helpers/api';
+import { deleteItem, editItem } from '../helpers/api';
 import { BaseLearnItem, LearnItem } from '../models';
 
 interface Props {
   listId: string;
   index: number;
   item: LearnItem;
+  onItemDeleted(id: string): void;
 }
 
-export const EditableItem: FC<Props> = ({ listId, index, item }) => {
+export const EditableItem: FC<Props> = ({
+  listId,
+  index,
+  item,
+  onItemDeleted,
+}) => {
   const [savedItem, setSavedItem] = useState<BaseLearnItem>({
     prompt: item.prompt,
     solution: item.solution,
@@ -23,7 +29,7 @@ export const EditableItem: FC<Props> = ({ listId, index, item }) => {
     solution: item.solution,
   });
   const [saving, setSaving] = useState(false);
-  const [error, setError] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const onChangePrompt = (value: string) => {
     setCurrentItem(item => ({ ...item, prompt: value }));
@@ -44,7 +50,7 @@ export const EditableItem: FC<Props> = ({ listId, index, item }) => {
     }
 
     setSaving(true);
-    setError(false);
+    setError(null);
 
     try {
       const { prompt, solution } = await editItem({
@@ -54,10 +60,24 @@ export const EditableItem: FC<Props> = ({ listId, index, item }) => {
       });
       setSavedItem({ prompt, solution }); // TODO: propagate to store
     } catch (error) {
-      console.error(error);
-      setError(true);
+      setError('Fehler beim speichern. Klicken, um nochmals zu versuchen.');
     } finally {
       setSaving(false);
+    }
+  };
+
+  const onDelete = async (event: React.MouseEvent) => {
+    event.preventDefault();
+
+    if (!confirm('Diesen Eintrag löschen?')) {
+      return;
+    }
+
+    try {
+      await deleteItem({ listId, itemId: item.id });
+      onItemDeleted(item.id);
+    } catch (error) {
+      setError('Löschen hat nicht geklappt. Bitte nochmals versuchen.');
     }
   };
 
@@ -65,9 +85,9 @@ export const EditableItem: FC<Props> = ({ listId, index, item }) => {
     <Container>
       <MetaColumn>
         <Index>{index}</Index>
-        <Delete>
+        <DeleteButton tabIndex={-1} onClick={onDelete} title="Löschen">
           <Icon type="delete" />
-        </Delete>
+        </DeleteButton>
       </MetaColumn>
 
       <InputsColumn>
@@ -119,8 +139,18 @@ const Index = styled.div`
   color: ${({ theme: { colors } }) => colors.grey[75]};
 `;
 
-const Delete = styled.div`
+const DeleteButton = styled.button`
+  padding: 0;
+  margin: 0;
+  background: none;
+  border: none;
+  outline: none;
+  cursor: pointer;
   color: ${({ theme: { colors } }) => colors.negative[50]};
+
+  :hover {
+    color: ${({ theme: { colors } }) => colors.negative[100]};
+  }
 `;
 
 const InputsColumn = styled.div`
