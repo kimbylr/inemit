@@ -40,6 +40,7 @@ export const Button = styled.button<{ primary?: boolean }>`
 
   :disabled {
     opacity: 0.5;
+    cursor: not-allowed;
   }
 
   svg {

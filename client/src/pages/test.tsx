@@ -64,11 +64,11 @@ export const Test: FC = () => {
         </Box>
 
         <Box tint={98}>
-          <Icon type="syncing" />
+          <Icon type="sync" />
         </Box>
         <Box tint={98}>
           <Rotating>
-            <Icon type="syncing" />
+            <Icon type="sync" />
           </Rotating>
         </Box>
         <Box tint={98}>
@@ -85,11 +85,11 @@ export const Test: FC = () => {
           <Icon type="ok" />
         </Böxli>
         <Böxli tint={98}>
-          <Icon type="syncing" />
+          <Icon type="sync" />
         </Böxli>
         <Böxli tint={98}>
           <Rotating>
-            <Icon type="syncing" />
+            <Icon type="sync" />
           </Rotating>
         </Böxli>
       </div>

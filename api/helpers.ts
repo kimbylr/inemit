@@ -41,3 +41,20 @@ export const mapList = ({
   updated,
   itemsCount: items.length,
 });
+
+export const mapItem = (
+  { _id, created, updated, prompt, solution, progress }: LearnItemType,
+  includeProgress = false,
+) => {
+  return {
+    id: _id,
+    created,
+    updated,
+    prompt,
+    solution,
+    progress: includeProgress ? progress : undefined,
+  };
+};
+
+export const mapItems = (items: LearnItemType[], includeProgress = false) =>
+  items.map(item => mapItem(item, includeProgress));

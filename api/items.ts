@@ -1,5 +1,6 @@
 import * as dayjs from 'dayjs';
 import { Router } from 'express';
+import { mapItem, mapItems } from './helpers';
 import { Progress } from './models';
 
 const router = Router();
@@ -7,7 +8,7 @@ const router = Router();
 // get all items
 router.get('/', async ({ list: { items } }, res, next) => {
   try {
-    res.json(items);
+    res.json(mapItems(items));
   } catch (error) {
     next(error);
   }
@@ -27,7 +28,7 @@ router.post('/', async ({ list, body: { items } }, res, next) => {
     const addedItems = savedList.items.filter(
       ({ _id }) => !oldItemsIds.includes(_id),
     );
-    res.json(addedItems);
+    res.json(mapItems(addedItems));
   } catch (error) {
     next(error);
   }
@@ -54,7 +55,11 @@ router.put('/:itemId', async ({ list, params, body }, res, next) => {
     });
     list.updated = new Date();
     const changedList = await list.save();
-    res.json(changedList.items.filter(({ _id }) => _id == itemId));
+    const changedItem = changedList.items.find(({ _id }) => _id == itemId);
+    if (!changedItem) {
+      return res.sendStatus(404);
+    }
+    res.json(mapItem(changedItem));
   } catch (error) {
     next(error);
   }
@@ -83,12 +88,11 @@ router.get('/learn/:count?', async ({ list, params: { count } }, res, next) => {
       .sort(
         ({ progress: { due: a } }, { progress: { due: b } }) =>
           a.getTime() - b.getTime(),
-      )
-      .map(({ _id, prompt, solution }) => ({ _id, prompt, solution }));
+      );
 
     const amount = parseInt(count, 10) > 0 ? parseInt(count) : DEFAULT_AMOUNT;
 
-    res.json(itemsToLearn.slice(0, amount));
+    res.json(mapItems(itemsToLearn.slice(0, amount)));
   } catch (error) {
     next(error);
   }

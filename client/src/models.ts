@@ -47,7 +47,6 @@ export interface BaseLearnItem {
   solution: string;
 }
 export interface LearnItem extends BaseLearnItem {
-  _id?: string; // TODO
   id: string;
   created: ISODate;
   updated: ISODate;
@@ -55,7 +54,6 @@ export interface LearnItem extends BaseLearnItem {
 }
 
 export interface Progress {
-  _id?: string; // TODO
   id: string;
   lastLearnt?: ISODate;
   due: ISODate;

@@ -13,7 +13,7 @@ const routes = {
   listBySlug: (slug: string) => `${API_URL}/lists?slug=${slug}`,
   listItems: (listId: string) => `${API_URL}/lists/${listId}/items`,
   listItem: (listId: string, itemId: string) =>
-    `${API_URL}/lists/${listId}/item/${itemId}`,
+    `${API_URL}/lists/${listId}/items/${itemId}`,
 };
 
 const getOptions = (method: 'PUT' | 'POST' | 'DELETE', body: any) => ({
@@ -81,4 +81,17 @@ export const addItems = async ({ listId, items }: AddItems) =>
   fetchAndUnpack<LearnItem[]>(
     routes.listItems(listId),
     getOptions('POST', { items }),
+  );
+
+// ===
+
+interface EditItem {
+  listId: string;
+  itemId: string;
+  item: BaseLearnItem;
+}
+export const editItem = async ({ listId, itemId, item }: EditItem) =>
+  fetchAndUnpack<LearnItem>(
+    routes.listItem(listId, itemId),
+    getOptions('PUT', item),
   );

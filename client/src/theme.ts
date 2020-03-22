@@ -17,6 +17,9 @@ export const theme = {
       100: '#E5E059',
       50: '#EFEC9C',
     },
+    orange: {
+      100: '#FFC15E',
+    },
     grey: {
       10: '#121212', // aka black
       25: '#3e3e3e',
@@ -27,9 +30,14 @@ export const theme = {
       95: '#f2f2f2',
       98: '#fafafa', // aka white
     },
+    negative: {
+      100: '#FF8360',
+      50: '#DBB5AB',
+    },
   },
   font: {
     sizes: {
+      xxs: '0.86806rem',
       xs: '1.04125rem',
       sm: '1.25rem', // text (20px)
       md: '1.5rem', // h3

@@ -3,6 +3,7 @@ import styled, { css } from 'styled-components';
 import { ExpandableArea } from '../components/expandable-area';
 import { BatchImport } from '../compositions/batch-import';
 import { EditListName } from '../compositions/edit-list-name';
+import { EditableItem } from '../compositions/editable-item';
 import { Button } from '../elements/button';
 import { Icon } from '../elements/icon';
 import { Spinner } from '../elements/spinner';
@@ -113,11 +114,13 @@ export const EditList: FC = () => {
       </ExpandableArea>
 
       <SubHeading>Vokabeln</SubHeading>
-      {items.map(item => (
-        <El>
-          {item.solution}: {item.prompt}
-        </El>
-      ))}
+      <LearnItemList>
+        {items.map((item, index) => (
+          <LearnItem key={index}>
+            <EditableItem item={item} index={index + 1} listId={list.id} />
+          </LearnItem>
+        ))}
+      </LearnItemList>
     </>
   );
 };
@@ -136,7 +139,12 @@ const BatchImportIntro = styled(Paragraph)`
   font-size: ${({ theme: { font } }) => font.sizes.xs};
 `;
 
-const El = styled.li`
+const LearnItemList = styled.ul`
+  list-style: none;
+  margin: 0;
+  padding: 0;
+`;
+const LearnItem = styled.li`
   border-top: 4px dotted ${({ theme: { colors } }) => colors.grey[85]};
-  padding: 28px 0;
+  padding: 16px 0 4px;
 `;

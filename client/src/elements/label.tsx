@@ -3,8 +3,11 @@ import styled from 'styled-components';
 export const Label = styled.label`
   display: block;
   font-weight: ${({ theme: { font } }) => font.weights.bold};
-  font-size: ${({ theme: { font } }) => font.sizes.xs};
-  color: ${({ theme: { colors } }) => colors.grey[25]};
+  font-size: ${({ theme: { font } }) => font.sizes.xxs};
+  color: ${({ theme: { colors } }) => colors.grey[60]};
   text-transform: uppercase;
-  margin-bottom: 2px;
+
+  input {
+    margin-bottom: 4px;
+  }
 `;

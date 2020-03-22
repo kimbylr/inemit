@@ -15,9 +15,13 @@ export const Input = styled.input`
     border-color: ${({ theme: { colors } }) => colors.grey[50]};
   }
 
+  transition-property: opacity;
+  transition-duration: 0.2s;
+
   :disabled {
-    background-color: ${({ theme: { colors } }) => colors.grey[98]};
-    color: ${({ theme: { colors } }) => colors.grey[85]};
+    opacity: 0.5;
+    transition-delay: 0.2s;
+    cursor: not-allowed;
   }
 
   ::placeholder {

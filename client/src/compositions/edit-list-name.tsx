@@ -41,7 +41,6 @@ export const EditListName: FC<Props> = ({
   return (
     <Container>
       <InputSection>
-        <Label htmlFor="listName">Name</Label>
         <Input
           id="listName"
           disabled={disabled}
