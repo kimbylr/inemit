@@ -31,7 +31,9 @@ export const theme = {
       98: '#fafafa', // aka white
     },
     negative: {
+      150: '#AD705F',
       100: '#FF8360',
+      75: '#DD9F8D',
       50: '#DBB5AB',
     },
   },

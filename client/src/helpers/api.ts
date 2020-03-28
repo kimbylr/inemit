@@ -51,6 +51,16 @@ export const getListBySlug = async (slug: string) =>
 
 // ====
 
+export const deleteList = async (listId: string) => {
+  const url = routes.listById(listId);
+  const res: Response = await fetch(url, { method: 'DELETE' });
+  if (res.status !== 200) {
+    throw new Error(`Error: ${res.status}`);
+  }
+};
+
+// ====
+
 interface EditListName {
   listId: string;
   name: string;

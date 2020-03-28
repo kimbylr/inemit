@@ -4,7 +4,11 @@ export const useRouting = () => {
   const history = useHistory();
   const { slug } = useParams();
 
-  const goTo = (slug: string, mode?: 'edit' | 'learn') => {
+  const goTo = (slug?: string, mode?: 'edit' | 'learn') => {
+    if (!slug) {
+      history.push('/');
+    }
+
     history.push(`/${slug}${mode ? `/${mode}` : ''}`);
   };
 

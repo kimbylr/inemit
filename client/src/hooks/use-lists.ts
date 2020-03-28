@@ -35,10 +35,17 @@ export const useLists = () => {
     });
   };
 
+  const removeList = (listId: string) => {
+    dispatch({
+      lists: lists.filter(({ id }) => id !== listId),
+    });
+  };
+
   return {
     lists,
     state,
     storeList,
     updateList,
+    removeList,
   };
 };

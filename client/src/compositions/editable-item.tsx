@@ -124,7 +124,7 @@ export const EditableItem: FC<Props> = ({
             onClick={onDelete}
             title="Löschen"
           >
-            <Icon type="delete" />
+            <Icon type="deleteInCircle" />
           </DeleteButton>
         )}
       </MetaColumn>

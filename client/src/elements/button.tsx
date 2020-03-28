@@ -49,3 +49,12 @@ export const Button = styled.button<{ primary?: boolean }>`
     margin-right: 4px;
   }
 `;
+
+export const CautionButton = styled(Button)`
+  background: ${({ theme: { colors } }) => colors.negative[75]};
+  box-shadow: 0 4px ${({ theme: { colors } }) => colors.negative[150]};
+
+  :active {
+    background: ${({ theme: { colors } }) => colors.negative[150]};
+  }
+`;

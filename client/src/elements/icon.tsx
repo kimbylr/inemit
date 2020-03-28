@@ -47,7 +47,7 @@ const icons = {
       <circle fill="#fff" cx="10" cy="10" r="3" />
     </svg>
   ),
-  delete: (width?: string) => (
+  deleteInCircle: (width?: string) => (
     <svg fill="currentColor" viewBox="0 0 48 48" width={width || '100%'}>
       <path d="M48 24 C48 37.255 37.255 48 24 48 10.745 48 0 37.255 0 24 0 10.745 10.745 0 24 0 37.255 0 48 10.745 48 24 Z" />
       <path d="M9.6 19.2 L38.4 19.2 38.4 28.8 9.6 28.8 Z" fill="#ffffff" />
@@ -67,6 +67,24 @@ const icons = {
       <polygon
         fill="currentColor"
         points="42.5,33.3 36.8,39 34.1,36.3 32,38.5 36.8,43.3 44.6,35.5"
+      />
+    </svg>
+  ),
+  delete: (width?: string) => (
+    <svg viewBox="32 32 12 12" fill="currentColor" width={width || '100%'}>
+      <rect
+        x="36.5"
+        y="32"
+        transform="matrix(-.707 .707 -.707 -.707 91.74 38)"
+        width="3"
+        height="12"
+      />
+      <rect
+        x="36.5"
+        y="32"
+        transform="matrix(-.707 -.707 .707 -.707 38 91.74)"
+        width="3"
+        height="12"
       />
     </svg>
   ),

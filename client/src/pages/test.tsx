@@ -75,7 +75,7 @@ export const Test: FC = () => {
           </Rotating>
         </Box>
         <Box tint={98}>
-          <Icon type="delete" />
+          <Icon type="deleteInCircle" />
         </Box>
         <Box tint={98}>
           <Icon type="edit" />

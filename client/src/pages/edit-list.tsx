@@ -4,7 +4,7 @@ import { ExpandableArea } from '../components/expandable-area';
 import { BatchImport } from '../compositions/batch-import';
 import { EditListName } from '../compositions/edit-list-name';
 import { EditableItem } from '../compositions/editable-item';
-import { Button } from '../elements/button';
+import { Button, CautionButton } from '../elements/button';
 import { Icon } from '../elements/icon';
 import { Spinner } from '../elements/spinner';
 import {
@@ -14,7 +14,7 @@ import {
   SubHeading,
   SubHeadingUncolored,
 } from '../elements/typography';
-import { getItems } from '../helpers/api';
+import { getItems, deleteList } from '../helpers/api';
 import { useLists } from '../hooks/use-lists';
 import { useRouting } from '../hooks/use-routing';
 import { LearnItem, LoadingStates } from '../models';
@@ -24,7 +24,7 @@ export const EditList: FC = () => {
   const [newItemIds, setNewItemIds] = useState<number[]>([1]);
   const [state, setState] = useState<LoadingStates>(LoadingStates.initial);
   const { slug, goTo } = useRouting();
-  const { lists, state: listsState, updateList } = useLists();
+  const { lists, state: listsState, updateList, removeList } = useLists();
   const list = lists.find(list => list.slug === slug);
 
   const fetchItems = async () => {
@@ -92,6 +92,25 @@ export const EditList: FC = () => {
     onItemsAdded([item]);
   };
 
+  const onDeleteList = async (event: React.MouseEvent) => {
+    event.preventDefault();
+
+    const entered = prompt(
+      `Gib "JA" ein, um diese Liste unwiderruflich zu löschen.`,
+    );
+    if (entered !== 'JA') {
+      return;
+    }
+
+    try {
+      await deleteList(list.id);
+      removeList(list.id);
+      goTo();
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   const finishEditing = () => {
     // TODO: check if unsaved items, notify
     goTo(slug!);
@@ -102,6 +121,12 @@ export const EditList: FC = () => {
       <Heading>{list.name}</Heading>
       <Paragraph>
         In dieser Liste gibt es <strong>{list.itemsCount} Vokabeln</strong>.
+      </Paragraph>
+
+      <Paragraph>
+        <CautionButton onClick={onDeleteList}>
+          <Icon type="delete" width="14px" /> Liste löschen
+        </CautionButton>
       </Paragraph>
 
       <StickyParagraph>
