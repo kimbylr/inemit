@@ -94,7 +94,7 @@ const Saved = styled.div`
 
 const SaveButton = styled.button<{ error?: boolean }>`
   ${BaseStyles}
-  ${({ disabled }) => (disabled ? 'cursor: pointer;' : '')}
+  ${({ disabled }) => (disabled ? '' : 'cursor: pointer;')}
   outline: none;
   color: ${({ disabled, error, theme: { colors } }) =>
     disabled
