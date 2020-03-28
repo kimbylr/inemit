@@ -21,6 +21,7 @@ import { LearnItem, LoadingStates } from '../models';
 
 export const EditList: FC = () => {
   const [items, setItems] = useState<LearnItem[]>([]);
+  const [newItemIds, setNewItemIds] = useState<number[]>([1]);
   const [state, setState] = useState<LoadingStates>(LoadingStates.initial);
   const { slug, goTo } = useRouting();
   const { lists, state: listsState, updateList } = useLists();
@@ -49,6 +50,14 @@ export const EditList: FC = () => {
     }
   }, [slug, listsState]);
 
+  useEffect(() => {
+    if (state === 'loaded' && list) {
+      // TODO: list could be stale. including it leads to circular updating.
+      //–> better state handling needed (e.g. with proper redux actions)
+      updateList({ ...list, itemsCount: items.length });
+    }
+  }, [items.length]);
+
   if (state === 'loading' || state === 'initial') {
     return <Spinner />;
   }
@@ -66,16 +75,21 @@ export const EditList: FC = () => {
     updateList({ ...list, name });
   };
 
-  const onBatchImportDone = (newItems: LearnItem[]) => {
-    const itemsCombined = [...items, ...newItems];
-    setItems(itemsCombined);
-    updateList({ ...list, itemsCount: itemsCombined.length });
+  const onItemsAdded = (newItems: LearnItem[]) => {
+    setItems(items => [...items, ...newItems]);
   };
 
   const onItemDeleted = (id: string) => {
-    const itemsWithoutDeleted = items.filter(item => item.id !== id);
-    setItems(itemsWithoutDeleted);
-    updateList({ ...list, itemsCount: itemsWithoutDeleted.length });
+    setItems(items => items.filter(item => item.id !== id));
+  };
+
+  const onNewItemEdited = () => {
+    setNewItemIds(ids => [...ids, ids[ids.length - 1] + 1]);
+  };
+
+  const onNewItemSaved = (item: LearnItem, tempId: string) => {
+    setNewItemIds(ids => ids.filter(id => `${id}` !== tempId));
+    onItemsAdded([item]);
   };
 
   const finishEditing = () => {
@@ -116,7 +130,7 @@ export const EditList: FC = () => {
         <BatchImportIntro>
           1 Eintrag pro Zeile. Vokabel und Abfrage mit Tabulator trennen.
         </BatchImportIntro>
-        <BatchImport listId={list.id} onBatchImportDone={onBatchImportDone} />
+        <BatchImport listId={list.id} onBatchImportDone={onItemsAdded} />
       </ExpandableArea>
 
       <SubHeading>Vokabeln</SubHeading>
@@ -131,6 +145,26 @@ export const EditList: FC = () => {
             />
           </LearnItem>
         ))}
+        {newItemIds.map((id, index) => {
+          const item = {
+            id: `${id}`,
+            prompt: '',
+            solution: '',
+            isNew: true,
+          };
+
+          return (
+            <LearnItem key={item.id}>
+              <EditableItem
+                item={item}
+                index={items.length + index + 1}
+                listId={list.id}
+                onNewItemEdited={onNewItemEdited}
+                onNewItemSaved={onNewItemSaved}
+              />
+            </LearnItem>
+          );
+        })}
       </LearnItemList>
     </>
   );

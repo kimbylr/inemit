@@ -46,6 +46,10 @@ export interface BaseLearnItem {
   prompt: string;
   solution: string;
 }
+export interface LearnItemForEditing extends BaseLearnItem {
+  id: string;
+  isNew?: boolean;
+}
 export interface LearnItem extends BaseLearnItem {
   id: string;
   created: ISODate;

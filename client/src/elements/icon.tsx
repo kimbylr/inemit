@@ -41,6 +41,12 @@ const icons = {
       />
     </svg>
   ),
+  new: (width?: string) => (
+    <svg viewBox="0 0 20 20" width={width || '100%'}>
+      <circle fill="currentColor" cx="10" cy="10" r="10" />
+      <circle fill="#fff" cx="10" cy="10" r="3" />
+    </svg>
+  ),
   delete: (width?: string) => (
     <svg fill="currentColor" viewBox="0 0 48 48" width={width || '100%'}>
       <path d="M48 24 C48 37.255 37.255 48 24 48 10.745 48 0 37.255 0 24 0 10.745 10.745 0 24 0 37.255 0 48 10.745 48 24 Z" />

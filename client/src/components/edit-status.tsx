@@ -5,11 +5,20 @@ import styled, { keyframes, css } from 'styled-components';
 interface Props {
   saved: boolean;
   saving: boolean;
+  canSave: boolean;
   error: string | null;
-  submit: (event: React.MouseEvent<Element, MouseEvent>) => Promise<void>;
+  isNew?: boolean;
+  submit: (event: React.MouseEvent) => Promise<void>;
 }
 
-export const EditStatus: FC<Props> = ({ saving, saved, error, submit }) => {
+export const EditStatus: FC<Props> = ({
+  saving,
+  saved,
+  canSave,
+  error,
+  isNew,
+  submit,
+}) => {
   if (saving) {
     return (
       <Saving title="speichern...">
@@ -41,8 +50,14 @@ export const EditStatus: FC<Props> = ({ saving, saved, error, submit }) => {
   }
 
   return (
-    <SaveButton type="submit" onClick={submit} tabIndex={-1} title="speichern">
-      <Icon type="ok" />
+    <SaveButton
+      type="submit"
+      onClick={submit}
+      tabIndex={-1}
+      title="speichern"
+      disabled={!canSave} // new items
+    >
+      <Icon type={isNew ? 'new' : 'ok'} />
     </SaveButton>
   );
 };
@@ -55,14 +70,6 @@ const BaseStyles = css`
   background: none;
   padding: 0;
   margin-bottom: 32px;
-`;
-
-const SaveButton = styled.button<{ error?: boolean }>`
-  ${BaseStyles}
-  cursor: pointer;
-  outline: none;
-  color: ${({ error, theme: { colors } }) =>
-    error ? colors.negative[100] : colors.primary[100]};
 `;
 
 const rotate = keyframes`
@@ -83,4 +90,16 @@ const Saving = styled.div`
 const Saved = styled.div`
   ${BaseStyles}
   color: ${({ theme: { colors } }) => colors.primary[25]};
+`;
+
+const SaveButton = styled.button<{ error?: boolean }>`
+  ${BaseStyles}
+  ${({ disabled }) => (disabled ? 'cursor: pointer;' : '')}
+  outline: none;
+  color: ${({ disabled, error, theme: { colors } }) =>
+    disabled
+      ? colors.grey[85]
+      : error
+      ? colors.negative[100]
+      : colors.primary[100]};
 `;

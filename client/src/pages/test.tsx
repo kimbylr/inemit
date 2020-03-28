@@ -60,6 +60,9 @@ export const Test: FC = () => {
           <Icon type="ok" />
         </Box>
         <Box tint={98}>
+          <Icon type="new" />
+        </Box>
+        <Box tint={98}>
           <Icon type="attention" />
         </Box>
 
@@ -83,6 +86,9 @@ export const Test: FC = () => {
         </Böxli>
         <Böxli tint={98}>
           <Icon type="ok" />
+        </Böxli>
+        <Böxli tint={98}>
+          <Icon type="new" />
         </Böxli>
         <Böxli tint={98}>
           <Icon type="sync" />
