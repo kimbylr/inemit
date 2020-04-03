@@ -64,12 +64,12 @@ export const List: FC = () => {
       )}
       <Paragraph>
         In dieser Liste gibt es <strong>{list.itemsCount} Vokabeln</strong>.
-        Davon sind <strong>{dueToday}</strong> bereit zum lernen.
+        Davon stehen <strong>{dueToday}</strong> zum Lernen an.
       </Paragraph>
       <Paragraph>
         {dueToday > 0 && (
           <ButtonWithSpacing primary onClick={startLearning}>
-            <Icon type="learn" width="14px" />
+            <Icon type="logo" width="14px" />
             Jetzt lernen!
           </ButtonWithSpacing>
         )}

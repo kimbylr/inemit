@@ -1,10 +1,14 @@
 import React, { FC } from 'react';
-import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import styled from 'styled-components';
+import { Icon } from '../elements/icon';
 
 export const Header: FC = () => (
   <Container>
-    <StyledLink to="/">inemit!</StyledLink>
+    <StyledLink to="/">
+      <Icon type="logo" width="30px" />
+      inemit!
+    </StyledLink>
   </Container>
 );
 
@@ -25,4 +29,8 @@ const StyledLink = styled(Link)`
   font-weight: ${({ theme: { font } }) => font.weights.massive};
   color: ${({ theme: { colors } }) => colors.grey[98]};
   text-decoration: none;
+
+  svg {
+    margin-right: 24px;
+  }
 `;
