@@ -1,7 +1,7 @@
 import * as dayjs from 'dayjs';
 import { Router } from 'express';
-import { mapItem, mapItems } from './helpers';
-import { Progress } from './models';
+import { mapItem, mapItems, recalcEasiness, recalcInterval } from './helpers';
+import { LearnItem, List, Progress } from './models';
 
 const router = Router();
 
@@ -21,13 +21,12 @@ router.post('/', async ({ list, body: { items } }, res, next) => {
   }
 
   try {
-    const oldItemsIds = list.items.map(({ _id }) => _id);
-    list.items = [...list.items, ...items];
-    list.updated = new Date();
-    const savedList = await list.save();
-    const addedItems = savedList.items.filter(
-      ({ _id }) => !oldItemsIds.includes(_id),
-    );
+    const addedItems = await LearnItem.insertMany(items as object[]);
+    const addedItemsIds = addedItems.map(({ _id }) => _id);
+    await List.findByIdAndUpdate(list._id, {
+      $push: { items: { $each: addedItemsIds } },
+      $currentDate: { updated: true },
+    });
     res.json(mapItems(addedItems));
   } catch (error) {
     next(error);
@@ -44,21 +43,20 @@ router.put('/:itemId', async ({ list, params, body }, res, next) => {
   }
 
   try {
-    list.items = list.items.map(item => {
-      if (item._id == itemId) {
-        item.prompt = prompt;
-        item.solution = solution;
-        item.updated = new Date();
-      }
+    const item = await LearnItem.findById(itemId);
 
-      return item;
-    });
-    list.updated = new Date();
-    const changedList = await list.save();
-    const changedItem = changedList.items.find(({ _id }) => _id == itemId);
-    if (!changedItem) {
+    if (!item) {
       return res.sendStatus(404);
     }
+
+    item.prompt = prompt;
+    item.solution = solution;
+    item.updated = new Date();
+    const changedItem = await item.save();
+
+    list.updated = new Date();
+    await list.save();
+
     res.json(mapItem(changedItem));
   } catch (error) {
     next(error);
@@ -68,9 +66,17 @@ router.put('/:itemId', async ({ list, params, body }, res, next) => {
 // delete an item
 router.delete('/:itemId', async ({ list, params: { itemId } }, res, next) => {
   try {
-    list.items = list.items.filter(({ _id }) => _id != itemId);
-    list.updated = new Date();
-    await list.save();
+    const item = await LearnItem.findByIdAndDelete(itemId);
+
+    if (!item) {
+      return res.sendStatus(404);
+    }
+
+    await List.findByIdAndUpdate(list._id, {
+      $pull: { items: itemId },
+      $currentDate: { updated: true },
+    });
+
     res.sendStatus(200);
   } catch (error) {
     next(error);
@@ -110,67 +116,42 @@ router.put('/:itemId/progress', async ({ list, params, body }, res, next) => {
   }
 
   try {
-    let found = false;
-    list.items = list.items.map(item => {
-      if (item._id == params.itemId) {
-        found = true;
-        const {
-          easiness,
-          interval,
-          due,
-          stage,
-          timesCorrect,
-          timesWrong,
-        } = item.progress;
-        const isCorrect = answerQuality >= 3;
-        const newInterval = recalcInterval(interval, easiness, isCorrect);
-        const newDue = isCorrect
-          ? dayjs(due).add(newInterval, 'day')
-          : dayjs().add(1, 'day');
+    const item = await LearnItem.findById(params.itemId);
 
-        item.progress = new Progress({
-          easiness: recalcEasiness(easiness, answerQuality),
-          stage: isCorrect ? (stage >= 4 ? 4 : stage + 1) : 1,
-          interval: newInterval,
-          due: newDue.toDate(),
-          timesCorrect: isCorrect ? timesCorrect + 1 : timesCorrect,
-          timesWrong: isCorrect ? timesWrong : timesWrong + 1,
-          updated: new Date(),
-        });
-      }
-
-      return item;
-    });
-
-    if (!found) {
+    if (!item) {
       return res.sendStatus(404);
     }
 
-    await list.save();
+    const {
+      easiness,
+      interval,
+      due,
+      stage,
+      timesCorrect,
+      timesWrong,
+    } = item.progress;
+
+    const isCorrect = answerQuality >= 3;
+    const newInterval = recalcInterval(interval, easiness, isCorrect);
+    const newDue = isCorrect
+      ? dayjs(due).add(newInterval, 'day')
+      : dayjs().add(1, 'day');
+
+    item.progress = new Progress({
+      easiness: recalcEasiness(easiness, answerQuality),
+      stage: isCorrect ? (stage >= 4 ? 4 : stage + 1) : 1,
+      interval: newInterval,
+      due: newDue.toDate(),
+      timesCorrect: isCorrect ? timesCorrect + 1 : timesCorrect,
+      timesWrong: isCorrect ? timesWrong : timesWrong + 1,
+      updated: new Date(),
+    });
+
+    await item.save();
     res.sendStatus(200);
   } catch (error) {
     next(error);
   }
 });
-
-// "SuperMemo 2.0" algorithm: https://www.supermemo.com/en/archives1990-2015/english/ol/sm2
-const recalcEasiness = (easiness: number, answerQuality: number) => {
-  const newEasiness =
-    easiness +
-    (0.1 - (5 - answerQuality) * (0.08 + (5 - answerQuality) * 0.02));
-
-  if (newEasiness < 1.3) {
-    return 1.3;
-  }
-
-  if (newEasiness > 2.5) {
-    return 2.5;
-  }
-
-  return newEasiness;
-};
-
-const recalcInterval = (interval: number, easiness: number, correct: boolean) =>
-  correct ? (interval === 1 ? 6 : interval * easiness) : 1;
 
 export default router;

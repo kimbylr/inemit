@@ -51,7 +51,7 @@ export interface ListType extends Document {
   slug: string;
   created: Date;
   updated: Date;
-  items: LearnItemType[];
+  items: LearnItemType[]; // once populated
 }
 
 const ListSchema = new Schema<ListType>({
@@ -59,7 +59,7 @@ const ListSchema = new Schema<ListType>({
   slug: { type: String, required: true },
   created: { type: Date, default: Date.now },
   updated: { type: Date, default: Date.now },
-  items: [LearnItemSchema],
+  items: [{ type: Schema.Types.ObjectId, ref: 'LearnItem' }],
 });
 
 export const List = model<ListType>('List', ListSchema);

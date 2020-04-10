@@ -9,7 +9,7 @@ const router = Router();
 // find list -> req.list
 router.param('listId', async (req, res, next) => {
   try {
-    const list = await List.findById(req.params.listId);
+    const list = await List.findById(req.params.listId).populate('items');
 
     if (!list) {
       return next({ status: 404 });
@@ -29,7 +29,7 @@ router.get('/', async ({ query: { slug } }, res, next) => {
   }
 
   try {
-    const list = await List.findOne({ slug });
+    const list = await List.findOne({ slug }).populate('items');
     if (!list) {
       return next({ status: 404 });
     }
@@ -47,7 +47,7 @@ router.get('/', async ({ query: { slug } }, res, next) => {
 router.get('/', async (req, res, next) => {
   try {
     const lists = await List.find();
-    const listsSummary = lists.map(mapList);
+    const listsSummary = lists.map((list) => mapList(list));
     res.json(listsSummary);
   } catch (error) {
     next(error);
@@ -59,6 +59,16 @@ router.get('/:listId', ({ list }, res, next) => {
   try {
     const progress = getProgressSummary(list.items);
     res.json({ ...mapList(list), progress });
+  } catch (error) {
+    next(error);
+  }
+});
+
+// dev: get specific list with all infos
+router.get('/:listId/full', ({ list }, res, next) => {
+  try {
+    const progress = getProgressSummary(list.items);
+    res.json({ ...mapList(list, true), progress });
   } catch (error) {
     next(error);
   }
@@ -107,7 +117,7 @@ router.put('/:listId', async ({ list, body: { name } }, res, next) => {
 // delete list
 router.delete('/:listId', async (req, res, next) => {
   try {
-    await List.deleteOne({ _id: req.params.listId });
+    await List.findByIdAndDelete(req.params.listId);
     res.sendStatus(200);
   } catch (error) {
     next(error);
