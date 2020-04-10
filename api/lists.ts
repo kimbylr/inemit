@@ -117,6 +117,7 @@ router.put('/:listId', async ({ list, body: { name } }, res, next) => {
 // delete list
 router.delete('/:listId', async (req, res, next) => {
   try {
+    // TODO: delete items as well
     await List.findByIdAndDelete(req.params.listId);
     res.sendStatus(200);
   } catch (error) {

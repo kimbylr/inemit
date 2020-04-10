@@ -41,9 +41,9 @@ export const Menu: FC = () => {
   const inactiveLists = lists.filter(list => list.slug !== slug);
   const activeList = slug && lists.find(list => list.slug === slug);
 
-  const selectList = (list: ListSummary) => {
+  const selectList = (list: ListSummary, mode?: 'edit') => {
     setOpen(false);
-    goTo(list.slug);
+    goTo(list.slug, mode);
   };
 
   const onAddList = async () => {
@@ -56,7 +56,7 @@ export const Menu: FC = () => {
     try {
       const list = await addList(name);
       storeList(list);
-      selectList(list);
+      selectList(list, 'edit');
     } catch {
       console.error('Could not add list'); // TODO
     }

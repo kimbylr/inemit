@@ -19,6 +19,8 @@ import { useLists } from '../hooks/use-lists';
 import { useRouting } from '../hooks/use-routing';
 import { LearnItem, LoadingStates } from '../models';
 
+const DELETE_PROMPT = `Gib "JA" ein, um diese Liste unwiderruflich zu löschen.`;
+
 export const EditList: FC = () => {
   const [items, setItems] = useState<LearnItem[]>([]);
   const [newItemIds, setNewItemIds] = useState<number[]>([1]);
@@ -95,10 +97,7 @@ export const EditList: FC = () => {
   const onDeleteList = async (event: React.MouseEvent) => {
     event.preventDefault();
 
-    const entered = prompt(
-      `Gib "JA" ein, um diese Liste unwiderruflich zu löschen.`,
-    );
-    if (entered !== 'JA') {
+    if (prompt(DELETE_PROMPT) !== 'JA') {
       return;
     }
 
