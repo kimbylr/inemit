@@ -6,9 +6,10 @@ import { createGlobalStyle, ThemeProvider } from 'styled-components';
 import { Header } from './components/header';
 import { Main } from './components/main';
 import { Menu } from './components/menu';
-import { Home } from './pages/home';
-import { List } from './pages/list';
 import { EditList } from './pages/edit-list';
+import { Home } from './pages/home';
+import { Learn } from './pages/learn';
+import { List } from './pages/list';
 import { Test } from './pages/test';
 import { StoreProvider } from './store';
 import { theme } from './theme';
@@ -18,18 +19,21 @@ const App = () => (
     <StoreProvider>
       <BrowserRouter>
         <GlobalStyle />
-        <Header />
-        <Route path="/:slug?">
-          <Menu />
-          <Main>
-            <Switch>
-              <Route exact path="/" component={Home} />
-              <Route exact path="/test" component={Test} />
-              <Route path="/:slug/edit" component={EditList} />
-              <Route path="/:slug" component={List} />
-            </Switch>
-          </Main>
-        </Route>
+        <Switch>
+          <Route path="/:slug/learn" component={Learn} />
+          <Route path="/:slug?">
+            <Header />
+            <Menu />
+            <Main>
+              <Switch>
+                <Route exact path="/" component={Home} />
+                <Route exact path="/test" component={Test} />
+                <Route path="/:slug/edit" component={EditList} />
+                <Route path="/:slug" component={List} />
+              </Switch>
+            </Main>
+          </Route>
+        </Switch>
       </BrowserRouter>
     </StoreProvider>
   </ThemeProvider>

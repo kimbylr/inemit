@@ -52,7 +52,7 @@ export const List: FC = () => {
 
   const dueToday = list.progress.dueBeforeDays[0];
   const editList = () => goTo(list.slug, 'edit');
-  const startLearning = () => {}; // TODO
+  const startLearning = () => goTo(list.slug, 'learn');
 
   return (
     <>
