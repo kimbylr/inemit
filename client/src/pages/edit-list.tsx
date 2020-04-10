@@ -158,6 +158,26 @@ export const EditList: FC = () => {
       </ExpandableArea>
 
       <SubHeading>Vokabeln</SubHeading>
+      <LearnItemsIntro>
+        Vokabelpaare selbst eingeben ist sinnvoll investierte Zeit. Das
+        Ausdenken einer Aufgabe verankert das Wort ein erstes Mal. Und es
+        verhindert, dass man die Zeit mit Wörtern vergeudet, die man schon gut
+        kennt.
+      </LearnItemsIntro>
+      <LearnItemsIntro>
+        Denk dran:
+        <ul>
+          <li>
+            Am besten funktionieren Abfragen, die das Lernmaterial in einen
+            Kontext stellen, z.B. ein Satz oder Ausdruck.
+          </li>
+          <li>Bilder unterstützen den immersiven Effekt.</li>
+          <li>
+            Synonyme haben den Vorteil, dass die Verknüpfungen innerhalb der
+            Sprache verstärkt werden, nicht zur Muttersprache.
+          </li>
+        </ul>
+      </LearnItemsIntro>
       <LearnItemList>
         {items.map((item, index) => (
           <LearnItem key={item.id}>
@@ -205,6 +225,10 @@ const TeaserStyles = css`
 
 const BatchImportIntro = styled(Paragraph)`
   margin-top: 0;
+  font-size: ${({ theme: { font } }) => font.sizes.xs};
+`;
+
+const LearnItemsIntro = styled(Paragraph)`
   font-size: ${({ theme: { font } }) => font.sizes.xs};
 `;
 
