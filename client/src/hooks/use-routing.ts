@@ -6,7 +6,7 @@ export const useRouting = () => {
 
   const goTo = (slug?: string, mode?: 'edit' | 'learn') => {
     if (!slug) {
-      history.push('/');
+      return history.push('/');
     }
 
     history.push(`/${slug}${mode ? `/${mode}` : ''}`);

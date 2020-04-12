@@ -2,7 +2,7 @@ import React, { FC, useState } from 'react';
 import styled from 'styled-components';
 import { Button } from '../elements/button';
 import { Textarea } from '../elements/textarea';
-import { addItems } from '../helpers/api';
+import { useApi } from '../hooks/use-api';
 import { BaseLearnItem, ExcludesNull, LearnItem } from '../models';
 
 const PLACEHOLDER = `to learn	lernen
@@ -16,6 +16,7 @@ interface Props {
 export const BatchImport: FC<Props> = ({ listId, onBatchImportDone }) => {
   const [text, setText] = useState('');
   const [disabled, setDisabled] = useState(false);
+  const { addItems } = useApi();
 
   const submit = async (event: React.MouseEvent) => {
     event.preventDefault();

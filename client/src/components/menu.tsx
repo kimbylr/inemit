@@ -3,16 +3,27 @@ import styled, { css } from 'styled-components';
 import { Button } from '../elements/button';
 import { Icon } from '../elements/icon';
 import { Spinner } from '../elements/spinner';
-import { addList } from '../helpers/api';
+import { useAuth } from '../helpers/auth';
+import { useApi } from '../hooks/use-api';
 import { useLists } from '../hooks/use-lists';
 import { useRouting } from '../hooks/use-routing';
 import { ListSummary } from '../models';
 import { ExpandableArea } from './expandable-area';
 
 export const Menu: FC = () => {
+  const { user, login, logout } = useAuth();
   const [open, setOpen] = useState(false);
   const { lists, state, storeList } = useLists();
   const { goTo, slug } = useRouting();
+  const { addList } = useApi();
+
+  if (!user) {
+    return (
+      <Container>
+        <OutlineButton onClick={() => login()}>Login</OutlineButton>
+      </Container>
+    );
+  }
 
   if (state === 'loading' || state === 'initial') {
     return (
@@ -64,46 +75,59 @@ export const Menu: FC = () => {
 
   return (
     <Container>
-      <ExpandableArea
-        canExpand={hasLists}
-        state={[open, setOpen]}
-        teaserStyles={TeaserStyles}
-        teaser={
-          <Title>
-            {!hasLists && (
-              <OutlineButton onClick={onAddList}>
-                <Icon type="addList" width="14px" /> Neue Liste
-              </OutlineButton>
-            )}
-            {hasLists && !activeList && 'Liste auswählen...'}
-            {hasLists && activeList && activeList.name}
-          </Title>
-        }
-      >
-        {hasLists && (
-          <List>
-            {inactiveLists.map(list => (
-              <ListItem key={list.id}>
-                <ListLink as="a" onClick={() => selectList(list)}>
-                  {list.name}
-                </ListLink>
+      <LogoutButtonContainer>
+        <OutlineButton onClick={() => logout()}>Logout</OutlineButton>
+      </LogoutButtonContainer>
+
+      <ChooseListContainer>
+        <ExpandableArea
+          canExpand={hasLists}
+          state={[open, setOpen]}
+          teaserStyles={TeaserStyles}
+          teaser={
+            <Title>
+              {!hasLists && (
+                <OutlineButton onClick={onAddList}>
+                  <Icon type="addList" width="14px" /> Neue Liste
+                </OutlineButton>
+              )}
+              {hasLists && !activeList && 'Liste auswählen...'}
+              {hasLists && activeList && activeList.name}
+            </Title>
+          }
+        >
+          {hasLists && (
+            <List>
+              {inactiveLists.map(list => (
+                <ListItem key={list.id}>
+                  <ListLink as="a" onClick={() => selectList(list)}>
+                    {list.name}
+                  </ListLink>
+                </ListItem>
+              ))}
+              <ListItem>
+                <OutlineButton onClick={onAddList}>
+                  <Icon type="addList" width="14px" /> Neue Liste
+                </OutlineButton>
               </ListItem>
-            ))}
-            <ListItem>
-              <OutlineButton onClick={onAddList}>
-                <Icon type="addList" width="14px" /> Neue Liste
-              </OutlineButton>
-            </ListItem>
-          </List>
-        )}
-      </ExpandableArea>
+            </List>
+          )}
+        </ExpandableArea>
+      </ChooseListContainer>
     </Container>
   );
 };
 
 const Container = styled.nav`
   width: 100%;
-  padding: 0.75rem 0 0.5rem;
+  box-sizing: border-box;
+  padding: 0.75rem 1rem 0.5rem;
+
+  display: flex;
+  flex-direction: row-reverse;
+  flex-wrap: wrap;
+  justify-content: space-between;
+
   background: linear-gradient(
     to bottom,
     ${({ theme: { colors } }) => colors.secondary[50]},
@@ -139,7 +163,6 @@ const List = styled.ul`
 const ListItem = styled.li`
   margin: 0.25rem;
   padding: 0;
-  text-align: center;
 `;
 const ListLink = styled(Title)`
   cursor: pointer;
@@ -177,11 +200,21 @@ const OutlineButton = styled(Button)`
   }
 `;
 
-const ErrorContainer = styled.div`
+const LoginContainer = styled.div`
   margin: 0.5rem 0;
   text-align: center;
+`;
 
+const ErrorContainer = styled(LoginContainer)`
   > :first-child {
     margin-bottom: 0.5rem;
   }
+`;
+
+const ChooseListContainer = styled.div`
+  margin-top: 0.5rem;
+`;
+
+const LogoutButtonContainer = styled.div`
+  margin-left: 1rem;
 `;

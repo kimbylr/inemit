@@ -1,10 +1,13 @@
 import { useEffect } from 'react';
-import { getLists } from '../helpers/api';
+import { useAuth } from '../helpers/auth';
 import { ListSummary } from '../models';
 import { useStore } from '../store';
+import { useApi } from './use-api';
 
 export const useLists = () => {
   const { lists, state, dispatch } = useStore();
+  const { getLists } = useApi();
+  const { user } = useAuth();
 
   const fetchLists = async () => {
     dispatch({ state: 'loading' });
@@ -18,10 +21,10 @@ export const useLists = () => {
   };
 
   useEffect(() => {
-    if (state === 'initial') {
+    if (state === 'initial' && user) {
       fetchLists();
     }
-  }, []);
+  }, [user]);
 
   const storeList = (list: ListSummary) => {
     dispatch({ lists: [...lists, list] });

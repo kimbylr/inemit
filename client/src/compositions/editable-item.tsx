@@ -4,7 +4,7 @@ import { EditStatus } from '../components/edit-status';
 import { Icon } from '../elements/icon';
 import { Input } from '../elements/input';
 import { Label } from '../elements/label';
-import { addItems, deleteItem, editItem } from '../helpers/api';
+import { useApi } from '../hooks/use-api';
 import { BaseLearnItem, LearnItem, LearnItemForEditing } from '../models';
 
 interface Props {
@@ -24,6 +24,7 @@ export const EditableItem: FC<Props> = ({
   onNewItemEdited = () => {},
   onNewItemSaved = () => {},
 }) => {
+  const { addItems, deleteItem, editItem } = useApi();
   const [savedItem, setSavedItem] = useState<BaseLearnItem>({
     prompt: item.prompt,
     solution: item.solution,

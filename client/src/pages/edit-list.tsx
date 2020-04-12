@@ -14,7 +14,7 @@ import {
   SubHeading,
   SubHeadingUncolored,
 } from '../elements/typography';
-import { getItems, deleteList } from '../helpers/api';
+import { useApi } from '../hooks/use-api';
 import { useLists } from '../hooks/use-lists';
 import { useRouting } from '../hooks/use-routing';
 import { LearnItem, LoadingStates } from '../models';
@@ -22,6 +22,7 @@ import { LearnItem, LoadingStates } from '../models';
 const DELETE_PROMPT = `Gib "JA" ein, um diese Liste unwiderruflich zu löschen.`;
 
 export const EditList: FC = () => {
+  const { getItems, deleteList } = useApi();
   const [items, setItems] = useState<LearnItem[]>([]);
   const [newItemIds, setNewItemIds] = useState<number[]>([1]);
   const [state, setState] = useState<LoadingStates>(LoadingStates.initial);
@@ -164,20 +165,18 @@ export const EditList: FC = () => {
         verhindert, dass man die Zeit mit Wörtern vergeudet, die man schon gut
         kennt.
       </LearnItemsIntro>
-      <LearnItemsIntro>
-        Denk dran:
-        <ul>
-          <li>
-            Am besten funktionieren Abfragen, die das Lernmaterial in einen
-            Kontext stellen, z.B. ein Satz oder Ausdruck.
-          </li>
-          <li>Bilder unterstützen den immersiven Effekt.</li>
-          <li>
-            Synonyme haben den Vorteil, dass die Verknüpfungen innerhalb der
-            Sprache verstärkt werden, nicht zur Muttersprache.
-          </li>
-        </ul>
-      </LearnItemsIntro>
+      <LearnItemsIntro>Denk dran:</LearnItemsIntro>
+      <ul>
+        <li>
+          Am besten funktionieren Abfragen, die das Lernmaterial in einen
+          Kontext stellen, z.B. ein Satz oder Ausdruck.
+        </li>
+        <li>Bilder unterstützen den immersiven Effekt.</li>
+        <li>
+          Synonyme haben den Vorteil, dass die Verknüpfungen innerhalb der
+          Sprache verstärkt werden, nicht zur Muttersprache.
+        </li>
+      </ul>
       <LearnItemList>
         {items.map((item, index) => (
           <LearnItem key={item.id}>

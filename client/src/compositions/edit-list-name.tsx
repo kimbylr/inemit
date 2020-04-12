@@ -2,8 +2,7 @@ import React, { FC, useState } from 'react';
 import styled from 'styled-components';
 import { Button } from '../elements/button';
 import { Input } from '../elements/input';
-import { Label } from '../elements/label';
-import { editListName } from '../helpers/api';
+import { useApi } from '../hooks/use-api';
 
 interface Props {
   currentName: string;
@@ -16,6 +15,7 @@ export const EditListName: FC<Props> = ({
   listId,
   onNameChanged,
 }) => {
+  const { editListName } = useApi();
   const [name, setName] = useState<string>(currentName);
   const [disabled, setDisabled] = useState(false);
 

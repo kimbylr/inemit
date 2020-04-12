@@ -5,7 +5,7 @@ import { Button } from '../elements/button';
 import { Icon } from '../elements/icon';
 import { Spinner } from '../elements/spinner';
 import { Heading, Paragraph } from '../elements/typography';
-import { getListBySlug } from '../helpers/api';
+import { useApi } from '../hooks/use-api';
 import { useRouting } from '../hooks/use-routing';
 import { ListWithProgress, LoadingStates } from '../models';
 
@@ -13,6 +13,7 @@ export const List: FC = () => {
   const [list, setList] = useState<ListWithProgress | null>(null);
   const [state, setState] = useState<LoadingStates>(LoadingStates.initial);
   const { slug, goTo } = useRouting();
+  const { getListBySlug } = useApi();
 
   const fetchList = async () => {
     if (!slug) {

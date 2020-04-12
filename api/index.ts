@@ -4,6 +4,7 @@ import * as cors from 'cors';
 
 import './db';
 import { catch404, handleError } from './errors';
+import { auth } from './auth';
 import lists from './lists';
 
 const app = express();
@@ -13,7 +14,7 @@ app.listen(PORT, () => console.log(`${Date()}\nListening on port ${PORT}.`));
 app.use(cors()); // TODO: configure
 app.use(jsonParser());
 
-// app.use('/', secret);
+app.use('/', auth);
 
 app.use('/lists', lists);
 
