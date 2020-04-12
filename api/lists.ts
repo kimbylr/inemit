@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import slugify from 'slugify';
-import { getProgressSummary, mapList } from './helpers';
+import { getProgressSummary, getUserId, mapList } from './helpers';
 import items from './items';
 import { List } from './models';
 
@@ -9,7 +9,10 @@ const router = Router();
 // find list -> req.list
 router.param('listId', async (req, res, next) => {
   try {
-    const list = await List.findById(req.params.listId).populate('items');
+    const list = await List.findOne({
+      _id: req.params.listId,
+      userId: getUserId(req),
+    }).populate('items');
 
     if (!list) {
       return next({ status: 404 });
@@ -23,13 +26,14 @@ router.param('listId', async (req, res, next) => {
 });
 
 // get list by slug
-router.get('/', async ({ query: { slug } }, res, next) => {
+router.get('/', async ({ query: { slug }, user }, res, next) => {
   if (!slug) {
     return next();
   }
 
   try {
-    const list = await List.findOne({ slug }).populate('items');
+    const userId = getUserId({ user });
+    const list = await List.findOne({ slug, userId }).populate('items');
     if (!list) {
       return next({ status: 404 });
     }
@@ -46,7 +50,7 @@ router.get('/', async ({ query: { slug } }, res, next) => {
 // get all lists
 router.get('/', async (req, res, next) => {
   try {
-    const lists = await List.find();
+    const lists = await List.find({ userId: getUserId(req) });
     const listsSummary = lists.map((list) => mapList(list));
     res.json(listsSummary);
   } catch (error) {
@@ -75,23 +79,24 @@ router.get('/:listId/full', ({ list }, res, next) => {
 });
 
 // create list
-router.post('/', async ({ body: { name } }, res, next) => {
+router.post('/', async ({ body: { name }, user }, res, next) => {
   if (!name) {
     return next(new Error('Name must be provided.'));
   }
 
+  const userId = getUserId({ user });
   const slug = slugify(name, { lower: true, remove: /[*+~.()'"!:@]/g });
-  const listsWithSlug = await List.find({ slug });
+  const listsWithSlug = await List.find({ slug, userId });
 
   if (listsWithSlug.length > 0) {
     return next({
-      message: `Slug already exists: ${slug}`,
+      message: `Slug already exists for this user: ${slug}`,
       status: 409,
     });
   }
 
   try {
-    const list = await new List({ name, slug }).save();
+    const list = await new List({ name, slug, userId }).save();
     res.json(mapList(list));
   } catch (error) {
     next(error);
@@ -125,6 +130,7 @@ router.delete('/:listId', async (req, res, next) => {
   }
 });
 
+// safe (if trying to edit list by other user, param handler would already have 404'd)
 router.use('/:listId/items', items);
 
 export default router;

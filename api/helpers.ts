@@ -1,6 +1,8 @@
 import * as dayjs from 'dayjs';
 import { LearnItemType, ListType } from './models';
 
+export const getUserId = (req: any): string | null => req?.user?.sub ?? null;
+
 export const getProgressSummary = (items: LearnItemType[]) => {
   const stages = items.reduce(
     (acc, { progress: { stage } }) => ({

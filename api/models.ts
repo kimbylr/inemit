@@ -47,6 +47,7 @@ export const LearnItem = model<LearnItemType>('LearnItem', LearnItemSchema);
 // ================
 
 export interface ListType extends Document {
+  userId: string;
   name: string;
   slug: string;
   created: Date;
@@ -55,6 +56,7 @@ export interface ListType extends Document {
 }
 
 const ListSchema = new Schema<ListType>({
+  userId: { type: String, required: true },
   name: { type: String, required: true },
   slug: { type: String, required: true },
   created: { type: Date, default: Date.now },
