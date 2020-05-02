@@ -6,6 +6,7 @@ import { createGlobalStyle, ThemeProvider } from 'styled-components';
 import { Header } from './components/header';
 import { Main } from './components/main';
 import { Menu } from './components/menu';
+import { NotificationBar } from './components/notification-bar';
 import { AuthProvider } from './helpers/auth';
 import { PrivateRoute } from './helpers/private-route';
 import { EditList } from './pages/edit-list';
@@ -24,6 +25,7 @@ const App = () => (
           <Switch>
             <PrivateRoute path="/:slug/learn" component={Learn} />
             <Route path="/:slug?">
+              <NotificationBar />
               <Header />
               <Menu />
               <Main>
