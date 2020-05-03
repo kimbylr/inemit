@@ -50,6 +50,11 @@ export interface LearnItemForEditing extends BaseLearnItem {
   id: string;
   isNew?: boolean;
 }
+export interface LearnItemForLearning extends BaseLearnItem {
+  id: string;
+  created: ISODate;
+  updated: ISODate;
+}
 export interface LearnItem extends BaseLearnItem {
   id: string;
   created: ISODate;

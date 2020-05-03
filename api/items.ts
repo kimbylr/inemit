@@ -125,7 +125,6 @@ router.put('/:itemId/progress', async ({ list, params, body }, res, next) => {
     const {
       easiness,
       interval,
-      due,
       stage,
       timesCorrect,
       timesWrong,
@@ -134,7 +133,7 @@ router.put('/:itemId/progress', async ({ list, params, body }, res, next) => {
     const isCorrect = answerQuality >= 3;
     const newInterval = recalcInterval(interval, easiness, isCorrect);
     const newDue = isCorrect
-      ? dayjs(due).add(newInterval, 'day')
+      ? dayjs().add(newInterval, 'day')
       : dayjs().add(1, 'day');
 
     item.progress = new Progress({

@@ -4,6 +4,7 @@ import {
   ListSummary,
   ListWithProgress,
   LearnItem,
+  LearnItemForLearning,
 } from '../models';
 
 const API_URL = process.env.API_URL;
@@ -12,9 +13,14 @@ const routes = {
   lists: () => `${API_URL}/lists`,
   listById: (listId: string) => `${API_URL}/lists/${listId}`,
   listBySlug: (slug: string) => `${API_URL}/lists?slug=${slug}`,
-  listItems: (listId: string) => `${API_URL}/lists/${listId}/items`,
-  listItem: (listId: string, itemId: string) =>
+
+  items: (listId: string) => `${API_URL}/lists/${listId}/items`,
+  item: (listId: string, itemId: string) =>
     `${API_URL}/lists/${listId}/items/${itemId}`,
+
+  learn: (listId: string) => `${API_URL}/lists/${listId}/items/learn`,
+  progress: (listId: string, itemId: string) =>
+    `${API_URL}/lists/${listId}/items/${itemId}/progress`,
 };
 
 interface EditListName {
@@ -34,12 +40,18 @@ interface DeleteItem {
   listId: string;
   itemId: string;
 }
+interface ReportProgress {
+  listId: string;
+  itemId: string;
+  answerQuality: 0 | 1 | 2 | 3 | 4 | 5;
+}
 
 interface FetchAndUnpack {
   url: string;
   getToken: () => Promise<string>;
   method?: 'PUT' | 'POST' | 'DELETE' | 'GET';
   body?: any;
+  emptyResponse?: boolean;
 }
 
 const fetchAndUnpack = async <T>({
@@ -47,6 +59,7 @@ const fetchAndUnpack = async <T>({
   getToken,
   method = 'GET',
   body,
+  emptyResponse,
 }: FetchAndUnpack): Promise<T> => {
   const token = await getToken();
   const headers = {
@@ -64,7 +77,7 @@ const fetchAndUnpack = async <T>({
     throw new Error(`Error: ${res.status}`);
   }
 
-  if (method === 'DELETE') {
+  if (emptyResponse) {
     return new Promise(resolve => resolve());
   }
 
@@ -99,6 +112,7 @@ export const useApi = () => {
       getToken,
       url: routes.listById(listId),
       method: 'DELETE',
+      emptyResponse: true,
     });
   };
 
@@ -116,13 +130,13 @@ export const useApi = () => {
   const getItems = async (listId: string) =>
     fetchAndUnpack<LearnItem[]>({
       getToken,
-      url: routes.listItems(listId),
+      url: routes.items(listId),
     });
 
   const addItems = async ({ listId, items }: AddItems) =>
     fetchAndUnpack<LearnItem[]>({
       getToken,
-      url: routes.listItems(listId),
+      url: routes.items(listId),
       method: 'POST',
       body: { items },
     });
@@ -130,7 +144,7 @@ export const useApi = () => {
   const editItem = async ({ listId, itemId, item }: EditItem) =>
     fetchAndUnpack<LearnItem>({
       getToken,
-      url: routes.listItem(listId, itemId),
+      url: routes.item(listId, itemId),
       method: 'PUT',
       body: item,
     });
@@ -138,10 +152,30 @@ export const useApi = () => {
   const deleteItem = async ({ listId, itemId }: DeleteItem) => {
     await fetchAndUnpack<void>({
       getToken,
-      url: routes.listItem(listId, itemId),
+      url: routes.item(listId, itemId),
       method: 'DELETE',
+      emptyResponse: true,
     });
   };
+
+  const getLearnItems = async (listId: string) =>
+    fetchAndUnpack<LearnItemForLearning[]>({
+      getToken,
+      url: routes.learn(listId),
+    });
+
+  const reportProgress = async ({
+    listId,
+    itemId,
+    answerQuality,
+  }: ReportProgress) =>
+    fetchAndUnpack<void>({
+      getToken,
+      url: routes.progress(listId, itemId),
+      method: 'PUT',
+      body: { answerQuality },
+      emptyResponse: true,
+    });
 
   return {
     getLists,
@@ -153,5 +187,7 @@ export const useApi = () => {
     addItems,
     editItem,
     deleteItem,
+    getLearnItems,
+    reportProgress,
   };
 };
