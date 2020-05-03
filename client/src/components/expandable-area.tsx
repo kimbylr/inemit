@@ -57,7 +57,7 @@ const ToggleButton = styled.button<ToggleButtonProps>`
   cursor: pointer;
   border: none;
   background: none;
-  margin: 0 auto;
+  margin: 0;
   padding: 0;
 
   display: flex;

@@ -24,12 +24,14 @@ export const Heading = styled.h2`
   color: ${({ theme: { colors } }) => colors.primary[100]};
   font-size: ${({ theme: { font } }) => font.sizes.xl};
   font-weight: ${({ theme: { font } }) => font.weights.massive};
+  overflow-wrap: break-word;
 `;
 
 export const SubHeadingUncolored = styled.h3`
   font-size: ${({ theme: { font } }) => font.sizes.md};
   font-weight: ${({ theme: { font } }) => font.weights.massive};
   margin: 1.5rem 0 1rem;
+  overflow-wrap: break-word;
 `;
 
 export const SubHeading = styled(SubHeadingUncolored)`

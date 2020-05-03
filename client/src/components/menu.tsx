@@ -125,7 +125,6 @@ const Container = styled.nav`
 
   display: flex;
   flex-direction: row-reverse;
-  flex-wrap: wrap;
   justify-content: space-between;
 
   background: linear-gradient(
@@ -151,6 +150,7 @@ const Container = styled.nav`
 const Title = styled.h3`
   font-weight: ${({ theme: { font } }) => font.weights.bold};
   font-size: ${({ theme: { font } }) => font.sizes.sm};
+  text-align: left;
 `;
 
 const List = styled.ul`
@@ -161,7 +161,7 @@ const List = styled.ul`
   flex-direction: column;
 `;
 const ListItem = styled.li`
-  margin: 0.25rem;
+  margin: 0.25rem 0;
   padding: 0;
 `;
 const ListLink = styled(Title)`
@@ -213,6 +213,7 @@ const ErrorContainer = styled(LoginContainer)`
 
 const ChooseListContainer = styled.div`
   margin-top: 0.5rem;
+  word-break: break-word;
 `;
 
 const LogoutButtonContainer = styled.div`
