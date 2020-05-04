@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
 import { Heading, Paragraph, SubHeading } from '../elements/typography';
+import { ExtLink } from '../elements/link';
 
 export const Home: FC = () => (
   <div>
@@ -10,15 +11,31 @@ export const Home: FC = () => (
     </Paragraph>
     <SubHeading>No bullshit.</SubHeading>
     <Paragraph>
-      Inemit gibt dir die Werkzeuge in die Hand, um die eigene Zeit effizient
-      einzusetzen. Es gaukelt dir nicht vor, mit teuren Kärtchen könne man
+      Inemit gibt dir die Werkzeuge an die Hand, um deine Lernzeit effizient
+      einzusetzen. Es gaukelt dir nicht vor, mit teurem Lernmaterial könne man
       besser lernen. Die "Kärtchen" machst du selbst – weil das am meisten
       bringt. Und dann heisst es: Inemit!
     </Paragraph>
     <SubHeading>Science, mate!</SubHeading>
     <Paragraph>
-      Wiederholung ist zentral. Spaced repetition.
-      https://universeofmemory.com/spaced-repetition-apps-dont-work/
+      <em>Inemit</em> basiert der Erkenntnis, dass Wiederholung zentral ist, um
+      Vokabeln zu lernen (<em>Spaced repetition</em>, siehe z.B.{' '}
+      <ExtLink href="https://universeofmemory.com/spaced-repetition-apps-dont-work/">
+        Universe of memory
+      </ExtLink>
+      ).
+    </Paragraph>
+    <Paragraph>
+      Diesen Effekt machen sich auch analoge{' '}
+      <ExtLink href="https://de.wikipedia.org/wiki/Lernkartei">
+        Lernkarteien
+      </ExtLink>{' '}
+      zunutze. Apps haben den Vorteil, dass Zeitabstände optimal gesetzt werden
+      können. <em>Inemit</em> implementiert den{' '}
+      <ExtLink href="https://supermemo.guru/wiki/SuperMemo_1.0_for_DOS_(1987)#Algorithm_SM-2">
+        <em>SM-2</em>-Algorithmus
+      </ExtLink>
+      .
     </Paragraph>
   </div>
 );

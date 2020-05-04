@@ -160,23 +160,28 @@ export const EditList: FC = () => {
 
       <SubHeading>Vokabeln</SubHeading>
       <LearnItemsIntro>
-        Vokabelpaare selbst eingeben ist sinnvoll investierte Zeit. Das
-        Ausdenken einer Aufgabe verankert das Wort ein erstes Mal. Und es
-        verhindert, dass man die Zeit mit Wörtern vergeudet, die man schon gut
-        kennt.
+        <strong>
+          Vokabelpaare selbst eingeben ist sinnvoll investierte Zeit.
+        </strong>{' '}
+        Das Ausdenken einer Aufgabe verankert das Wort ein erstes Mal. Und es
+        verhindert, dass man Lernzeit mit Wörtern vergeudet, die man schon
+        beherrscht.
       </LearnItemsIntro>
-      <LearnItemsIntro>Denk dran:</LearnItemsIntro>
-      <ul>
+      <LearnItemsIntro>Einige Tipps für grösseren Lerneffekt:</LearnItemsIntro>
+      <LearnItemsIntroList>
         <li>
-          Am besten funktionieren Abfragen, die das Lernmaterial in einen
-          Kontext stellen, z.B. ein Satz oder Ausdruck.
+          <strong>Kontext</strong>: Am besten funktionieren Aufgaben, die das
+          Lernmaterial in einen Kontext stellen, z.B. einen Satz oder Ausdruck.
         </li>
-        <li>Bilder unterstützen den immersiven Effekt.</li>
         <li>
-          Synonyme haben den Vorteil, dass die Verknüpfungen innerhalb der
-          Sprache verstärkt werden, nicht zur Muttersprache.
+          <strong>Bilder</strong> unterstützen den immersiven Effekt.
         </li>
-      </ul>
+        <li>
+          <strong>Synonyme</strong> haben den Vorteil, dass die Verknüpfungen
+          <em>innerhalb</em> der Sprache verstärkt werden (und nicht zur
+          Muttersprache).
+        </li>
+      </LearnItemsIntroList>
       <LearnItemList>
         {items.map((item, index) => (
           <LearnItem key={item.id}>
@@ -229,6 +234,20 @@ const BatchImportIntro = styled(Paragraph)`
 
 const LearnItemsIntro = styled(Paragraph)`
   font-size: ${({ theme: { font } }) => font.sizes.xs};
+`;
+const LearnItemsIntroList = styled.ul`
+  margin: 0 0 2rem;
+  padding: 0 0 0 1rem;
+
+  li {
+    padding-bottom: 0.5rem;
+    line-height: 1.4;
+
+    strong {
+      font-weight: 600;
+      color: ${({ theme: { colors } }) => colors.grey[25]};
+    }
+  }
 `;
 
 const LearnItemList = styled.ul`

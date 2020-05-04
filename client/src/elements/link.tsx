@@ -9,3 +9,12 @@ export const Link = styled(RouterLink)`
     color: ${({ theme: { colors } }) => colors.primary[150]};
   }
 `;
+
+export const ExtLink = styled.a`
+  color: ${({ theme: { colors } }) => colors.primary[100]};
+  text-decoration: underline;
+
+  :hover {
+    color: ${({ theme: { colors } }) => colors.primary[150]};
+  }
+`;
