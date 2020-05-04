@@ -28,9 +28,7 @@ export const Menu: FC = () => {
   if (state === 'loading' || state === 'initial') {
     return (
       <Container>
-        <Title>
-          <Spinner small white />
-        </Title>
+        <Spinner small white />
       </Container>
     );
   }
@@ -151,6 +149,7 @@ const Title = styled.h3`
   font-weight: ${({ theme: { font } }) => font.weights.bold};
   font-size: ${({ theme: { font } }) => font.sizes.sm};
   text-align: left;
+  margin-top: 0.5rem;
 `;
 
 const List = styled.ul`
@@ -206,16 +205,22 @@ const LoginContainer = styled.div`
 `;
 
 const ErrorContainer = styled(LoginContainer)`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
   > :first-child {
     margin-bottom: 0.5rem;
   }
 `;
 
 const ChooseListContainer = styled.div`
-  margin-top: 0.5rem;
+  margin-top: 0.25rem;
   word-break: break-word;
 `;
 
 const LogoutButtonContainer = styled.div`
+  margin-top: 0.25rem;
   margin-left: 1rem;
 `;

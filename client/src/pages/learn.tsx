@@ -1,6 +1,7 @@
 import React, { FC, useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { LearnProgress } from '../components/learn-progress';
 import { Button } from '../elements/button';
 import { Icon } from '../elements/icon';
 import { Input } from '../elements/input';
@@ -26,6 +27,7 @@ export const Learn: FC = () => {
   const [answer, setAnswer] = useState('');
   const [revising, setRevising] = useState(false);
   const [isCorrect, setIsCorrect] = useState(false);
+  const [count, setCount] = useState({ correct: 0, incorrect: 0 });
 
   const answerFieldRef = useRef<HTMLInputElement>(null);
   const submitButtonRef = useRef<HTMLButtonElement>(null);
@@ -33,6 +35,10 @@ export const Learn: FC = () => {
   const load = async (listId: string) => {
     try {
       const learnItems = await getLearnItems(listId);
+      if (learnItems.length === 0) {
+        window.alert('Nichts zu lernen :D');
+        goTo(slug);
+      }
       setItems(learnItems);
     } catch {
       window.alert('Fehler beim laden der Lerninhalte 0_ò');
@@ -72,7 +78,15 @@ export const Learn: FC = () => {
     setRevising(true);
   };
 
+  const updateCount = (wasCorrect: boolean) => {
+    const correct = count.correct + (wasCorrect ? 1 : 0);
+    const incorrect = count.incorrect + (!wasCorrect ? 1 : 0);
+    setCount({ correct, incorrect });
+  };
+
   const save = async (answerQuality: 5 | 3 | 1) => {
+    updateCount(answerQuality >= 3);
+
     try {
       await reportProgress({ listId: list.id, itemId, answerQuality });
     } catch (error) {
@@ -108,6 +122,7 @@ export const Learn: FC = () => {
 
   return (
     <Container height={height}>
+      <LearnProgress count={count} total={items.length} />
       <Header>
         <StyledLink to={`/${slug}`}>
           <Icon type="logo" width="30px" />
