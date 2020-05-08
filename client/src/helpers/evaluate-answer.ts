@@ -2,7 +2,7 @@
 export const evaluateAnswer = (answer: string, solution: string): boolean => {
   const solutions = solution
     .replace(/[.?!]/g, '')
-    .split(/[,;()]+/)
+    .split(/[,;()]+/) // NB: solution phrases with commas are split up
     .map(solution => solution.trim().toLowerCase())
     .filter(Boolean);
 

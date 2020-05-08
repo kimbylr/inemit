@@ -1,4 +1,5 @@
 import React, { FC, useState } from 'react';
+import { Link } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 import { Button } from '../elements/button';
 import { Icon } from '../elements/icon';
@@ -7,7 +8,6 @@ import { useAuth } from '../helpers/auth';
 import { useApi } from '../hooks/use-api';
 import { useLists } from '../hooks/use-lists';
 import { useRouting } from '../hooks/use-routing';
-import { ListSummary } from '../models';
 import { ExpandableArea } from './expandable-area';
 
 export const Menu: FC = () => {
@@ -50,11 +50,6 @@ export const Menu: FC = () => {
   const inactiveLists = lists.filter(list => list.slug !== slug);
   const activeList = slug && lists.find(list => list.slug === slug);
 
-  const selectList = (list: ListSummary, mode?: 'edit') => {
-    setOpen(false);
-    goTo(list.slug, mode);
-  };
-
   const onAddList = async () => {
     const name = prompt('Name der neuen Liste:');
 
@@ -65,7 +60,8 @@ export const Menu: FC = () => {
     try {
       const list = await addList(name);
       storeList(list);
-      selectList(list, 'edit');
+      goTo(list.slug, 'edit');
+      setOpen(false);
     } catch {
       console.error('Could not add list'); // TODO
     }
@@ -98,7 +94,7 @@ export const Menu: FC = () => {
             <List>
               {inactiveLists.map(list => (
                 <ListItem key={list.id}>
-                  <ListLink as="a" onClick={() => selectList(list)}>
+                  <ListLink to={`/${list.slug}`} onClick={() => setOpen(false)}>
                     {list.name}
                   </ListLink>
                 </ListItem>
@@ -149,7 +145,7 @@ const Title = styled.h3`
   font-weight: ${({ theme: { font } }) => font.weights.bold};
   font-size: ${({ theme: { font } }) => font.sizes.sm};
   text-align: left;
-  margin-top: 0.5rem;
+  margin: 0.5rem 0 0.25rem;
 `;
 
 const List = styled.ul`
@@ -160,11 +156,13 @@ const List = styled.ul`
   flex-direction: column;
 `;
 const ListItem = styled.li`
-  margin: 0.25rem 0;
+  margin: 0.5rem 0;
   padding: 0;
 `;
-const ListLink = styled(Title)`
-  cursor: pointer;
+const ListLink = styled(Link)`
+  font-weight: ${({ theme: { font } }) => font.weights.bold};
+  font-size: ${({ theme: { font } }) => font.sizes.sm};
+  text-decoration: none;
   color: ${({ theme: { colors } }) => colors.primary[150]};
 
   :hover {
@@ -216,7 +214,7 @@ const ErrorContainer = styled(LoginContainer)`
 `;
 
 const ChooseListContainer = styled.div`
-  margin-top: 0.25rem;
+  margin-top: 0.375rem;
   word-break: break-word;
 `;
 
