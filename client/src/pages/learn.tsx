@@ -55,6 +55,12 @@ export const Learn: FC = () => {
     }
   }, [revising]);
 
+  // basically autofocus, but run after useHeight (i.e. recalculate height)
+  // fixes a glitch on iOS 13 scrolling out of view on focus
+  useEffect(() => {
+    answerFieldRef.current?.focus();
+  }, []);
+
   if (!list || !items) {
     return (
       <Container height={height}>
@@ -134,7 +140,6 @@ export const Learn: FC = () => {
         <SolutionForm autoComplete="off">
           <SolutionInputContainer>
             <SolutionInput
-              autoFocus
               id="solution"
               ref={answerFieldRef}
               value={answer}
@@ -142,6 +147,13 @@ export const Learn: FC = () => {
               correct={revising && isCorrect}
               incorrect={revising && !isCorrect}
               onChange={e => setAnswer(e.target.value)}
+              onFocus={() => {
+                // hack to remedy iOS shoving content out of view
+                // see https://stackoverflow.com/questions/56351216/ios-safari-unwanted-scroll-when-keyboard-is-opened-and-body-scroll-is-disabled
+                setTimeout(() => {
+                  window.scrollTo({ top: 0 });
+                }, 100);
+              }}
             />
 
             {revising && !isCorrect && (
