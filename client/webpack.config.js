@@ -5,10 +5,12 @@ const path = require('path');
 const env = dotenv.config().parsed;
 
 // https://medium.com/@trekinbami/using-environment-variables-in-react-6b0a99d83cf5
-const envKeys = Object.keys(env).reduce((prev, next) => {
-  prev[`process.env.${next}`] = JSON.stringify(env[next]);
-  return prev;
-}, {});
+const envKeys = Object.keys(env).reduce(
+  (acc, cur) => ({ ...acc, [`process.env.${cur}`]: JSON.stringify(env[cur]) }),
+  {},
+);
+
+envKeys['process.env.LIVE_API'] = process.env.LIVE_API === 'yesplease';
 
 module.exports = {
   entry: ['react-hot-loader/patch', './src/index.tsx'],

@@ -7,7 +7,8 @@ import {
   LearnItemForLearning,
 } from '../models';
 
-const API_URL = process.env.API_URL;
+const devMode = process.env.NODE_ENV === 'development' && !process.env.LIVE_API;
+const API_URL = devMode ? process.env.API_URL_DEV : process.env.API_URL;
 
 const routes = {
   lists: () => `${API_URL}/lists`,
