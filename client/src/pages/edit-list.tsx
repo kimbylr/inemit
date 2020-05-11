@@ -220,10 +220,10 @@ export const EditList: FC = () => {
 
 const TeaserStyles = css`
   width: 100%;
-  color: ${({ theme: { colors } }) => colors.primary[100]};
+  color: ${({ theme: { colors } }) => colors.primary[150]};
 
   :hover {
-    color: ${({ theme: { colors } }) => colors.primary[150]};
+    color: ${({ theme: { colors } }) => colors.primary[100]};
   }
 `;
 

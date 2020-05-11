@@ -21,7 +21,7 @@ export const StickyParagraph = styled(Paragraph)`
 // ====
 
 export const Heading = styled.h2`
-  color: ${({ theme: { colors } }) => colors.primary[100]};
+  color: ${({ theme: { colors } }) => colors.primary[150]};
   font-size: ${({ theme: { font } }) => font.sizes.xl};
   font-weight: ${({ theme: { font } }) => font.weights.massive};
   overflow-wrap: break-word;
@@ -35,5 +35,5 @@ export const SubHeadingUncolored = styled.h3`
 `;
 
 export const SubHeading = styled(SubHeadingUncolored)`
-  color: ${({ theme: { colors } }) => colors.primary[100]};
+  color: ${({ theme: { colors } }) => colors.primary[150]};
 `;
