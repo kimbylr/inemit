@@ -1,8 +1,8 @@
 # Inemit!
 
-Inemit is a Web App / PWA for practicing vocabulary (or anything else) using (Spaced repetition)[https://en.wikipedia.org/wiki/Spaced_repetition]. It is in an early usable stadium and there are plans to enhance it further. It mainly covers my own needs after my learning platform of choice shut down their spaced repetition feature.
+Inemit is a Web App / PWA for practicing vocabulary (or anything else) using [Spaced repetition](https://en.wikipedia.org/wiki/Spaced_repetition). It is in an early usable stadium and there are plans to enhance it further. It mainly covers my own needs after the learning platform of choice has shut down their spaced repetition feature.
 
-`Ine mit` means `In with it` in Swiss German.
+`Ine mit` means "In with it" in Swiss German.
 
 ## Setup and run
 
