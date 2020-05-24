@@ -10,6 +10,7 @@ export const Input = styled.input`
   width: 100%;
   box-sizing: border-box;
   background-color: white;
+  -webkit-appearance: none;
 
   :focus {
     border-color: ${({ theme: { colors } }) => colors.grey[50]};

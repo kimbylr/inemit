@@ -49,14 +49,9 @@ export const Learn: FC = () => {
     list && load(list.id);
   }, [list]);
 
-  useEffect(() => {
-    if (!revising) {
-      answerFieldRef.current?.focus();
-    }
-  }, [revising]);
-
-  // basically autofocus, but run after useHeight (i.e. recalculate height)
-  // fixes a glitch on iOS 13 scrolling out of view on focus
+  // amounts to autofocus, but runs after useHeight events attatched
+  // fixes a glitch on iOS 13 where autofocus leads to scrolling out of view
+  // see https://stackoverflow.com/questions/56351216/
   useEffect(() => {
     answerFieldRef.current?.focus();
   }, []);
@@ -114,6 +109,12 @@ export const Learn: FC = () => {
     setAnswer('');
     setRevising(false);
     setCurrent(current + 1);
+
+    // iOS only displays the soft keyboard if an input is focused _in a click event fn_
+    if (answerFieldRef.current) {
+      answerFieldRef.current.disabled = false; // can't focus before enabled (next render)
+      answerFieldRef.current.focus();
+    }
   };
 
   const onButtonClick = (event: React.MouseEvent) => {
@@ -148,11 +149,8 @@ export const Learn: FC = () => {
               incorrect={revising && !isCorrect}
               onChange={e => setAnswer(e.target.value)}
               onFocus={() => {
-                // hack to remedy iOS shoving content out of view
-                // see https://stackoverflow.com/questions/56351216/ios-safari-unwanted-scroll-when-keyboard-is-opened-and-body-scroll-is-disabled
-                setTimeout(() => {
-                  window.scrollTo({ top: 0 });
-                }, 100);
+                // prevent iOS from pushing content out of view
+                setTimeout(() => window.scrollTo({ top: 0 }), 100);
               }}
             />
 
