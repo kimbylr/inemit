@@ -201,7 +201,6 @@ const Container = styled.div<{ height: number }>`
 
 const Header = styled.header`
   padding-bottom: 1rem;
-  margin: 0 -6px;
 `;
 
 const StyledLink = styled(Link)`
