@@ -55,6 +55,3 @@ export const theme = {
     },
   },
 };
-
-// https://coolors.co/00a878-6cc17a-8cd867-e5e059-49475b
-// plus blau https://coolors.co/00a878-6cc17a-bfd7ea-91aec1-508ca4

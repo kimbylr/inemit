@@ -61,7 +61,7 @@ export const Learn: FC = () => {
       <Container height={height}>
         <Header>
           <StyledLink to={`/${slug}`}>
-            <Icon type="logo" width="30px" />
+            <Icon type="back" width="20px" />
           </StyledLink>
         </Header>
         <Content height={height}>
@@ -132,7 +132,7 @@ export const Learn: FC = () => {
       <LearnProgress count={count} total={items.length} />
       <Header>
         <StyledLink to={`/${slug}`}>
-          <Icon type="logo" width="30px" />
+          <Icon type="back" width="20px" />
         </StyledLink>
       </Header>
       <Content height={height}>
@@ -200,16 +200,15 @@ const Container = styled.div<{ height: number }>`
 `;
 
 const Header = styled.header`
-  display: flex;
-  justify-content: center;
   padding-bottom: 1rem;
+  margin: 0 -6px;
 `;
 
 const StyledLink = styled(Link)`
-  color: ${({ theme: { colors } }) => colors.primary[100]};
+  color: ${({ theme: { colors } }) => colors.grey[75]};
 
   :hover {
-    color: ${({ theme: { colors } }) => colors.primary[150]};
+    color: ${({ theme: { colors } }) => colors.grey[50]};
   }
 `;
 
@@ -223,6 +222,7 @@ const Content = styled.main<{ height: number }>`
 const Prompt = styled(Paragraph)`
   margin: 0.5rem 0;
   text-align: center;
+  font-size: calc(0.75rem + 2vh + 2vw);
 `;
 
 const Divider = styled.hr`
@@ -300,7 +300,7 @@ const Correction = styled.button`
   background: ${({ theme: { colors } }) => colors.primary[10]};
   border: 3px solid ${({ theme: { colors } }) => colors.primary[100]};
 
-  font-weight: 600;
+  font-weight: ${({ theme: { font } }) => font.weights.bold};
   color: ${({ theme: { colors } }) => colors.primary[100]};
   font-size: ${({ theme: { font } }) => font.sizes.sm};
 
@@ -343,6 +343,7 @@ const RefinementHint = styled(Correction)`
   background: ${({ theme: { colors } }) => colors.grey[85]};
   border-color: ${({ theme: { colors } }) => colors.grey[50]};
   color: ${({ theme: { colors } }) => colors.grey[50]};
+  font-weight: ${({ theme: { font } }) => font.weights.light};
   cursor: default;
 
   ::after {

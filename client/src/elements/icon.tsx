@@ -122,6 +122,17 @@ const icons = {
       <rect x="12" y="20" width="20" height="8" />
     </svg>
   ),
+  back: (width?: string) => (
+    <svg
+      transform="scale(-1,1)"
+      viewBox="3 9 48 27"
+      fill="currentColor"
+      height={width || '100%'}
+    >
+      <polygon points="44,24 30,35.7 30,12.3" />
+      <rect x="12" y="20" width="20" height="8" />
+    </svg>
+  ),
 };
 
 interface Props {
