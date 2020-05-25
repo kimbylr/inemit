@@ -48,9 +48,24 @@ const icons = {
     </svg>
   ),
   deleteInCircle: (width?: string) => (
-    <svg fill="currentColor" viewBox="0 0 48 48" width={width || '100%'}>
-      <path d="M48 24 C48 37.255 37.255 48 24 48 10.745 48 0 37.255 0 24 0 10.745 10.745 0 24 0 37.255 0 48 10.745 48 24 Z" />
-      <path d="M9.6 19.2 L38.4 19.2 38.4 28.8 9.6 28.8 Z" fill="#ffffff" />
+    <svg viewBox="28 28 20 20" width={width || '100%'}>
+      <circle fill="currentColor" cx="38" cy="38" r="10" />
+      <rect
+        fill="#fff"
+        x="36.5"
+        y="32"
+        transform="matrix(-.707 .707 -.707 -.707 91.74 38)"
+        width="3"
+        height="12"
+      />
+      <rect
+        fill="#fff"
+        x="36.5"
+        y="32"
+        transform="matrix(-.707 -.707 .707 -.707 38 91.74)"
+        width="3"
+        height="12"
+      />
     </svg>
   ),
   edit: (width?: string) => (

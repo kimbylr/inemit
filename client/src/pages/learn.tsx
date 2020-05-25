@@ -153,13 +153,23 @@ export const Learn: FC = () => {
                 setTimeout(() => window.scrollTo({ top: 0 }), 100);
               }}
             />
+            {revising && (
+              <RevisionIcon correct={isCorrect}>
+                <Icon type={isCorrect ? 'ok' : 'deleteInCircle'} />
+              </RevisionIcon>
+            )}
 
             {revising && !isCorrect && (
-              <Correction>
-                <AcceptCorrection type="button" onClick={onAcceptCorrection}>
+              <CorrectionBubbleContainer>
+                <Correction type="button" onClick={onAcceptCorrection}>
                   {solution}
-                </AcceptCorrection>
-              </Correction>
+                </Correction>
+              </CorrectionBubbleContainer>
+            )}
+            {revising && isCorrect && showRefinementHint(answer, solution) && (
+              <CorrectionBubbleContainer>
+                <RefinementHint as="div">{solution}</RefinementHint>
+              </CorrectionBubbleContainer>
             )}
           </SolutionInputContainer>
           <SolutionButton
@@ -179,6 +189,9 @@ export const Learn: FC = () => {
     </Container>
   );
 };
+
+const showRefinementHint = (answer: string, solution: string) =>
+  answer.toLowerCase().trim() !== solution.toLowerCase().trim();
 
 const Container = styled.div<{ height: number }>`
   height: ${({ height }) => height}px;
@@ -235,7 +248,7 @@ const SolutionInput = styled(Input)<{ incorrect?: boolean; correct?: boolean }>`
 
   ${({ correct, theme: { colors } }) =>
     correct
-      ? ` color: ${colors.primary[100]};
+      ? ` color: ${colors.grey[25]};
           border-color: ${colors.primary[100]};
           background-color: ${colors.primary[10]};`
       : ``}
@@ -247,6 +260,19 @@ const SolutionInput = styled(Input)<{ incorrect?: boolean; correct?: boolean }>`
           text-decoration: line-through;`
       : ``}
 `;
+const RevisionIcon = styled.div<{ correct: boolean }>`
+  position: absolute;
+  height: 100%;
+  width: 1.25rem;
+  right: 0.625rem;
+  top: 0;
+  display: flex;
+  align-items: center;
+  opacity: 0.5;
+  color: ${({ correct, theme: { colors } }) =>
+    correct ? colors.primary[100] : colors.negative[100]};
+  pointer-events: none;
+`;
 const SolutionButton = styled(Button)`
   width: 60px;
 
@@ -255,7 +281,7 @@ const SolutionButton = styled(Button)`
   }
 `;
 
-const Correction = styled.div`
+const CorrectionBubbleContainer = styled.div`
   position: absolute;
   text-align: center;
   bottom: 60px;
@@ -264,7 +290,7 @@ const Correction = styled.div`
   box-sizing: border-box;
 `;
 
-const AcceptCorrection = styled.button`
+const Correction = styled.button`
   min-width: 50%;
   max-width: 100%;
   border-radius: 4px;
@@ -310,5 +336,19 @@ const AcceptCorrection = styled.button`
     border-top-color: ${({ theme: { colors } }) => colors.primary[100]};
     border-width: 16px;
     margin-left: -16px;
+  }
+`;
+
+const RefinementHint = styled(Correction)`
+  background: ${({ theme: { colors } }) => colors.grey[85]};
+  border-color: ${({ theme: { colors } }) => colors.grey[50]};
+  color: ${({ theme: { colors } }) => colors.grey[50]};
+  cursor: default;
+
+  ::after {
+    border-top-color: ${({ theme: { colors } }) => colors.grey[85]};
+  }
+  ::before {
+    border-top-color: ${({ theme: { colors } }) => colors.grey[50]};
   }
 `;
