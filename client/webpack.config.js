@@ -66,4 +66,5 @@ module.exports = {
   // define plugin + node handle .env variable replacement
   plugins: [new webpack.DefinePlugin(envKeys)],
   node: { fs: 'empty' },
+  devtool: 'source-map',
 };
