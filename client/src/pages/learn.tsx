@@ -49,13 +49,6 @@ export const Learn: FC = () => {
     list && load(list.id);
   }, [list]);
 
-  // amounts to autofocus, but runs after useHeight events attatched
-  // fixes a glitch on iOS 13 where autofocus leads to scrolling out of view
-  // see https://stackoverflow.com/questions/56351216/
-  useEffect(() => {
-    answerFieldRef.current?.focus();
-  }, []);
-
   if (!list || !items) {
     return (
       <Container height={height}>
@@ -142,6 +135,7 @@ export const Learn: FC = () => {
           <SolutionInputContainer>
             <SolutionInput
               id="solution"
+              autoCapitalize="none"
               ref={answerFieldRef}
               value={answer}
               disabled={revising}
@@ -150,7 +144,7 @@ export const Learn: FC = () => {
               onChange={e => setAnswer(e.target.value)}
               onFocus={() => {
                 // prevent iOS from pushing content out of view
-                setTimeout(() => window.scrollTo({ top: 0 }), 100);
+                setTimeout(() => window.scrollTo({ top: 0 }), 200);
               }}
             />
             {revising && (
@@ -339,16 +333,18 @@ const Correction = styled.button`
 `;
 
 const RefinementHint = styled(Correction)`
-  background: ${({ theme: { colors } }) => colors.grey[85]};
-  border-color: ${({ theme: { colors } }) => colors.grey[50]};
-  color: ${({ theme: { colors } }) => colors.grey[50]};
+  background: ${({ theme: { colors } }) => colors.grey[95]};
+  border: 2px solid ${({ theme: { colors } }) => colors.grey[50]};
+  color: ${({ theme: { colors } }) => colors.grey[25]};
   font-weight: ${({ theme: { font } }) => font.weights.light};
   cursor: default;
 
   ::after {
-    border-top-color: ${({ theme: { colors } }) => colors.grey[85]};
+    border-top-color: ${({ theme: { colors } }) => colors.grey[95]};
   }
   ::before {
     border-top-color: ${({ theme: { colors } }) => colors.grey[50]};
+    border-width: 15px;
+    margin-left: -15px;
   }
 `;
