@@ -1,6 +1,7 @@
 import React, { FC, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { ProgressBar } from '../components/progress-bar';
+import { ProgressPie } from '../components/progress-pie';
 import { Button } from '../elements/button';
 import { Icon } from '../elements/icon';
 import { Spinner } from '../elements/spinner';
@@ -59,9 +60,14 @@ export const List: FC = () => {
     <>
       <Heading>{list.name}</Heading>
       {list.itemsCount > 0 && (
-        <ProgressBarContainer>
-          <ProgressBar stages={list.progress!.stages} />
-        </ProgressBarContainer>
+        <>
+          <ProgressContainerMobile>
+            <ProgressPie stages={list.progress!.stages} />
+          </ProgressContainerMobile>
+          <ProgressContainerDesktop>
+            <ProgressBar stages={list.progress!.stages} />
+          </ProgressContainerDesktop>
+        </>
       )}
       <Paragraph>
         In dieser Liste gibt es <strong>{list.itemsCount} Vokabeln</strong>.
@@ -87,6 +93,18 @@ const ButtonWithSpacing = styled(Button)`
   margin-bottom: 0.5rem;
 `;
 
-const ProgressBarContainer = styled.div`
+const ProgressContainerMobile = styled.div`
+  margin: 1rem 0;
+
+  @media (min-width: 480.02px) {
+    display: none;
+  }
+`;
+
+const ProgressContainerDesktop = styled.div`
   margin: 2rem 0;
+
+  @media (max-width: 480px) {
+    display: none;
+  }
 `;
