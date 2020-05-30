@@ -133,6 +133,7 @@ export const EditableItem: FC<Props> = ({
       <InputsColumn>
         <LabelWithSpacing>
           <Input
+            autoCapitalize="none"
             onBlur={submit}
             value={currentItem.solution}
             placeholder={savedItem.solution}
@@ -142,6 +143,7 @@ export const EditableItem: FC<Props> = ({
         </LabelWithSpacing>
         <LabelWithSpacing>
           <Input
+            autoCapitalize="none"
             onBlur={submit}
             value={currentItem.prompt}
             placeholder={savedItem.prompt}
