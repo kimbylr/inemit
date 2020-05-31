@@ -10,7 +10,12 @@ interface ProgressBarProps {
 export const ProgressBar: FC<ProgressBarProps> = ({ stages }) => (
   <Bar>
     {Object.entries(stages).map(([stage, count]) => (
-      <BarPart stage={stage} count={count} key={stage}>
+      <BarPart
+        title={`Fach ${stage}: ${count} Vokabeln`}
+        stage={stage}
+        count={count}
+        key={stage}
+      >
         {getLegend(stage)}
       </BarPart>
     ))}
@@ -32,4 +37,5 @@ const BarPart = styled.div<{ stage: string; count: number }>`
   display: flex;
   align-items: center;
   justify-content: center;
+  cursor: default;
 `;
