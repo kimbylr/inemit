@@ -1,6 +1,8 @@
 import React, { FC } from 'react';
-import { Heading, Paragraph, SubHeading } from '../elements/typography';
+import styled from 'styled-components';
+import { version } from '../../package.json';
 import { ExtLink } from '../elements/link';
+import { Heading, Paragraph, SubHeading } from '../elements/typography';
 
 export const Home: FC = () => (
   <div>
@@ -40,5 +42,17 @@ export const Home: FC = () => (
       </ExtLink>
       .
     </Paragraph>
+    <TechnicalNotes>
+      Version: {version} (
+      <ExtLink href="https://github.com/kimbylr/inemit/blob/master/CHANGELOG.md">
+        Changelog
+      </ExtLink>
+      )
+    </TechnicalNotes>
   </div>
 );
+
+const TechnicalNotes = styled(Paragraph)`
+  margin-top: 2.5rem;
+  font-size: ${({ theme: { font } }) => font.sizes.xs};
+`;

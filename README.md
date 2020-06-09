@@ -1,10 +1,12 @@
 # Inemit!
 
-Inemit is a Web App / PWA for practicing vocabulary (or anything else) using [Spaced repetition](https://en.wikipedia.org/wiki/Spaced_repetition). It is in an early usable stadium and there are plans to enhance it further. It mainly covers my own needs after the learning platform of choice has shut down their spaced repetition feature.
+**Inemit** is a Web App / PWA for practicing vocabulary (or anything else) using [Spaced repetition](https://en.wikipedia.org/wiki/Spaced_repetition). It is in an early usable stadium and there are plans to enhance it further. It mainly covers my own needs, replacing my former learning platform of choice that has shut down their spaced repetition feature.
 
 `Ine mit` means "In with it" in Swiss German.
 
 ## Setup and run
+
+Node version: 12
 
 ### API
 
@@ -39,6 +41,12 @@ npm install
 ```
 
 (`npm run dev` runs postinstall script because of https://github.com/DefinitelyTyped/DefinitelyTyped/issues/33311)
+
+### Tests
+
+```sh
+npm test
+```
 
 ## Credits
 
