@@ -14,8 +14,9 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: 12
+      - name: Install Pacakges
+        run: npm ci
       - name: Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: nope
         run: npx semantic-release
