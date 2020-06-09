@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
-import { version } from '../../package.json';
+import { version } from '../../../package.json';
 import { ExtLink } from '../elements/link';
 import { Heading, Paragraph, SubHeading } from '../elements/typography';
 
