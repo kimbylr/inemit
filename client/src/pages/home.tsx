@@ -53,6 +53,6 @@ export const Home: FC = () => (
 );
 
 const TechnicalNotes = styled(Paragraph)`
-  margin-top: 2.5rem;
+  margin-top: 3rem;
   font-size: ${({ theme: { font } }) => font.sizes.xs};
 `;
