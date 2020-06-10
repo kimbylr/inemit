@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { ProgressBar } from '../components/progress-bar';
 import { ProgressPie } from '../components/progress-pie';
 import { Button } from '../elements/button';
+import { DueDaysSummary } from '../elements/due-days-summary';
 import { Icon } from '../elements/icon';
 import { Spinner } from '../elements/spinner';
 import { Heading, Paragraph } from '../elements/typography';
@@ -70,8 +71,8 @@ export const List: FC = () => {
         </>
       )}
       <Paragraph>
-        In dieser Liste gibt es <strong>{list.itemsCount} Vokabeln</strong>.
-        Davon stehen <strong>{dueToday}</strong> zum Lernen an.
+        In dieser Liste gibt es <strong>{list.itemsCount} Vokabeln</strong>.{' '}
+        <DueDaysSummary dueBeforeDays={list.progress.dueBeforeDays} />
       </Paragraph>
       <Paragraph>
         {dueToday > 0 && (
