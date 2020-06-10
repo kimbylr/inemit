@@ -28,6 +28,7 @@ export const Learn: FC = () => {
   const [revising, setRevising] = useState(false);
   const [isCorrect, setIsCorrect] = useState(false);
   const [count, setCount] = useState({ correct: 0, incorrect: 0 });
+  const [disableNext, setDisableNext] = useState(false);
 
   const answerFieldRef = useRef<HTMLInputElement>(null);
   const submitButtonRef = useRef<HTMLButtonElement>(null);
@@ -93,6 +94,7 @@ export const Learn: FC = () => {
     const answerQuality = overruleCorrect ? 3 : isCorrect ? 5 : 1;
 
     if (current + 1 >= items.length) {
+      setDisableNext(true);
       await save(answerQuality);
       goTo(slug);
       return;
@@ -169,6 +171,7 @@ export const Learn: FC = () => {
           <SolutionButton
             primary
             type="submit"
+            disabled={disableNext}
             onClick={onButtonClick}
             ref={submitButtonRef}
           >
