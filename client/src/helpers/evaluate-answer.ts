@@ -3,7 +3,7 @@ export const evaluateAnswer = (answer: string, solution: string): boolean => {
     .replace(/[.…?!]/g, '')
     .split(/[,;()]+/); // NB: solution phrases with commas are split up
   const stripBrackets = solution.replace(/[()]/g, ''); // "(a) word" => "a word"
-  const stripBracketed = solution.replace(/ ?\([\w, ]+\)+/g, ''); // "the (a) word" => "the word"
+  const stripBracketed = solution.replace(/ ?\(.+\)+/g, ''); // "the (a) word" => "the word"
 
   const solutions = [...splitSolutions, stripBrackets, stripBracketed, solution]
     .map(solution => solution.trim().toLowerCase())

@@ -13,12 +13,12 @@ export const DueDaysSummary: FC<{ dueBeforeDays: ProgressSummaryDue }> = ({
     );
   }
 
-  if (dueIn2Days > dueIn7Days / 2) {
+  if (dueIn2Days) {
     return (
       <>
-        Im Moment gibt's nichts zu lernen. Bis übermorgen{' '}
-        {dueIn2Days === 1 ? `wird 1 Vokabel` : `werden ${dueIn2Days} Vokabeln`}{' '}
-        fällig.
+        Im Moment gibt's <strong>nichts zu lernen</strong> 😎 Schau{' '}
+        <strong>übermorgen</strong> nochmals vorbei (voraussichtlich{' '}
+        {dueIn2Days === 1 ? `1 Vokabel` : `${dueIn2Days} Vokabeln`} zu lernen)
       </>
     );
   }
@@ -26,9 +26,8 @@ export const DueDaysSummary: FC<{ dueBeforeDays: ProgressSummaryDue }> = ({
   if (dueIn7Days) {
     return (
       <>
-        Im Moment gibt's nichts zu lernen. Bis in einer Woche{' '}
-        {dueIn7Days === 1 ? `wird 1 Vokabel` : `werden ${dueIn7Days} Vokabeln`}{' '}
-        fällig.
+        Im Moment gibt's <strong>nichts zu lernen</strong> 🎉 Schau in einigen
+        Tagen wieder vorbei.
       </>
     );
   }
