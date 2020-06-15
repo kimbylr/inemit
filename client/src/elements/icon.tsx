@@ -122,12 +122,13 @@ const icons = {
       <rect x="12" y="20" width="20" height="8" />
     </svg>
   ),
-  back: (width?: string) => (
-    <svg viewBox="0 0 51 36" fill="currentColor" height={width || '100%'}>
-      <path d="M1 18.15 L22.359 0.3 22.359 36 Z" />
-      <path d="M49.821 24.253 L19.308 24.253 19.308 12.047 49.821 12.047 Z" />
-    </svg>
-  ),
+  // back: (width?: string) => (
+  //   <svg viewBox="0 0 51 36" fill="currentColor" height={width || '100%'}>
+  //     <path d="M1 18.15 L22.359 0.3 22.359 36 Z" />
+  //     <path d="M49.821 24.253 L19.308 24.253 19.308 12.047 49.821 12.047 Z" />
+  //   </svg>
+  // ),
+  cancel: (width?: string) => icons.delete(width),
 };
 
 interface Props {

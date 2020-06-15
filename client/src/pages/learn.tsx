@@ -54,8 +54,8 @@ export const Learn: FC = () => {
     return (
       <Container height={height}>
         <Header>
-          <StyledLink to={`/${slug}`}>
-            <Icon type="back" width="20px" />
+          <StyledLink to={`/${slug}`} title="Zurück zur Übersicht">
+            <Icon type="cancel" width="20px" />
           </StyledLink>
         </Header>
         <Content height={height}>
@@ -126,8 +126,8 @@ export const Learn: FC = () => {
     <Container height={height}>
       <LearnProgress count={count} total={items.length} />
       <Header>
-        <StyledLink to={`/${slug}`}>
-          <Icon type="back" width="20px" />
+        <StyledLink to={`/${slug}`} title="Zurück zur Übersicht">
+          <Icon type="cancel" width="20px" />
         </StyledLink>
       </Header>
       <Content height={height}>
@@ -198,6 +198,7 @@ const Container = styled.div<{ height: number }>`
 
 const Header = styled.header`
   padding-bottom: 1rem;
+  text-align: right;
 `;
 
 const StyledLink = styled(Link)`
