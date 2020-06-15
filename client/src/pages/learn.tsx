@@ -157,7 +157,11 @@ export const Learn: FC = () => {
 
             {revising && !isCorrect && (
               <CorrectionBubbleContainer>
-                <Correction type="button" onClick={onAcceptCorrection}>
+                <Correction
+                  type="button"
+                  onClick={onAcceptCorrection}
+                  disabled={disableNext}
+                >
                   {solution}
                 </Correction>
               </CorrectionBubbleContainer>
@@ -303,6 +307,12 @@ const Correction = styled.button`
 
   outline: none;
   cursor: pointer;
+
+  :disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
   :focus {
     box-shadow: 0 0 10px ${({ theme: { colors } }) => colors.primary[100]};
   }

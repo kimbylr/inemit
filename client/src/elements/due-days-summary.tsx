@@ -16,9 +16,11 @@ export const DueDaysSummary: FC<{ dueBeforeDays: ProgressSummaryDue }> = ({
   if (dueIn2Days) {
     return (
       <>
-        Im Moment gibt's <strong>nichts zu lernen</strong> 😎 Schau{' '}
-        <strong>übermorgen</strong> nochmals vorbei (voraussichtlich{' '}
-        {dueIn2Days === 1 ? `1 Vokabel` : `${dueIn2Days} Vokabeln`} zu lernen)
+        Im Moment gibt's <strong>nichts zu lernen</strong> 😎 Schau übermorgen
+        nochmals vorbei, dann
+        {dueIn2Days === 1
+          ? ` ist 1 Vokabel dran.`
+          : ` sind ${dueIn2Days} Vokabeln dran.`}
       </>
     );
   }
