@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/kimbylr/inemit/compare/v1.1.0...v1.2.0) (2020-06-16)
+
+
+### Features
+
+* Vary interval till next due in order to  break up order and prevent everything due at once (API) ([312b228](https://github.com/kimbylr/inemit/commit/312b228a1be00c94c435a77e81b5e33a5e6ceeff))
+
 # [1.1.0](https://github.com/kimbylr/inemit/compare/v1.0.0...v1.1.0) (2020-06-16)
 
 
