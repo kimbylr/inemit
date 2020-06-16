@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useEffect, useRef, useState } from 'react';
 import styled, { css } from 'styled-components';
 import { ExpandableArea } from '../components/expandable-area';
 import { BatchImport } from '../compositions/batch-import';
@@ -25,6 +25,7 @@ export const EditList: FC = () => {
   const { getItems, deleteList } = useApi();
   const [items, setItems] = useState<LearnItem[]>([]);
   const [newItemIds, setNewItemIds] = useState<number[]>([1]);
+  const lastInputRef = useRef<HTMLInputElement | null>(null);
   const [state, setState] = useState<LoadingStates>(LoadingStates.initial);
   const { slug, goTo } = useRouting();
   const { lists, state: listsState, updateList, removeList } = useLists();
@@ -124,9 +125,9 @@ export const EditList: FC = () => {
       </Paragraph>
 
       <Paragraph>
-        <CautionButton onClick={onDeleteList}>
-          <Icon type="delete" width="14px" /> Liste löschen
-        </CautionButton>
+        <Button onClick={() => lastInputRef?.current?.focus()}>
+          <Icon type="add" width="17px" /> Vokabel hinzufügen …
+        </Button>
       </Paragraph>
 
       <StickyParagraph>
@@ -145,6 +146,16 @@ export const EditList: FC = () => {
           listId={list.id}
           onNameChanged={onNameChanged}
         />
+      </ExpandableArea>
+
+      <ExpandableArea
+        canExpand
+        teaserStyles={TeaserStyles}
+        teaser={<SubHeadingUncolored>Liste löschen</SubHeadingUncolored>}
+      >
+        <CautionButton onClick={onDeleteList}>
+          <Icon type="delete" width="14px" /> Liste löschen
+        </CautionButton>
       </ExpandableArea>
 
       <ExpandableArea
@@ -194,6 +205,7 @@ export const EditList: FC = () => {
           </LearnItem>
         ))}
         {newItemIds.map((id, index) => {
+          const isLast = index + 1 === newItemIds.length;
           const item = {
             id: `${id}`,
             prompt: '',
@@ -209,6 +221,7 @@ export const EditList: FC = () => {
                 listId={list.id}
                 onNewItemEdited={onNewItemEdited}
                 onNewItemSaved={onNewItemSaved}
+                lastInputRef={isLast ? lastInputRef : undefined}
               />
             </LearnItem>
           );

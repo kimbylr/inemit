@@ -11,6 +11,7 @@ interface Props {
   listId: string;
   index: number;
   item: LearnItemForEditing;
+  lastInputRef?: React.RefObject<HTMLInputElement>;
   onItemDeleted?(id: string): void;
   onNewItemEdited?(): void;
   onNewItemSaved?(item: LearnItem, tempId: string): void;
@@ -20,6 +21,7 @@ export const EditableItem: FC<Props> = ({
   listId,
   index,
   item,
+  lastInputRef,
   onItemDeleted = () => {},
   onNewItemEdited = () => {},
   onNewItemSaved = () => {},
@@ -138,6 +140,7 @@ export const EditableItem: FC<Props> = ({
             value={currentItem.solution}
             placeholder={savedItem.solution}
             onChange={e => onChangeSolution(e.target.value)}
+            ref={lastInputRef}
           />
           Vokabel
         </LabelWithSpacing>
