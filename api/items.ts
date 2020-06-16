@@ -1,6 +1,12 @@
 import * as dayjs from 'dayjs';
 import { Router } from 'express';
-import { mapItem, mapItems, recalcEasiness, recalcInterval } from './helpers';
+import {
+  getDue,
+  mapItem,
+  mapItems,
+  recalcEasiness,
+  recalcInterval,
+} from './helpers';
 import { LearnItem, List, Progress } from './models';
 
 const router = Router();
@@ -105,7 +111,7 @@ router.get('/learn/:count?', async ({ list, params: { count } }, res, next) => {
 });
 
 // report item progress when learned (correct/wrong)
-router.put('/:itemId/progress', async ({ list, params, body }, res, next) => {
+router.put('/:itemId/progress', async ({ params, body }, res, next) => {
   const { answerQuality } = body;
   if (
     typeof answerQuality !== 'number' ||
@@ -132,15 +138,12 @@ router.put('/:itemId/progress', async ({ list, params, body }, res, next) => {
 
     const isCorrect = answerQuality >= 3;
     const newInterval = recalcInterval(interval, easiness, isCorrect);
-    const newDue = isCorrect
-      ? dayjs().add(newInterval, 'day')
-      : dayjs().add(1, 'day');
 
     item.progress = new Progress({
       easiness: recalcEasiness(easiness, answerQuality),
       stage: isCorrect ? (stage >= 4 ? 4 : stage + 1) : 1,
       interval: newInterval,
-      due: newDue.toDate(),
+      due: getDue(interval),
       timesCorrect: isCorrect ? timesCorrect + 1 : timesCorrect,
       timesWrong: isCorrect ? timesWrong : timesWrong + 1,
       updated: new Date(),
