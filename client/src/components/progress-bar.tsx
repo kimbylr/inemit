@@ -11,7 +11,9 @@ export const ProgressBar: FC<ProgressBarProps> = ({ stages }) => (
   <Bar>
     {Object.entries(stages).map(([stage, count]) => (
       <BarPart
-        title={`Fach ${stage}: ${count} Vokabeln`}
+        title={`${stage}. Fach: ${count} ${
+          count === 1 ? 'Vokabel' : 'Vokabeln'
+        }`}
         stage={stage}
         count={count}
         key={stage}
