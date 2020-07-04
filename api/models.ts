@@ -31,6 +31,7 @@ export interface LearnItemType extends Document {
   updated: Date;
   prompt: string;
   solution: string;
+  flagged?: boolean;
   progress: ProgressType;
 }
 
@@ -39,6 +40,7 @@ const LearnItemSchema = new Schema<LearnItemType>({
   updated: { type: Date, default: Date.now },
   prompt: { type: String, required: true },
   solution: { type: String, required: true },
+  flagged: Boolean,
   progress: { type: ProgressSchema, default: new Progress() },
 });
 

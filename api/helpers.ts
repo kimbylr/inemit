@@ -42,7 +42,7 @@ export const mapList = (
 });
 
 export const mapItem = (
-  { _id, created, updated, prompt, solution, progress }: LearnItemType,
+  { _id, created, updated, prompt, solution, flagged, progress }: LearnItemType,
   includeProgress = false,
 ) => {
   return {
@@ -51,6 +51,7 @@ export const mapItem = (
     updated,
     prompt,
     solution,
+    flagged,
     progress: includeProgress ? progress : undefined,
   };
 };

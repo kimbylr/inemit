@@ -42,10 +42,11 @@ router.post('/', async ({ list, body: { items } }, res, next) => {
 // change an item
 router.put('/:itemId', async ({ list, params, body }, res, next) => {
   const { itemId } = params;
-  const { prompt, solution } = body;
+  const { prompt, solution, flagged } = body;
+  const setFlagged = typeof flagged === 'boolean';
 
-  if (!prompt || !solution) {
-    return next(new Error('Prompt + solution must be provided.'));
+  if (!prompt && !solution && !setFlagged) {
+    return next(new Error('Could not find a changeable property in body'));
   }
 
   try {
@@ -55,8 +56,11 @@ router.put('/:itemId', async ({ list, params, body }, res, next) => {
       return res.sendStatus(404);
     }
 
-    item.prompt = prompt;
-    item.solution = solution;
+    item.prompt = prompt || item.prompt;
+    item.solution = solution || item.solution;
+    if (setFlagged) {
+      item.flagged = flagged;
+    }
     item.updated = new Date();
     const changedItem = await item.save();
 
