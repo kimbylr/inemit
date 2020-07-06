@@ -35,7 +35,7 @@ interface AddItems {
 interface EditItem {
   listId: string;
   itemId: string;
-  item: BaseLearnItem;
+  item: Partial<BaseLearnItem>;
 }
 interface DeleteItem {
   listId: string;

@@ -13,6 +13,7 @@ import {
   StickyParagraph,
   SubHeading,
   SubHeadingUncolored,
+  SubSubHeading,
 } from '../elements/typography';
 import { useApi } from '../hooks/use-api';
 import { useLists } from '../hooks/use-lists';
@@ -117,6 +118,8 @@ export const EditList: FC = () => {
     goTo(slug!);
   };
 
+  const flaggedItems = items.filter(({ flagged }) => flagged);
+
   return (
     <>
       <Heading>{list.name}</Heading>
@@ -193,6 +196,29 @@ export const EditList: FC = () => {
           Muttersprache).
         </li>
       </LearnItemsIntroList>
+
+      {/** to be replaced with filtering */
+      flaggedItems.length > 0 && (
+        <>
+          <SubSubHeading>
+            Markiert <Icon type="flag" width="16px" />
+          </SubSubHeading>
+          <LearnItemList>
+            {flaggedItems.map((item, index) => (
+              <LearnItem key={item.id}>
+                <EditableItem
+                  item={item}
+                  index={index + 1}
+                  listId={list.id}
+                  onItemDeleted={onItemDeleted}
+                />
+              </LearnItem>
+            ))}
+          </LearnItemList>
+          <Divider />
+          <SubSubHeading>Alle</SubSubHeading>
+        </>
+      )}
       <LearnItemList>
         {items.map((item, index) => (
           <LearnItem key={item.id}>
@@ -271,4 +297,10 @@ const LearnItemList = styled.ul`
 const LearnItem = styled.li`
   border-top: 4px dotted ${({ theme: { colors } }) => colors.grey[85]};
   padding: 16px 0 4px;
+`;
+
+const Divider = styled.hr`
+  margin: 1rem 0 2rem;
+  border: none;
+  border-top: 4px dotted ${({ theme: { colors } }) => colors.grey[85]};
 `;

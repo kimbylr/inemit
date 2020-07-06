@@ -1,6 +1,7 @@
 import React, { FC, useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { FlagButton } from '../components/flag-button';
 import { LearnProgress } from '../components/learn-progress';
 import { Button } from '../elements/button';
 import { Icon } from '../elements/icon';
@@ -65,7 +66,7 @@ export const Learn: FC = () => {
     );
   }
 
-  const { prompt, solution, id: itemId } = items[current];
+  const { id: itemId, prompt, solution, flagged } = items[current];
 
   const check = () => {
     setIsCorrect(evaluateAnswer(answer, solution));
@@ -129,6 +130,7 @@ export const Learn: FC = () => {
         <StyledLink to={`/${slug}`} title="Zurück zur Übersicht">
           <Icon type="cancel" width="20px" />
         </StyledLink>
+        <FlagButton flagged={flagged} listId={list.id} itemId={itemId} />
       </Header>
       <Content height={height}>
         <Prompt>{prompt}</Prompt>
@@ -202,7 +204,9 @@ const Container = styled.div<{ height: number }>`
 
 const Header = styled.header`
   padding-bottom: 1rem;
-  text-align: right;
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-between;
 `;
 
 const StyledLink = styled(Link)`

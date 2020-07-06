@@ -45,6 +45,7 @@ export interface ListWithProgress extends ListSummary {
 export interface BaseLearnItem {
   prompt: string;
   solution: string;
+  flagged?: boolean;
 }
 export interface LearnItemForEditing extends BaseLearnItem {
   id: string;

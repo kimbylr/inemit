@@ -1,6 +1,7 @@
 import React, { FC, useState } from 'react';
 import styled from 'styled-components';
 import { EditStatus } from '../components/edit-status';
+import { FlagButton } from '../components/flag-button';
 import { Icon } from '../elements/icon';
 import { Input } from '../elements/input';
 import { Label } from '../elements/label';
@@ -116,10 +117,16 @@ export const EditableItem: FC<Props> = ({
     }
   };
 
+  const { flagged } = item;
+
   return (
     <Container onSubmit={submit}>
       <MetaColumn>
-        <Index>{index}</Index>
+        {flagged ? (
+          <FlagButton flagged={flagged} listId={listId} itemId={item.id} />
+        ) : (
+          <Index>{index}</Index>
+        )}
         {!item.isNew && (
           <DeleteButton
             type="button"

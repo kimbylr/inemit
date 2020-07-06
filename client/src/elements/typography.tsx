@@ -37,3 +37,7 @@ export const SubHeadingUncolored = styled.h3`
 export const SubHeading = styled(SubHeadingUncolored)`
   color: ${({ theme: { colors } }) => colors.primary[150]};
 `;
+
+export const SubSubHeading = styled(SubHeading).attrs({ as: 'h4' })`
+  font-size: ${({ theme: { font } }) => font.sizes.sm};
+`;

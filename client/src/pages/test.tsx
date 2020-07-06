@@ -94,10 +94,27 @@ export const Test: FC = () => {
           <Icon type="sync" />
         </Böxli>
         <Böxli tint={98}>
-          <Rotating>
-            <Icon type="sync" />
-          </Rotating>
+          <Icon type="flag" />
         </Böxli>
+      </div>
+      <div style={{ clear: 'both', margin: '10px 0' }}>&nbsp;</div>
+
+      <div>
+        <Box tint={98}>
+          <Icon type="addList" />
+        </Box>
+        <Box tint={98}>
+          <Icon type="logo" />
+        </Box>
+        <Box tint={98}>
+          <Icon type="next" />
+        </Box>
+        <Box tint={98}>
+          <Icon type="cancel" />
+        </Box>
+        <Box tint={98}>
+          <Icon type="flag" />
+        </Box>
       </div>
 
       <div style={{ clear: 'both', margin: '10px 0' }}>&nbsp;</div>
