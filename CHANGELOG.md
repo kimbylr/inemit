@@ -1,3 +1,16 @@
+# [1.3.0](https://github.com/kimbylr/inemit/compare/v1.2.0...v1.3.0) (2020-07-06)
+
+
+### Bug Fixes
+
+* Progress bar part title singular ([d66f4d5](https://github.com/kimbylr/inemit/commit/d66f4d522e06b86e1629558e956149d568116b54))
+
+
+### Features
+
+* Add flagged propery to items (API) ([d3217ba](https://github.com/kimbylr/inemit/commit/d3217bafbf14f66eb50bd16fbe3bfc9c3ffc7901))
+* Add flagging ([763dbe5](https://github.com/kimbylr/inemit/commit/763dbe5d7871fbfbc2b5fecde1bbb0b76c8e5aea))
+
 # [1.2.0](https://github.com/kimbylr/inemit/compare/v1.1.0...v1.2.0) (2020-06-16)
 
 
