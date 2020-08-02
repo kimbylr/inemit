@@ -7,6 +7,10 @@ import { BaseLearnItem, ExcludesNull, LearnItem } from '../models';
 
 const PLACEHOLDER = `to learn	lernen
 …	…`;
+const sucessNotice = (count: number) =>
+  `Import erfolgreich. ${
+    count === 1 ? '1 Aufgabe wurde' : `${count} Aufgaben wurden`
+  } hinzugefügt.`;
 
 interface Props {
   listId: string;
@@ -34,6 +38,7 @@ export const BatchImport: FC<Props> = ({ listId, onBatchImportDone }) => {
       const items = await addItems({ listId, items: parsedItems });
       onBatchImportDone(items);
       setText('');
+      alert(sucessNotice(items.length));
     } catch (error) {
       console.error(error);
     } finally {
