@@ -14,6 +14,7 @@ interface Props {
   item: LearnItemForEditing;
   lastInputRef?: React.RefObject<HTMLInputElement>;
   onItemDeleted?(id: string): void;
+  onItemSaved?(item: LearnItem): void;
   onNewItemEdited?(): void;
   onNewItemSaved?(item: LearnItem, tempId: string): void;
 }
@@ -24,6 +25,7 @@ export const EditableItem: FC<Props> = ({
   item,
   lastInputRef,
   onItemDeleted = () => {},
+  onItemSaved = () => {},
   onNewItemEdited = () => {},
   onNewItemSaved = () => {},
 }) => {
@@ -84,12 +86,14 @@ export const EditableItem: FC<Props> = ({
       }
     } else {
       try {
-        const { prompt, solution } = await editItem({
+        const savedItem = await editItem({
           listId,
           itemId: item.id,
           item: { prompt: currentItem.prompt, solution: currentItem.solution },
         });
-        setSavedItem({ prompt, solution }); // TODO: propagate to store
+        const { prompt, solution } = savedItem;
+        setSavedItem({ prompt, solution });
+        onItemSaved(savedItem); // TODO: propagate to store
       } catch (error) {
         setError('Fehler beim speichern. Klicken, um nochmals zu versuchen.');
       } finally {
@@ -117,7 +121,11 @@ export const EditableItem: FC<Props> = ({
     }
   };
 
-  const { flagged } = item;
+  const { flagged, doubletOf } = item;
+  const isDoublet = typeof doubletOf === 'number';
+  const doubletTitle = isDoublet
+    ? `Vokabel ist ein Duplikat von ${doubletOf! + 1}`
+    : undefined;
 
   return (
     <Container onSubmit={submit}>
@@ -141,7 +149,9 @@ export const EditableItem: FC<Props> = ({
 
       <InputsColumn>
         <LabelWithSpacing>
-          <Input
+          <SolutionInput
+            doublet={isDoublet}
+            title={doubletTitle}
             autoCapitalize="none"
             onBlur={submit}
             value={currentItem.solution}
@@ -216,6 +226,11 @@ const InputsColumn = styled.div`
   display: flex;
   flex-grow: 1;
   flex-wrap: wrap;
+`;
+
+const SolutionInput = styled(Input)<{ doublet?: boolean }>`
+  ${({ doublet, theme: { colors } }) =>
+    doublet ? `border-color: ${colors.orange[100]}` : ''}
 `;
 
 const LabelWithSpacing = styled(Label)`

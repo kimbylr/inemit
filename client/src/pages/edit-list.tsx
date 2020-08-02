@@ -15,16 +15,17 @@ import {
   SubHeadingUncolored,
   SubSubHeading,
 } from '../elements/typography';
+import { markDoublets } from '../helpers/mark-doublets';
 import { useApi } from '../hooks/use-api';
 import { useLists } from '../hooks/use-lists';
 import { useRouting } from '../hooks/use-routing';
-import { LearnItem, LoadingStates } from '../models';
+import { LearnItem, LearnItemWithDoublet, LoadingStates } from '../models';
 
 const DELETE_PROMPT = `Gib "JA" ein, um diese Liste unwiderruflich zu löschen.`;
 
 export const EditList: FC = () => {
   const { getItems, deleteList } = useApi();
-  const [items, setItems] = useState<LearnItem[]>([]);
+  const [items, setItems] = useState<LearnItemWithDoublet[]>([]);
   const [newItemIds, setNewItemIds] = useState<number[]>([1]);
   const lastInputRef = useRef<HTMLInputElement | null>(null);
   const [state, setState] = useState<LoadingStates>(LoadingStates.initial);
@@ -41,7 +42,7 @@ export const EditList: FC = () => {
 
     try {
       const items = await getItems(list.id);
-      setItems(items);
+      setItems(markDoublets(items));
       setState(LoadingStates.loaded);
     } catch (error) {
       console.error(error);
@@ -81,7 +82,15 @@ export const EditList: FC = () => {
   };
 
   const onItemsAdded = (newItems: LearnItem[]) => {
-    setItems(items => [...items, ...newItems]);
+    setItems(items => markDoublets([...items, ...newItems]));
+  };
+
+  const onItemSaved = (editedItem: LearnItem) => {
+    setItems(items =>
+      markDoublets(
+        items.map(item => (editedItem.id === item.id ? editedItem : item)),
+      ),
+    );
   };
 
   const onItemDeleted = (id: string) => {
@@ -227,6 +236,7 @@ export const EditList: FC = () => {
               index={index + 1}
               listId={list.id}
               onItemDeleted={onItemDeleted}
+              onItemSaved={onItemSaved}
             />
           </LearnItem>
         ))}

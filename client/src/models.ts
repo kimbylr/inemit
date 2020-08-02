@@ -50,6 +50,7 @@ export interface BaseLearnItem {
 export interface LearnItemForEditing extends BaseLearnItem {
   id: string;
   isNew?: boolean;
+  doubletOf?: number;
 }
 export interface LearnItemForLearning extends BaseLearnItem {
   id: string;
@@ -61,6 +62,9 @@ export interface LearnItem extends BaseLearnItem {
   created: ISODate;
   updated: ISODate;
   progress: Progress;
+}
+export interface LearnItemWithDoublet extends LearnItem {
+  doubletOf?: number;
 }
 
 export interface Progress {
