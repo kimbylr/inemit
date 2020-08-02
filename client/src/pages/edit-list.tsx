@@ -94,7 +94,7 @@ export const EditList: FC = () => {
   };
 
   const onItemDeleted = (id: string) => {
-    setItems(items => items.filter(item => item.id !== id));
+    setItems(items => markDoublets(items.filter(item => item.id !== id)));
   };
 
   const onNewItemEdited = () => {
