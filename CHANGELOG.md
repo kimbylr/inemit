@@ -1,3 +1,10 @@
+# [1.4.0](https://github.com/kimbylr/inemit/compare/v1.3.0...v1.4.0) (2020-08-02)
+
+
+### Features
+
+* Mark doublets in edit mode ([c2857c5](https://github.com/kimbylr/inemit/commit/c2857c52bb20f1f229903919260f4f7c637eddcc))
+
 # [1.3.0](https://github.com/kimbylr/inemit/compare/v1.2.0...v1.3.0) (2020-07-06)
 
 
