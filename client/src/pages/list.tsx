@@ -53,7 +53,7 @@ export const List: FC = () => {
     );
   }
 
-  const dueToday = list.progress.dueBeforeDays[0];
+  const { dueToday, dueTomorrow } = list.progress;
   const editList = () => goTo(list.slug, 'edit');
   const startLearning = () => goTo(list.slug, 'learn');
 
@@ -72,7 +72,7 @@ export const List: FC = () => {
       )}
       <Paragraph>
         In dieser Liste gibt es <strong>{list.itemsCount} Vokabeln</strong>.{' '}
-        <DueDaysSummary dueBeforeDays={list.progress.dueBeforeDays} />
+        <DueDaysSummary dueToday={dueToday} dueTomorrow={dueTomorrow} />
       </Paragraph>
       <Paragraph>
         {dueToday > 0 && (

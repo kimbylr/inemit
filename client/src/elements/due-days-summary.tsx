@@ -1,9 +1,10 @@
 import React, { FC } from 'react';
-import { ProgressSummaryDue } from '../models';
 
-export const DueDaysSummary: FC<{ dueBeforeDays: ProgressSummaryDue }> = ({
-  dueBeforeDays: { 0: dueToday, 2: dueIn2Days, 7: dueIn7Days },
-}) => {
+interface Props {
+  dueToday: number;
+  dueTomorrow: number;
+}
+export const DueDaysSummary: FC<Props> = ({ dueToday, dueTomorrow }) => {
   if (dueToday) {
     return (
       <>
@@ -13,23 +14,14 @@ export const DueDaysSummary: FC<{ dueBeforeDays: ProgressSummaryDue }> = ({
     );
   }
 
-  if (dueIn2Days) {
+  if (dueTomorrow) {
     return (
       <>
-        Im Moment gibt's <strong>nichts zu lernen</strong> 😎 Schau übermorgen
+        Im Moment gibt's <strong>nichts zu lernen</strong> 😎 Schau morgen
         nochmals vorbei, dann
-        {dueIn2Days === 1
+        {dueTomorrow === 1
           ? ` ist 1 Vokabel dran.`
-          : ` sind ${dueIn2Days} Vokabeln dran.`}
-      </>
-    );
-  }
-
-  if (dueIn7Days) {
-    return (
-      <>
-        Im Moment gibt's <strong>nichts zu lernen</strong> 🎉 Schau in einigen
-        Tagen wieder vorbei.
+          : ` sind ${dueTomorrow} Vokabeln dran.`}
       </>
     );
   }

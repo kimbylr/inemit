@@ -16,17 +16,10 @@ export interface ProgressSummaryStages {
   '3': number;
   '4': number;
 }
-export interface ProgressSummaryDue {
-  '0': number;
-  '2': number;
-  '7': number;
-  '14': number;
-  '30': number;
-  more: number;
-}
 export interface ProgressSummary {
   stages: ProgressSummaryStages;
-  dueBeforeDays: ProgressSummaryDue;
+  dueToday: number;
+  dueTomorrow: number;
 }
 
 export interface ListSummary {

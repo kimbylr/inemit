@@ -12,20 +12,22 @@ export const getProgressSummary = (items: LearnItemType[]) => {
     { 1: 0, 2: 0, 3: 0, 4: 0 },
   );
 
-  const dayIntervals = [0, 2, 7, 14, 30];
-  const intervalObj = { more: 0 };
-  dayIntervals.forEach((i) => (intervalObj[i] = 0));
-  const dueBeforeDays = items.reduce((acc, { progress: { due } }) => {
-    const dueIn = dayIntervals.find((interval) =>
-      dayjs(due).isBefore(dayjs().add(interval, 'day')),
-    );
+  const due = items.reduce(
+    (acc, { progress: { due } }) => {
+      if (dayjs(due).isBefore(dayjs())) {
+        return { ...acc, dueToday: acc.dueToday + 1 };
+      }
 
-    return typeof dueIn === 'number'
-      ? { ...acc, [dueIn]: (acc[dueIn] || 0) + 1 }
-      : { ...acc, more: acc.more + 1 };
-  }, intervalObj);
+      if (dayjs(due).isBefore(dayjs().add(1, 'day'))) {
+        return { ...acc, dueTomorrow: acc.dueTomorrow + 1 };
+      }
 
-  return { stages, dueBeforeDays };
+      return acc;
+    },
+    { dueToday: 0, dueTomorrow: 0 },
+  );
+
+  return { stages, ...due };
 };
 
 export const mapList = (
