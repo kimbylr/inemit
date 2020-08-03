@@ -1,5 +1,5 @@
 import * as dayjs from 'dayjs';
-import { LearnItemType, ListType } from './models';
+import { LearnItemType, ListType, Progress } from './models';
 
 export const getUserId = (req: any): string | null => req?.user?.sub ?? null;
 
@@ -92,4 +92,13 @@ export const getDue = (interval: number, blur = 0.2) => {
     .add(interval, 'day')
     .add(randomOffset * interval * 24 * 60, 'minute')
     .toDate();
+};
+
+export const getInitialProgress = (stage: any) => {
+  const stages = {
+    2: { stage: 2, interval: 6 },
+    3: { stage: 3, interval: 15 },
+  };
+
+  return new Progress({ due: getDue(1), ...(stages[stage] || {}) });
 };

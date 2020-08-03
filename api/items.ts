@@ -2,6 +2,7 @@ import * as dayjs from 'dayjs';
 import { Router } from 'express';
 import {
   getDue,
+  getInitialProgress,
   mapItem,
   mapItems,
   recalcEasiness,
@@ -21,13 +22,18 @@ router.get('/', async ({ list: { items } }, res, next) => {
 });
 
 // add items
-router.post('/', async ({ list, body: { items } }, res, next) => {
-  if (!items || !items.length) {
+router.post('/', async ({ list, body: { items, stage } }, res, next) => {
+  if (!items || !Array.isArray(items) || !items.length) {
     return next(new Error('No items provided.'));
   }
 
+  const itemsWithProgress = items.map((item) => ({
+    ...item,
+    progress: getInitialProgress(stage),
+  }));
+
   try {
-    const addedItems = await LearnItem.insertMany(items as object[]);
+    const addedItems = await LearnItem.insertMany(itemsWithProgress);
     const addedItemsIds = addedItems.map(({ _id }) => _id);
     await List.findByIdAndUpdate(list._id, {
       $push: { items: { $each: addedItemsIds } },
@@ -147,7 +153,7 @@ router.put('/:itemId/progress', async ({ params, body }, res, next) => {
       easiness: recalcEasiness(easiness, answerQuality),
       stage: isCorrect ? (stage >= 4 ? 4 : stage + 1) : 1,
       interval: newInterval,
-      due: getDue(interval),
+      due: getDue(newInterval),
       timesCorrect: isCorrect ? timesCorrect + 1 : timesCorrect,
       timesWrong: isCorrect ? timesWrong : timesWrong + 1,
       updated: new Date(),

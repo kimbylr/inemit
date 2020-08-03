@@ -31,6 +31,7 @@ interface EditListName {
 interface AddItems {
   listId: string;
   items: BaseLearnItem[];
+  stage?: 1 | 2 | 3 | 4;
 }
 interface EditItem {
   listId: string;
@@ -134,12 +135,12 @@ export const useApi = () => {
       url: routes.items(listId),
     });
 
-  const addItems = async ({ listId, items }: AddItems) =>
+  const addItems = async ({ listId, items, stage }: AddItems) =>
     fetchAndUnpack<LearnItem[]>({
       getToken,
       url: routes.items(listId),
       method: 'POST',
-      body: { items },
+      body: { items, stage },
     });
 
   const editItem = async ({ listId, itemId, item }: EditItem) =>

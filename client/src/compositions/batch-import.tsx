@@ -1,16 +1,17 @@
 import React, { FC, useState } from 'react';
 import styled from 'styled-components';
 import { Button } from '../elements/button';
+import { Checkbox } from '../elements/checkbox';
 import { Textarea } from '../elements/textarea';
 import { useApi } from '../hooks/use-api';
 import { BaseLearnItem, ExcludesNull, LearnItem } from '../models';
 
 const PLACEHOLDER = `to learn	lernen
 …	…`;
-const sucessNotice = (count: number) =>
+const successNotice = (count: number, stage: 1 | 3) =>
   `Import erfolgreich. ${
     count === 1 ? '1 Aufgabe wurde' : `${count} Aufgaben wurden`
-  } hinzugefügt.`;
+  } zu Fach ${stage} hinzugefügt.`;
 
 interface Props {
   listId: string;
@@ -20,25 +21,26 @@ interface Props {
 export const BatchImport: FC<Props> = ({ listId, onBatchImportDone }) => {
   const [text, setText] = useState('');
   const [disabled, setDisabled] = useState(false);
+  const [stage3, setStage3] = useState(false);
   const { addItems } = useApi();
 
   const submit = async (event: React.MouseEvent) => {
     event.preventDefault();
 
     const parsedItems = parseList(text);
-
     if (!parsedItems) {
       alert('Keine Vokabelpaare gefunden.');
       return;
     }
 
     setDisabled(true);
-
     try {
-      const items = await addItems({ listId, items: parsedItems });
+      const stage = stage3 ? 3 : 1;
+      const items = await addItems({ listId, items: parsedItems, stage });
       onBatchImportDone(items);
       setText('');
-      alert(sucessNotice(items.length));
+      setStage3(false);
+      alert(successNotice(items.length, stage));
     } catch (error) {
       console.error(error);
     } finally {
@@ -55,9 +57,19 @@ export const BatchImport: FC<Props> = ({ listId, onBatchImportDone }) => {
         disabled={disabled}
         rows={5}
       />
-      <Button type="submit" disabled={disabled} onClick={submit}>
-        importieren
-      </Button>
+      <Footer>
+        <ImportToStage3>
+          <Checkbox checked={stage3} onCheck={() => setStage3(s => !s)}>
+            Die Vokabeln sind mir schon bekannt und ich möchte sie direkt ins 3.
+            Fach importieren.
+          </Checkbox>
+        </ImportToStage3>
+        <div>
+          <Button type="submit" disabled={disabled} onClick={submit}>
+            importieren
+          </Button>
+        </div>
+      </Footer>
     </Container>
   );
 };
@@ -74,6 +86,24 @@ const Container = styled.form`
   display: flex;
   flex-direction: column;
   align-items: flex-end;
+`;
+
+const Footer = styled.div`
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-between;
+
+  @media (max-width: 450px) {
+    flex-direction: column;
+    align-items: flex-end;
+  }
+`;
+
+const ImportToStage3 = styled.div`
+  padding-top: 2px;
+  margin-right: 1rem;
+  margin-bottom: 1rem;
 `;
 
 // TODO: more info about wrong formatting
