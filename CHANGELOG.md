@@ -1,3 +1,17 @@
+# [1.5.0](https://github.com/kimbylr/inemit/compare/v1.4.0...v1.5.0) (2020-08-03)
+
+
+### Bug Fixes
+
+* Update marked doublets also on delete ([6675db8](https://github.com/kimbylr/inemit/commit/6675db886fdbdb0dd5c31f52603e2b09f8dd4429))
+
+
+### Features
+
+* Allow import to higher stage ([8155003](https://github.com/kimbylr/inemit/commit/81550037b17cd40af001a4e0417d8b5e965b8038))
+* Show success alert when import succeeded ([75708fb](https://github.com/kimbylr/inemit/commit/75708fbd4b92ae6d7f08c4be7b6388f48803f777))
+* Simplify due summary ([b09db31](https://github.com/kimbylr/inemit/commit/b09db31fae6a041ffe2df6cd8c2ef2018811aa68))
+
 # [1.4.0](https://github.com/kimbylr/inemit/compare/v1.3.0...v1.4.0) (2020-08-02)
 
 
