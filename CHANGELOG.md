@@ -1,3 +1,10 @@
+# [1.6.0](https://github.com/kimbylr/inemit/compare/v1.5.0...v1.6.0) (2020-08-27)
+
+
+### Features
+
+* Clean up home + menu ([3e4f49a](https://github.com/kimbylr/inemit/commit/3e4f49a2e163739b2c93da769e0b3474b98a8e54))
+
 # [1.5.0](https://github.com/kimbylr/inemit/compare/v1.4.0...v1.5.0) (2020-08-03)
 
 
