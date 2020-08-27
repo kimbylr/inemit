@@ -12,13 +12,16 @@ export const theme = {
     secondary: {
       100: '#8CD867',
       50: '#ABE290',
+      20: '#CDEFBD',
     },
     yellow: {
       100: '#E5E059',
       50: '#EFEC9C',
+      20: '#F1EDA7',
     },
     orange: {
       100: '#FFC15E',
+      20: '#FFE0AD',
     },
     grey: {
       10: '#121212', // aka black

@@ -87,7 +87,7 @@ export const recalcInterval = (
 export const getDue = (interval: number, blur = 0.2) => {
   // next due is not set to _exactly_ x days for 2 reasons:
   // - learning a big batch would result in another spike in 1/6/... days
-  // - shuffling (same order tends to be internalised; succesive voc. can be related)
+  // - shuffling (same order tends to be internalised; successive voc. can be related)
   const randomOffset = Math.random() * blur * 2 - blur;
 
   return dayjs()
