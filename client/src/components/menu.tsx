@@ -11,18 +11,14 @@ import { useRouting } from '../hooks/use-routing';
 import { ExpandableArea } from './expandable-area';
 
 export const Menu: FC = () => {
-  const { user, login, logout } = useAuth();
+  const { user, logout } = useAuth();
   const [open, setOpen] = useState(false);
   const { lists, state, storeList } = useLists();
   const { goTo, slug } = useRouting();
   const { addList } = useApi();
 
   if (!user) {
-    return (
-      <Container>
-        <OutlineButton onClick={() => login()}>Login</OutlineButton>
-      </Container>
-    );
+    return null;
   }
 
   if (state === 'loading' || state === 'initial') {
@@ -69,45 +65,45 @@ export const Menu: FC = () => {
 
   return (
     <Container>
-      <LogoutButtonContainer>
-        <OutlineButton onClick={() => logout()}>Logout</OutlineButton>
-      </LogoutButtonContainer>
-
-      <ChooseListContainer>
-        <ExpandableArea
-          canExpand={hasLists}
-          state={[open, setOpen]}
-          teaserStyles={TeaserStyles}
-          teaser={
-            <Title>
-              {!hasLists && (
-                <OutlineButton onClick={onAddList}>
-                  <Icon type="addList" width="14px" /> Neue Liste
-                </OutlineButton>
-              )}
-              {hasLists && !activeList && 'Liste auswählen...'}
-              {hasLists && activeList && activeList.name}
-            </Title>
-          }
-        >
-          {hasLists && (
-            <List>
-              {inactiveLists.map(list => (
-                <ListItem key={list.id}>
-                  <ListLink to={`/${list.slug}`} onClick={() => setOpen(false)}>
-                    {list.name}
-                  </ListLink>
-                </ListItem>
-              ))}
-              <ListItem>
-                <OutlineButton onClick={onAddList}>
-                  <Icon type="addList" width="14px" /> Neue Liste
-                </OutlineButton>
+      <ExpandableArea
+        canExpand={hasLists}
+        state={[open, setOpen]}
+        teaserStyles={TeaserStyles}
+        teaser={
+          <Title>
+            {!hasLists && (
+              <OutlineButton onClick={onAddList}>
+                <Icon type="addList" width="14px" /> Neue Liste
+              </OutlineButton>
+            )}
+            {hasLists && !activeList && 'Liste auswählen...'}
+            {hasLists && activeList && activeList.name}
+          </Title>
+        }
+      >
+        {hasLists && (
+          <List>
+            {inactiveLists.map(list => (
+              <ListItem key={list.id}>
+                <ListLink to={`/${list.slug}`} onClick={() => setOpen(false)}>
+                  {list.name}
+                </ListLink>
               </ListItem>
-            </List>
-          )}
-        </ExpandableArea>
-      </ChooseListContainer>
+            ))}
+            <ListItem>
+              <OutlineButton onClick={onAddList}>
+                <Icon type="addList" width="14px" /> Neue Liste
+              </OutlineButton>
+            </ListItem>
+          </List>
+        )}
+
+        <LogoutButtonContainer>
+          <OutlineButton caution onClick={logout}>
+            Logout
+          </OutlineButton>
+        </LogoutButtonContainer>
+      </ExpandableArea>
     </Container>
   );
 };
@@ -118,8 +114,7 @@ const Container = styled.nav`
   padding: 0.75rem 1rem 0.5rem;
 
   display: flex;
-  flex-direction: row-reverse;
-  justify-content: space-between;
+  justify-content: center;
 
   background: linear-gradient(
     to bottom,
@@ -144,7 +139,6 @@ const Container = styled.nav`
 const Title = styled.h3`
   font-weight: ${({ theme: { font } }) => font.weights.bold};
   font-size: ${({ theme: { font } }) => font.sizes.sm};
-  text-align: left;
   margin: 0.5rem 0 0.25rem;
 `;
 
@@ -154,6 +148,7 @@ const List = styled.ul`
   list-style: none;
   display: flex;
   flex-direction: column;
+  align-items: center;
 `;
 const ListItem = styled.li`
   margin: 0.5rem 0;
@@ -172,6 +167,8 @@ const ListLink = styled(Link)`
 
 const TeaserStyles = css`
   margin-bottom: 0.25rem;
+  width: 100%;
+  justify-content: center;
   color: ${({ theme: { colors } }) => colors.primary[150]};
 
   :hover {
@@ -179,9 +176,12 @@ const TeaserStyles = css`
   }
 `;
 
-const OutlineButton = styled(Button)`
-  color: ${({ theme: { colors } }) => colors.primary[150]};
-  border: 1px solid ${({ theme: { colors } }) => colors.primary[150]};
+const OutlineButton = styled(Button)<{ caution?: boolean }>`
+  color: ${({ caution, theme: { colors } }) =>
+    caution ? colors.negative[150] : colors.primary[150]};
+  border: 1px solid
+    ${({ caution, theme: { colors } }) =>
+      caution ? colors.negative[150] : colors.primary[150]};
   background: none;
   box-shadow: none;
 
@@ -197,12 +197,9 @@ const OutlineButton = styled(Button)`
   }
 `;
 
-const LoginContainer = styled.div`
+const ErrorContainer = styled.div`
   margin: 0.5rem 0;
   text-align: center;
-`;
-
-const ErrorContainer = styled(LoginContainer)`
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -213,12 +210,8 @@ const ErrorContainer = styled(LoginContainer)`
   }
 `;
 
-const ChooseListContainer = styled.div`
-  margin-top: 0.375rem;
-  word-break: break-word;
-`;
-
 const LogoutButtonContainer = styled.div`
-  margin-top: 0.25rem;
-  margin-left: 1rem;
+  margin: 1rem 0 0.5rem;
+  display: flex;
+  justify-content: center;
 `;
