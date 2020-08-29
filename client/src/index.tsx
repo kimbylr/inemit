@@ -9,6 +9,7 @@ import { Menu } from './components/menu';
 import { NotificationBar } from './components/notification-bar';
 import { AuthProvider } from './helpers/auth';
 import { PrivateRoute } from './helpers/private-route';
+import { About } from './pages/about';
 import { EditList } from './pages/edit-list';
 import { Home } from './pages/home';
 import { Learn } from './pages/learn';
@@ -31,6 +32,7 @@ const App = () => (
               <Main>
                 <Switch>
                   <Route exact path="/" component={Home} />
+                  <Route exact path="/about" component={About} />
                   <PrivateRoute path="/:slug/edit" component={EditList} />
                   <PrivateRoute path="/:slug" component={List} />
                 </Switch>
