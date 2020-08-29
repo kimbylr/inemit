@@ -1,3 +1,17 @@
+# [1.8.0](https://github.com/kimbylr/inemit/compare/v1.7.0...v1.8.0) (2020-08-29)
+
+
+### Bug Fixes
+
+* Checkbox onChange instead of onClick ([766246f](https://github.com/kimbylr/inemit/commit/766246fbda0a6ae644dc211c752173b0ce71a14d))
+* Only re-route after login if on home ([7548517](https://github.com/kimbylr/inemit/commit/7548517536ad531e7261f9e7aa7f4331e2c0b718))
+
+
+### Features
+
+* Add basic desktop layout ([f928338](https://github.com/kimbylr/inemit/commit/f928338866ad54e1a55ed500256e8b0393b2f3ee))
+* Show flagged items on list overview page ([9d9a55f](https://github.com/kimbylr/inemit/commit/9d9a55f3941e9ee43df877cf89f36c6fc6fa35f4))
+
 # [1.7.0](https://github.com/kimbylr/inemit/compare/v1.6.0...v1.7.0) (2020-08-29)
 
 
