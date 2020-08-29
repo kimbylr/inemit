@@ -1,3 +1,11 @@
+# [1.7.0](https://github.com/kimbylr/inemit/compare/v1.6.0...v1.7.0) (2020-08-29)
+
+
+### Features
+
+* Go to last learnt list after login ([1ec6220](https://github.com/kimbylr/inemit/commit/1ec6220577e781e4764d355f56d6b9bd72c34eb6))
+* Move in-depth explanation to separate page ([08199dc](https://github.com/kimbylr/inemit/commit/08199dcf7c482ae9cf4b291926b0676317f10a93))
+
 # [1.6.0](https://github.com/kimbylr/inemit/compare/v1.5.0...v1.6.0) (2020-08-27)
 
 
