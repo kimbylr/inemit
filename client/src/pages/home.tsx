@@ -4,12 +4,13 @@ import { Button } from '../elements/button';
 import { Link } from '../elements/link';
 import { Heading, Paragraph } from '../elements/typography';
 import { useAuth } from '../helpers/auth';
+import { PageLayout } from '../layout/page-layout';
 
 export const Home: FC = () => {
   const { user, login } = useAuth();
 
   return (
-    <div>
+    <PageLayout>
       <Heading>inemit statt Bullshit</Heading>
       <Paragraph>
         Lernen heisst Wiederholen. Wiederholen braucht Zeit. Zeit spart, wer
@@ -27,7 +28,7 @@ export const Home: FC = () => {
           </LoginButton>
         </CenteredParagraph>
       )}
-    </div>
+    </PageLayout>
   );
 };
 

@@ -9,6 +9,7 @@ import { Spinner } from '../elements/spinner';
 import { Heading, Paragraph } from '../elements/typography';
 import { useApi } from '../hooks/use-api';
 import { useRouting } from '../hooks/use-routing';
+import { PageLayout } from '../layout/page-layout';
 import { ListWithProgress, LoadingStates } from '../models';
 
 export const List: FC = () => {
@@ -58,7 +59,7 @@ export const List: FC = () => {
   const startLearning = () => goTo(list.slug, 'learn');
 
   return (
-    <>
+    <PageLayout>
       <Heading>{list.name}</Heading>
       {list.itemsCount > 0 && (
         <>
@@ -85,7 +86,7 @@ export const List: FC = () => {
           <Icon type="edit" width="14px" /> bearbeiten
         </Button>
       </Paragraph>
-    </>
+    </PageLayout>
   );
 };
 

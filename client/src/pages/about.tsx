@@ -1,11 +1,12 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
 import { version } from '../../../package.json';
-import { ExtLink, Link } from '../elements/link';
+import { ExtLink } from '../elements/link';
 import { Heading, Paragraph } from '../elements/typography';
+import { PageLayout } from '../layout/page-layout';
 
 export const About: FC = () => (
-  <div>
+  <PageLayout>
     <Heading>Die Idee</Heading>
     <ExplainerParagraph>
       Inemit kombiniert{' '}
@@ -59,7 +60,7 @@ export const About: FC = () => (
         Quellcode auf Github
       </ExtLink>
     </TechnicalNotes>
-  </div>
+  </PageLayout>
 );
 
 const ExplainerParagraph = styled(Paragraph)`
