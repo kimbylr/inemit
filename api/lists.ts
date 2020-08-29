@@ -39,7 +39,7 @@ router.get('/', async ({ query: { slug }, user }, res, next) => {
     }
 
     const progress = getProgressSummary(list.items);
-    res.json({ ...mapList(list), progress });
+    res.json({ ...mapList(list, { flaggedItems: true }), progress });
   } catch (error) {
     next(error);
   }
@@ -52,7 +52,7 @@ router.get('/', async (req, res, next) => {
   try {
     const lists = await List.find({ userId: getUserId(req) }).populate('items');
     const listsSummary = lists.map((list) =>
-      mapList(list, { includeLastLearnt: true }),
+      mapList(list, { lastLearnt: true }),
     );
     res.json(listsSummary);
   } catch (error) {
@@ -74,7 +74,7 @@ router.get('/:listId', ({ list }, res, next) => {
 router.get('/:listId/full', ({ list }, res, next) => {
   try {
     const progress = getProgressSummary(list.items);
-    res.json({ ...mapList(list, { includeItems: true }), progress });
+    res.json({ ...mapList(list, { items: true }), progress });
   } catch (error) {
     next(error);
   }

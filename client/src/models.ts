@@ -34,6 +34,7 @@ export interface ListSummary {
 
 export interface ListWithProgress extends ListSummary {
   progress: ProgressSummary;
+  flaggedItems: (BaseLearnItem & { id: string })[];
 }
 
 export interface BaseLearnItem {

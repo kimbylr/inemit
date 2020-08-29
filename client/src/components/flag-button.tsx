@@ -27,7 +27,12 @@ export const FlagButton: FC<Props> = ({ flagged: initial, listId, itemId }) => {
   };
 
   return (
-    <Button flagged={flagged} onClick={toggleFlagged} title="markieren">
+    <Button
+      type="button"
+      flagged={flagged}
+      onClick={toggleFlagged}
+      title="markieren"
+    >
       <Icon type="flag" width="20px" />
     </Button>
   );

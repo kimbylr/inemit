@@ -2,11 +2,12 @@ import React, { FC, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { ProgressBar } from '../components/progress-bar';
 import { ProgressPie } from '../components/progress-pie';
+import { EditableItem } from '../compositions/editable-item';
 import { Button } from '../elements/button';
 import { DueDaysSummary } from '../elements/due-days-summary';
 import { Icon } from '../elements/icon';
 import { Spinner } from '../elements/spinner';
-import { Heading, Paragraph } from '../elements/typography';
+import { Heading, Paragraph, SubHeading } from '../elements/typography';
 import { useApi } from '../hooks/use-api';
 import { useRouting } from '../hooks/use-routing';
 import { PageLayout } from '../layout/page-layout';
@@ -86,6 +87,21 @@ export const List: FC = () => {
           <Icon type="edit" width="14px" /> bearbeiten
         </Button>
       </Paragraph>
+
+      {list.flaggedItems.length > 0 && (
+        <ListParagraph>
+          <SubHeading>
+            Markiert <Icon type="flag" width="16px" />
+          </SubHeading>
+          <LearnItemList>
+            {list.flaggedItems.map((item, index) => (
+              <LearnItem key={item.id}>
+                <EditableItem item={item} index={index + 1} listId={list.id} />
+              </LearnItem>
+            ))}
+          </LearnItemList>
+        </ListParagraph>
+      )}
     </PageLayout>
   );
 };
@@ -108,5 +124,22 @@ const ProgressContainerDesktop = styled.div`
 
   @media (max-width: 480px) {
     display: none;
+  }
+`;
+
+const ListParagraph = styled.div`
+  margin-top: 3rem;
+`;
+const LearnItemList = styled.ul`
+  list-style: none;
+  margin: 0;
+  padding: 0;
+`;
+const LearnItem = styled.li`
+  border-top: 4px dotted ${({ theme: { colors } }) => colors.grey[85]};
+  padding: 16px 0 4px;
+
+  :last-child {
+    border-bottom: 4px dotted ${({ theme: { colors } }) => colors.grey[85]};
   }
 `;

@@ -36,13 +36,14 @@ const getLastLearnt = (items: LearnItemType[]) =>
       b.getTime() - a.getTime(),
   )[0]?.progress.updated ?? new Date(0);
 
-export interface MapListOptions {
-  includeItems?: boolean;
-  includeLastLearnt?: boolean;
+export interface IncludeOptions {
+  items?: boolean;
+  flaggedItems?: boolean;
+  lastLearnt?: boolean;
 }
 export const mapList = (
   { _id, name, slug, created, updated, items }: ListType,
-  options?: MapListOptions,
+  options?: IncludeOptions,
 ) => ({
   id: _id,
   name,
@@ -50,10 +51,11 @@ export const mapList = (
   created,
   updated,
   itemsCount: items.length,
-  items: options?.includeItems
-    ? items.map((item) => mapItem(item, true))
+  items: options?.items ? items.map((item) => mapItem(item, true)) : undefined,
+  flaggedItems: options?.flaggedItems
+    ? items.filter(({ flagged }) => flagged).map((item) => mapItem(item, true))
     : undefined,
-  lastLearnt: options?.includeLastLearnt ? getLastLearnt(items) : undefined,
+  lastLearnt: options?.lastLearnt ? getLastLearnt(items) : undefined,
 });
 
 export const mapItem = (
