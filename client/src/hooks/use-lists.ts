@@ -9,10 +9,10 @@ export const useLists = () => {
   const { lists, state, dispatch } = useStore();
   const { getLists } = useApi();
   const { user } = useAuth();
-  const { goTo } = useRouting();
+  const { goTo, path } = useRouting();
 
   const goToLastLearnt = (lists: ListSummary[]) => {
-    if (lists.length === 0) {
+    if (lists.length === 0 || path !== '/') {
       return;
     }
 

@@ -1,8 +1,9 @@
-import { useHistory, useParams } from 'react-router-dom';
+import { useHistory, useLocation, useParams } from 'react-router-dom';
 
 export const useRouting = () => {
   const history = useHistory();
   const { slug } = useParams();
+  const { pathname: path } = useLocation();
 
   const goTo = (slug?: string, mode?: 'edit' | 'learn') => {
     if (!slug) {
@@ -15,5 +16,6 @@ export const useRouting = () => {
   return {
     goTo,
     slug,
+    path,
   };
 };
