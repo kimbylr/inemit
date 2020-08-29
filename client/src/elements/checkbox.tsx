@@ -11,7 +11,7 @@ export const Checkbox: FC<Props> = ({ children, checked, onCheck }) => (
     <InvisibleActualCheckbox
       type="checkbox"
       checked={checked}
-      onClick={() => onCheck()}
+      onChange={() => onCheck()}
     />
     <CheckboxContainer>
       <CheckboxDiv checked={checked} />
