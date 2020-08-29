@@ -29,6 +29,7 @@ export interface ListSummary {
   created: ISODate;
   updated: ISODate;
   itemsCount: number;
+  lastLearnt: ISODate;
 }
 
 export interface ListWithProgress extends ListSummary {

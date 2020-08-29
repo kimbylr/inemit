@@ -50,8 +50,10 @@ router.get('/', async ({ query: { slug }, user }, res, next) => {
 // get all lists
 router.get('/', async (req, res, next) => {
   try {
-    const lists = await List.find({ userId: getUserId(req) });
-    const listsSummary = lists.map((list) => mapList(list));
+    const lists = await List.find({ userId: getUserId(req) }).populate('items');
+    const listsSummary = lists.map((list) =>
+      mapList(list, { includeLastLearnt: true }),
+    );
     res.json(listsSummary);
   } catch (error) {
     next(error);
@@ -72,7 +74,7 @@ router.get('/:listId', ({ list }, res, next) => {
 router.get('/:listId/full', ({ list }, res, next) => {
   try {
     const progress = getProgressSummary(list.items);
-    res.json({ ...mapList(list, true), progress });
+    res.json({ ...mapList(list, { includeItems: true }), progress });
   } catch (error) {
     next(error);
   }

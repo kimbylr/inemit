@@ -30,9 +30,19 @@ export const getProgressSummary = (items: LearnItemType[]) => {
   return { stages, ...due };
 };
 
+const getLastLearnt = (items: LearnItemType[]) =>
+  items.sort(
+    ({ progress: { updated: a } }, { progress: { updated: b } }) =>
+      b.getTime() - a.getTime(),
+  )[0]?.progress.updated ?? new Date(0);
+
+export interface MapListOptions {
+  includeItems?: boolean;
+  includeLastLearnt?: boolean;
+}
 export const mapList = (
   { _id, name, slug, created, updated, items }: ListType,
-  includeItems = false,
+  options?: MapListOptions,
 ) => ({
   id: _id,
   name,
@@ -40,7 +50,10 @@ export const mapList = (
   created,
   updated,
   itemsCount: items.length,
-  items: includeItems ? items.map((item) => mapItem(item, true)) : undefined,
+  items: options?.includeItems
+    ? items.map((item) => mapItem(item, true))
+    : undefined,
+  lastLearnt: options?.includeLastLearnt ? getLastLearnt(items) : undefined,
 });
 
 export const mapItem = (

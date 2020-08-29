@@ -1,7 +1,6 @@
 import { Document, Schema, model } from 'mongoose';
 
 export interface ProgressType extends Document {
-  lastLearnt?: Date;
   due: Date;
   stage: number;
   interval: number;
@@ -12,7 +11,6 @@ export interface ProgressType extends Document {
 }
 
 const ProgressSchema = new Schema<ProgressType>({
-  lastLearnt: Date,
   due: { type: Date, default: Date.now },
   stage: { type: Number, default: 1 },
   interval: { type: Number, default: 1 },
