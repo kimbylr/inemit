@@ -9,7 +9,7 @@ const { AUTH_ISSUER, AUTH_AUDIENCE } = process.env;
 const authConfig = {
   issuer: AUTH_ISSUER,
   audience: AUTH_AUDIENCE,
-  algorithm: ['RS256'],
+  algorithms: ['RS256'],
 };
 
 // cache public key of the auth server to verify token
