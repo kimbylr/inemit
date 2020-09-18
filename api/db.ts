@@ -4,7 +4,7 @@ import * as dotenv from 'dotenv';
 dotenv.config();
 const { DB_HOST, DB_USER, DB_PASS } = process.env;
 
-mongoose.connect(`mongodb://${DB_USER}:${DB_PASS}@${DB_HOST}`, {
+mongoose.connect(`mongodb+srv://${DB_USER}:${DB_PASS}@${DB_HOST}`, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   useFindAndModify: false,
