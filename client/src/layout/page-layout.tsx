@@ -6,7 +6,7 @@ export const PageLayout: FC = ({ children }) => (
 );
 
 export const Container = styled.div`
-  max-width: 660px;
+  max-width: 760px;
   margin: 0 auto;
 
   @media (min-width: 720px) {
