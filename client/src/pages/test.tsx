@@ -71,7 +71,7 @@ export const Test: FC = () => {
         </Box>
         <Box tint={98}>
           <Rotating>
-            <Icon type="sync" />
+            <Icon type="syncInCircle" />
           </Rotating>
         </Box>
         <Box tint={98}>

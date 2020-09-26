@@ -22,7 +22,7 @@ export const EditStatus: FC<Props> = ({
   if (saving) {
     return (
       <Saving title="speichern...">
-        <Icon type="sync" />
+        <Icon type="syncInCircle" />
       </Saving>
     );
   }
