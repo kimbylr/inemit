@@ -1,9 +1,10 @@
 import React, { FC, useEffect, useRef, useState } from 'react';
 import styled, { css } from 'styled-components';
+import { EditableItem } from '../components/editable-item';
 import { ExpandableArea } from '../components/expandable-area';
 import { BatchImport } from '../compositions/batch-import';
 import { EditListName } from '../compositions/edit-list-name';
-import { EditableItem } from '../compositions/editable-item';
+import { EditableItemsList } from '../compositions/editable-items-list';
 import { Button, CautionButton } from '../elements/button';
 import { Icon } from '../elements/icon';
 import { Spinner } from '../elements/spinner';
@@ -26,7 +27,6 @@ const DELETE_PROMPT = `Gib "JA" ein, um diese Liste unwiderruflich zu löschen.`
 export const EditList: FC = () => {
   const { getItems, deleteList } = useApi();
   const [items, setItems] = useState<LearnItemWithDoublet[]>([]);
-  const [newItemIds, setNewItemIds] = useState<number[]>([1]);
   const lastInputRef = useRef<HTMLInputElement | null>(null);
   const [state, setState] = useState<LoadingStates>(LoadingStates.initial);
   const { slug, goTo } = useRouting();
@@ -77,8 +77,24 @@ export const EditList: FC = () => {
     );
   }
 
-  const onNameChanged = (name: string) => {
+  const onListNameChanged = (name: string) => {
     updateList({ ...list, name });
+  };
+
+  const onListDeleted = async (event: React.MouseEvent) => {
+    event.preventDefault();
+
+    if (prompt(DELETE_PROMPT) !== 'JA') {
+      return;
+    }
+
+    try {
+      await deleteList(list.id);
+      removeList(list.id);
+      goTo();
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const onItemsAdded = (newItems: LearnItem[]) => {
@@ -97,43 +113,13 @@ export const EditList: FC = () => {
     setItems(items => markDoublets(items.filter(item => item.id !== id)));
   };
 
-  const onNewItemEdited = () => {
-    setNewItemIds(ids => [...ids, ids[ids.length - 1] + 1]);
-  };
-
-  const onNewItemSaved = (item: LearnItem, tempId: string) => {
-    setNewItemIds(ids => ids.filter(id => `${id}` !== tempId));
-    onItemsAdded([item]);
-  };
-
-  const onDeleteList = async (event: React.MouseEvent) => {
-    event.preventDefault();
-
-    if (prompt(DELETE_PROMPT) !== 'JA') {
-      return;
-    }
-
-    try {
-      await deleteList(list.id);
-      removeList(list.id);
-      goTo();
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  const finishEditing = () => {
-    // TODO: check if unsaved items, notify
-    goTo(slug!);
-  };
-
   const flaggedItems = items.filter(({ flagged }) => flagged);
 
   return (
     <>
       <Heading>{list.name}</Heading>
       <Paragraph>
-        In dieser Liste gibt es <strong>{list.itemsCount} Vokabeln</strong>.
+        In dieser Liste gibt es <strong>{items.length} Vokabeln</strong>.
       </Paragraph>
 
       <Paragraph>
@@ -143,7 +129,7 @@ export const EditList: FC = () => {
       </Paragraph>
 
       <StickyParagraph>
-        <Button primary onClick={finishEditing}>
+        <Button primary onClick={() => goTo(slug)}>
           <Icon type="done" width="14px" /> bearbeiten abschliessen
         </Button>
       </StickyParagraph>
@@ -156,7 +142,7 @@ export const EditList: FC = () => {
         <EditListName
           currentName={list.name}
           listId={list.id}
-          onNameChanged={onNameChanged}
+          onNameChanged={onListNameChanged}
         />
       </ExpandableArea>
 
@@ -165,7 +151,7 @@ export const EditList: FC = () => {
         teaserStyles={TeaserStyles}
         teaser={<SubHeadingUncolored>Liste löschen</SubHeadingUncolored>}
       >
-        <CautionButton onClick={onDeleteList}>
+        <CautionButton onClick={onListDeleted}>
           <Icon type="delete" width="14px" /> Liste löschen
         </CautionButton>
       </ExpandableArea>
@@ -228,41 +214,15 @@ export const EditList: FC = () => {
           <SubSubHeading>Alle</SubSubHeading>
         </>
       )}
-      <LearnItemList>
-        {items.map((item, index) => (
-          <LearnItem key={item.id}>
-            <EditableItem
-              item={item}
-              index={index + 1}
-              listId={list.id}
-              onItemDeleted={onItemDeleted}
-              onItemSaved={onItemSaved}
-            />
-          </LearnItem>
-        ))}
-        {newItemIds.map((id, index) => {
-          const isLast = index + 1 === newItemIds.length;
-          const item = {
-            id: `${id}`,
-            prompt: '',
-            solution: '',
-            isNew: true,
-          };
 
-          return (
-            <LearnItem key={item.id}>
-              <EditableItem
-                item={item}
-                index={items.length + index + 1}
-                listId={list.id}
-                onNewItemEdited={onNewItemEdited}
-                onNewItemSaved={onNewItemSaved}
-                lastInputRef={isLast ? lastInputRef : undefined}
-              />
-            </LearnItem>
-          );
-        })}
-      </LearnItemList>
+      <EditableItemsList
+        items={items}
+        listId={list.id}
+        onItemsAdded={onItemsAdded}
+        onItemDeleted={onItemDeleted}
+        onItemSaved={onItemSaved}
+        lastInputRef={lastInputRef}
+      />
     </>
   );
 };

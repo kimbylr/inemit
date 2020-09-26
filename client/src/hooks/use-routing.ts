@@ -2,7 +2,7 @@ import { useHistory, useLocation, useParams } from 'react-router-dom';
 
 export const useRouting = () => {
   const history = useHistory();
-  const { slug } = useParams();
+  const { slug } = useParams<{ slug: string }>();
   const { pathname: path } = useLocation();
 
   const goTo = (slug?: string, mode?: 'edit' | 'learn') => {

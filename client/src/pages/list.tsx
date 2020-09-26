@@ -1,8 +1,9 @@
 import React, { FC, useEffect, useState } from 'react';
 import styled from 'styled-components';
+import { EditableItem } from '../components/editable-item';
 import { ProgressBar } from '../components/progress-bar';
 import { ProgressPie } from '../components/progress-pie';
-import { EditableItem } from '../compositions/editable-item';
+import { EditableItemsList } from '../compositions/editable-items-list';
 import { Button } from '../elements/button';
 import { DueDaysSummary } from '../elements/due-days-summary';
 import { Icon } from '../elements/icon';
@@ -11,13 +12,19 @@ import { Heading, Paragraph, SubHeading } from '../elements/typography';
 import { useApi } from '../hooks/use-api';
 import { useRouting } from '../hooks/use-routing';
 import { PageLayout } from '../layout/page-layout';
-import { ListWithProgress, LoadingStates } from '../models';
+import {
+  LearnItem,
+  LearnItemWithDoublet,
+  ListWithProgress,
+  LoadingStates,
+} from '../models';
 
 export const List: FC = () => {
   const [list, setList] = useState<ListWithProgress | null>(null);
   const [state, setState] = useState<LoadingStates>(LoadingStates.initial);
   const { slug, goTo } = useRouting();
   const { getListBySlug } = useApi();
+  const [items, setItems] = useState<LearnItemWithDoublet[]>([]);
 
   const fetchList = async () => {
     if (!slug) {
@@ -54,6 +61,26 @@ export const List: FC = () => {
       </>
     );
   }
+
+  const onItemsAdded = (newItems: LearnItem[]) => {
+    setItems(items => [...items, ...newItems]);
+    setList(list =>
+      list ? { ...list, itemsCount: list.itemsCount + newItems.length } : null,
+    ); // TODO: state handling (will not propagate to list-edit)
+  };
+
+  const onItemSaved = (editedItem: LearnItem) => {
+    setItems(items =>
+      items.map(item => (editedItem.id === item.id ? editedItem : item)),
+    );
+  };
+
+  const onItemDeleted = (id: string) => {
+    setItems(items => items.filter(item => item.id !== id));
+    setList(list =>
+      list ? { ...list, itemsCount: list.itemsCount - 1 } : null,
+    ); // TODO: state handling (will not propagate to list-edit)
+  };
 
   const { dueToday, dueTomorrow } = list.progress;
   const editList = () => goTo(list.slug, 'edit');
@@ -102,6 +129,17 @@ export const List: FC = () => {
           </LearnItemList>
         </ListParagraph>
       )}
+
+      <ListParagraph>
+        <SubHeading>Hinzufügen</SubHeading>
+        <EditableItemsList
+          items={items}
+          listId={list.id}
+          onItemsAdded={onItemsAdded}
+          onItemDeleted={onItemDeleted}
+          onItemSaved={onItemSaved}
+        />
+      </ListParagraph>
     </PageLayout>
   );
 };
