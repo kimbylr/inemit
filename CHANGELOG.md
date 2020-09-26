@@ -1,3 +1,16 @@
+# [1.9.0](https://github.com/kimbylr/inemit/compare/v1.8.0...v1.9.0) (2020-09-26)
+
+
+### Bug Fixes
+
+* Set wider max-width ([ada4e18](https://github.com/kimbylr/inemit/commit/ada4e1868aee31d7df39051f669ecc5284d8ea19))
+
+
+### Features
+
+* Add new items in list overview ([e5d5395](https://github.com/kimbylr/inemit/commit/e5d539555ff4197b02515f205c93bb1da087d012))
+* Show loading state while flagging ([fce80ca](https://github.com/kimbylr/inemit/commit/fce80cab3406fca5d51cc8dc35f10d4b56ad27eb))
+
 # [1.8.0](https://github.com/kimbylr/inemit/compare/v1.7.0...v1.8.0) (2020-08-29)
 
 
