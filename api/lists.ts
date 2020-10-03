@@ -12,7 +12,7 @@ router.param('listId', async (req, res, next) => {
     const list = await List.findOne({
       _id: req.params.listId,
       userId: getUserId(req),
-    }).populate('items');
+    });
 
     if (!list) {
       return next({ status: 404 });
@@ -33,7 +33,7 @@ router.get('/', async ({ query: { slug }, user }, res, next) => {
 
   try {
     const userId = getUserId({ user });
-    const list = await List.findOne({ slug, userId }).populate('items');
+    const list = await List.findOne({ slug, userId });
     if (!list) {
       return next({ status: 404 });
     }
@@ -50,7 +50,7 @@ router.get('/', async ({ query: { slug }, user }, res, next) => {
 // get all lists
 router.get('/', async (req, res, next) => {
   try {
-    const lists = await List.find({ userId: getUserId(req) }).populate('items');
+    const lists = await List.find({ userId: getUserId(req) });
     const listsSummary = lists.map((list) =>
       mapList(list, { lastLearnt: true }),
     );

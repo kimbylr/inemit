@@ -8,9 +8,25 @@ import {
   recalcEasiness,
   recalcInterval,
 } from './helpers';
-import { LearnItem, List, Progress } from './models';
+import { LearnItem, Progress } from './models';
 
 const router = Router();
+
+router.param('itemId', async (req, res, next) => {
+  const { list, params } = req;
+  try {
+    const itemIndex = list.items.findIndex(({ _id }) => String(_id) === params.itemId);
+
+    if (itemIndex === -1) {
+      return next({ status: 404 });
+    }
+
+    req.itemIndex = itemIndex;
+    next();
+  } catch (error) {
+    next(error);
+  }
+});
 
 // get all items
 router.get('/', async ({ list: { items } }, res, next) => {
@@ -27,27 +43,22 @@ router.post('/', async ({ list, body: { items, stage } }, res, next) => {
     return next(new Error('No items provided.'));
   }
 
-  const itemsWithProgress = items.map((item) => ({
-    ...item,
-    progress: getInitialProgress(stage),
-  }));
+  const newItemsWithProgress = items.map(
+    (item) => new LearnItem({ ...item, progress: getInitialProgress(stage) })
+  );
 
   try {
-    const addedItems = await LearnItem.insertMany(itemsWithProgress);
-    const addedItemsIds = addedItems.map(({ _id }) => _id);
-    await List.findByIdAndUpdate(list._id, {
-      $push: { items: { $each: addedItemsIds } },
-      $currentDate: { updated: true },
-    });
-    res.json(mapItems(addedItems));
+    list.items = [...list.items, ...newItemsWithProgress];
+    list.updated = new Date();
+    await list.save();
+    res.json(mapItems(newItemsWithProgress));
   } catch (error) {
     next(error);
   }
 });
 
 // change an item
-router.put('/:itemId', async ({ list, params, body }, res, next) => {
-  const { itemId } = params;
+router.put('/:itemId', async ({ body, list, itemIndex }, res, next) => {
   const { prompt, solution, flagged } = body;
   const setFlagged = typeof flagged === 'boolean';
 
@@ -56,43 +67,25 @@ router.put('/:itemId', async ({ list, params, body }, res, next) => {
   }
 
   try {
-    const item = await LearnItem.findById(itemId);
-
-    if (!item) {
-      return res.sendStatus(404);
-    }
-
+    const item = list.items[itemIndex];
     item.prompt = prompt || item.prompt;
     item.solution = solution || item.solution;
-    if (setFlagged) {
-      item.flagged = flagged;
-    }
+    item.flagged = setFlagged ? flagged : item.flagged;
     item.updated = new Date();
-    const changedItem = await item.save();
 
     list.updated = new Date();
     await list.save();
-
-    res.json(mapItem(changedItem));
+    res.json(mapItem(item));
   } catch (error) {
     next(error);
   }
 });
 
 // delete an item
-router.delete('/:itemId', async ({ list, params: { itemId } }, res, next) => {
+router.delete('/:itemId', async ({ list, itemIndex }, res, next) => {
   try {
-    const item = await LearnItem.findByIdAndDelete(itemId);
-
-    if (!item) {
-      return res.sendStatus(404);
-    }
-
-    await List.findByIdAndUpdate(list._id, {
-      $pull: { items: itemId },
-      $currentDate: { updated: true },
-    });
-
+    list.items.splice(itemIndex, 1);
+    await list.save();
     res.sendStatus(200);
   } catch (error) {
     next(error);
@@ -108,12 +101,10 @@ router.get('/learn/:count?', async ({ list, params: { count } }, res, next) => {
     const itemsToLearn = list.items
       .filter(({ progress: { due } }) => dayjs(due).isBefore(dayjs()))
       .sort(
-        ({ progress: { due: a } }, { progress: { due: b } }) =>
-          a.getTime() - b.getTime(),
+        ({ progress: { due: a } }, { progress: { due: b } }) => a.getTime() - b.getTime()
       );
 
     const amount = parseInt(count, 10) > 0 ? parseInt(count) : DEFAULT_AMOUNT;
-
     res.json(mapItems(itemsToLearn.slice(0, amount)));
   } catch (error) {
     next(error);
@@ -121,35 +112,19 @@ router.get('/learn/:count?', async ({ list, params: { count } }, res, next) => {
 });
 
 // report item progress when learned (correct/wrong)
-router.put('/:itemId/progress', async ({ params, body }, res, next) => {
+router.put('/:itemId/progress', async ({ body, list, itemIndex }, res, next) => {
   const { answerQuality } = body;
-  if (
-    typeof answerQuality !== 'number' ||
-    answerQuality < 0 ||
-    answerQuality > 5
-  ) {
+  if (typeof answerQuality !== 'number' || answerQuality < 0 || answerQuality > 5) {
     return next(new Error('Answer quality from 0-5 must be provided.'));
   }
 
   try {
-    const item = await LearnItem.findById(params.itemId);
-
-    if (!item) {
-      return res.sendStatus(404);
-    }
-
-    const {
-      easiness,
-      interval,
-      stage,
-      timesCorrect,
-      timesWrong,
-    } = item.progress;
+    const progress = list.items[itemIndex].progress;
+    const { easiness, interval, stage, timesCorrect, timesWrong } = progress;
 
     const isCorrect = answerQuality >= 3;
     const newInterval = recalcInterval(interval, easiness, isCorrect);
-
-    item.progress = new Progress({
+    const newProgress = new Progress({
       easiness: recalcEasiness(easiness, answerQuality),
       stage: isCorrect ? (stage >= 4 ? 4 : stage + 1) : 1,
       interval: newInterval,
@@ -159,7 +134,8 @@ router.put('/:itemId/progress', async ({ params, body }, res, next) => {
       updated: new Date(),
     });
 
-    await item.save();
+    list.items[itemIndex].progress = newProgress;
+    await list.save();
     res.sendStatus(200);
   } catch (error) {
     next(error);

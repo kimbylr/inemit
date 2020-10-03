@@ -4,6 +4,7 @@ declare global {
   namespace Express {
     export interface Request {
       list?: ListType;
+      itemIndex?: number;
       user?: {
         sub: string;
       };
