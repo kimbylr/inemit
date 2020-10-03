@@ -69,7 +69,7 @@ export const EditableItem: FC<Props> = ({
   ) => {
     event.preventDefault();
 
-    if (!canSave) {
+    if (!canSave || saving) {
       return;
     }
 
