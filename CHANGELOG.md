@@ -1,3 +1,10 @@
+## [1.9.1](https://github.com/kimbylr/inemit/compare/v1.9.0...v1.9.1) (2020-10-03)
+
+
+### Performance Improvements
+
+* Save LearnItems as subdocuments ([7c45546](https://github.com/kimbylr/inemit/commit/7c455469b5a49ee3be766d5ff3ae7c296e6440e3))
+
 # [1.9.0](https://github.com/kimbylr/inemit/compare/v1.8.0...v1.9.0) (2020-09-26)
 
 
