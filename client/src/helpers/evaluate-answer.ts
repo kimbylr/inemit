@@ -1,11 +1,15 @@
 export const evaluateAnswer = (answer: string, solution: string): boolean => {
-  const splitSolutions = discardInitialBracket(solution)
-    .replace(/[.…?!]/g, '')
-    .split(/[,;()]+/); // NB: solution phrases with commas are split up
-  const stripBrackets = solution.replace(/[()]/g, ''); // "(a) word" => "a word"
-  const stripBracketed = solution.replace(/ ?\(.+\)+/g, ''); // "the (a) word" => "the word"
+  const bareSolution = solution.replace(/[.…?!]/g, ''); // without punctuation (also stripped for answer)
+  const splitSolutions = discardInitialBracket(bareSolution).split(/[,;()]+/); // NB: solution phrases with commas are split up
+  const stripBrackets = bareSolution.replace(/[().…?!]/g, ''); // "(a) word" => "a word"
+  const stripBracketedContent = bareSolution.replace(/ ?\(.+\)+/g, ''); // "the (a) word" => "the word"
 
-  const solutions = [...splitSolutions, stripBrackets, stripBracketed, solution]
+  const solutions = [
+    bareSolution,
+    ...splitSolutions,
+    stripBrackets,
+    stripBracketedContent,
+  ]
     .map(solution => solution.trim().toLowerCase())
     .filter(Boolean);
 

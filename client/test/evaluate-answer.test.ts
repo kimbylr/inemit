@@ -37,6 +37,12 @@ const tests = [
     correctAnswers: ['letto grande'],
     wrongAnswers: [''],
   },
+  {
+    name: 'middle parenthesis and punctuation',
+    solution: 'tanto (altrettanto) stupido …',
+    correctAnswers: ['tanto (altrettanto) stupido', 'tanto stupido'],
+    wrongAnswers: [''],
+  },
 ];
 
 tests.map(({ name, solution, correctAnswers, wrongAnswers }) => {
