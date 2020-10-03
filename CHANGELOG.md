@@ -1,3 +1,10 @@
+## [1.9.2](https://github.com/kimbylr/inemit/compare/v1.9.1...v1.9.2) (2020-10-03)
+
+
+### Bug Fixes
+
+* Improve answer evaluation ([fdf4476](https://github.com/kimbylr/inemit/commit/fdf44767a5b709b3d5b0dc16b7c53e227a0eba18))
+
 ## [1.9.1](https://github.com/kimbylr/inemit/compare/v1.9.0...v1.9.1) (2020-10-03)
 
 
