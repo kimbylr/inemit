@@ -1,3 +1,10 @@
+## [1.9.3](https://github.com/kimbylr/inemit/compare/v1.9.2...v1.9.3) (2020-10-03)
+
+
+### Bug Fixes
+
+* Only initiate one save request ([232fea7](https://github.com/kimbylr/inemit/commit/232fea78e4dc16af546949214fd345d0fd07dbcc))
+
 ## [1.9.2](https://github.com/kimbylr/inemit/compare/v1.9.1...v1.9.2) (2020-10-03)
 
 
