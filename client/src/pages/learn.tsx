@@ -66,7 +66,7 @@ export const Learn: FC = () => {
     );
   }
 
-  const { id: itemId, prompt, solution, flagged } = items[current];
+  const { id: itemId, prompt, solution, flagged, image } = items[current];
 
   const check = () => {
     setIsCorrect(evaluateAnswer(answer, solution));
@@ -133,7 +133,15 @@ export const Learn: FC = () => {
         <FlagButton flagged={flagged} listId={list.id} itemId={itemId} />
       </Header>
       <Content height={height}>
-        <Prompt>{prompt}</Prompt>
+        <Prompt hasImage={!!image}>
+          {image && (
+            <PromptImage
+              srcSet={`${image.urls.small} 400w, ${image.urls.regular} 1080w`}
+              sizes="calc(20vw + 25vh)"
+            />
+          )}
+          {prompt}
+        </Prompt>
         <Divider />
         <SolutionForm autoComplete="off">
           <SolutionInputContainer>
@@ -218,16 +226,26 @@ const StyledLink = styled(Link)`
 `;
 
 const Content = styled.main<{ height: number }>`
-  height: ${({ height }) => height - 100}px; /** 82 plus a bit */
+  height: ${({ height }) => height - 72}px; // header 40 + main 2*16
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
 `;
 
-const Prompt = styled(Paragraph)`
-  margin: 0.5rem 0;
+const Prompt = styled(Paragraph).attrs({ as: 'div' })<{ hasImage: boolean }>`
+  margin: 0 0 0.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
   text-align: center;
   font-size: calc(0.75rem + 2vh + 2vw);
+  flex-grow: ${({ hasImage }) => (hasImage ? 2 : 1)};
+`;
+const PromptImage = styled.img`
+  max-height: calc(25vw + 20vh);
+  max-width: calc(20vw + 25vh);
+  box-shadow: 0 8px 32px ${({ theme: { colors } }) => colors.grey[60]};
 `;
 
 const Divider = styled.hr`
@@ -237,10 +255,11 @@ const Divider = styled.hr`
 `;
 
 const SolutionForm = styled.form`
-  margin: 0.5rem 0;
+  margin: 0.5rem 0 0;
   display: flex;
   justify-content: center;
-  align-items: flex-end;
+  align-items: center;
+  flex-grow: 1;
 `;
 const SolutionInputContainer = styled.div`
   margin-right: 20px;

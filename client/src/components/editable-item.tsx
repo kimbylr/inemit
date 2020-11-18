@@ -5,8 +5,10 @@ import { FlagButton } from '../components/flag-button';
 import { Icon } from '../elements/icon';
 import { Input } from '../elements/input';
 import { Label } from '../elements/label';
+import { UnsplashImage } from '../helpers/unsplash';
 import { useApi } from '../hooks/use-api';
 import { BaseLearnItem, LearnItem, LearnItemForEditing } from '../models';
+import { ImagePicker } from './image-picker';
 
 interface Props {
   listId: string;
@@ -33,13 +35,16 @@ export const EditableItem: FC<Props> = ({
   const [savedItem, setSavedItem] = useState<BaseLearnItem>({
     prompt: item.prompt,
     solution: item.solution,
+    image: item.image,
   });
   const [currentItem, setCurrentItem] = useState<BaseLearnItem>({
     prompt: item.prompt,
     solution: item.solution,
+    image: item.image,
   });
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [showImagePicker, setShowImagePicker] = useState(false);
 
   const [initiallyEdited, setInitiallyEdited] = useState(!item.isNew);
   const hasEdited = () => {
@@ -64,9 +69,7 @@ export const EditableItem: FC<Props> = ({
     currentItem.solution === savedItem.solution;
   const canSave = !!currentItem.prompt && !!currentItem.solution && !saved;
 
-  const submit = async (
-    event: React.MouseEvent | React.FocusEvent | React.FormEvent,
-  ) => {
+  const submit = async (event: React.MouseEvent | React.FocusEvent | React.FormEvent) => {
     event.preventDefault();
 
     if (!canSave || saving) {
@@ -91,8 +94,8 @@ export const EditableItem: FC<Props> = ({
           itemId: item.id,
           item: { prompt: currentItem.prompt, solution: currentItem.solution },
         });
-        const { prompt, solution } = savedItem;
-        setSavedItem({ prompt, solution });
+        const { prompt, solution, image } = savedItem;
+        setSavedItem({ prompt, solution, image });
         onItemSaved(savedItem); // TODO: propagate to store
       } catch (error) {
         setError('Fehler beim speichern. Klicken, um nochmals zu versuchen.');
@@ -121,6 +124,29 @@ export const EditableItem: FC<Props> = ({
     }
   };
 
+  const onSetImage = async (img: UnsplashImage | null) => {
+    if (!initiallyEdited || saving) {
+      return;
+    }
+
+    setSaving(true);
+    try {
+      const { prompt, solution, image } = await editItem({
+        listId,
+        itemId: item.id,
+        item: { image: img },
+      });
+      if (img !== null && !image) throw 'could not save image';
+      setSavedItem({ prompt, solution, image });
+      setCurrentItem({ prompt, solution, image });
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setSaving(false);
+      setShowImagePicker(false);
+    }
+  };
+
   const { flagged, doubletOf } = item;
   const isDoublet = typeof doubletOf === 'number';
   const doubletTitle = isDoublet
@@ -128,60 +154,93 @@ export const EditableItem: FC<Props> = ({
     : undefined;
 
   return (
-    <Container onSubmit={submit}>
-      <MetaColumn>
-        {flagged ? (
-          <FlagButton flagged={flagged} listId={listId} itemId={item.id} />
-        ) : (
-          <Index>{index}</Index>
-        )}
-        {!item.isNew && (
-          <DeleteButton
-            type="button"
-            tabIndex={-1}
-            onClick={onDelete}
-            title="Löschen"
-          >
-            <Icon type="deleteInCircle" />
-          </DeleteButton>
-        )}
-      </MetaColumn>
+    <>
+      <Container onSubmit={submit}>
+        <MetaColumn>
+          {flagged ? (
+            <FlagButton flagged={flagged} listId={listId} itemId={item.id} />
+          ) : (
+            <Index>{index}</Index>
+          )}
+          {!item.isNew && (
+            <DeleteButton type="button" tabIndex={-1} onClick={onDelete} title="Löschen">
+              <Icon type="deleteInCircle" />
+            </DeleteButton>
+          )}
+        </MetaColumn>
 
-      <InputsColumn>
-        <LabelWithSpacing>
-          <SolutionInput
-            doublet={isDoublet}
-            title={doubletTitle}
-            autoCapitalize="none"
-            onBlur={submit}
-            value={currentItem.solution}
-            placeholder={savedItem.solution}
-            onChange={e => onChangeSolution(e.target.value)}
-            ref={lastInputRef}
-          />
-          Vokabel
-        </LabelWithSpacing>
-        <LabelWithSpacing>
-          <Input
-            autoCapitalize="none"
-            onBlur={submit}
-            value={currentItem.prompt}
-            placeholder={savedItem.prompt}
-            onChange={e => onChangePrompt(e.target.value)}
-          />
-          Abfrage
-        </LabelWithSpacing>
-      </InputsColumn>
+        <InputsColumn>
+          <LabelWithSpacing>
+            <SolutionInput
+              doublet={isDoublet}
+              title={doubletTitle}
+              autoCapitalize="none"
+              onBlur={submit}
+              value={currentItem.solution}
+              placeholder={savedItem.solution}
+              onChange={e => onChangeSolution(e.target.value)}
+              ref={lastInputRef}
+            />
+            Vokabel
+          </LabelWithSpacing>
+          <LabelWithSpacing>
+            <InputWithImageButton>
+              <Input
+                autoCapitalize="none"
+                onBlur={submit}
+                value={currentItem.prompt}
+                placeholder={savedItem.prompt}
+                onChange={e => onChangePrompt(e.target.value)}
+              />
+              {!item.isNew && (
+                <ImageButtonContainer style={{ position: 'relative' }}>
+                  <ImageButton
+                    type="button"
+                    isActive={showImagePicker}
+                    onClick={() => setShowImagePicker(active => !active)}
+                  >
+                    {currentItem.image ? (
+                      <ImageThumbContainer showImagePicker={showImagePicker}>
+                        <ImageThumb src={currentItem.image.urls.thumb} />
+                        <Icon type="edit" />
+                      </ImageThumbContainer>
+                    ) : (
+                      <Icon type="image" width="2rem" />
+                    )}
+                  </ImageButton>
+                  {currentItem.image && (
+                    <ImageDeleteButton
+                      type="button"
+                      tabIndex={-1}
+                      onClick={() => onSetImage(null)}
+                      title="Bild entfernen"
+                    >
+                      <Icon type="deleteInCircle" width="1rem" />
+                    </ImageDeleteButton>
+                  )}
+                </ImageButtonContainer>
+              )}
+            </InputWithImageButton>
+            Abfrage
+          </LabelWithSpacing>
+        </InputsColumn>
 
-      <EditStatus
-        isNew={item.isNew}
-        canSave={canSave}
-        saving={saving}
-        saved={saved}
-        error={error}
-        submit={submit}
-      />
-    </Container>
+        <EditStatus
+          isNew={item.isNew}
+          canSave={canSave}
+          saving={saving}
+          saved={saved}
+          error={error}
+          submit={submit}
+        />
+      </Container>
+
+      {showImagePicker && (
+        <ImagePickerContainer>
+          <ImagePicker searchTerm={currentItem.prompt} onSetImage={onSetImage} />
+        </ImagePickerContainer>
+      )}
+    </>
   );
 };
 
@@ -228,6 +287,74 @@ const InputsColumn = styled.div`
   flex-wrap: wrap;
 `;
 
+const InputWithImageButton = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+const ImageButtonContainer = styled.div`
+  margin-left: 0.5rem;
+`;
+
+const ImageButton = styled(DeleteButton)<{ isActive: boolean }>`
+  color: ${({ isActive, theme: { colors } }) =>
+    isActive ? colors.grey[25] : colors.grey[75]};
+
+  :hover {
+    color: ${({ theme: { colors } }) => colors.grey[25]};
+  }
+
+  :focus > svg {
+    filter: drop-shadow(0 0 4px ${({ theme: { colors } }) => colors.primary[100]});
+  }
+`;
+
+const ImageThumbContainer = styled.div<{ showImagePicker: boolean }>`
+  position: relative;
+
+  img {
+    opacity: ${({ showImagePicker }) => (showImagePicker ? '0.5' : '1')};
+  }
+  :hover img {
+    opacity: 0.5;
+  }
+
+  // edit icon
+  > svg {
+    position: absolute;
+    color: ${({ theme: { colors } }) => colors.grey[25]};
+    top: 0.5rem;
+    height: 1.25rem;
+    left: 0;
+    display: ${({ showImagePicker }) => (showImagePicker ? 'block' : 'none')};
+    filter: drop-shadow(0 0 4px #fff);
+  }
+  :hover svg {
+    display: block;
+  }
+`;
+
+const ImageDeleteButton = styled(DeleteButton)`
+  position: absolute;
+  top: -0.5rem;
+  left: -0.5rem;
+  background: ${({ theme: { colors } }) => colors.grey[98]};
+  border-radius: 1rem; // full
+  padding: 2px;
+  line-height: 0;
+
+  :hover {
+    color: ${({ theme: { colors } }) => colors.negative[100]};
+  }
+`;
+
+const ImageThumb = styled.img`
+  height: 36px;
+  margin-bottom: 2px;
+  width: auto;
+  border-radius: 2px;
+`;
+
 const SolutionInput = styled(Input)<{ doublet?: boolean }>`
   ${({ doublet, theme: { colors } }) =>
     doublet ? `border-color: ${colors.orange[100]}` : ''}
@@ -238,4 +365,9 @@ const LabelWithSpacing = styled(Label)`
   margin-bottom: 12px;
   flex-basis: 200px;
   flex-grow: 1;
+`;
+
+const ImagePickerContainer = styled.div`
+  margin-left: 32px; // 20px + 12px
+  margin-right: 44px; // 20px + 24px
 `;

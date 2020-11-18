@@ -1,3 +1,5 @@
+import { UnsplashImage } from './helpers/unsplash';
+
 export enum LoadingStates {
   initial = 'initial',
   loading = 'loading',
@@ -41,6 +43,7 @@ export interface BaseLearnItem {
   prompt: string;
   solution: string;
   flagged?: boolean;
+  image?: UnsplashImage | null;
 }
 export interface LearnItemForEditing extends BaseLearnItem {
   id: string;

@@ -14,6 +14,7 @@ export const Spinner: FC<{ white?: boolean; small?: boolean }> = ({
 
 const Container = styled.div<{ white?: boolean; small?: boolean }>`
   width: ${({ small }) => (small ? '30px' : '50px')};
+  min-width: ${({ small }) => (small ? '30px' : '50px')};
   height: ${({ small }) => (small ? '30px' : '50px')};
   position: relative;
   margin: 15px auto;

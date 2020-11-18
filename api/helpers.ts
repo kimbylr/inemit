@@ -59,7 +59,7 @@ export const mapList = (
 });
 
 export const mapItem = (
-  { _id, created, updated, prompt, solution, flagged, progress }: LearnItemType,
+  { _id, created, updated, prompt, solution, flagged, image, progress }: LearnItemType,
   includeProgress = false,
 ) => {
   return {
@@ -69,6 +69,7 @@ export const mapItem = (
     prompt,
     solution,
     flagged,
+    image,
     progress: includeProgress ? progress : undefined,
   };
 };
@@ -79,8 +80,7 @@ export const mapItems = (items: LearnItemType[], includeProgress = false) =>
 // "SuperMemo 2.0" algorithm: https://www.supermemo.com/en/archives1990-2015/english/ol/sm2
 export const recalcEasiness = (easiness: number, answerQuality: number) => {
   const newEasiness =
-    easiness +
-    (0.1 - (5 - answerQuality) * (0.08 + (5 - answerQuality) * 0.02));
+    easiness + (0.1 - (5 - answerQuality) * (0.08 + (5 - answerQuality) * 0.02));
 
   if (newEasiness < 1.3) {
     return 1.3;
@@ -93,11 +93,8 @@ export const recalcEasiness = (easiness: number, answerQuality: number) => {
   return newEasiness;
 };
 
-export const recalcInterval = (
-  interval: number,
-  easiness: number,
-  correct: boolean,
-) => (correct ? (interval === 1 ? 6 : interval * easiness) : 1);
+export const recalcInterval = (interval: number, easiness: number, correct: boolean) =>
+  correct ? (interval === 1 ? 6 : interval * easiness) : 1;
 
 export const getDue = (interval: number, blur = 0.2) => {
   // next due is not set to _exactly_ x days for 2 reasons:

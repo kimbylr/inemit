@@ -1,6 +1,16 @@
 # Inemit!
 
-**Inemit** is a Web App / PWA for practicing vocabulary (or anything else) using [Spaced repetition](https://en.wikipedia.org/wiki/Spaced_repetition). It is in an early usable stadium and there are plans to enhance it further. It mainly covers my own needs, replacing my former learning platform of choice that has shut down their spaced repetition feature.
+**Inemit** is a Web App / PWA for practicing vocabulary (or anything else) using [Spaced repetition](https://en.wikipedia.org/wiki/Spaced_repetition). It was born out of dissatisfaction with the available options after my former learning platform of choice had shut down their spaced repetition feature.
+
+Features include:
+
+- Lists. With stuff. To learn. (Yes, it's rocket science.)
+- A clever algorithm to evaluate if the solution entered is correct (starship science, at least)
+- A nice palette of green colours. Also some smilies.
+- A progress graphic meant to be motivating. That is, if you learn regularly.
+- Glitches: possibly more than zero, but far less than could be (Sensible sizes. Software keyboard handling. Return does what it should. That kind of stuff.)
+- Image prompts with search
+- Import
 
 `Ine mit` means "In with it" in Swiss German.
 

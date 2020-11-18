@@ -1,11 +1,12 @@
 import styled from 'styled-components';
 
-export const Input = styled.input`
+export const Input = styled.input<{ small?: boolean }>`
   color: ${({ theme: { colors } }) => colors.grey[10]};
-  font-size: ${({ theme: { font } }) => font.sizes.sm};
+  font-size: ${({ small, theme: { font } }) =>
+    font.sizes[small ? 'xxs' : 'sm']};
   border: 2px solid ${({ theme: { colors } }) => colors.grey[85]};
   outline: none;
-  padding: 0.375rem;
+  padding: ${({ small }) => (small ? '0.25rem' : '0.375rem')};
   border-radius: 4px;
   width: 100%;
   box-sizing: border-box;

@@ -59,10 +59,11 @@ router.post('/', async ({ list, body: { items, stage } }, res, next) => {
 
 // change an item
 router.put('/:itemId', async ({ body, list, itemIndex }, res, next) => {
-  const { prompt, solution, flagged } = body;
+  const { prompt, solution, flagged, image } = body;
   const setFlagged = typeof flagged === 'boolean';
+  const setImage = typeof image === 'object'; // null is also 'object'
 
-  if (!prompt && !solution && !setFlagged) {
+  if (!prompt && !solution && !setFlagged && !setImage) {
     return next(new Error('Could not find a changeable property in body'));
   }
 
@@ -71,6 +72,7 @@ router.put('/:itemId', async ({ body, list, itemIndex }, res, next) => {
     item.prompt = prompt || item.prompt;
     item.solution = solution || item.solution;
     item.flagged = setFlagged ? flagged : item.flagged;
+    item.image = setImage ? image : item.image;
     item.updated = new Date();
 
     list.updated = new Date();

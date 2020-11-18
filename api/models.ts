@@ -24,12 +24,31 @@ export const Progress = model<ProgressType>('Progress', ProgressSchema);
 
 // ================
 
+export interface UnsplashImage {
+  id: string;
+  urls: { thumb: string; small: string; regular: string };
+  user: { name: string; link: string };
+}
+const UnsplashImageSchema = new Schema<UnsplashImage>({
+  id: { type: String, required: true },
+  urls: {
+    thumb: { type: String, required: true },
+    small: { type: String, required: true },
+    regular: { type: String, required: true },
+  },
+  user: {
+    name: { type: String, required: true },
+    link: { type: String, required: true },
+  },
+});
+
 export interface LearnItemType extends Document {
   created: Date;
   updated: Date;
   prompt: string;
   solution: string;
   flagged?: boolean;
+  image?: UnsplashImage | null;
   progress: ProgressType;
 }
 
@@ -39,6 +58,7 @@ const LearnItemSchema = new Schema<LearnItemType>({
   prompt: { type: String, required: true },
   solution: { type: String, required: true },
   flagged: Boolean,
+  image: UnsplashImageSchema,
   progress: { type: ProgressSchema, default: new Progress() },
 });
 
