@@ -1,3 +1,10 @@
+# [1.10.0](https://github.com/kimbylr/inemit/compare/v1.9.3...v1.10.0) (2020-11-18)
+
+
+### Features
+
+* Images! ([3f13e43](https://github.com/kimbylr/inemit/commit/3f13e43367cd7b77976acf9bd229af904450ef9f))
+
 ## [1.9.3](https://github.com/kimbylr/inemit/compare/v1.9.2...v1.9.3) (2020-10-03)
 
 
