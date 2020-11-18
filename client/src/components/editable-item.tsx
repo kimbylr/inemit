@@ -327,7 +327,7 @@ const ImageThumbContainer = styled.div<{ showImagePicker: boolean }>`
     height: 1.25rem;
     left: 0;
     display: ${({ showImagePicker }) => (showImagePicker ? 'block' : 'none')};
-    filter: drop-shadow(0 0 4px #fff);
+    filter: drop-shadow(0 0 4px white);
   }
   :hover svg {
     display: block;
