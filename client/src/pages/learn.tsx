@@ -6,6 +6,7 @@ import { LearnProgress } from '../components/learn-progress';
 import { Button } from '../elements/button';
 import { Icon } from '../elements/icon';
 import { Input } from '../elements/input';
+import { ExtLink } from '../elements/link';
 import { Spinner } from '../elements/spinner';
 import { Paragraph } from '../elements/typography';
 import { evaluateAnswer } from '../helpers/evaluate-answer';
@@ -135,10 +136,21 @@ export const Learn: FC = () => {
       <Content height={height}>
         <Prompt hasImage={!!image}>
           {image && (
-            <PromptImage
-              srcSet={`${image.urls.small} 400w, ${image.urls.regular} 1080w`}
-              sizes="calc(20vw + 25vh)"
-            />
+            <PromptImageContainer>
+              <PromptImage
+                srcSet={`${image.urls.small} 400w, ${image.urls.regular} 1080w`}
+                sizes="calc(20vw + 25vh)"
+              />
+              <ImageCredits>
+                <ExtLink
+                  href={`${image.user.link}?utm_source=inemit&utm_medium=referral`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {image.user.name}
+                </ExtLink>
+              </ImageCredits>{' '}
+            </PromptImageContainer>
           )}
           {prompt}
         </Prompt>
@@ -242,10 +254,29 @@ const Prompt = styled(Paragraph).attrs({ as: 'div' })<{ hasImage: boolean }>`
   font-size: calc(0.75rem + 2vh + 2vw);
   flex-grow: ${({ hasImage }) => (hasImage ? 2 : 1)};
 `;
+const PromptImageContainer = styled.div`
+  position: relative;
+  line-height: 0;
+`;
 const PromptImage = styled.img`
   max-height: calc(25vw + 20vh);
   max-width: calc(20vw + 25vh);
   box-shadow: 0 8px 32px ${({ theme: { colors } }) => colors.grey[60]};
+`;
+const ImageCredits = styled.div`
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  line-height: 1;
+  padding: 0.25rem;
+  background: rgba(0, 0, 0, 0.5);
+  font-size: ${({ theme: { font } }) => font.sizes.xs};
+  color: ${({ theme: { colors } }) => colors.grey[10]};
+
+  display: none;
+  ${PromptImageContainer}:hover & {
+    display: block;
+  }
 `;
 
 const Divider = styled.hr`
