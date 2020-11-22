@@ -1,3 +1,10 @@
+## [1.10.1](https://github.com/kimbylr/inemit/compare/v1.10.0...v1.10.1) (2020-11-22)
+
+
+### Bug Fixes
+
+* Add image credits in learning mode ([411de7d](https://github.com/kimbylr/inemit/commit/411de7d3e54da4f4175ae7b143441e755d2b74fc))
+
 # [1.10.0](https://github.com/kimbylr/inemit/compare/v1.9.3...v1.10.0) (2020-11-18)
 
 
