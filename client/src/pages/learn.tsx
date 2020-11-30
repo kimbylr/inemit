@@ -303,7 +303,7 @@ const SolutionInput = styled(Input)<{ incorrect?: boolean; correct?: boolean }>`
 
   ${({ correct, theme: { colors } }) =>
     correct
-      ? ` color: ${colors.grey[25]};
+      ? ` color: ${colors.primary[150]};
           border-color: ${colors.primary[100]};
           background-color: ${colors.primary[10]};`
       : ``}
