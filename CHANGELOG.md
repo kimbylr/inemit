@@ -1,3 +1,10 @@
+## [1.10.2](https://github.com/kimbylr/inemit/compare/v1.10.1...v1.10.2) (2020-11-30)
+
+
+### Bug Fixes
+
+* Solution input text color when correct ([2c19f86](https://github.com/kimbylr/inemit/commit/2c19f864a2b3fa37369bc8a5772de339d02f1533))
+
 ## [1.10.1](https://github.com/kimbylr/inemit/compare/v1.10.0...v1.10.1) (2020-11-22)
 
 
