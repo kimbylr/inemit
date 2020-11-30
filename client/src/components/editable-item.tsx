@@ -134,16 +134,17 @@ export const EditableItem: FC<Props> = ({
       const { prompt, solution, image } = await editItem({
         listId,
         itemId: item.id,
-        item: { image: img },
+        item: { image: img }, // TODO: don't send trackSet
       });
       if (img !== null && !image) throw 'could not save image';
       setSavedItem({ prompt, solution, image });
       setCurrentItem({ prompt, solution, image });
+      setShowImagePicker(false);
+      img?.trackSet?.();
     } catch (error) {
       console.error(error);
     } finally {
       setSaving(false);
-      setShowImagePicker(false);
     }
   };
 
