@@ -1,3 +1,16 @@
+# [1.11.0](https://github.com/kimbylr/inemit/compare/v1.10.2...v1.11.0) (2020-12-27)
+
+
+### Bug Fixes
+
+* Check if still showing item before changing flag button state ([716aa1a](https://github.com/kimbylr/inemit/commit/716aa1ac5135fd75efa8a9cd62a6b29bd69831d0))
+
+
+### Features
+
+* Give image picker more space ([a2ea7e4](https://github.com/kimbylr/inemit/commit/a2ea7e464649de4c22302f54a9f1502de0d988b7))
+* Image picker pagination (load more) ([2796f48](https://github.com/kimbylr/inemit/commit/2796f485a4bcb6f905e6ecdf9a25fe8eabe830e7))
+
 ## [1.10.2](https://github.com/kimbylr/inemit/compare/v1.10.1...v1.10.2) (2020-11-30)
 
 
