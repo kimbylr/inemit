@@ -101,7 +101,7 @@ export const ImagePicker: FC<Props> = ({ searchTerm: initialSearchTerm, onSetIma
                   role="button"
                   onClick={() => onSetImage(img)}
                 >
-                  <Image src={img.urls.thumb} onLoad={increaseImgsLoaded} />
+                  <Image src={img.urls.small} onLoad={increaseImgsLoaded} />
                   <ImageCredits>
                     <ExtLink
                       href={`${img.user.link}?utm_source=inemit&utm_medium=referral`}
@@ -160,8 +160,8 @@ const Images = styled.ul`
   padding: 0;
   list-style: none;
   display: flex;
+  height: 200px;
   overflow-x: auto;
-  height: 6rem;
   overflow-y: hidden;
 `;
 
