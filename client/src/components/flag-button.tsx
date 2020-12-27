@@ -1,7 +1,6 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useEffect, useRef, useState } from 'react';
 import styled, { keyframes } from 'styled-components';
 import { Icon } from '../elements/icon';
-import { Spinner } from '../elements/spinner';
 import { useApi } from '../hooks/use-api';
 
 interface Props {
@@ -14,9 +13,11 @@ export const FlagButton: FC<Props> = ({ flagged: initial, listId, itemId }) => {
   const { editItem } = useApi();
   const [flagged, setFlagged] = useState(initial);
   const [loading, setLoading] = useState(false);
+  const id = useRef<string>('');
 
   useEffect(() => {
     setFlagged(initial);
+    id.current = itemId;
   }, [listId, itemId, initial]);
 
   const toggleFlagged = async () => {
@@ -24,11 +25,13 @@ export const FlagButton: FC<Props> = ({ flagged: initial, listId, itemId }) => {
       return;
     }
 
-    const item = { flagged: !flagged };
     setLoading(true);
-
     try {
-      setFlagged((await editItem({ listId, itemId, item })).flagged);
+      const item = await editItem({ listId, itemId, item: { flagged: !flagged } });
+      // only change flagged state if still on screen (while learning)
+      if (id.current === item.id) {
+        setFlagged(item.flagged);
+      }
     } catch (error) {
       console.log('Fehler beim Markieren');
     } finally {
@@ -37,12 +40,7 @@ export const FlagButton: FC<Props> = ({ flagged: initial, listId, itemId }) => {
   };
 
   return (
-    <Button
-      type="button"
-      flagged={flagged}
-      onClick={toggleFlagged}
-      title="markieren"
-    >
+    <Button type="button" flagged={flagged} onClick={toggleFlagged} title="markieren">
       {loading ? (
         <Saving title="speichern..." flagged={flagged}>
           <Icon type="sync" width="24px" />
