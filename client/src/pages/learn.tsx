@@ -55,7 +55,7 @@ export const Learn: FC = () => {
   if (!list || !items) {
     return (
       <Container height={height}>
-        <Header>
+        <Header $loading>
           <StyledLink to={`/${slug}`} title="Zurück zur Übersicht">
             <Icon type="cancel" width="20px" />
           </StyledLink>
@@ -218,12 +218,13 @@ const showRefinementHint = (answer: string, solution: string) =>
 
 const Container = styled.div<{ height: number }>`
   height: ${({ height }) => height}px;
-  padding: 1rem;
   box-sizing: border-box;
+  overflow-y: hidden;
 `;
 
-const Header = styled.header`
-  padding-bottom: 1rem;
+const Header = styled.header<{ $loading?: boolean }>`
+  padding: 1rem;
+  padding-top: ${({ $loading }) => ($loading ? '1rem' : '0.75rem')}; // progress: 0.25rem
   display: flex;
   flex-direction: row-reverse;
   justify-content: space-between;
@@ -239,6 +240,7 @@ const StyledLink = styled(Link)`
 
 const Content = styled.main<{ height: number }>`
   height: ${({ height }) => height - 72}px; // header 40 + main 2*16
+  padding: 1rem; // 2 * 16px
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;

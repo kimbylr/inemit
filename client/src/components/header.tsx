@@ -14,7 +14,7 @@ export const Header: FC = () => (
 
 const Container = styled.div`
   width: 100%;
-  padding: 0.5rem 0;
+  padding: max(env(safe-area-inset-top), 0.5rem) 0 0.5rem;
   background: linear-gradient(
     to bottom,
     ${({ theme: { colors } }) => colors.primary[100]},

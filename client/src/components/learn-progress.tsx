@@ -8,7 +8,6 @@ interface LearnProgressProps {
   };
   total: number;
 }
-
 export const LearnProgress: FC<LearnProgressProps> = ({ count, total }) => (
   <Container>
     <Bar type="correct" count={count.correct} />
@@ -18,19 +17,24 @@ export const LearnProgress: FC<LearnProgressProps> = ({ count, total }) => (
 );
 
 const Container = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
   width: 100%;
-  height: 4px;
+  height: calc(env(safe-area-inset-top) + 0.25rem);
   display: flex;
+
+  position: relative;
+  ::before {
+    position: absolute;
+    content: '';
+    height: env(safe-area-inset-top);
+    width: 100%;
+    background: ${({ theme: { colors } }) => colors.grey[10]};
+  }
 `;
 
 interface BarProps {
   count: number;
   type: 'correct' | 'pending' | 'incorrect';
 }
-
 const Bar = styled.div<BarProps>`
   background: ${({ type, theme: { colors } }) =>
     type === 'correct'
