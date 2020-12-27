@@ -10,6 +10,7 @@
 
 * Give image picker more space ([a2ea7e4](https://github.com/kimbylr/inemit/commit/a2ea7e464649de4c22302f54a9f1502de0d988b7))
 * Image picker pagination (load more) ([2796f48](https://github.com/kimbylr/inemit/commit/2796f485a4bcb6f905e6ecdf9a25fe8eabe830e7))
+* Fancy styling for phones with notch ([cc17a6d](https://github.com/kimbylr/inemit/commit/3fb78fd45d2f39c82c30917d998283bcacc17a6d))
 
 ## [1.10.2](https://github.com/kimbylr/inemit/compare/v1.10.1...v1.10.2) (2020-11-30)
 
