@@ -28,8 +28,8 @@ const headers = {
   'Accept-Version': 'v1',
 };
 
-export const getUnsplashSearch = (searchString: string) =>
-  fetch(`https://api.unsplash.com/search/photos?query=${searchString}`, {
+export const searchUnsplash = (searchString: string, page: number) =>
+  fetch(`https://api.unsplash.com/search/photos?query=${searchString}&page=${page}`, {
     headers,
   });
 

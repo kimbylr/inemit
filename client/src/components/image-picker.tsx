@@ -1,10 +1,13 @@
 import React, { FC, useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
+import { Button } from '../elements/button';
 import { Input } from '../elements/input';
 import { ExtLink } from '../elements/link';
 import { Spinner } from '../elements/spinner';
-import { getUnsplashSearch, mapUnsplashImage, UnsplashImage } from '../helpers/unsplash';
+import { mapUnsplashImage, searchUnsplash, UnsplashImage } from '../helpers/unsplash';
 import { useDebounce } from '../hooks/use-debounce';
+
+const IMGS_PER_PAGE = 10; // unsplash default
 
 type Props = {
   searchTerm: string;
@@ -17,6 +20,8 @@ export const ImagePicker: FC<Props> = ({ searchTerm: initialSearchTerm, onSetIma
   const debouncedSearchTerm = useDebounce(searchTerm, 1000);
   const [imgs, setImgs] = useState<UnsplashImage[]>([]);
   const [error, setError] = useState('');
+  const [loadingMore, setLoadingMore] = useState(false);
+  const [page, setPage] = useState(1);
 
   const search = async (overruleSearchTerm?: string) => {
     if (searching || (!overruleSearchTerm && debouncedSearchTerm === lastSearched)) {
@@ -32,11 +37,12 @@ export const ImagePicker: FC<Props> = ({ searchTerm: initialSearchTerm, onSetIma
     setError('');
     setSearching(true);
     try {
-      const res = await getUnsplashSearch(searchString);
+      const res = await searchUnsplash(searchString, 1);
       const { results } = await res.json();
       if (results.length === 0) {
         return setError('Keine Bilder gefunden');
       }
+      setPage(1);
       setImgs(results.map(mapUnsplashImage));
     } catch {
       setError('Fehler beim Laden der Bilder');
@@ -47,6 +53,27 @@ export const ImagePicker: FC<Props> = ({ searchTerm: initialSearchTerm, onSetIma
   useEffect(() => {
     search();
   }, [debouncedSearchTerm]);
+
+  const loadMore = async () => {
+    if (searching || !searchTerm) {
+      return;
+    }
+
+    setLoadingMore(true);
+    try {
+      const res = await searchUnsplash(searchTerm, page + 1);
+      const { results } = await res.json();
+      setPage(page => page + 1);
+      if (results.length === 0) {
+        return setError('Keine weiteren Bilder');
+      }
+      setImgs(imgs => [...imgs, ...results.map(mapUnsplashImage)]);
+    } catch {
+      setError('Fehler beim Laden weiterer Bilder');
+    } finally {
+      setLoadingMore(false);
+    }
+  };
 
   // scroll shadows
   const ref = useRef<HTMLUListElement | null>(null);
@@ -114,6 +141,11 @@ export const ImagePicker: FC<Props> = ({ searchTerm: initialSearchTerm, onSetIma
                   </ImageCredits>
                 </ImageContainer>
               ))}
+              {Math.floor(imgs.length / page) === IMGS_PER_PAGE && (
+                <LoadMoreButton onClick={loadMore} disabled={loadingMore}>
+                  Mehr…
+                </LoadMoreButton>
+              )}
             </Images>
           </ImagesContainer>
           <GeneralCredits>
@@ -224,4 +256,15 @@ const GeneralCredits = styled.div`
   margin: 0.5rem 0;
   font-size: ${({ theme: { font } }) => font.sizes.xxs};
   color: ${({ theme: { colors } }) => colors.grey[10]};
+`;
+
+const LoadMoreButton = styled(Button)`
+  margin: 0;
+  color: ${({ theme: { colors } }) => colors.grey[10]};
+  background: ${({ theme: { colors } }) => colors.grey[85]};
+  box-shadow: none;
+
+  :active {
+    top: 0;
+  }
 `;
