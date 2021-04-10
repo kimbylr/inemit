@@ -1,6 +1,7 @@
 const webpack = require('webpack');
 const dotenv = require('dotenv');
 const path = require('path');
+const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 
 const env = dotenv.config().parsed;
 
@@ -64,7 +65,7 @@ module.exports = {
     historyApiFallback: true,
   },
   // define plugin + node handle .env variable replacement
-  plugins: [new webpack.DefinePlugin(envKeys)],
+  plugins: [new webpack.DefinePlugin(envKeys), new BundleAnalyzerPlugin()],
   node: { fs: 'empty' },
   devtool: 'source-map',
 };
