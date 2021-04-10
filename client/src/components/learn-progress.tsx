@@ -20,8 +20,10 @@ const Container = styled.div`
   width: 100%;
   height: calc(env(safe-area-inset-top) + 0.25rem);
   display: flex;
+  position: fixed;
+  top: 0;
+  left: 0;
 
-  position: relative;
   ::before {
     position: absolute;
     content: '';

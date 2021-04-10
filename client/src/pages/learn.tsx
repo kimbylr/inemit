@@ -55,7 +55,7 @@ export const Learn: FC = () => {
   if (!list || !items) {
     return (
       <Container height={height}>
-        <Header $loading>
+        <Header>
           <StyledLink to={`/${slug}`} title="Zurück zur Übersicht">
             <Icon type="cancel" width="20px" />
           </StyledLink>
@@ -124,6 +124,8 @@ export const Learn: FC = () => {
     next(true);
   };
 
+  const hasSpaceForImage = height > 600; // most likely soft keyboard
+
   return (
     <Container height={height}>
       <LearnProgress count={count} total={items.length} />
@@ -136,7 +138,7 @@ export const Learn: FC = () => {
       <Content height={height}>
         <Prompt hasImage={!!image}>
           {image && (
-            <PromptImageContainer>
+            <PromptImageContainer hasSpaceForImage={hasSpaceForImage}>
               <PromptImage
                 srcSet={`${image.urls.small} 400w, ${image.urls.regular} 1080w`}
                 sizes="calc(20vw + 25vh)"
@@ -154,7 +156,7 @@ export const Learn: FC = () => {
           )}
           {prompt}
         </Prompt>
-        <Divider />
+        <Divider reposition={!hasSpaceForImage} />
         <SolutionForm autoComplete="off">
           <SolutionInputContainer>
             <SolutionInput
@@ -218,13 +220,15 @@ const showRefinementHint = (answer: string, solution: string) =>
 
 const Container = styled.div<{ height: number }>`
   height: ${({ height }) => height}px;
+  width: 100vw;
   box-sizing: border-box;
-  overflow-y: hidden;
+  overflow: hidden;
+  position: fixed;
+  padding: 1rem;
 `;
 
-const Header = styled.header<{ $loading?: boolean }>`
-  padding: 1rem;
-  padding-top: ${({ $loading }) => ($loading ? '1rem' : '0.75rem')}; // progress: 0.25rem
+const Header = styled.header`
+  padding-top: env(safe-area-inset-top);
   display: flex;
   flex-direction: row-reverse;
   justify-content: space-between;
@@ -239,8 +243,8 @@ const StyledLink = styled(Link)`
 `;
 
 const Content = styled.main<{ height: number }>`
-  height: ${({ height }) => height - 72}px; // header 40 + main 2*16
-  padding: 1rem; // 2 * 16px
+  height: ${({ height }) => height - 72}px; // header 40 + container 2*16
+  padding: 1rem 0;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
@@ -256,9 +260,13 @@ const Prompt = styled(Paragraph).attrs({ as: 'div' })<{ hasImage: boolean }>`
   font-size: calc(0.75rem + 2vh + 2vw);
   flex-grow: ${({ hasImage }) => (hasImage ? 2 : 1)};
 `;
-const PromptImageContainer = styled.div`
-  position: relative;
+const PromptImageContainer = styled.div<{ hasSpaceForImage?: boolean }>`
   line-height: 0;
+  ${({ hasSpaceForImage }) =>
+    hasSpaceForImage
+      ? 'position: relative;'
+      : `position: absolute;
+         opacity: 0.25;`}
 `;
 const PromptImage = styled.img`
   max-height: calc(25vw + 20vh);
@@ -281,18 +289,21 @@ const ImageCredits = styled.div`
   }
 `;
 
-const Divider = styled.hr`
+const Divider = styled.hr<{ reposition?: boolean }>`
   width: 100%;
   border: none;
   border-top: 4px dotted ${({ theme: { colors } }) => colors.grey[85]};
+  margin: 1rem 0;
+  position: relative;
+  top: ${({ reposition }) => (reposition ? '1rem' : '0')}; // hacky tweaky
 `;
 
 const SolutionForm = styled.form`
-  margin: 0.5rem 0 0;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-grow: 1;
+  padding-bottom: env(safe-area-inset-bottom);
 `;
 const SolutionInputContainer = styled.div`
   margin-right: 20px;
