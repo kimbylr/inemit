@@ -1,3 +1,10 @@
+## [1.11.1](https://github.com/kimbylr/inemit/compare/v1.11.0...v1.11.1) (2021-04-11)
+
+
+### Bug Fixes
+
+* Learning view styling (iPhone notch, image on mobile) ([d50f314](https://github.com/kimbylr/inemit/commit/d50f314bfcd2cf792fe529cf49d05c96358ce03b))
+
 # [1.11.0](https://github.com/kimbylr/inemit/compare/v1.10.2...v1.11.0) (2020-12-27)
 
 
