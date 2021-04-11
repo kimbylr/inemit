@@ -1,4 +1,4 @@
-import createAuth0Client from '@auth0/auth0-spa-js';
+import createAuth0Client, { RedirectLoginOptions } from '@auth0/auth0-spa-js';
 import Auth0Client from '@auth0/auth0-spa-js/dist/typings/Auth0Client';
 import React, { FC, useContext, useEffect, useState } from 'react';
 
@@ -49,18 +49,14 @@ export const AuthProvider: FC = ({ children }) => {
       if (window.location.search.includes('code=')) {
         /*const { appState } =*/ await auth0FromHook.handleRedirectCallback();
         // onRedirectCallback(appState);
-        window.history.replaceState(
-          {},
-          document.title,
-          window.location.pathname,
-        );
+        window.history.replaceState({}, document.title, window.location.pathname);
       }
 
       const isAuthenticated = await auth0FromHook.isAuthenticated();
 
       if (isAuthenticated) {
         const authUser = await auth0FromHook.getUser();
-        setUser(authUser);
+        setUser(authUser || null);
       }
 
       setLoading(false);
@@ -97,8 +93,7 @@ export const AuthProvider: FC = ({ children }) => {
         loading,
         login: (options?: RedirectLoginOptions) =>
           auth0Client?.loginWithRedirect(options) ?? ((noop as unknown) as any),
-        getToken: () =>
-          auth0Client?.getTokenSilently() ?? ((noop as unknown) as any),
+        getToken: () => auth0Client?.getTokenSilently() ?? ((noop as unknown) as any),
         logout: () => auth0Client?.logout({ returnTo: REDIRECT_URI }) ?? noop,
         // popupOpen,
         // loginWithPopup,

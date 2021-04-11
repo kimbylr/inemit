@@ -65,7 +65,7 @@ module.exports = {
     historyApiFallback: true,
   },
   // define plugin + node handle .env variable replacement
-  plugins: [new webpack.DefinePlugin(envKeys), new BundleAnalyzerPlugin()],
+  plugins: [new webpack.DefinePlugin(envKeys) /*new BundleAnalyzerPlugin() */],
   node: { fs: 'empty' },
   devtool: 'source-map',
 };

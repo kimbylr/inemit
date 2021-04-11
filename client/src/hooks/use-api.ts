@@ -16,8 +16,7 @@ const routes = {
   listBySlug: (slug: string) => `${API_URL}/lists?slug=${slug}`,
 
   items: (listId: string) => `${API_URL}/lists/${listId}/items`,
-  item: (listId: string, itemId: string) =>
-    `${API_URL}/lists/${listId}/items/${itemId}`,
+  item: (listId: string, itemId: string) => `${API_URL}/lists/${listId}/items/${itemId}`,
 
   learn: (listId: string) => `${API_URL}/lists/${listId}/items/learn`,
   progress: (listId: string, itemId: string) =>
@@ -80,7 +79,8 @@ const fetchAndUnpack = async <T>({
   }
 
   if (emptyResponse) {
-    return new Promise(resolve => resolve());
+    // for "emptyResponse, T is indeed void
+    return (new Promise<void>(resolve => resolve()) as Promise<unknown>) as Promise<T>;
   }
 
   return await res.json();
@@ -166,11 +166,7 @@ export const useApi = () => {
       url: routes.learn(listId),
     });
 
-  const reportProgress = async ({
-    listId,
-    itemId,
-    answerQuality,
-  }: ReportProgress) =>
+  const reportProgress = async ({ listId, itemId, answerQuality }: ReportProgress) =>
     fetchAndUnpack<void>({
       getToken,
       url: routes.progress(listId, itemId),
