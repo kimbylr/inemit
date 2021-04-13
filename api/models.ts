@@ -66,13 +66,14 @@ export const LearnItem = model<LearnItemType>('LearnItem', LearnItemSchema);
 
 // ================
 
-export interface ListType extends Document {
+export interface ListType {
   userId: string;
   name: string;
   slug: string;
   created: Date;
   updated: Date;
   items: LearnItemType[];
+  _id: any; // from document
 }
 
 const ListSchema = new Schema<ListType>({
@@ -84,4 +85,4 @@ const ListSchema = new Schema<ListType>({
   items: [LearnItemSchema],
 });
 
-export const List = model<ListType>('LearnList', ListSchema);
+export const List = model<ListType & Document>('LearnList', ListSchema);

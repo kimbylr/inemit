@@ -1,4 +1,3 @@
-import * as dayjs from 'dayjs';
 import { Router } from 'express';
 import {
   getDue,
@@ -28,15 +27,6 @@ router.param('itemId', async (req, res, next) => {
   }
 });
 
-// get all items
-router.get('/', async ({ list: { items } }, res, next) => {
-  try {
-    res.json(mapItems(items));
-  } catch (error) {
-    next(error);
-  }
-});
-
 // add items
 router.post('/', async ({ list, body: { items, stage } }, res, next) => {
   if (!items || !Array.isArray(items) || !items.length) {
@@ -44,7 +34,7 @@ router.post('/', async ({ list, body: { items, stage } }, res, next) => {
   }
 
   const newItemsWithProgress = items.map(
-    (item) => new LearnItem({ ...item, progress: getInitialProgress(stage) })
+    (item) => new LearnItem({ ...item, progress: getInitialProgress(stage) }),
   );
 
   try {
@@ -96,23 +86,6 @@ router.delete('/:itemId', async ({ list, itemIndex }, res, next) => {
 
 // ============
 
-// get items to learn
-const DEFAULT_AMOUNT = 20;
-router.get('/learn/:count?', async ({ list, params: { count } }, res, next) => {
-  try {
-    const itemsToLearn = list.items
-      .filter(({ progress: { due } }) => dayjs(due).isBefore(dayjs()))
-      .sort(
-        ({ progress: { due: a } }, { progress: { due: b } }) => a.getTime() - b.getTime()
-      );
-
-    const amount = parseInt(count, 10) > 0 ? parseInt(count) : DEFAULT_AMOUNT;
-    res.json(mapItems(itemsToLearn.slice(0, amount)));
-  } catch (error) {
-    next(error);
-  }
-});
-
 // report item progress when learned (correct/wrong)
 router.put('/:itemId/progress', async ({ body, list, itemIndex }, res, next) => {
   const { answerQuality } = body;
@@ -120,9 +93,13 @@ router.put('/:itemId/progress', async ({ body, list, itemIndex }, res, next) => 
     return next(new Error('Answer quality from 0-5 must be provided.'));
   }
 
+  console.time(); // TODO: remove
+
   try {
     const progress = list.items[itemIndex].progress;
     const { easiness, interval, stage, timesCorrect, timesWrong } = progress;
+
+    console.timeLog(); // TODO: remove
 
     const isCorrect = answerQuality >= 3;
     const newInterval = recalcInterval(interval, easiness, isCorrect);
@@ -135,9 +112,11 @@ router.put('/:itemId/progress', async ({ body, list, itemIndex }, res, next) => 
       timesWrong: isCorrect ? timesWrong : timesWrong + 1,
       updated: new Date(),
     });
+    console.timeLog(); // TODO: remove
 
     list.items[itemIndex].progress = newProgress;
     await list.save();
+    console.timeEnd(); // TODO: remove
     res.sendStatus(200);
   } catch (error) {
     next(error);
