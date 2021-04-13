@@ -50,7 +50,7 @@ interface ReportProgress {
 interface FetchAndUnpack {
   url: string;
   getToken: () => Promise<string>;
-  method?: 'PUT' | 'POST' | 'DELETE' | 'GET';
+  method?: 'PATCH' | 'POST' | 'DELETE' | 'GET';
   body?: any;
   emptyResponse?: boolean;
 }
@@ -122,7 +122,7 @@ export const useApi = () => {
     const res = await fetchAndUnpack<ListWithProgress>({
       getToken,
       url: routes.listById(listId),
-      method: 'PUT',
+      method: 'PATCH',
       body: { name },
     });
 
@@ -147,7 +147,7 @@ export const useApi = () => {
     fetchAndUnpack<LearnItem>({
       getToken,
       url: routes.item(listId, itemId),
-      method: 'PUT',
+      method: 'PATCH',
       body: item,
     });
 
@@ -170,7 +170,7 @@ export const useApi = () => {
     fetchAndUnpack<void>({
       getToken,
       url: routes.progress(listId, itemId),
-      method: 'PUT',
+      method: 'PATCH',
       body: { answerQuality },
       emptyResponse: true,
     });

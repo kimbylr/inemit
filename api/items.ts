@@ -48,7 +48,7 @@ router.post('/', async ({ list, body: { items, stage } }, res, next) => {
 });
 
 // change an item
-router.put('/:itemId', async ({ body, list, itemIndex }, res, next) => {
+router.patch('/:itemId', async ({ body, list, itemIndex }, res, next) => {
   const { prompt, solution, flagged, image } = body;
   const setFlagged = typeof flagged === 'boolean';
   const setImage = typeof image === 'object'; // null is also 'object'
@@ -87,7 +87,7 @@ router.delete('/:itemId', async ({ list, itemIndex }, res, next) => {
 // ============
 
 // report item progress when learned (correct/wrong)
-router.put('/:itemId/progress', async ({ body, list, itemIndex }, res, next) => {
+router.patch('/:itemId/progress', async ({ body, list, itemIndex }, res, next) => {
   const { answerQuality } = body;
   if (typeof answerQuality !== 'number' || answerQuality < 0 || answerQuality > 5) {
     return next(new Error('Answer quality from 0-5 must be provided.'));

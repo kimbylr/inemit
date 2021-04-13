@@ -118,7 +118,7 @@ router.post('/', async ({ body: { name }, user }, res, next) => {
 });
 
 // change list properties
-router.put('/:listId', async ({ list, body: { name } }, res, next) => {
+router.patch('/:listId', async ({ list, body: { name } }, res, next) => {
   if (!name) {
     return next(new Error('Name must be provided.'));
   }
