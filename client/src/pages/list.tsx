@@ -70,16 +70,12 @@ export const List: FC = () => {
   };
 
   const onItemSaved = (editedItem: LearnItem) => {
-    setItems(items =>
-      items.map(item => (editedItem.id === item.id ? editedItem : item)),
-    );
+    setItems(items => items.map(item => (editedItem.id === item.id ? editedItem : item)));
   };
 
   const onItemDeleted = (id: string) => {
     setItems(items => items.filter(item => item.id !== id));
-    setList(list =>
-      list ? { ...list, itemsCount: list.itemsCount - 1 } : null,
-    ); // TODO: state handling (will not propagate to list-edit)
+    setList(list => (list ? { ...list, itemsCount: list.itemsCount - 1 } : null)); // TODO: state handling (will not propagate to list-edit)
   };
 
   const { dueToday, dueTomorrow } = list.progress;
@@ -106,7 +102,7 @@ export const List: FC = () => {
       <Paragraph>
         {dueToday > 0 && (
           <ButtonWithSpacing primary onClick={startLearning}>
-            <Icon type="logo" width="14px" />
+            <Icon type="logo" width="18px" />
             Jetzt lernen!
           </ButtonWithSpacing>
         )}

@@ -6,7 +6,7 @@ import { Icon } from '../elements/icon';
 export const Header: FC = () => (
   <Container>
     <StyledLink to="/">
-      <Icon type="logo" width="30px" />
+      <Icon type="logo" width="40px" />
       inemit!
     </StyledLink>
   </Container>

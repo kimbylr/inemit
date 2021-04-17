@@ -7,19 +7,19 @@ import { PageLayout } from '../layout/page-layout';
 
 export const About: FC = () => (
   <PageLayout>
-    <Heading>Die Idee</Heading>
+    <Heading>Die Idee: inemit statt Bullshit.</Heading>
     <ExplainerParagraph>
       Inemit kombiniert{' '}
       <Highlight color="yellow">wissenschaftliche Erkenntnisse</Highlight> und{' '}
       <Highlight color="orange">Technologie</Highlight>, um{' '}
-      <Highlight color="green">effizientes und sinnvolles Lernen</Highlight> so
-      einfach wie möglich zu machen.
+      <Highlight color="green">effizientes und sinnvolles Lernen</Highlight> so einfach
+      wie möglich zu machen.
     </ExplainerParagraph>
     <ExplainerParagraph>
       Am Anfang steht die Erkenntnis, dass{' '}
-      <Highlight color="yellow">Wiederholung</Highlight> zentral ist, um
-      Vokabeln zu lernen. Diesen Effekt machen sich analoge Lernkarteien schon
-      seit langer Zeit zunutze. Davon leitet sich die Methode der{' '}
+      <Highlight color="yellow">Wiederholung</Highlight> zentral ist, um Vokabeln zu
+      lernen. Diesen Effekt machen sich analoge Lernkarteien schon seit langer Zeit
+      zunutze. Davon leitet sich die Methode der{' '}
       <ExtLink href="https://de.wikipedia.org/wiki/Spaced_repetition">
         spaced repetition
       </ExtLink>{' '}
@@ -27,27 +27,26 @@ export const About: FC = () => (
     </ExplainerParagraph>
     <ExplainerParagraph>
       Digitales Lernen ermöglicht{' '}
-      <Highlight color="orange">systematisches Lernen</Highlight>: Jeder
-      Lerninhalt hat einen aus positiven und negativen Antworten berechneten{' '}
-      <Highlight color="orange">Schwierigkeitsgrad</Highlight>. Darauf basierend
-      wird der <Highlight color="orange">optimale Zeitabstand</Highlight> bis
-      zur nächsten Abfrage gesetzt. So kann die Lernzeit effizient genutzt
-      werden. (<Inemit>Inemit</Inemit> implementiert den{' '}
+      <Highlight color="orange">systematisches Lernen</Highlight>: Jeder Lerninhalt hat
+      einen aus positiven und negativen Antworten berechneten{' '}
+      <Highlight color="orange">Schwierigkeitsgrad</Highlight>. Darauf basierend wird der{' '}
+      <Highlight color="orange">optimale Zeitabstand</Highlight> bis zur nächsten Abfrage
+      gesetzt. So kann die Lernzeit effizient genutzt werden. (<Inemit>Inemit</Inemit>{' '}
+      implementiert den{' '}
       <ExtLink href="https://supermemo.guru/wiki/SuperMemo_1.0_for_DOS_(1987)#Algorithm_SM-2">
         <em>SM-2</em>-Algorithmus
       </ExtLink>
       ).
     </ExplainerParagraph>
     <ExplainerParagraph>
-      Lernerfolg hängt von der eigenen Investition ab. Keine App der Welt kann
-      einem das Lernen abnehmen. Technologie kann nur unterstützen. Entscheidend
-      sind neben regelmässiger Wiederholung insbesondere{' '}
+      Lernerfolg hängt von der eigenen Investition ab. Keine App der Welt kann einem das
+      Lernen abnehmen. Technologie kann nur unterstützen. Entscheidend sind neben
+      regelmässiger Wiederholung insbesondere{' '}
       <Highlight color="green">passende Lerninhalte</Highlight> (vgl.{' '}
       <ExtLink href="https://universeofmemory.com/spaced-repetition-apps-dont-work/">
         Why Most Spaced Repetition Apps Don't Work
       </ExtLink>
-      ). Inemit soll zu{' '}
-      <Highlight color="green">sinnvollem Lernen animieren</Highlight>.
+      ). Inemit soll zu <Highlight color="green">sinnvollem Lernen animieren</Highlight>.
     </ExplainerParagraph>
 
     <TechnicalNotes>
@@ -55,16 +54,13 @@ export const About: FC = () => (
       <ExtLink href="https://github.com/kimbylr/inemit/blob/master/CHANGELOG.md">
         Changelog
       </ExtLink>{' '}
-      •{' '}
-      <ExtLink href="https://github.com/kimbylr/inemit/">
-        Quellcode auf Github
-      </ExtLink>
+      • <ExtLink href="https://github.com/kimbylr/inemit/">Quellcode auf Github</ExtLink>
     </TechnicalNotes>
   </PageLayout>
 );
 
 const ExplainerParagraph = styled(Paragraph)`
-  font-size: ${({ theme: { font } }) => font.sizes.xs};
+  font-size: ${({ theme: { font } }) => font.sizes.sm};
 `;
 
 const Highlight = styled.strong<{ color: 'orange' | 'yellow' | 'green' }>`

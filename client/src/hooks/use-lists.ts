@@ -47,9 +47,7 @@ export const useLists = () => {
 
   const updateList = (list: ListSummary) => {
     dispatch({
-      lists: lists.map(storedList =>
-        storedList.id === list.id ? list : storedList,
-      ),
+      lists: lists.map(storedList => (storedList.id === list.id ? list : storedList)),
     });
   };
 

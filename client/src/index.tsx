@@ -25,13 +25,13 @@ const App = () => (
           <GlobalStyle />
           <Switch>
             <PrivateRoute path="/:slug/learn" component={Learn} />
+            <Route exact path="/" component={Home} />
             <Route path="/:slug?">
               <NotificationBar />
               <Header />
               <Menu />
               <Main>
                 <Switch>
-                  <Route exact path="/" component={Home} />
                   <Route exact path="/about" component={About} />
                   <PrivateRoute path="/:slug/edit" component={EditList} />
                   <PrivateRoute path="/:slug" component={List} />
