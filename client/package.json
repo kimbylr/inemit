@@ -14,7 +14,8 @@
     "start": "webpack-dev-server --hot --mode development",
     "postinstall": "rm -rf node_modules/@types/react-native",
     "test": "jest --config test/jest.config.json",
-    "analyse": "webpack --profile --json > stats.json && webpack-bundle-analyzer stats.json"
+    "analyse": "webpack --profile --json > stats.json && webpack-bundle-analyzer stats.json",
+    "generate-splashscreens": "npx pwa-asset-generator ./dist/splashscreens/base.svg ./dist/splashscreens --background \"#6CC17A\" -i ./dist/index.html -h --padding \"20vh 20vw\""
   },
   "dependencies": {
     "@auth0/auth0-spa-js": "^1.14.0",
