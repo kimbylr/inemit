@@ -11,6 +11,7 @@ const devMode = process.env.NODE_ENV === 'development' && !process.env.LIVE_API;
 const API_URL = devMode ? process.env.API_URL_DEV : process.env.API_URL;
 
 const routes = {
+  ping: () => `${API_URL}/ping`,
   lists: () => `${API_URL}/lists`,
   listById: (listId: string) => `${API_URL}/lists/${listId}`,
   listBySlug: (slug: string) => `${API_URL}/lists?slug=${slug}`,
@@ -88,6 +89,12 @@ const fetchAndUnpack = async <T>({
 
 export const useApi = () => {
   const { getToken } = useAuth();
+
+  const ping = async () => {
+    try {
+      await fetch(routes.ping());
+    } catch {}
+  };
 
   const getLists = async () =>
     fetchAndUnpack<ListSummary[]>({
@@ -176,6 +183,7 @@ export const useApi = () => {
     });
 
   return {
+    ping,
     getLists,
     getListBySlug,
     addList,

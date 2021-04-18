@@ -1,14 +1,22 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect } from 'react';
 import styled from 'styled-components';
 import { Icon } from '../elements/icon';
 import { Link } from '../elements/link';
 import { Spinner } from '../elements/spinner';
 import { useAuth } from '../helpers/auth';
+import { useApi } from '../hooks/use-api';
 import { useLists } from '../hooks/use-lists';
 
 export const Home: FC = () => {
   const { login } = useAuth();
   const { state, fetchLists } = useLists(); // trigger initial fetching of lists + redirect to last learnt if logged in
+  const { ping } = useApi();
+
+  useEffect(() => {
+    if (state === 'initial') {
+      ping();
+    }
+  }, []);
 
   if (state === 'loading') {
     return (
