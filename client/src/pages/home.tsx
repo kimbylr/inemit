@@ -8,7 +8,7 @@ import { useLists } from '../hooks/use-lists';
 
 export const Home: FC = () => {
   const { login } = useAuth();
-  const { state } = useLists(); // trigger initial fetching of lists + redirect to last learnt if logged in
+  const { state, fetchLists } = useLists(); // trigger initial fetching of lists + redirect to last learnt if logged in
 
   if (state === 'loading') {
     return (
@@ -17,6 +17,8 @@ export const Home: FC = () => {
       </AbsoluteCenter>
     );
   }
+
+  const enter = state === 'loaded' ? fetchLists : login;
 
   return (
     <ParallaxContainer>
@@ -29,7 +31,7 @@ export const Home: FC = () => {
 
         <Shard1 />
         <LogoContainer>
-          <LoginButton onClick={login}>
+          <LoginButton onClick={enter}>
             <Icon type="logo" />
           </LoginButton>
         </LogoContainer>
@@ -59,7 +61,7 @@ export const Home: FC = () => {
               <StyledLink to="/about">Wie das?</StyledLink>
             </Paragraph>
             <Paragraph>
-              <LinkButton onClick={login}>Anmelden oder registrieren</LinkButton>
+              <LinkButton onClick={enter}>Anmelden oder registrieren</LinkButton>
             </Paragraph>
           </Intro>
         </Shard2>
@@ -133,7 +135,7 @@ const Shard1 = styled.div`
     position: absolute;
     width: 0;
     height: 0;
-    top: -15vw;
+    top: calc(1px - 15vw); // ohai Safari, there's a pixel for you
     left: 0;
     border-left: 100vw solid transparent;
     border-bottom: 15vw solid ${({ theme: { colors } }) => colors.primary[100]};
@@ -170,7 +172,7 @@ const Shard2 = styled.div`
     position: absolute;
     width: 0;
     height: 0;
-    top: -50vw;
+    top: calc(1px - 50vw); // ohai Safari again, there's another pixel for you
     left: 0;
     border-left: 100vw solid transparent;
     border-bottom: 50vw solid ${({ theme: { colors } }) => colors.primary[150]};
