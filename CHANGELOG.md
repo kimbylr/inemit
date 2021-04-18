@@ -1,3 +1,24 @@
+# [1.12.0](https://github.com/kimbylr/inemit/compare/v1.11.1...v1.12.0) (2021-04-18)
+
+
+### Bug Fixes
+
+* Brush up about page ([f6c05c1](https://github.com/kimbylr/inemit/commit/f6c05c12e0eb7b89de122d681326b3c770b6f76a))
+* Just fetch lists if already logged in ([4e939de](https://github.com/kimbylr/inemit/commit/4e939de6b7c8a1b93172f8a4a3b44c8e852d7648))
+* use patch instead of put (updating resource, not replacing it) ([9716d25](https://github.com/kimbylr/inemit/commit/9716d25a37ed4f84ff3b1ba250f7bb8b1aa8c69e))
+
+
+### Features
+
+* Fancy landing page ([1fca678](https://github.com/kimbylr/inemit/commit/1fca678f0263dd3f4eb81ba4fdcb0373629592fb))
+* use POJO objects for GET requests (mongoose "lean"); ts update ([d93455d](https://github.com/kimbylr/inemit/commit/d93455db21be889fcbdbca0b42aa42f058f125d1))
+
+
+### Performance Improvements
+
+* Ping API ([e9d7c59](https://github.com/kimbylr/inemit/commit/e9d7c59ba2d579941b0c14a4057eb888abb807e8))
+* use mongoDB transactions instead of mongoose on learnitems array ([26e4159](https://github.com/kimbylr/inemit/commit/26e41599473b2e3ce88ac902b7dcdef71ce47448))
+
 ## [1.11.1](https://github.com/kimbylr/inemit/compare/v1.11.0...v1.11.1) (2021-04-11)
 
 
