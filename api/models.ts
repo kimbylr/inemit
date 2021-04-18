@@ -24,7 +24,7 @@ export const Progress = model<ProgressType>('Progress', ProgressSchema);
 
 // ================
 
-export interface UnsplashImage {
+export interface UnsplashImage extends Document {
   id: string;
   urls: { thumb: string; small: string; regular: string };
   user: { name: string; link: string };
@@ -76,7 +76,7 @@ export interface ListType {
   _id: any; // from document
 }
 
-const ListSchema = new Schema<ListType>({
+const ListSchema = new Schema<ListType & Document>({
   userId: { type: String, required: true },
   name: { type: String, required: true },
   slug: { type: String, required: true },

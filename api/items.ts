@@ -66,8 +66,10 @@ router.post('/', async ({ listLean: list, body: { items, stage } }, res, next) =
   try {
     await List.updateOne(
       { _id: list._id },
-      { $push: { items: { $each: newItemsWithProgress } } },
-      { $set: { updated: new Date() } },
+      {
+        $push: { items: { $each: newItemsWithProgress } },
+        $set: { updated: new Date() },
+      },
     );
     res.json(mapItems(newItemsWithProgress));
   } catch (error) {

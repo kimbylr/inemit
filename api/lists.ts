@@ -2,7 +2,7 @@ import { Router } from 'express';
 import slugify from 'slugify';
 import { getProgressSummary, getUserId, mapList } from './helpers';
 import items from './items';
-import { List } from './models';
+import { List, ListType } from './models';
 
 const router = Router();
 
@@ -15,7 +15,7 @@ router.param('listIdLean', async (req, res, next) => {
       return next({ status: 404 });
     }
 
-    req.listLean = list;
+    req.listLean = list as ListType;
     next();
   } catch (error) {
     next(error);
@@ -40,13 +40,13 @@ router.param('listId', async (req, res, next) => {
 
 // get list by slug
 router.get('/', async ({ query: { slug }, user }, res, next) => {
-  if (!slug) {
+  if (!slug || typeof slug !== 'string') {
     return next();
   }
 
   try {
     const userId = getUserId({ user });
-    const list = await List.findOne({ slug, userId }).lean();
+    const list: ListType = await List.findOne({ slug, userId }).lean();
     if (!list) {
       return next({ status: 404 });
     }
@@ -63,7 +63,7 @@ router.get('/', async ({ query: { slug }, user }, res, next) => {
 // get all lists
 router.get('/', async (req, res, next) => {
   try {
-    const lists = await List.find({ userId: getUserId(req) }).lean();
+    const lists: ListType[] = await List.find({ userId: getUserId(req) }).lean();
     const listsSummary = lists.map((list) => mapList(list, { lastLearnt: true }));
     res.json(listsSummary);
   } catch (error) {
@@ -71,7 +71,7 @@ router.get('/', async (req, res, next) => {
   }
 });
 
-// get specific list
+// get specific list   -- unused
 router.get('/:listIdLean', ({ listLean: list }, res, next) => {
   try {
     const progress = getProgressSummary(list.items);
