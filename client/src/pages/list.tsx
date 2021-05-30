@@ -22,7 +22,7 @@ import {
 export const List: FC = () => {
   const [list, setList] = useState<ListWithProgress | null>(null);
   const [state, setState] = useState<LoadingStates>(LoadingStates.initial);
-  const { slug, goTo } = useRouting();
+  const { slug, goToList } = useRouting();
   const { getListBySlug } = useApi();
   const [items, setItems] = useState<LearnItemWithDoublet[]>([]);
 
@@ -79,8 +79,8 @@ export const List: FC = () => {
   };
 
   const { dueToday, dueTomorrow } = list.progress;
-  const editList = () => goTo(list.slug, 'edit');
-  const startLearning = () => goTo(list.slug, 'learn');
+  const editList = () => goToList(list.slug, 'edit');
+  const startLearning = () => goToList(list.slug, 'learn');
 
   return (
     <PageLayout>

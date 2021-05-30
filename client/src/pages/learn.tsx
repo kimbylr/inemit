@@ -18,11 +18,12 @@ import { LearnItemForLearning } from '../models';
 
 export const Learn: FC = () => {
   const height = useHeight();
-  const { slug, goTo } = useRouting();
+  const { slug, goToList, getListPath } = useRouting();
   const { getLearnItems, reportProgress } = useApi();
 
   const { lists } = useLists();
   const list = lists.find(list => list.slug === slug);
+  const listPath = getListPath(slug);
 
   const [items, setItems] = useState<LearnItemForLearning[] | null>(null);
   const [current, setCurrent] = useState(0);
@@ -40,12 +41,12 @@ export const Learn: FC = () => {
       const learnItems = await getLearnItems(listId);
       if (learnItems.length === 0) {
         window.alert('Nichts zu lernen :D');
-        goTo(slug);
+        goToList(slug);
       }
       setItems(learnItems);
     } catch {
       window.alert('Fehler beim laden der Lerninhalte 0_ò');
-      goTo(slug);
+      goToList(slug);
     }
   };
   useEffect(() => {
@@ -56,7 +57,7 @@ export const Learn: FC = () => {
     return (
       <Container height={height}>
         <Header>
-          <StyledLink to={`/${slug}`} title="Zurück zur Übersicht">
+          <StyledLink to={listPath} title="Zurück zur Übersicht">
             <Icon type="cancel" width="20px" />
           </StyledLink>
         </Header>
@@ -98,7 +99,7 @@ export const Learn: FC = () => {
     if (current + 1 >= items.length) {
       setDisableNext(true);
       await save(answerQuality);
-      goTo(slug);
+      goToList(slug);
       return;
     }
 
@@ -130,7 +131,7 @@ export const Learn: FC = () => {
     <Container height={height}>
       <LearnProgress count={count} total={items.length} />
       <Header>
-        <StyledLink to={`/${slug}`} title="Zurück zur Übersicht">
+        <StyledLink to={listPath} title="Zurück zur Übersicht">
           <Icon type="cancel" width="20px" />
         </StyledLink>
         <FlagButton flagged={flagged} listId={list.id} itemId={itemId} />

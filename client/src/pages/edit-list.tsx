@@ -29,7 +29,7 @@ export const EditList: FC = () => {
   const [items, setItems] = useState<LearnItemWithDoublet[]>([]);
   const lastInputRef = useRef<HTMLInputElement | null>(null);
   const [state, setState] = useState<LoadingStates>(LoadingStates.initial);
-  const { slug, goTo } = useRouting();
+  const { slug, goToList } = useRouting();
   const { lists, state: listsState, updateList, removeList } = useLists();
   const list = lists.find(list => list.slug === slug);
 
@@ -91,7 +91,6 @@ export const EditList: FC = () => {
     try {
       await deleteList(list.id);
       removeList(list.id);
-      goTo();
     } catch (error) {
       console.error(error);
     }
@@ -103,9 +102,7 @@ export const EditList: FC = () => {
 
   const onItemSaved = (editedItem: LearnItem) => {
     setItems(items =>
-      markDoublets(
-        items.map(item => (editedItem.id === item.id ? editedItem : item)),
-      ),
+      markDoublets(items.map(item => (editedItem.id === item.id ? editedItem : item))),
     );
   };
 
@@ -129,7 +126,7 @@ export const EditList: FC = () => {
       </Paragraph>
 
       <StickyParagraph>
-        <Button primary onClick={() => goTo(slug)}>
+        <Button primary onClick={() => goToList(slug)}>
           <Icon type="done" width="14px" /> bearbeiten abschliessen
         </Button>
       </StickyParagraph>
@@ -169,26 +166,22 @@ export const EditList: FC = () => {
 
       <SubHeading>Vokabeln</SubHeading>
       <LearnItemsIntro>
-        <strong>
-          Vokabelpaare selbst eingeben ist sinnvoll investierte Zeit.
-        </strong>{' '}
-        Das Ausdenken einer Aufgabe verankert das Wort ein erstes Mal. Und es
-        verhindert, dass man Lernzeit mit Wörtern vergeudet, die man schon
-        beherrscht.
+        <strong>Vokabelpaare selbst eingeben ist sinnvoll investierte Zeit.</strong> Das
+        Ausdenken einer Aufgabe verankert das Wort ein erstes Mal. Und es verhindert, dass
+        du Lernzeit mit Wörtern vergeudest, die du schon beherrschst.
       </LearnItemsIntro>
       <LearnItemsIntro>Einige Tipps für grösseren Lerneffekt:</LearnItemsIntro>
       <LearnItemsIntroList>
         <li>
-          <strong>Kontext</strong>: Am besten funktionieren Aufgaben, die das
-          Lernmaterial in einen Kontext stellen, z.B. einen Satz oder Ausdruck.
+          <strong>Kontext</strong>: Am besten funktionieren Aufgaben, die das Lernmaterial
+          in einen Kontext stellen, z.B. in einem Satz oder Ausdruck verwenden.
         </li>
         <li>
           <strong>Bilder</strong> unterstützen den immersiven Effekt.
         </li>
         <li>
           <strong>Synonyme</strong> haben den Vorteil, dass die Verknüpfungen
-          <em>innerhalb</em> der Sprache verstärkt werden (und nicht zur
-          Muttersprache).
+          <em>innerhalb</em> der Sprache verstärkt werden (und nicht zur Muttersprache).
         </li>
       </LearnItemsIntroList>
 

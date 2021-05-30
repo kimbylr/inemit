@@ -9,18 +9,23 @@ export const useLists = () => {
   const { lists, state, dispatch } = useStore();
   const { getLists } = useApi();
   const { user } = useAuth();
-  const { goTo, path } = useRouting();
+  const { goToPage, goToList, path } = useRouting();
 
-  const goToLastLearnt = (lists: ListSummary[]) => {
-    if (lists.length === 0 || path !== '/') {
+  const goToLastLearnt = (lists: ListSummary[], force?: boolean) => {
+    if (!force && path !== '/') {
       return;
     }
 
-    const lastLearntList = lists.sort(
+    if (lists.length === 0) {
+      goToPage('start');
+      return;
+    }
+
+    const lastLearntLists = lists.sort(
       ({ lastLearnt: a }, { lastLearnt: b }) =>
         new Date(b).getTime() - new Date(a).getTime(),
     );
-    goTo(lastLearntList[0].slug);
+    goToList(lastLearntLists[0].slug);
   };
 
   const fetchLists = async () => {
@@ -52,9 +57,9 @@ export const useLists = () => {
   };
 
   const removeList = (listId: string) => {
-    dispatch({
-      lists: lists.filter(({ id }) => id !== listId),
-    });
+    const filteredLists = lists.filter(({ id }) => id !== listId);
+    dispatch({ lists: filteredLists });
+    goToLastLearnt(filteredLists, true);
   };
 
   return {

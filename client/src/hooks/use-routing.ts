@@ -5,17 +5,24 @@ export const useRouting = () => {
   const { slug } = useParams<{ slug: string }>();
   const { pathname: path } = useLocation();
 
-  const goTo = (slug?: string, mode?: 'edit' | 'learn') => {
+  const goToPage = (page: 'start' | 'home') =>
+    history.push(page === 'home' ? '/' : `/${page}`);
+
+  const goToList = (slug?: string, mode?: 'edit' | 'learn') => {
     if (!slug) {
       return history.push('/');
     }
 
-    history.push(`/${slug}${mode ? `/${mode}` : ''}`);
+    history.push(`/lists/${slug}${mode ? `/${mode}` : ''}`);
   };
 
+  const getListPath = (slug: string) => `/lists/${slug}`;
+
   return {
-    goTo,
+    goToPage,
+    goToList,
     slug,
+    getListPath,
     path,
   };
 };

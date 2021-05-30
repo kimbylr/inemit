@@ -6,7 +6,6 @@ import { createGlobalStyle, ThemeProvider } from 'styled-components';
 import { Header } from './components/header';
 import { Main } from './components/main';
 import { Menu } from './components/menu';
-import { NotificationBar } from './components/notification-bar';
 import { AuthProvider } from './helpers/auth';
 import { PrivateRoute } from './helpers/private-route';
 import { About } from './pages/about';
@@ -14,6 +13,7 @@ import { EditList } from './pages/edit-list';
 import { Home } from './pages/home';
 import { Learn } from './pages/learn';
 import { List } from './pages/list';
+import { Start } from './pages/start';
 import { StoreProvider } from './store';
 import { theme } from './theme';
 
@@ -24,17 +24,17 @@ const App = () => (
         <BrowserRouter>
           <GlobalStyle />
           <Switch>
-            <PrivateRoute path="/:slug/learn" component={Learn} />
+            <PrivateRoute path="/lists/:slug/learn" component={Learn} />
             <Route exact path="/" component={Home} />
-            <Route path="/:slug?">
-              <NotificationBar />
+            <Route exact path="/about" component={About} />
+            <PrivateRoute path="/start" component={Start} />
+            <Route path="/lists/:slug?">
               <Header />
               <Menu />
               <Main>
                 <Switch>
-                  <Route exact path="/about" component={About} />
-                  <PrivateRoute path="/:slug/edit" component={EditList} />
-                  <PrivateRoute path="/:slug" component={List} />
+                  <PrivateRoute path="/lists/:slug/edit" component={EditList} />
+                  <PrivateRoute path="/lists/:slug" component={List} />
                 </Switch>
               </Main>
             </Route>

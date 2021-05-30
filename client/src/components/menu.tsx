@@ -14,7 +14,7 @@ export const Menu: FC = () => {
   const { user, logout } = useAuth();
   const [open, setOpen] = useState(false);
   const { lists, state, storeList } = useLists();
-  const { goTo, slug } = useRouting();
+  const { goToList, slug, getListPath } = useRouting();
   const { addList } = useApi();
 
   if (!user) {
@@ -56,7 +56,7 @@ export const Menu: FC = () => {
     try {
       const list = await addList(name);
       storeList(list);
-      goTo(list.slug, 'edit');
+      goToList(list.slug, 'edit');
       setOpen(false);
     } catch {
       console.error('Could not add list'); // TODO
@@ -85,7 +85,7 @@ export const Menu: FC = () => {
           <List>
             {inactiveLists.map(list => (
               <ListItem key={list.id}>
-                <ListLink to={`/${list.slug}`} onClick={() => setOpen(false)}>
+                <ListLink to={getListPath(list.slug)} onClick={() => setOpen(false)}>
                   {list.name}
                 </ListLink>
               </ListItem>
