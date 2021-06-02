@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const Button = styled.button<{ primary?: boolean }>`
+export const Button = styled.button<{ primary?: boolean; small?: boolean }>`
   background: ${({ primary, theme: { colors } }) =>
     primary ? colors.primary[100] : colors.grey[75]};
   color: ${({ primary, theme: { colors } }) =>
@@ -10,7 +10,7 @@ export const Button = styled.button<{ primary?: boolean }>`
   text-decoration: none;
   text-transform: uppercase;
   white-space: nowrap;
-  font-size: ${({ theme: { font } }) => font.sizes.xs};
+  font-size: ${({ small, theme: { font } }) => (small ? font.sizes.xxs : font.sizes.xs)};
   font-weight: 600;
 
   cursor: pointer;
@@ -21,7 +21,7 @@ export const Button = styled.button<{ primary?: boolean }>`
   box-shadow: 0 4px
     ${({ primary, theme: { colors } }) =>
       primary ? colors.primary[150] : colors.grey[60]};
-  padding: 0.5rem 1rem;
+  padding: ${({ small }) => (small ? '0.375rem 0.75rem' : '0.5rem 1rem')};
   margin: 4px 0;
 
   :hover:not(:disabled),

@@ -5,6 +5,7 @@ import {
   ListWithProgress,
   LearnItem,
   LearnItemForLearning,
+  Hints,
 } from '../models';
 
 const devMode = process.env.NODE_ENV === 'development' && !process.env.LIVE_API;
@@ -22,6 +23,9 @@ const routes = {
   learn: (listId: string) => `${API_URL}/lists/${listId}/items/learn`,
   progress: (listId: string, itemId: string) =>
     `${API_URL}/lists/${listId}/items/${itemId}/progress`,
+
+  settings: () => `${API_URL}/settings`,
+  hint: () => `${API_URL}/settings/hint`,
 };
 
 interface EditListName {
@@ -182,6 +186,21 @@ export const useApi = () => {
       emptyResponse: true,
     });
 
+  const getSettings = async () =>
+    await fetchAndUnpack<{ settings: { dismissedHints: Hints } }>({
+      getToken,
+      url: routes.settings(),
+    });
+
+  const dismissHint = async (hint: Hints) =>
+    await fetchAndUnpack<void>({
+      getToken,
+      url: routes.hint(),
+      method: 'PATCH',
+      body: { hint },
+      emptyResponse: true,
+    });
+
   return {
     ping,
     getLists,
@@ -195,5 +214,7 @@ export const useApi = () => {
     deleteItem,
     getLearnItems,
     reportProgress,
+    getSettings,
+    dismissHint,
   };
 };

@@ -4,21 +4,13 @@ export const Paragraph = styled.p`
   line-height: 1.5;
   font-size: ${({ theme: { font } }) => font.sizes.sm};
   color: ${({ theme: { colors } }) => colors.grey[10]};
+  font-weight: ${({ theme: { font } }) => font.weights.light};
 
   & strong {
     font-weight: ${({ theme: { font } }) => font.weights.bold};
     color: ${({ theme: { colors } }) => colors.grey[25]};
   }
 `;
-
-export const StickyParagraph = styled(Paragraph)`
-  position: sticky;
-  top: 0;
-  padding: 10px 0;
-  background: ${({ theme: { colors } }) => colors.grey[98]};
-`;
-
-// ====
 
 export const Heading = styled.h2`
   color: ${({ theme: { colors } }) => colors.primary[150]};

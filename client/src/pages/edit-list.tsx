@@ -11,7 +11,6 @@ import { Spinner } from '../elements/spinner';
 import {
   Heading,
   Paragraph,
-  StickyParagraph,
   SubHeading,
   SubHeadingUncolored,
   SubSubHeading,
@@ -174,14 +173,15 @@ export const EditList: FC = () => {
       <LearnItemsIntroList>
         <li>
           <strong>Kontext</strong>: Am besten funktionieren Aufgaben, die das Lernmaterial
-          in einen Kontext stellen, z.B. in einem Satz oder Ausdruck verwenden.
+          in einen Kontext stellen, also z.B. in einem Satz oder Ausdruck verwenden.
         </li>
         <li>
           <strong>Bilder</strong> unterstützen den immersiven Effekt.
         </li>
         <li>
-          <strong>Synonyme</strong> haben den Vorteil, dass die Verknüpfungen
-          <em>innerhalb</em> der Sprache verstärkt werden (und nicht zur Muttersprache).
+          <strong>Synonyme</strong> haben den Vorteil, dass die Verknüpfungen{' '}
+          <em>innerhalb</em> der Lernsprache verstärkt werden (und nicht zur
+          Muttersprache).
         </li>
       </LearnItemsIntroList>
 
@@ -219,6 +219,14 @@ export const EditList: FC = () => {
     </>
   );
 };
+
+const StickyParagraph = styled(Paragraph)`
+  position: sticky;
+  top: 0;
+  padding: 0.5rem 0 1rem;
+  z-index: 2;
+  background: ${({ theme: { colors } }) => colors.grey[98]};
+`;
 
 const TeaserStyles = css`
   width: 100%;

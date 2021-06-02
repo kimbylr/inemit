@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { FlagButton } from '../components/flag-button';
 import { LearnProgress } from '../components/learn-progress';
 import { Button } from '../elements/button';
+import { Hint } from '../elements/hint';
 import { Icon } from '../elements/icon';
 import { Input } from '../elements/input';
 import { ExtLink } from '../elements/link';
@@ -14,7 +15,8 @@ import { useApi } from '../hooks/use-api';
 import { useHeight } from '../hooks/use-height';
 import { useLists } from '../hooks/use-lists';
 import { useRouting } from '../hooks/use-routing';
-import { LearnItemForLearning } from '../models';
+import { useSettings } from '../hooks/use-settings';
+import { Hints, LearnItemForLearning } from '../models';
 
 export const Learn: FC = () => {
   const height = useHeight();
@@ -32,6 +34,10 @@ export const Learn: FC = () => {
   const [isCorrect, setIsCorrect] = useState(false);
   const [count, setCount] = useState({ correct: 0, incorrect: 0 });
   const [disableNext, setDisableNext] = useState(false);
+
+  const { hintDismissed, onDismissHint } = useSettings();
+  const showFalseNegativeHint = !hintDismissed(Hints.learningFalseNegative);
+  const showFlagHint = !hintDismissed(Hints.learningFlag) && current > -3;
 
   const answerFieldRef = useRef<HTMLInputElement>(null);
   const submitButtonRef = useRef<HTMLButtonElement>(null);
@@ -120,9 +126,10 @@ export const Learn: FC = () => {
     revising ? next() : check();
   };
 
-  const onAcceptCorrection = (event: React.MouseEvent) => {
+  const onAcceptCorrection = async (event: React.MouseEvent) => {
     event.preventDefault();
-    next(true);
+    await next(true);
+    showFalseNegativeHint && onDismissHint(Hints.learningFalseNegative);
   };
 
   const hasSpaceForImage = height > 600; // most likely soft keyboard
@@ -134,7 +141,12 @@ export const Learn: FC = () => {
         <StyledLink to={listPath} title="Zurück zur Übersicht">
           <Icon type="cancel" width="20px" />
         </StyledLink>
-        <FlagButton flagged={flagged} listId={list.id} itemId={itemId} />
+        <FlagButton
+          flagged={flagged}
+          listId={list.id}
+          itemId={itemId}
+          onDismissHint={showFlagHint && (() => onDismissHint(Hints.learningFlag))}
+        />
       </Header>
       <Content height={height}>
         <Prompt hasImage={!!image}>
@@ -152,7 +164,7 @@ export const Learn: FC = () => {
                 >
                   {image.user.name}
                 </ExtLink>
-              </ImageCredits>{' '}
+              </ImageCredits>
             </PromptImageContainer>
           )}
           {prompt}
@@ -182,6 +194,13 @@ export const Learn: FC = () => {
 
             {revising && !isCorrect && (
               <CorrectionBubbleContainer>
+                {showFalseNegativeHint && (
+                  <Hint onDismiss={() => onDismissHint(Hints.learningFalseNegative)}>
+                    Du findest, deine Antwort war richtig? Dann klick auf die grüne
+                    Korrektur statt auf weiter. Sie dient als "Hab ich doch
+                    gemeint!"-Knopf.
+                  </Hint>
+                )}
                 <Correction
                   type="button"
                   onClick={onAcceptCorrection}

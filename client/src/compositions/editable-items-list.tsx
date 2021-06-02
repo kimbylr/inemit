@@ -1,7 +1,9 @@
 import React, { FC, useState } from 'react';
 import styled from 'styled-components';
 import { EditableItem } from '../components/editable-item';
-import { LearnItem, LearnItemWithDoublet } from '../models';
+import { useRouting } from '../hooks/use-routing';
+import { useSettings } from '../hooks/use-settings';
+import { Hints, LearnItem, LearnItemWithDoublet } from '../models';
 
 type Props = {
   items: LearnItemWithDoublet[];
@@ -20,6 +22,8 @@ export const EditableItemsList: FC<Props> = ({
   onItemDeleted,
   onItemSaved,
 }) => {
+  const { isEditing } = useRouting();
+  const { onDismissHint, hintDismissed } = useSettings();
   const [newItemIds, setNewItemIds] = useState<number[]>([1]);
 
   const onNewItemEdited = () => {
@@ -30,6 +34,12 @@ export const EditableItemsList: FC<Props> = ({
     setNewItemIds(ids => ids.filter(id => `${id}` !== tempId));
     onItemsAdded([item]);
   };
+
+  const showHint =
+    isEditing &&
+    !items.length &&
+    !newItemIds.length &&
+    !hintDismissed(Hints.editingIntro);
 
   return (
     <LearnItemList>
@@ -57,6 +67,7 @@ export const EditableItemsList: FC<Props> = ({
         return (
           <LearnItem key={item.id}>
             <EditableItem
+              onDismissHint={showHint && (() => onDismissHint(Hints.editingIntro))}
               item={item}
               index={items.length + index + 1}
               listId={listId}

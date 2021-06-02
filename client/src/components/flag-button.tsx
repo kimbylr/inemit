@@ -1,5 +1,6 @@
 import React, { FC, useEffect, useRef, useState } from 'react';
 import styled, { keyframes } from 'styled-components';
+import { Hint } from '../elements/hint';
 import { Icon } from '../elements/icon';
 import { useApi } from '../hooks/use-api';
 
@@ -7,9 +8,15 @@ interface Props {
   flagged?: boolean;
   listId: string;
   itemId: string;
+  onDismissHint?: (() => {}) | false;
 }
 
-export const FlagButton: FC<Props> = ({ flagged: initial, listId, itemId }) => {
+export const FlagButton: FC<Props> = ({
+  flagged: initial,
+  listId,
+  itemId,
+  onDismissHint,
+}) => {
   const { editItem } = useApi();
   const [flagged, setFlagged] = useState(initial);
   const [loading, setLoading] = useState(false);
@@ -37,20 +44,38 @@ export const FlagButton: FC<Props> = ({ flagged: initial, listId, itemId }) => {
     } finally {
       setLoading(false);
     }
+
+    onDismissHint && onDismissHint();
   };
 
   return (
-    <Button type="button" flagged={flagged} onClick={toggleFlagged} title="markieren">
-      {loading ? (
-        <Saving title="speichern..." flagged={flagged}>
-          <Icon type="sync" width="24px" />
-        </Saving>
-      ) : (
-        <Icon type="flag" width="20px" />
+    <Container>
+      {onDismissHint && (
+        <Hint onDismiss={onDismissHint} position="bottom">
+          Die Flagge? Klick sie an, wenn du an einer Vokabel oder Abfrage etwas ändern
+          möchtest. So merkst du sie zum Bearbeiten vor.
+        </Hint>
       )}
-    </Button>
+      <Button type="button" flagged={flagged} onClick={toggleFlagged} title="markieren">
+        {loading ? (
+          <Saving title="speichern..." flagged={flagged}>
+            <Icon type="sync" width="24px" />
+          </Saving>
+        ) : (
+          <Icon type="flag" width="20px" />
+        )}
+      </Button>
+    </Container>
   );
 };
+
+const Container = styled.div`
+  padding: 0;
+  margin: 0;
+  width: 240px;
+  height: 24px;
+  position: relative;
+`;
 
 const Button = styled.button<{ flagged?: boolean; loading?: boolean }>`
   padding: 0;

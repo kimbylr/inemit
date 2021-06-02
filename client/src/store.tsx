@@ -1,8 +1,16 @@
 import React, { useReducer, FC, useContext } from 'react';
-import { ListSummary, LoadingStates } from './models';
+import { Hints, ListSummary, LoadingStates } from './models';
+
+type DismissedHints = { [key in Hints]: boolean };
+const dismissedHints: DismissedHints = {
+  editingIntro: false,
+  learningFalseNegative: false,
+  learningFlag: false,
+};
 
 interface StoreData {
   lists: ListSummary[];
+  settings: { dismissedHints: DismissedHints };
   state: LoadingStates;
 }
 
@@ -12,6 +20,7 @@ interface DispatchToStore {
 
 const INITIAL_DATA = {
   lists: [],
+  settings: { dismissedHints },
   state: LoadingStates.initial,
 };
 

@@ -2,6 +2,7 @@ import React, { FC, useState } from 'react';
 import styled from 'styled-components';
 import { EditStatus } from '../components/edit-status';
 import { FlagButton } from '../components/flag-button';
+import { Hint } from '../elements/hint';
 import { Icon } from '../elements/icon';
 import { Input } from '../elements/input';
 import { Label } from '../elements/label';
@@ -15,6 +16,7 @@ interface Props {
   index: number;
   item: LearnItemForEditing;
   lastInputRef?: React.RefObject<HTMLInputElement>;
+  onDismissHint?: false | (() => void);
   onItemDeleted?(id: string): void;
   onItemSaved?(item: LearnItem): void;
   onNewItemEdited?(): void;
@@ -26,6 +28,7 @@ export const EditableItem: FC<Props> = ({
   index,
   item,
   lastInputRef,
+  onDismissHint,
   onItemDeleted = () => {},
   onItemSaved = () => {},
   onNewItemEdited = () => {},
@@ -171,19 +174,36 @@ export const EditableItem: FC<Props> = ({
         </MetaColumn>
 
         <InputsColumn>
-          <LabelWithSpacing>
-            <SolutionInput
-              doublet={isDoublet}
-              title={doubletTitle}
-              autoCapitalize="none"
-              onBlur={submit}
-              value={currentItem.solution}
-              placeholder={savedItem.solution}
-              onChange={e => onChangeSolution(e.target.value)}
-              ref={lastInputRef}
-            />
-            Vokabel
-          </LabelWithSpacing>
+          <SolutionContainer>
+            {onDismissHint && (
+              <Hint onDismiss={onDismissHint} triangle>
+                <>
+                  Hier schreibst du rein, was du lernen willst (z.B. <em>il gatto</em>).
+                </>
+                <>
+                  Optionales in Klammern: <em>(il) gatto</em> akzeptiert <em>il gatto</em>{' '}
+                  oder <em>gatto</em> als Lösung.
+                </>
+                <>
+                  Mehrere mögliche Lösungen mit Komma abtrennen: <em>certo, sicuro</em>{' '}
+                  heisst, <em>certo</em> und <em>sicuro</em> sind beide richtig.
+                </>
+              </Hint>
+            )}
+            <Label>
+              <SolutionInput
+                doublet={isDoublet}
+                title={doubletTitle}
+                autoCapitalize="none"
+                onBlur={submit}
+                value={currentItem.solution}
+                placeholder={savedItem.solution}
+                onChange={e => onChangeSolution(e.target.value)}
+                ref={lastInputRef}
+              />
+              Vokabel
+            </Label>
+          </SolutionContainer>
           <LabelWithSpacing>
             <InputWithImageButton>
               <Input
@@ -359,6 +379,14 @@ const ImageThumb = styled.img`
 const SolutionInput = styled(Input)<{ doublet?: boolean }>`
   ${({ doublet, theme: { colors } }) =>
     doublet ? `border-color: ${colors.orange[100]}` : ''}
+`;
+
+const SolutionContainer = styled.div`
+  position: relative;
+  margin-right: 20px;
+  margin-bottom: 12px;
+  flex-basis: 200px;
+  flex-grow: 1;
 `;
 
 const LabelWithSpacing = styled(Label)`

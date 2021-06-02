@@ -76,3 +76,9 @@ export interface Progress {
   timesWrong: number;
   updated: ISODate;
 }
+
+export enum Hints {
+  editingIntro = 'editingIntro',
+  learningFalseNegative = 'learningFalseNegative',
+  learningFlag = 'learningFlag',
+}

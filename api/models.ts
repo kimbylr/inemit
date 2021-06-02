@@ -86,3 +86,29 @@ const ListSchema = new Schema<ListType & Document>({
 });
 
 export const List = model<ListType & Document>('LearnList', ListSchema);
+
+// ================
+
+export const HINTS = {
+  editingIntro: false,
+  learningFalseNegative: false,
+  learningFlag: false,
+};
+
+export interface SettingsType {
+  userId: string;
+  updated: Date;
+  dismissedHints: typeof HINTS;
+}
+
+const SettingsSchema = new Schema<SettingsType & Document>({
+  userId: { type: String, required: true },
+  updated: { type: Date, default: Date.now },
+  dismissedHints: {
+    editingIntro: Boolean,
+    learningFalseNegative: Boolean,
+    learningFlag: Boolean,
+  },
+});
+
+export const Settings = model<SettingsType & Document>('Settings', SettingsSchema);

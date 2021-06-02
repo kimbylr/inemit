@@ -7,7 +7,7 @@ import { useApi } from './use-api';
 
 export const useLists = () => {
   const { lists, state, dispatch } = useStore();
-  const { getLists } = useApi();
+  const { getLists, getSettings } = useApi();
   const { user } = useAuth();
   const { goToPage, goToList, path } = useRouting();
 
@@ -32,7 +32,8 @@ export const useLists = () => {
     dispatch({ state: 'loading' });
     try {
       const lists = await getLists();
-      dispatch({ state: 'loaded', lists });
+      const settings = await getSettings();
+      dispatch({ state: 'loaded', lists, settings });
       goToLastLearnt(lists);
     } catch (error) {
       console.error(error);

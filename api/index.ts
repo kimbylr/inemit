@@ -6,6 +6,7 @@ import { auth } from './auth';
 import { corsMiddleware } from './cors';
 import { catch404, handleError } from './errors';
 import lists from './lists';
+import settings from './settings';
 
 const app = express();
 const PORT = process.env.PORT || 3003;
@@ -21,6 +22,7 @@ app.get('/ping', async (req, res) => {
 app.use('/', auth);
 
 app.use('/lists', lists);
+app.use('/settings', settings);
 
 app.use(catch404);
 app.use(handleError);
