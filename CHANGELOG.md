@@ -1,3 +1,16 @@
+# [1.13.0](https://github.com/kimbylr/inemit/compare/v1.12.0...v1.13.0) (2021-06-02)
+
+
+### Bug Fixes
+
+* About page wording ([3af1a33](https://github.com/kimbylr/inemit/commit/3af1a33b70d385e35333be4063cdca41161f7d10))
+
+
+### Features
+
+* add hints ([1f3abfd](https://github.com/kimbylr/inemit/commit/1f3abfd55ad2609d2504a467922a9806e48ad95d))
+* Add intro page with add to homescreen ([e8defa8](https://github.com/kimbylr/inemit/commit/e8defa8fc8d40814e42af058b0db85f83357b10e))
+
 # [1.12.0](https://github.com/kimbylr/inemit/compare/v1.11.1...v1.12.0) (2021-04-18)
 
 
