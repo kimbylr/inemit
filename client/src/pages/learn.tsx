@@ -37,7 +37,7 @@ export const Learn: FC = () => {
 
   const { hintDismissed, onDismissHint } = useSettings();
   const showFalseNegativeHint = !hintDismissed(Hints.learningFalseNegative);
-  const showFlagHint = !hintDismissed(Hints.learningFlag) && current > -3;
+  const showFlagHint = !hintDismissed(Hints.learningFlag) && current > 3;
 
   const answerFieldRef = useRef<HTMLInputElement>(null);
   const submitButtonRef = useRef<HTMLButtonElement>(null);
@@ -197,8 +197,7 @@ export const Learn: FC = () => {
                 {showFalseNegativeHint && (
                   <Hint onDismiss={() => onDismissHint(Hints.learningFalseNegative)}>
                     Du findest, deine Antwort war richtig? Dann klick auf die grüne
-                    Korrektur statt auf weiter. Sie dient als "Hab ich doch
-                    gemeint!"-Knopf.
+                    Korrektur. Sie dient als "Hab ich doch gemeint!"-Knopf.
                   </Hint>
                 )}
                 <Correction

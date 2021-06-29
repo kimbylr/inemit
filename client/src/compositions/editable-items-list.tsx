@@ -35,11 +35,7 @@ export const EditableItemsList: FC<Props> = ({
     onItemsAdded([item]);
   };
 
-  const showHint =
-    isEditing &&
-    !items.length &&
-    !newItemIds.length &&
-    !hintDismissed(Hints.editingIntro);
+  const showHint = isEditing && !items.length && !hintDismissed(Hints.editingIntro);
 
   return (
     <LearnItemList>
