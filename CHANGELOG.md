@@ -1,3 +1,10 @@
+## [1.13.2](https://github.com/kimbylr/inemit/compare/v1.13.1...v1.13.2) (2021-06-29)
+
+
+### Bug Fixes
+
+* brush up about page (again) ([04aeb46](https://github.com/kimbylr/inemit/commit/04aeb46ea65e09e78cceb01f02a885eda3817a4c))
+
 ## [1.13.1](https://github.com/kimbylr/inemit/compare/v1.13.0...v1.13.1) (2021-06-29)
 
 
