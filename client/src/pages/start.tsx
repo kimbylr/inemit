@@ -119,7 +119,7 @@ const InstallPWABubble = styled.div<{ appleDevice: AppleDevices }>`
   right: 0;
   width: ${({ appleDevice }) => (appleDevice === 'iPad' ? '240px' : 'calc(100% - 2rem)')};
   box-sizing: border-box;
-  margin: 1rem;
+  margin: 1rem 1rem ${({ appleDevice }) => (appleDevice === 'iPhone' ? '2rem' : '1rem')};
   display: flex;
   flex-direction: column;
 
