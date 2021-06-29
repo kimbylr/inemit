@@ -1,3 +1,12 @@
+## [1.13.1](https://github.com/kimbylr/inemit/compare/v1.13.0...v1.13.1) (2021-06-29)
+
+
+### Bug Fixes
+
+* improve about page ([7f6249d](https://github.com/kimbylr/inemit/commit/7f6249d5b40872ea9f489e6621b90ee6ee00d289))
+* install PWA iPhone notification position ([7038a36](https://github.com/kimbylr/inemit/commit/7038a36d22dd1ea42c1e507eea37f066736a91a4))
+* Show hints correctly ([16f3516](https://github.com/kimbylr/inemit/commit/16f3516616383753bead5db11e558a0ceba4589a))
+
 # [1.13.0](https://github.com/kimbylr/inemit/compare/v1.12.0...v1.13.0) (2021-06-02)
 
 
