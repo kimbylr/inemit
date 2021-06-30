@@ -10,6 +10,7 @@
     "clean": "rm dist/bundle.js",
     "build-dev": "webpack -d --mode development",
     "build-prod": "webpack -p --mode production",
+    "dev:liveapi": "LIVE_API=yesplease npm run dev",
     "dev": "npm run postinstall && npm start",
     "start": "webpack-dev-server --hot --mode development",
     "postinstall": "rm -rf node_modules/@types/react-native",

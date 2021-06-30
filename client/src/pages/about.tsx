@@ -21,10 +21,10 @@ export const About: FC = () => (
           <Highlight color="orange">moderne App</Highlight>.
         </ExplainerParagraph>
         <ExplainerParagraph>
-          <Highlight color="yellow">Yay science:</Highlight> Analoge Lernkarteien machen
+          <Highlight color="yellow">Yay science!</Highlight> Analoge Lernkarteien machen
           sich den Effekt schon lange zunutze und die Lernforschung hat ihn bestätigt:{' '}
           <Highlight color="yellow">Wiederholung</Highlight> ist zentral, um Vokabeln zu
-          lernen. Wiederholung, genau. Simple Wiederholung.{' '}
+          lernen. Wiederholung. Wiederholung? Genau, Wiederholung.{' '}
           <ExtLink href="https://de.wikipedia.org/wiki/Spaced_repetition">
             Spaced repetition
           </ExtLink>{' '}
@@ -35,15 +35,16 @@ export const About: FC = () => (
           toll, sondern weil digital = ideale Voraussetzung für{' '}
           <Highlight color="orange">systematisches Lernen</Highlight>. Die App kümmert
           sich darum, dass gut verankerte Vokabeln seltener abgefragt werden – und falsch
-          beantwortete häufiger. <Inemit>Inemit</Inemit> implementiert dazu den{' '}
+          beantwortete häufiger (
           <ExtLink href="https://supermemo.guru/wiki/SuperMemo_1.0_for_DOS_(1987)#Algorithm_SM-2">
             <em>SM-2</em>-Algorithmus
           </ExtLink>
-          . Der <Highlight color="orange">optimale Zeitabstand</Highlight> bis zur
-          nächsten Abfrage garantiert, dass die Lernzeit effizient genutzt wird.
+          ). Sie berechnet den <Highlight color="orange">optimalen Zeitabstand</Highlight>{' '}
+          bis zur nächsten Abfrage und garantiert so, dass die Lernzeit effizient genutzt
+          wird.
         </ExplainerParagraph>
         <ExplainerParagraph>
-          <Inemit>Inemit</Inemit> ist stellt die Basis für{' '}
+          <Inemit>Inemit</Inemit> stellt die Basis für{' '}
           <Highlight color="green">sinnvolles Lernen</Highlight> bereit. Lernen musst du
           selbst. Und die Lerninhalte machst du am besten auch selbst. Denn neben
           regelmässiger Wiederholung sind{' '}

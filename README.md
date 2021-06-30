@@ -44,13 +44,19 @@ npm run dev
 npm install
 ```
 
-3. Run locally (http://localhost:8080) – defaults to local API, set `LIVE_API=yesplease` to use live API.
+3. Run locally (http://localhost:8080) using local API:
 
 ```sh
-(LIVE_API=yesplease) npm run dev
+npm run dev
 ```
 
-(`npm run dev` runs postinstall script because of https://github.com/DefinitelyTyped/DefinitelyTyped/issues/33311)
+or using live API:
+
+```sh
+npm run dev:liveapi
+```
+
+(`npm run dev` runs postinstall script as a quick fix for a type problem, see this [github discussion](https://github.com/DefinitelyTyped/DefinitelyTyped/issues/33311))
 
 ### Tests
 
