@@ -1,3 +1,10 @@
+## [1.14.1](https://github.com/kimbylr/inemit/compare/v1.14.0...v1.14.1) (2021-07-01)
+
+
+### Bug Fixes
+
+* Hide checkbox correctly on Safari ([1f8ca70](https://github.com/kimbylr/inemit/commit/1f8ca7017fe703eeace87b222a12a7a42ee17e9e))
+
 # [1.14.0](https://github.com/kimbylr/inemit/compare/v1.13.2...v1.14.0) (2021-07-01)
 
 
