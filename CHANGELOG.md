@@ -1,3 +1,15 @@
+# [1.14.0](https://github.com/kimbylr/inemit/compare/v1.13.2...v1.14.0) (2021-07-01)
+
+
+### Bug Fixes
+
+* even better about page ([9b86abb](https://github.com/kimbylr/inemit/commit/9b86abb5b32a19162dec3a1d2c6a1ee87b721eb1))
+
+
+### Features
+
+* Translate image search term ([16dc154](https://github.com/kimbylr/inemit/commit/16dc1541ead794d8f83a8630e177229f8ce6128d))
+
 ## [1.13.2](https://github.com/kimbylr/inemit/compare/v1.13.1...v1.13.2) (2021-06-29)
 
 
