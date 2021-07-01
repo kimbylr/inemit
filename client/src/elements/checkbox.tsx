@@ -34,6 +34,7 @@ const Label = styled.label<{ small?: boolean }>`
 `;
 
 const InvisibleActualCheckbox = styled.input`
+  clip: rect(0, 0, 0, 0);
   position: absolute;
   height: 0;
   width: 0;
