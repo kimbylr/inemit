@@ -258,7 +258,7 @@ export const EditableItem: FC<Props> = ({
 
       {showImagePicker && (
         <ImagePickerContainer>
-          <ImagePicker searchTerm={currentItem.prompt} onSetImage={onSetImage} />
+          <ImagePicker searchTerm={currentItem.solution} onSetImage={onSetImage} />
         </ImagePickerContainer>
       )}
     </>

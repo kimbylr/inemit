@@ -1,9 +1,11 @@
 import React, { FC, useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import { Button } from '../elements/button';
+import { Checkbox } from '../elements/checkbox';
 import { Input } from '../elements/input';
 import { ExtLink } from '../elements/link';
 import { Spinner } from '../elements/spinner';
+import { translate } from '../helpers/translate';
 import { mapUnsplashImage, searchUnsplash, UnsplashImage } from '../helpers/unsplash';
 import { useDebounce } from '../hooks/use-debounce';
 
@@ -14,16 +16,18 @@ type Props = {
   onSetImage(img: UnsplashImage): void;
 };
 export const ImagePicker: FC<Props> = ({ searchTerm: initialSearchTerm, onSetImage }) => {
+  const [shouldTranslate, setShouldTranslate] = useState(true);
   const [searching, setSearching] = useState(false);
   const [searchTerm, setSearchTerm] = useState(initialSearchTerm);
   const [lastSearched, setLastSearched] = useState('');
   const debouncedSearchTerm = useDebounce(searchTerm, 1000);
+
   const [imgs, setImgs] = useState<UnsplashImage[]>([]);
   const [error, setError] = useState('');
   const [loadingMore, setLoadingMore] = useState(false);
   const [page, setPage] = useState(1);
 
-  const search = async (overruleSearchTerm?: string) => {
+  const search = async (overruleSearchTerm?: string, overruleTranslate?: boolean) => {
     if (searching || (!overruleSearchTerm && debouncedSearchTerm === lastSearched)) {
       return;
     }
@@ -37,7 +41,12 @@ export const ImagePicker: FC<Props> = ({ searchTerm: initialSearchTerm, onSetIma
     setError('');
     setSearching(true);
     try {
-      const res = await searchUnsplash(searchString, 1);
+      const doTranslate =
+        overruleTranslate === undefined ? shouldTranslate : overruleTranslate;
+      const translatedSearchString = doTranslate
+        ? await translate(searchString)
+        : searchString;
+      const res = await searchUnsplash(translatedSearchString, 1);
       const { results } = await res.json();
       if (results.length === 0) {
         return setError('Keine Bilder gefunden');
@@ -102,17 +111,35 @@ export const ImagePicker: FC<Props> = ({ searchTerm: initialSearchTerm, onSetIma
           search(searchTerm);
         }}
       >
-        <SearchInput
-          small
-          autoFocus
-          autoCapitalize="none"
-          value={searchTerm}
-          onChange={e => setSearchTerm(e.target.value)}
-          onFocus={e => e.target.select()}
-        />
+        <div>
+          <SearchInput
+            small
+            autoFocus
+            autoCapitalize="none"
+            value={searchTerm}
+            onChange={e => setSearchTerm(e.target.value)}
+            onFocus={e => e.target.select()}
+          />
+
+          <Checkbox
+            small
+            checked={shouldTranslate}
+            onCheck={() => {
+              const newShouldTranslate = !shouldTranslate;
+              setShouldTranslate(newShouldTranslate);
+              search(searchTerm, newShouldTranslate);
+            }}
+          >
+            übersetzen
+          </Checkbox>
+        </div>
         <SearchState>
           {error}
-          {searching && <Spinner small />}
+          {searching && (
+            <SpinnerContainer>
+              <Spinner small />
+            </SpinnerContainer>
+          )}
         </SearchState>
       </SearchRow>
 
@@ -167,20 +194,28 @@ const Container = styled.div`
 `;
 
 const SearchRow = styled.form`
-  height: 2rem;
+  height: 50px;
   margin-bottom: 0.5rem;
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
 `;
 
 const SearchInput = styled(Input)`
   max-width: 250px;
+  margin-bottom: 0.25rem;
 `;
 
 const SearchState = styled.div`
+  display: flex;
   margin-left: 1rem;
+  margin-top: 0.25rem;
   text-align: right;
+`;
+const SpinnerContainer = styled.div`
+  position: relative;
+  top: -1.25rem;
+  margin-left: 0.5rem;
 `;
 
 const ImagesContainer = styled.div`
