@@ -81,8 +81,8 @@ export const Start: FC = () => {
           )}
           {appleDevice && (
             <div>
-              Klick auf <Icon type="iOSShare" width="14" /> und füg es dem Homescreen
-              hinzu <Icon type="iOSHomescreen" width="14" />
+              Klick auf <Icon type="iOSShare" width="14px" /> und füg es dem Homescreen
+              hinzu <Icon type="iOSHomescreen" width="14px" />
             </div>
           )}
         </InstallPWABubble>

@@ -226,7 +226,7 @@ export const EditableItem: FC<Props> = ({
                         <Icon type="edit" />
                       </ImageThumbContainer>
                     ) : (
-                      <Icon type="image" width="2rem" />
+                      <Icon type="image" width="32px" />
                     )}
                   </ImageButton>
                   {currentItem.image && (
@@ -236,7 +236,7 @@ export const EditableItem: FC<Props> = ({
                       onClick={() => onSetImage(null)}
                       title="Bild entfernen"
                     >
-                      <Icon type="deleteInCircle" width="1rem" />
+                      <Icon type="deleteInCircle" width="16px" />
                     </ImageDeleteButton>
                   )}
                 </ImageButtonContainer>

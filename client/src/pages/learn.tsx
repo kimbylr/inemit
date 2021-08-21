@@ -223,9 +223,9 @@ export const Learn: FC = () => {
             ref={submitButtonRef}
           >
             {revising ? (
-              <Icon width="1rem" type="next" />
+              <Icon width="16px" type="next" />
             ) : (
-              <Icon width="1rem" type="done" />
+              <Icon width="16px" type="done" />
             )}
           </SolutionButton>
         </SolutionForm>
