@@ -278,6 +278,8 @@ const Prompt = styled(Paragraph).attrs({ as: 'div' })<{ hasImage: boolean }>`
   text-align: center;
   font-size: calc(0.75rem + 2vh + 2vw);
   flex-grow: ${({ hasImage }) => (hasImage ? 2 : 1)};
+  word-break: break-word; // ohai Safari
+  overflow-wrap: anywhere;
 `;
 const PromptImageContainer = styled.div<{ hasSpaceForImage?: boolean }>`
   line-height: 0;
