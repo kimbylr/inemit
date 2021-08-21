@@ -1,7 +1,6 @@
 import React, { FC, useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import { Button } from '../elements/button';
-import { Checkbox } from '../elements/checkbox';
 import { Input } from '../elements/input';
 import { ExtLink } from '../elements/link';
 import { Spinner } from '../elements/spinner';
@@ -16,7 +15,6 @@ type Props = {
   onSetImage(img: UnsplashImage): void;
 };
 export const ImagePicker: FC<Props> = ({ searchTerm: initialSearchTerm, onSetImage }) => {
-  const [shouldTranslate, setShouldTranslate] = useState(true);
   const [searching, setSearching] = useState(false);
   const [searchTerm, setSearchTerm] = useState(initialSearchTerm);
   const [lastSearched, setLastSearched] = useState('');
@@ -27,7 +25,7 @@ export const ImagePicker: FC<Props> = ({ searchTerm: initialSearchTerm, onSetIma
   const [loadingMore, setLoadingMore] = useState(false);
   const [page, setPage] = useState(1);
 
-  const search = async (overruleSearchTerm?: string, overruleTranslate?: boolean) => {
+  const search = async (overruleSearchTerm?: string) => {
     if (searching || (!overruleSearchTerm && debouncedSearchTerm === lastSearched)) {
       return;
     }
@@ -41,11 +39,7 @@ export const ImagePicker: FC<Props> = ({ searchTerm: initialSearchTerm, onSetIma
     setError('');
     setSearching(true);
     try {
-      const doTranslate =
-        overruleTranslate === undefined ? shouldTranslate : overruleTranslate;
-      const translatedSearchString = doTranslate
-        ? await translate(searchString)
-        : searchString;
+      const translatedSearchString = await translate(searchString);
       const res = await searchUnsplash(translatedSearchString, 1);
       const { results } = await res.json();
       if (results.length === 0) {
@@ -70,7 +64,8 @@ export const ImagePicker: FC<Props> = ({ searchTerm: initialSearchTerm, onSetIma
 
     setLoadingMore(true);
     try {
-      const res = await searchUnsplash(searchTerm, page + 1);
+      const translatedSearchTerm = await translate(searchTerm);
+      const res = await searchUnsplash(translatedSearchTerm, page + 1);
       const { results } = await res.json();
       setPage(page => page + 1);
       if (results.length === 0) {
@@ -111,28 +106,14 @@ export const ImagePicker: FC<Props> = ({ searchTerm: initialSearchTerm, onSetIma
           search(searchTerm);
         }}
       >
-        <div>
-          <SearchInput
-            small
-            autoFocus
-            autoCapitalize="none"
-            value={searchTerm}
-            onChange={e => setSearchTerm(e.target.value)}
-            onFocus={e => e.target.select()}
-          />
-
-          <Checkbox
-            small
-            checked={shouldTranslate}
-            onCheck={() => {
-              const newShouldTranslate = !shouldTranslate;
-              setShouldTranslate(newShouldTranslate);
-              search(searchTerm, newShouldTranslate);
-            }}
-          >
-            übersetzen
-          </Checkbox>
-        </div>
+        <SearchInput
+          small
+          autoFocus
+          autoCapitalize="none"
+          value={searchTerm}
+          onChange={e => setSearchTerm(e.target.value)}
+          onFocus={e => e.target.select()}
+        />
         <SearchState>
           {error}
           {searching && (
