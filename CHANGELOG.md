@@ -1,3 +1,13 @@
+## [1.14.2](https://github.com/kimbylr/inemit/compare/v1.14.1...v1.14.2) (2021-08-21)
+
+
+### Bug Fixes
+
+* Always translate image search term (no opt-out; load more) ([46b9670](https://github.com/kimbylr/inemit/commit/46b96706105a2a21fdfa1981a2834782537c5243))
+* Thou shalt not have a jump in the menu animation ([2b89d48](https://github.com/kimbylr/inemit/commit/2b89d4873410939aa67803a1de9281739451d912))
+* Use width in px with SVGs instead of rem ([64ba537](https://github.com/kimbylr/inemit/commit/64ba537d985aad11dddb85608f1446f79a57a222))
+* Wrap overly long words in learning mode ([f789014](https://github.com/kimbylr/inemit/commit/f78901457ae293f8ef91b543e1e0ccf0ca8ac2c8))
+
 ## [1.14.1](https://github.com/kimbylr/inemit/compare/v1.14.0...v1.14.1) (2021-07-01)
 
 
