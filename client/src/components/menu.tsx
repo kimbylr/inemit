@@ -211,7 +211,7 @@ const ErrorContainer = styled.div`
 `;
 
 const LogoutButtonContainer = styled.div`
-  margin: 1rem 0 0.5rem;
+  padding: 1rem 0 0.5rem;
   display: flex;
   justify-content: center;
 `;
