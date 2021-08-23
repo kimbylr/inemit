@@ -1,3 +1,10 @@
+# [1.15.0](https://github.com/kimbylr/inemit/compare/v1.14.2...v1.15.0) (2021-08-23)
+
+
+### Features
+
+* Add privacy and contact section ([8a28e71](https://github.com/kimbylr/inemit/commit/8a28e712c2d7f88f61c043e4fd77e1ebd22cde8a))
+
 ## [1.14.2](https://github.com/kimbylr/inemit/compare/v1.14.1...v1.14.2) (2021-08-21)
 
 
