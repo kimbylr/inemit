@@ -1,11 +1,10 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
 import { version } from '../../../package.json';
-import { ExpandableArea } from '../components/expandable-area';
 import { Header } from '../components/header';
 import { Main } from '../components/main';
 import { Menu } from '../components/menu';
-import { ExtLink, Link } from '../elements/link';
+import { ExtLink } from '../elements/link';
 import { Heading, Paragraph } from '../elements/typography';
 import { PageLayout } from '../layout/page-layout';
 
