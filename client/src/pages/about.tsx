@@ -1,10 +1,11 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
 import { version } from '../../../package.json';
+import { ExpandableArea } from '../components/expandable-area';
 import { Header } from '../components/header';
 import { Main } from '../components/main';
 import { Menu } from '../components/menu';
-import { ExtLink } from '../elements/link';
+import { ExtLink, Link } from '../elements/link';
 import { Heading, Paragraph } from '../elements/typography';
 import { PageLayout } from '../layout/page-layout';
 
@@ -54,7 +55,6 @@ export const About: FC = () => (
           </ExtLink>
           ).
         </ExplainerParagraph>
-
         <TechnicalNotes>
           Version: {version} •{' '}
           <ExtLink href="https://github.com/kimbylr/inemit/blob/master/CHANGELOG.md">
@@ -64,6 +64,28 @@ export const About: FC = () => (
           <ExtLink href="https://github.com/kimbylr/inemit/">
             Quellcode auf Github
           </ExtLink>
+        </TechnicalNotes>
+        <Separator />
+
+        <TechnicalNotes>
+          <strong>Datenschutz</strong>: <Inemit>Inemit</Inemit> ist ein Hobby-Projekt von{' '}
+          <ExtLink href="https://bylr.ch">mir</ExtLink>. Die Daten, die du eingibst,
+          müssen gespeichert werden, damit die App funktioniert. Und fürs Login braucht's
+          ein Cookie. Du wirst nicht getrackt und deine Daten werden vertraulich
+          behandelt.
+          <List>
+            <li>
+              Deine Logindaten (Mail & Passwort) verwaltet Auth0. Das ist sicherer, als
+              Userdaten eigenhändig zu verwalten.
+            </li>
+            <li>
+              Deine Lernlisten liegen bei MongoDB Atlas. Wenn du eine Liste löschst, wird
+              sie aus der Datenbank entfernt.
+            </li>
+          </List>
+          <strong>Kontakt</strong>: Um deinen Account zu löschen (und für weitere
+          Anliegen), wende dich an{' '}
+          <ExtLink href="mailto:kontakt@inem.it">kontakt@inem.it</ExtLink>.{' '}
         </TechnicalNotes>
       </PageLayout>
     </Main>
@@ -87,4 +109,18 @@ const Inemit = styled.strong`
 const TechnicalNotes = styled(Paragraph)`
   margin-top: 2.5rem;
   font-size: ${({ theme: { font } }) => font.sizes.xs};
+`;
+
+const Separator = styled.hr`
+  margin: 2.5rem 0;
+  border: none;
+  height: 1px;
+  background: ${({ theme: { colors } }) => colors.grey[75]};
+`;
+
+const List = styled.ul`
+  margin-top: 0;
+  li {
+    margin-top: 0.5rem;
+  }
 `;
