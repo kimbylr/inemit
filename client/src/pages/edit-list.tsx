@@ -129,6 +129,7 @@ export const EditList: FC = () => {
           <Icon type="done" width="14px" /> bearbeiten abschliessen
         </Button>
       </StickyParagraph>
+      <StickyNotchCover />
 
       <ExpandableArea
         canExpand
@@ -222,10 +223,20 @@ export const EditList: FC = () => {
 
 const StickyParagraph = styled(Paragraph)`
   position: sticky;
-  top: 0;
+  top: env(safe-area-inset-top);
   padding: 0.5rem 0 1rem;
   z-index: 2;
   background: ${({ theme: { colors } }) => colors.grey[98]};
+`;
+
+const StickyNotchCover = styled.div`
+  position: sticky;
+  top: 0;
+  content: '';
+  height: env(safe-area-inset-top);
+  width: 100%;
+  background: ${({ theme: { colors } }) => colors.grey[98]};
+  z-index: 1;
 `;
 
 const TeaserStyles = css`

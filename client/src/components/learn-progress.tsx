@@ -24,12 +24,13 @@ const Container = styled.div`
   top: 0;
   left: 0;
 
-  ::before {
+  ::after {
     position: absolute;
     content: '';
+    z-index: 1;
     height: env(safe-area-inset-top);
     width: 100%;
-    background: ${({ theme: { colors } }) => colors.grey[10]};
+    background: black;
   }
 `;
 
