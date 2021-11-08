@@ -325,7 +325,7 @@ const ImageButton = styled(DeleteButton)<{ isActive: boolean }>`
     color: ${({ theme: { colors } }) => colors.grey[25]};
   }
 
-  :focus > svg {
+  :focus-visible > svg {
     filter: drop-shadow(0 0 4px ${({ theme: { colors } }) => colors.primary[100]});
   }
 `;

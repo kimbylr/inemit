@@ -8,6 +8,7 @@ interface Props {
   flagged?: boolean;
   listId: string;
   itemId: string;
+  tabIndex?: number;
   onDismissHint?: (() => {}) | false;
 }
 
@@ -15,6 +16,7 @@ export const FlagButton: FC<Props> = ({
   flagged: initial,
   listId,
   itemId,
+  tabIndex,
   onDismissHint,
 }) => {
   const { editItem } = useApi();
@@ -56,7 +58,13 @@ export const FlagButton: FC<Props> = ({
           möchtest. So merkst du sie zum Bearbeiten vor.
         </Hint>
       )}
-      <Button type="button" flagged={flagged} onClick={toggleFlagged} title="markieren">
+      <Button
+        type="button"
+        flagged={flagged}
+        onClick={toggleFlagged}
+        title="markieren"
+        tabIndex={tabIndex}
+      >
         {loading ? (
           <Saving title="speichern..." flagged={flagged}>
             <Icon type="sync" width="24px" />
@@ -93,6 +101,10 @@ const Button = styled.button<{ flagged?: boolean; loading?: boolean }>`
   :hover {
     color: ${({ flagged, theme: { colors } }) =>
       flagged ? colors.primary[50] : colors.grey[50]};
+  }
+
+  :focus-visible > svg {
+    filter: drop-shadow(0 0 4px ${({ theme: { colors } }) => colors.primary[100]});
   }
 `;
 

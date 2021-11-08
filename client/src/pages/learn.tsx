@@ -138,13 +138,14 @@ export const Learn: FC = () => {
     <Container height={height}>
       <LearnProgress count={count} total={items.length} />
       <Header>
-        <StyledLink to={listPath} title="Zurück zur Übersicht">
+        <StyledLink to={listPath} title="Zurück zur Übersicht" tabIndex={4}>
           <Icon type="cancel" width="20px" />
         </StyledLink>
         <FlagButton
           flagged={flagged}
           listId={list.id}
           itemId={itemId}
+          tabIndex={3}
           onDismissHint={showFlagHint && (() => onDismissHint(Hints.learningFlag))}
         />
       </Header>
@@ -180,6 +181,7 @@ export const Learn: FC = () => {
               disabled={revising}
               correct={revising && isCorrect}
               incorrect={revising && !isCorrect}
+              tabIndex={1}
               onChange={e => setAnswer(e.target.value)}
               onFocus={() => {
                 // prevent iOS from pushing content out of view
@@ -204,6 +206,7 @@ export const Learn: FC = () => {
                   type="button"
                   onClick={onAcceptCorrection}
                   disabled={disableNext}
+                  tabIndex={2}
                 >
                   {solution}
                 </Correction>
@@ -258,6 +261,10 @@ const StyledLink = styled(Link)`
 
   :hover {
     color: ${({ theme: { colors } }) => colors.grey[50]};
+  }
+
+  :focus-visible > svg {
+    filter: drop-shadow(0 0 4px ${({ theme: { colors } }) => colors.primary[100]});
   }
 `;
 
