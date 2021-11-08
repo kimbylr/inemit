@@ -4,14 +4,16 @@ import styled, { FlattenInterpolation, ThemeProps } from 'styled-components';
 import { Collapse } from 'react-collapse';
 
 interface Props {
-  canExpand: boolean;
-  teaser: ReactNode;
+  canExpand?: boolean;
+  showChevronButton?: boolean;
+  teaser?: ReactNode;
   teaserStyles?: FlattenInterpolation<ThemeProps<any>>;
   state?: [boolean, React.Dispatch<React.SetStateAction<boolean>>];
 }
 
 export const ExpandableArea: FC<Props> = ({
   canExpand = true,
+  showChevronButton = true,
   children,
   teaser,
   teaserStyles,
@@ -21,19 +23,36 @@ export const ExpandableArea: FC<Props> = ({
   const [open, setOpen] = externalState || internalState;
   const toggle = () => setOpen(!open);
 
+  if (showChevronButton) {
+    return (
+      <Container>
+        <ToggleButton
+          flexed
+          isOpened={open}
+          onClick={canExpand ? toggle : undefined}
+          additionalStyles={teaserStyles || ''}
+        >
+          {teaser}
+          {canExpand && (
+            <ToggleButtonIcon isOpened={open}>
+              <Icon type="chevronDown" />
+            </ToggleButtonIcon>
+          )}
+        </ToggleButton>
+
+        <Collapse isOpened={open}>{children}</Collapse>
+      </Container>
+    );
+  }
+
   return (
     <Container>
       <ToggleButton
         isOpened={open}
-        onClick={canExpand ? toggle : undefined}
         additionalStyles={teaserStyles || ''}
+        onClick={canExpand ? toggle : undefined}
       >
         {teaser}
-        {canExpand && (
-          <ToggleButtonIcon isOpened={open}>
-            <Icon type="chevronDown" />
-          </ToggleButtonIcon>
-        )}
       </ToggleButton>
 
       <Collapse isOpened={open}>{children}</Collapse>
@@ -49,6 +68,7 @@ const Container = styled.section`
 
 interface ToggleButtonProps {
   isOpened: boolean;
+  flexed?: boolean;
   additionalStyles: FlattenInterpolation<ThemeProps<any>> | string;
 }
 
@@ -60,9 +80,12 @@ const ToggleButton = styled.button<ToggleButtonProps>`
   margin: 0;
   padding: 0;
 
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  ${({ flexed }) =>
+    flexed
+      ? ` display: flex;
+          justify-content: space-between;
+          align-items: center;`
+      : 'width: 100%;'}
 
   ${({ additionalStyles }) => additionalStyles}
 `;

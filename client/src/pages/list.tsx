@@ -1,6 +1,7 @@
 import React, { FC, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { EditableItem } from '../components/editable-item';
+import { ExpandableArea } from '../components/expandable-area';
 import { ProgressBar } from '../components/progress-bar';
 import { ProgressPie } from '../components/progress-pie';
 import { EditableItemsList } from '../compositions/editable-items-list';
@@ -86,14 +87,23 @@ export const List: FC = () => {
     <PageLayout>
       <Heading>{list.name}</Heading>
       {list.itemsCount > 0 && (
-        <>
-          <ProgressContainerMobile>
-            <ProgressPie stages={list.progress!.stages} />
-          </ProgressContainerMobile>
-          <ProgressContainerDesktop>
-            <ProgressBar stages={list.progress!.stages} />
-          </ProgressContainerDesktop>
-        </>
+        <ExpandableArea
+          showChevronButton={false}
+          teaser={
+            <>
+              <ProgressContainerMobile>
+                <ProgressPie stages={list.progress!.stages} />
+              </ProgressContainerMobile>
+              <ProgressContainerDesktop>
+                <ProgressBar stages={list.progress!.stages} />
+              </ProgressContainerDesktop>
+            </>
+          }
+        >
+          <CountPerStageBarContainer>
+            <ProgressBar stages={list.progress!.stages} showCountPerStage />
+          </CountPerStageBarContainer>
+        </ExpandableArea>
       )}
       <Paragraph>
         In dieser Liste gibt es <strong>{list.itemsCount} Vokabeln</strong>.{' '}
@@ -140,13 +150,17 @@ export const List: FC = () => {
   );
 };
 
+const CountPerStageBarContainer = styled.div`
+  padding-top: 0.5rem;
+`;
+
 const ButtonWithSpacing = styled(Button)`
   margin-right: 0.5rem;
   margin-bottom: 0.5rem;
 `;
 
 const ProgressContainerMobile = styled.div`
-  margin: 1rem 0;
+  margin-top: 1rem;
 
   @media (min-width: 480.02px) {
     display: none;
@@ -154,7 +168,7 @@ const ProgressContainerMobile = styled.div`
 `;
 
 const ProgressContainerDesktop = styled.div`
-  margin: 2rem 0;
+  margin-top: 2rem;
 
   @media (max-width: 480px) {
     display: none;
