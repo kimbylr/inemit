@@ -38,11 +38,13 @@ export const EditableItem: FC<Props> = ({
   const [savedItem, setSavedItem] = useState<BaseLearnItem>({
     prompt: item.prompt,
     solution: item.solution,
+    flagged: item.flagged,
     image: item.image,
   });
   const [currentItem, setCurrentItem] = useState<BaseLearnItem>({
     prompt: item.prompt,
     solution: item.solution,
+    flagged: item.flagged,
     image: item.image,
   });
   const [saving, setSaving] = useState(false);
@@ -95,10 +97,14 @@ export const EditableItem: FC<Props> = ({
         const savedItem = await editItem({
           listId,
           itemId: item.id,
-          item: { prompt: currentItem.prompt, solution: currentItem.solution },
+          item: {
+            prompt: currentItem.prompt,
+            solution: currentItem.solution,
+            flagged: false,
+          },
         });
-        const { prompt, solution, image } = savedItem;
-        setSavedItem({ prompt, solution, image });
+        const { prompt, solution, image, flagged } = savedItem;
+        setSavedItem({ prompt, solution, image, flagged });
         onItemSaved(savedItem); // TODO: propagate to store
       } catch (error) {
         setError('Fehler beim speichern. Klicken, um nochmals zu versuchen.');
@@ -151,18 +157,22 @@ export const EditableItem: FC<Props> = ({
     }
   };
 
-  const { flagged, doubletOf } = item;
-  const isDoublet = typeof doubletOf === 'number';
+  const isDoublet = typeof item.doubletOf === 'number';
   const doubletTitle = isDoublet
-    ? `Vokabel ist ein Duplikat von ${doubletOf! + 1}`
+    ? `Vokabel ist ein Duplikat von ${item.doubletOf! + 1}`
     : undefined;
 
   return (
     <>
       <Container onSubmit={submit}>
         <MetaColumn>
-          {flagged ? (
-            <FlagButton flagged={flagged} listId={listId} itemId={item.id} />
+          {item.flagged ? (
+            <FlagButton
+              flagged={savedItem.flagged}
+              listId={listId}
+              itemId={item.id}
+              onFlagged={flagged => setSavedItem(item => ({ ...item, flagged }))}
+            />
           ) : (
             <Index>{index}</Index>
           )}

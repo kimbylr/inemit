@@ -10,6 +10,7 @@ interface Props {
   itemId: string;
   tabIndex?: number;
   onDismissHint?: (() => {}) | false;
+  onFlagged?: (flagged: boolean) => void;
 }
 
 export const FlagButton: FC<Props> = ({
@@ -18,6 +19,7 @@ export const FlagButton: FC<Props> = ({
   itemId,
   tabIndex,
   onDismissHint,
+  onFlagged,
 }) => {
   const { editItem } = useApi();
   const [flagged, setFlagged] = useState(initial);
@@ -39,6 +41,7 @@ export const FlagButton: FC<Props> = ({
       const item = await editItem({ listId, itemId, item: { flagged: !flagged } });
       // only change flagged state if still on screen (while learning)
       if (id.current === item.id) {
+        onFlagged?.(!!item.flagged);
         setFlagged(item.flagged);
       }
     } catch (error) {
