@@ -87,23 +87,22 @@ export const List: FC = () => {
     <PageLayout>
       <Heading>{list.name}</Heading>
       {list.itemsCount > 0 && (
-        <ExpandableArea
-          showChevronButton={false}
-          teaser={
-            <>
-              <ProgressContainerMobile>
-                <ProgressPie stages={list.progress!.stages} />
-              </ProgressContainerMobile>
-              <ProgressContainerDesktop>
-                <ProgressBar stages={list.progress!.stages} />
-              </ProgressContainerDesktop>
-            </>
-          }
-        >
-          <CountPerStageBarContainer>
-            <ProgressBar stages={list.progress!.stages} showCountPerStage />
-          </CountPerStageBarContainer>
-        </ExpandableArea>
+        <>
+          <ProgressContainerDesktop>
+            <ProgressBar stages={list.progress!.stages} showCountOnClick />
+          </ProgressContainerDesktop>
+
+          <ProgressContainerMobile>
+            <ExpandableArea
+              teaser={<ProgressPie stages={list.progress!.stages} />}
+              showChevronButton={false}
+            >
+              <CountPerStageBarContainer>
+                <ProgressBar stages={list.progress!.stages} showCountPerStage />
+              </CountPerStageBarContainer>
+            </ExpandableArea>
+          </ProgressContainerMobile>
+        </>
       )}
       <Paragraph>
         In dieser Liste gibt es <strong>{list.itemsCount} Vokabeln</strong>.{' '}
