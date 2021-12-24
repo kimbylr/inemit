@@ -24,7 +24,7 @@ export const About: FC = () => (
           <Highlight color="yellow">Yay science!</Highlight> Analoge Lernkarteien machen
           sich den Effekt schon lange zunutze und die Lernforschung hat ihn bestätigt:{' '}
           <Highlight color="yellow">Wiederholung</Highlight> ist zentral, um Vokabeln zu
-          lernen. Wiederholung. Wiederholung? Genau, Wiederholung.{' '}
+          lernen. Ich wiederhole: Wiederholung. Wiederholung? Genau, Wiederholung.{' '}
           <ExtLink href="https://de.wikipedia.org/wiki/Spaced_repetition">
             Spaced repetition
           </ExtLink>{' '}
@@ -40,8 +40,8 @@ export const About: FC = () => (
             <em>SM-2</em>-Algorithmus
           </ExtLink>
           ). Sie berechnet den <Highlight color="orange">optimalen Zeitabstand</Highlight>{' '}
-          bis zur nächsten Abfrage und garantiert so, dass die Lernzeit effizient genutzt
-          wird.
+          bis zur nächsten Abfrage und garantiert so, dass du deine Lernzeit effizient
+          nutzt.
         </ExplainerParagraph>
         <ExplainerParagraph>
           <Inemit>Inemit</Inemit> stellt die Basis für{' '}

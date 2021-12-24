@@ -59,6 +59,11 @@ export const Learn: FC = () => {
     list && load(list.id);
   }, [list]);
 
+  // focus input field when ready
+  useEffect(() => {
+    items && answerFieldRef.current?.focus();
+  }, [items]);
+
   if (!list || !items) {
     return (
       <Container height={height}>
@@ -138,16 +143,15 @@ export const Learn: FC = () => {
     <Container height={height}>
       <LearnProgress count={count} total={items.length} />
       <Header>
-        <StyledLink to={listPath} title="Zurück zur Übersicht" tabIndex={4}>
-          <Icon type="cancel" width="20px" />
-        </StyledLink>
         <FlagButton
           flagged={flagged}
           listId={list.id}
           itemId={itemId}
-          tabIndex={3}
           onDismissHint={showFlagHint && (() => onDismissHint(Hints.learningFlag))}
         />
+        <StyledLink to={listPath} title="Zurück zur Übersicht" tabIndex={0}>
+          <Icon type="cancel" width="20px" />
+        </StyledLink>
       </Header>
       <Content height={height}>
         <Prompt hasImage={!!image}>
@@ -181,7 +185,6 @@ export const Learn: FC = () => {
               disabled={revising}
               correct={revising && isCorrect}
               incorrect={revising && !isCorrect}
-              tabIndex={1}
               onChange={e => setAnswer(e.target.value)}
               onFocus={() => {
                 // prevent iOS from pushing content out of view
@@ -206,7 +209,6 @@ export const Learn: FC = () => {
                   type="button"
                   onClick={onAcceptCorrection}
                   disabled={disableNext}
-                  tabIndex={2}
                 >
                   {solution}
                 </Correction>
@@ -252,7 +254,6 @@ const Container = styled.div<{ height: number }>`
 const Header = styled.header`
   padding-top: env(safe-area-inset-top);
   display: flex;
-  flex-direction: row-reverse;
   justify-content: space-between;
 `;
 
@@ -261,10 +262,6 @@ const StyledLink = styled(Link)`
 
   :hover {
     color: ${({ theme: { colors } }) => colors.grey[50]};
-  }
-
-  :focus-visible > svg {
-    filter: drop-shadow(0 0 4px ${({ theme: { colors } }) => colors.primary[100]});
   }
 `;
 

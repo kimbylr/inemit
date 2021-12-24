@@ -97,17 +97,12 @@ const Button = styled.button<{ flagged?: boolean; loading?: boolean }>`
   background: none;
   border: none;
   cursor: ${({ loading }) => (loading ? 'not-allowed' : 'pointer')};
-  outline: none;
   color: ${({ flagged, theme: { colors } }) =>
     flagged ? colors.primary[100] : colors.grey[75]};
 
   :hover {
     color: ${({ flagged, theme: { colors } }) =>
       flagged ? colors.primary[50] : colors.grey[50]};
-  }
-
-  :focus-visible > svg {
-    filter: drop-shadow(0 0 4px ${({ theme: { colors } }) => colors.primary[100]});
   }
 `;
 

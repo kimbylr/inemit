@@ -1,4 +1,4 @@
-import React, { FC, useState, ReactNode } from 'react';
+import React, { FC, useState, ReactNode, useEffect, useRef } from 'react';
 import { Icon } from '../elements/icon';
 import styled, { FlattenInterpolation, ThemeProps } from 'styled-components';
 import { Collapse } from 'react-collapse';
@@ -23,6 +23,14 @@ export const ExpandableArea: FC<Props> = ({
   const [open, setOpen] = externalState || internalState;
   const toggle = () => setOpen(!open);
 
+  // handle removing/adding tabIndex on collapse/expand
+  const ref = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    ref.current
+      ?.querySelectorAll(FOCUSABLE_ELEMENTS.join(', '))
+      .forEach(el => el.setAttribute('tabindex', open ? '0' : '-1'));
+  }, [open]);
+
   if (showChevronButton) {
     return (
       <Container>
@@ -40,7 +48,9 @@ export const ExpandableArea: FC<Props> = ({
           )}
         </ToggleButton>
 
-        <Collapse isOpened={open}>{children}</Collapse>
+        <Collapse isOpened={open}>
+          <div ref={ref}>{children}</div>
+        </Collapse>
       </Container>
     );
   }
@@ -60,6 +70,8 @@ export const ExpandableArea: FC<Props> = ({
   );
 };
 
+const FOCUSABLE_ELEMENTS = ['a', 'button', 'input', 'textarea', '[tabindex]'];
+
 const Container = styled.section`
   .ReactCollapse--collapse {
     transition: height 0.2s;
@@ -73,12 +85,15 @@ interface ToggleButtonProps {
 }
 
 const ToggleButton = styled.button<ToggleButtonProps>`
-  outline: none; /* TODO */
   cursor: pointer;
   border: none;
   background: none;
   margin: 0;
   padding: 0;
+
+  :focus {
+    outline: 2px dashed ${({ theme: { colors } }) => colors.primary[150]};
+  }
 
   ${({ flexed }) =>
     flexed

@@ -15,7 +15,7 @@ export const Button = styled.button<{ primary?: boolean; small?: boolean }>`
 
   cursor: pointer;
   user-select: none;
-  outline: none; /** TODO: make accessible */
+  outline: none;
   border: none;
   border-radius: 4px;
   box-shadow: 0 4px
@@ -30,6 +30,7 @@ export const Button = styled.button<{ primary?: boolean; small?: boolean }>`
       primary ? colors.grey[25] : colors.grey[98]};
   }
 
+  :focus,
   :active {
     background: ${({ primary, theme: { colors } }) =>
       primary ? colors.primary[150] : colors.grey[60]};

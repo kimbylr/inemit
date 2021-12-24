@@ -195,6 +195,13 @@ const OutlineButton = styled(Button)<{ caution?: boolean }>`
     background: none;
     top: 0;
   }
+
+  :focus {
+    background: ${({ caution, theme: { colors } }) =>
+      caution ? colors.negative[150] : colors.primary[150]};
+    color: ${({ theme: { colors } }) => colors.grey[25]};
+    top: 0;
+  }
 `;
 
 const ErrorContainer = styled.div`

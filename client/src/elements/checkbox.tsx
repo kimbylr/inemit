@@ -22,7 +22,7 @@ export const Checkbox: FC<Props> = ({ children, checked, onCheck, small }) => (
         </CheckboxHook>
       )}
     </CheckboxContainer>
-    {children}
+    <Text>{children}</Text>
   </Label>
 );
 
@@ -31,6 +31,11 @@ const Label = styled.label<{ small?: boolean }>`
   font-size: ${({ small, theme: { font } }) => (small ? font.sizes.xxs : font.sizes.xs)};
   display: flex;
   align-items: ${({ small }) => (small ? 'flex-end' : 'flex-start')};
+
+  color: ${({ theme: { colors } }) => colors.grey[85]};
+  :focus-within {
+    color: ${({ theme: { colors } }) => colors.grey[50]};
+  }
 `;
 
 const InvisibleActualCheckbox = styled.input`
@@ -50,9 +55,10 @@ const CheckboxContainer = styled.div<{ small?: boolean }>`
 const CheckboxDiv = styled.div<{ checked: boolean; small?: boolean }>`
   height: ${({ small }) => (small ? '1rem' : '1.25rem')};
   width: ${({ small }) => (small ? '1rem' : '1.25rem')};
-  color: ${({ theme: { colors } }) => colors.primary[100]};
   box-sizing: border-box;
-  border: 2px solid ${({ theme: { colors } }) => colors.primary[100]};
+  border: 2px solid
+    ${({ theme: { colors }, checked }) =>
+      checked ? colors.primary[100] : 'currentColor'};
   border-radius: 2px;
   background: ${({ checked, theme: { colors } }) =>
     checked ? colors.primary[100] : 'white'};
@@ -66,4 +72,8 @@ const CheckboxHook = styled.div<{ small?: boolean }>`
   width: ${({ small }) => (small ? '0.75rem' : '1rem')};
   pointer-events: none;
   color: white;
+`;
+
+const Text = styled.span`
+  color: ${({ theme: { colors } }) => colors.grey[10]};
 `;
