@@ -1,3 +1,15 @@
+# [1.17.0](https://github.com/kimbylr/inemit/compare/v1.16.0...v1.17.0) (2021-12-24)
+
+
+### Bug Fixes
+
+* Show count directly in progress bar on desktop ([826207e](https://github.com/kimbylr/inemit/commit/826207e7474e3d8dd9e00f19b6efc1b64e29f37d))
+
+
+### Features
+
+* Improve focus handling ([8f121ae](https://github.com/kimbylr/inemit/commit/8f121aec11eeb10a431dff9750d524f4f042746a))
+
 # [1.16.0](https://github.com/kimbylr/inemit/compare/v1.15.0...v1.16.0) (2021-11-08)
 
 
