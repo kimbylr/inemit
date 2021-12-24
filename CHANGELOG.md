@@ -1,3 +1,18 @@
+# [1.16.0](https://github.com/kimbylr/inemit/compare/v1.15.0...v1.16.0) (2021-11-08)
+
+
+### Bug Fixes
+
+* About page imports ([bf85fc1](https://github.com/kimbylr/inemit/commit/bf85fc1db236831d13abb9898de00bb127d821dc))
+* Better notch handling ([52d9002](https://github.com/kimbylr/inemit/commit/52d9002ebcf771b1d31f1016d6cbb82d1a618ba2))
+* Focus handling ([4779ddc](https://github.com/kimbylr/inemit/commit/4779ddcaba998f406856917c9fa88b771baed4e7))
+
+
+### Features
+
+* Click ProgressBar in overview to show total count per stage ([577a048](https://github.com/kimbylr/inemit/commit/577a0487245e47491d2d10ecbb1c428c7045d521))
+* Unflag when editing ([b45e18c](https://github.com/kimbylr/inemit/commit/b45e18c28f2307946d7ee7b2746e3b4add432538))
+
 # [1.15.0](https://github.com/kimbylr/inemit/compare/v1.14.2...v1.15.0) (2021-08-23)
 
 
