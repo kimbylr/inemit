@@ -11,13 +11,13 @@ export interface ProgressType extends Document {
 }
 
 const ProgressSchema = new Schema<ProgressType>({
-  due: { type: Date, default: Date.now },
+  due: { type: Date, default: () => new Date() },
   stage: { type: Number, default: 1 },
   interval: { type: Number, default: 1 },
   easiness: { type: Number, default: 2.5 },
   timesCorrect: { type: Number, default: 0 },
   timesWrong: { type: Number, default: 0 },
-  updated: { type: Date, default: Date.now },
+  updated: { type: Date, default: () => new Date() },
 });
 
 export const Progress = model<ProgressType>('Progress', ProgressSchema);
@@ -53,8 +53,8 @@ export interface LearnItemType extends Document {
 }
 
 const LearnItemSchema = new Schema<LearnItemType>({
-  created: { type: Date, default: Date.now },
-  updated: { type: Date, default: Date.now },
+  created: { type: Date, default: () => new Date() },
+  updated: { type: Date, default: () => new Date() },
   prompt: { type: String, required: true },
   solution: { type: String, required: true },
   flagged: Boolean,
@@ -80,8 +80,8 @@ const ListSchema = new Schema<ListType & Document>({
   userId: { type: String, required: true },
   name: { type: String, required: true },
   slug: { type: String, required: true },
-  created: { type: Date, default: Date.now },
-  updated: { type: Date, default: Date.now },
+  created: { type: Date, default: () => new Date() },
+  updated: { type: Date, default: () => new Date() },
   items: [LearnItemSchema],
 });
 
@@ -103,7 +103,7 @@ export interface SettingsType {
 
 const SettingsSchema = new Schema<SettingsType & Document>({
   userId: { type: String, required: true },
-  updated: { type: Date, default: Date.now },
+  updated: { type: Date, default: () => new Date() },
   dismissedHints: {
     editingIntro: Boolean,
     learningFalseNegative: Boolean,
