@@ -1,4 +1,4 @@
-import React, { FC, useEffect } from 'react';
+import { FC, useEffect } from 'react';
 import styled from 'styled-components';
 import { Icon } from '../elements/icon';
 import { Link } from '../elements/link';

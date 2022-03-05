@@ -6,8 +6,8 @@ export const useHeight = () => {
   );
 
   useLayoutEffect(() => {
-    const update = () =>
-      setHeight(window.visualViewport?.height ?? window.innerHeight);
+    const update = () => setHeight(window.visualViewport?.height ?? window.innerHeight);
+    update();
 
     const viewport = window.visualViewport ?? window;
     viewport.addEventListener('resize', update);
