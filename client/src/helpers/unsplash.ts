@@ -24,7 +24,7 @@ export const mapUnsplashImage = ({
 });
 
 const headers = {
-  Authorization: `Client-ID ${process.env.UNSPLASH_CLIENT_ID}`,
+  Authorization: `Client-ID ${import.meta.env.VITE_UNSPLASH_CLIENT_ID}`,
   'Accept-Version': 'v1',
 };
 

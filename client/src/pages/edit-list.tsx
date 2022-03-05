@@ -30,7 +30,7 @@ export const EditList: FC = () => {
   const [state, setState] = useState<LoadingStates>(LoadingStates.initial);
   const { slug, goToList } = useRouting();
   const { lists, state: listsState, updateList, removeList } = useLists();
-  const list = lists.find(list => list.slug === slug);
+  const list = lists.find((list) => list.slug === slug);
 
   const fetchItems = async () => {
     if (!list) {
@@ -96,17 +96,17 @@ export const EditList: FC = () => {
   };
 
   const onItemsAdded = (newItems: LearnItem[]) => {
-    setItems(items => markDoublets([...items, ...newItems]));
+    setItems((items) => markDoublets([...items, ...newItems]));
   };
 
   const onItemSaved = (editedItem: LearnItem) => {
-    setItems(items =>
-      markDoublets(items.map(item => (editedItem.id === item.id ? editedItem : item))),
+    setItems((items) =>
+      markDoublets(items.map((item) => (editedItem.id === item.id ? editedItem : item))),
     );
   };
 
   const onItemDeleted = (id: string) => {
-    setItems(items => markDoublets(items.filter(item => item.id !== id)));
+    setItems((items) => markDoublets(items.filter((item) => item.id !== id)));
   };
 
   const flaggedItems = items.filter(({ flagged }) => flagged);
@@ -186,28 +186,30 @@ export const EditList: FC = () => {
         </li>
       </LearnItemsIntroList>
 
-      {/** to be replaced with filtering */
-      flaggedItems.length > 0 && (
-        <>
-          <SubSubHeading>
-            Markiert <Icon type="flag" width="16px" />
-          </SubSubHeading>
-          <LearnItemList>
-            {flaggedItems.map((item, index) => (
-              <LearnItem key={item.id}>
-                <EditableItem
-                  item={item}
-                  index={index + 1}
-                  listId={list.id}
-                  onItemDeleted={onItemDeleted}
-                />
-              </LearnItem>
-            ))}
-          </LearnItemList>
-          <Divider />
-          <SubSubHeading>Alle</SubSubHeading>
-        </>
-      )}
+      {
+        /** to be replaced with filtering */
+        flaggedItems.length > 0 && (
+          <>
+            <SubSubHeading>
+              Markiert <Icon type="flag" width="16px" />
+            </SubSubHeading>
+            <LearnItemList>
+              {flaggedItems.map((item, index) => (
+                <LearnItemListElement key={item.id}>
+                  <EditableItem
+                    item={item}
+                    index={index + 1}
+                    listId={list.id}
+                    onItemDeleted={onItemDeleted}
+                  />
+                </LearnItemListElement>
+              ))}
+            </LearnItemList>
+            <Divider />
+            <SubSubHeading>Alle</SubSubHeading>
+          </>
+        )
+      }
 
       <EditableItemsList
         items={items}
@@ -276,7 +278,7 @@ const LearnItemList = styled.ul`
   margin: 0;
   padding: 0;
 `;
-const LearnItem = styled.li`
+const LearnItemListElement = styled.li`
   border-top: 4px dotted ${({ theme: { colors } }) => colors.grey[85]};
   padding: 16px 0 4px;
 `;

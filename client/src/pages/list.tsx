@@ -127,9 +127,9 @@ export const List: FC = () => {
           </SubHeading>
           <LearnItemList>
             {list.flaggedItems.map((item, index) => (
-              <LearnItem key={item.id}>
+              <LearnItemListElement key={item.id}>
                 <EditableItem item={item} index={index + 1} listId={list.id} />
-              </LearnItem>
+              </LearnItemListElement>
             ))}
           </LearnItemList>
         </ListParagraph>
@@ -182,7 +182,7 @@ const LearnItemList = styled.ul`
   margin: 0;
   padding: 0;
 `;
-const LearnItem = styled.li`
+const LearnItemListElement = styled.li`
   border-top: 4px dotted ${({ theme: { colors } }) => colors.grey[85]};
   padding: 16px 0 4px;
 

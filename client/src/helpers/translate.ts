@@ -11,5 +11,5 @@ export const translate = async (searchString: string): Promise<string> => {
 
 const getUrl = (searchString: string) =>
   `https://api-free.deepl.com/v2/translate?auth_key=${
-    process.env.DEEPL_AUTH_KEY
+    import.meta.env.VITE_DEEPL_AUTH_KEY
   }&target_lang=EN&text=${encodeURIComponent(searchString)}`;

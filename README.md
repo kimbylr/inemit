@@ -16,11 +16,15 @@ Features include:
 
 ## Setup and run
 
-Node version: 12
+Make sure to use Node.js v16
+
+```sh
+nvm use
+```
 
 ### API
 
-1. Copy `.env.dist` -> `.env` and set env variables (you'll need an auth service like auth0 and a mongo DB)
+1. Copy `.env.dist` -> `.env` and set env variables (you'll need an auth service like Auth0 and a Mongo DB)
 
 2. Install dependencies
 
@@ -44,19 +48,14 @@ npm run dev
 npm install
 ```
 
-3. Run locally (http://localhost:8080) using local API:
+3. Run locally (http://localhost:8080):
 
 ```sh
 npm run dev
 ```
 
-or using live API:
+If env var `VITE_LIVE_API` is true, this will hit the `VITE_LIVE_API`. Set to false to use with local API.
 
-```sh
-npm run dev:liveapi
-```
-
-(`npm run dev` runs postinstall script as a quick fix for a type problem, see this [github discussion](https://github.com/DefinitelyTyped/DefinitelyTyped/issues/33311))
 
 ### Tests
 

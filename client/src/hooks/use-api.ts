@@ -8,8 +8,8 @@ import {
   Hints,
 } from '../models';
 
-const devMode = process.env.NODE_ENV === 'development' && !process.env.LIVE_API;
-const API_URL = devMode ? process.env.API_URL_DEV : process.env.API_URL;
+const devMode = import.meta.env.DEV && !import.meta.env.VITE_LIVE_API;
+const API_URL = devMode ? import.meta.env.VITE_API_URL_DEV : import.meta.env.VITE_API_URL;
 
 const routes = {
   ping: () => `${API_URL}/ping`,
@@ -85,7 +85,7 @@ const fetchAndUnpack = async <T>({
 
   if (emptyResponse) {
     // for "emptyResponse, T is indeed void
-    return (new Promise<void>(resolve => resolve()) as Promise<unknown>) as Promise<T>;
+    return new Promise<void>((resolve) => resolve()) as Promise<unknown> as Promise<T>;
   }
 
   return await res.json();

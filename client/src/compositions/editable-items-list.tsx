@@ -27,11 +27,11 @@ export const EditableItemsList: FC<Props> = ({
   const [newItemIds, setNewItemIds] = useState<number[]>([1]);
 
   const onNewItemEdited = () => {
-    setNewItemIds(ids => [...ids, ids[ids.length - 1] + 1]);
+    setNewItemIds((ids) => [...ids, ids[ids.length - 1] + 1]);
   };
 
   const onNewItemSaved = (item: LearnItem, tempId: string) => {
-    setNewItemIds(ids => ids.filter(id => `${id}` !== tempId));
+    setNewItemIds((ids) => ids.filter((id) => `${id}` !== tempId));
     onItemsAdded([item]);
   };
 
@@ -40,7 +40,7 @@ export const EditableItemsList: FC<Props> = ({
   return (
     <LearnItemList>
       {items.map((item, index) => (
-        <LearnItem key={item.id}>
+        <LearnItemListElement key={item.id}>
           <EditableItem
             item={item}
             index={index + 1}
@@ -48,7 +48,7 @@ export const EditableItemsList: FC<Props> = ({
             onItemDeleted={onItemDeleted}
             onItemSaved={onItemSaved}
           />
-        </LearnItem>
+        </LearnItemListElement>
       ))}
 
       {newItemIds.map((id, index) => {
@@ -61,7 +61,7 @@ export const EditableItemsList: FC<Props> = ({
         };
 
         return (
-          <LearnItem key={item.id}>
+          <LearnItemListElement key={item.id}>
             <EditableItem
               onDismissHint={showHint && (() => onDismissHint(Hints.editingIntro))}
               item={item}
@@ -71,7 +71,7 @@ export const EditableItemsList: FC<Props> = ({
               onNewItemSaved={onNewItemSaved}
               lastInputRef={isLast ? lastInputRef : undefined}
             />
-          </LearnItem>
+          </LearnItemListElement>
         );
       })}
     </LearnItemList>
@@ -83,7 +83,7 @@ const LearnItemList = styled.ul`
   margin: 0;
   padding: 0;
 `;
-const LearnItem = styled.li`
+const LearnItemListElement = styled.li`
   border-top: 4px dotted ${({ theme: { colors } }) => colors.grey[85]};
   padding: 16px 0 4px;
 `;

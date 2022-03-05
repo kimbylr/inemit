@@ -2,9 +2,10 @@ import createAuth0Client, { RedirectLoginOptions } from '@auth0/auth0-spa-js';
 import Auth0Client from '@auth0/auth0-spa-js/dist/typings/Auth0Client';
 import React, { FC, useContext, useEffect, useState } from 'react';
 
-const AUTH_DOMAIN = process.env.AUTH_DOMAIN ?? '';
-const AUTH_CLIENT_ID = process.env.AUTH_CLIENT_ID ?? '';
-const AUTH_AUDIENCE = process.env.AUTH_AUDIENCE;
+const AUTH_DOMAIN = import.meta.env.VITE_AUTH_DOMAIN as string;
+const AUTH_CLIENT_ID = import.meta.env.VITE_AUTH_CLIENT_ID as string;
+const AUTH_AUDIENCE = import.meta.env.VITE_AUTH_AUDIENCE as string;
+
 const REDIRECT_URI = window.location.origin;
 
 const noop = () => {};
@@ -92,8 +93,8 @@ export const AuthProvider: FC = ({ children }) => {
         user,
         loading,
         login: (options?: RedirectLoginOptions) =>
-          auth0Client?.loginWithRedirect(options) ?? ((noop as unknown) as any),
-        getToken: () => auth0Client?.getTokenSilently() ?? ((noop as unknown) as any),
+          auth0Client?.loginWithRedirect(options) ?? (noop as unknown as any),
+        getToken: () => auth0Client?.getTokenSilently() ?? (noop as unknown as any),
         logout: () => auth0Client?.logout({ returnTo: REDIRECT_URI }) ?? noop,
         // popupOpen,
         // loginWithPopup,
