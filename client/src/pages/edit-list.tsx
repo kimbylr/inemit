@@ -19,6 +19,7 @@ import { markDoublets } from '../helpers/mark-doublets';
 import { useApi } from '../hooks/use-api';
 import { useLists } from '../hooks/use-lists';
 import { useRouting } from '../hooks/use-routing';
+import { MenuLayout } from '../layout/menu-layout';
 import { LearnItem, LearnItemWithDoublet, LoadingStates } from '../models';
 
 const DELETE_PROMPT = `Gib "JA" ein, um diese Liste unwiderruflich zu löschen.`;
@@ -64,15 +65,19 @@ export const EditList: FC = () => {
   }, [items.length]);
 
   if (state === 'loading' || state === 'initial') {
-    return <Spinner />;
+    return (
+      <MenuLayout>
+        <Spinner />
+      </MenuLayout>
+    );
   }
 
   if (state === 'error' || !list) {
     return (
-      <>
+      <MenuLayout>
         <Heading>¯\_(ツ)_/¯</Heading>
         <Paragraph>Leider ist etwas schief gelaufen.</Paragraph>
-      </>
+      </MenuLayout>
     );
   }
 
@@ -112,7 +117,7 @@ export const EditList: FC = () => {
   const flaggedItems = items.filter(({ flagged }) => flagged);
 
   return (
-    <>
+    <MenuLayout>
       <Heading>{list.name}</Heading>
       <Paragraph>
         In dieser Liste gibt es <strong>{items.length} Vokabeln</strong>.
@@ -219,7 +224,7 @@ export const EditList: FC = () => {
         onItemSaved={onItemSaved}
         lastInputRef={lastInputRef}
       />
-    </>
+    </MenuLayout>
   );
 };
 

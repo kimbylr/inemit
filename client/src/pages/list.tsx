@@ -12,7 +12,7 @@ import { Spinner } from '../elements/spinner';
 import { Heading, Paragraph, SubHeading } from '../elements/typography';
 import { useApi } from '../hooks/use-api';
 import { useRouting } from '../hooks/use-routing';
-import { PageLayout } from '../layout/page-layout';
+import { MenuLayout } from '../layout/menu-layout';
 import {
   LearnItem,
   LearnItemWithDoublet,
@@ -51,32 +51,38 @@ export const List: FC = () => {
   }, [slug]);
 
   if (state === 'loading' || state === 'initial') {
-    return <Spinner />;
+    return (
+      <MenuLayout>
+        <Spinner />
+      </MenuLayout>
+    );
   }
 
   if (state === 'error' || !list) {
     return (
-      <>
+      <MenuLayout>
         <Heading>¯\_(ツ)_/¯</Heading>
         <Paragraph>Unter dieser Adresse existiert keine Liste.</Paragraph>
-      </>
+      </MenuLayout>
     );
   }
 
   const onItemsAdded = (newItems: LearnItem[]) => {
-    setItems(items => [...items, ...newItems]);
-    setList(list =>
+    setItems((items) => [...items, ...newItems]);
+    setList((list) =>
       list ? { ...list, itemsCount: list.itemsCount + newItems.length } : null,
     ); // TODO: state handling (will not propagate to list-edit)
   };
 
   const onItemSaved = (editedItem: LearnItem) => {
-    setItems(items => items.map(item => (editedItem.id === item.id ? editedItem : item)));
+    setItems((items) =>
+      items.map((item) => (editedItem.id === item.id ? editedItem : item)),
+    );
   };
 
   const onItemDeleted = (id: string) => {
-    setItems(items => items.filter(item => item.id !== id));
-    setList(list => (list ? { ...list, itemsCount: list.itemsCount - 1 } : null)); // TODO: state handling (will not propagate to list-edit)
+    setItems((items) => items.filter((item) => item.id !== id));
+    setList((list) => (list ? { ...list, itemsCount: list.itemsCount - 1 } : null)); // TODO: state handling (will not propagate to list-edit)
   };
 
   const { dueToday, dueTomorrow } = list.progress;
@@ -84,7 +90,7 @@ export const List: FC = () => {
   const startLearning = () => goToList(list.slug, 'learn');
 
   return (
-    <PageLayout>
+    <MenuLayout withPageLayout>
       <Heading>{list.name}</Heading>
       {list.itemsCount > 0 && (
         <>
@@ -145,7 +151,7 @@ export const List: FC = () => {
           onItemSaved={onItemSaved}
         />
       </ListParagraph>
-    </PageLayout>
+    </MenuLayout>
   );
 };
 

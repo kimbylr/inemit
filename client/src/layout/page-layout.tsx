@@ -1,9 +1,7 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
 
-export const PageLayout: FC = ({ children }) => (
-  <Container>{children}</Container>
-);
+export const PageLayout: FC = ({ children }) => <Container>{children}</Container>;
 
 export const Container = styled.div`
   max-width: 760px;

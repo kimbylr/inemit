@@ -31,29 +31,10 @@ const App = () => (
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<About />} />
             <Route path="/start" element={<PrivateRoute children={<Start />} />} />
-            <Route
-              path="/lists/:slug"
-              element={
-                <PrivateRoute>
-                  <Header />
-                  <Menu />
-                  <Main>
-                    <List />
-                  </Main>
-                </PrivateRoute>
-              }
-            />
+            <Route path="/lists/:slug" element={<PrivateRoute children={<List />} />} />
             <Route
               path="/lists/:slug/edit"
-              element={
-                <PrivateRoute>
-                  <Header />
-                  <Menu />
-                  <Main>
-                    <EditList />
-                  </Main>
-                </PrivateRoute>
-              }
+              element={<PrivateRoute children={<EditList />} />}
             />
           </Routes>
         </BrowserRouter>
