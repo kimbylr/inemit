@@ -1,7 +1,7 @@
 import 'normalize.css';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { createGlobalStyle, ThemeProvider } from 'styled-components';
 import { Header } from './components/header';
 import { Main } from './components/main';
@@ -19,26 +19,43 @@ import { theme } from './theme';
 
 const App = () => (
   <ThemeProvider theme={theme}>
+    <GlobalStyle />
     <StoreProvider>
       <AuthProvider>
         <BrowserRouter>
-          <GlobalStyle />
-          <Switch>
-            <PrivateRoute path="/lists/:slug/learn" component={Learn} />
-            <Route exact path="/" component={Home} />
-            <Route exact path="/about" component={About} />
-            <PrivateRoute path="/start" component={Start} />
-            <Route path="/lists/:slug?">
-              <Header />
-              <Menu />
-              <Main>
-                <Switch>
-                  <PrivateRoute path="/lists/:slug/edit" component={EditList} />
-                  <PrivateRoute path="/lists/:slug" component={List} />
-                </Switch>
-              </Main>
-            </Route>
-          </Switch>
+          <Routes>
+            <Route
+              path="/lists/:slug/learn"
+              element={<PrivateRoute redirectTo="/" children={<Learn />} />}
+            />
+            <Route path="/" element={<Home />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/start" element={<PrivateRoute children={<Start />} />} />
+            <Route
+              path="/lists/:slug"
+              element={
+                <PrivateRoute>
+                  <Header />
+                  <Menu />
+                  <Main>
+                    <List />
+                  </Main>
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/lists/:slug/edit"
+              element={
+                <PrivateRoute>
+                  <Header />
+                  <Menu />
+                  <Main>
+                    <EditList />
+                  </Main>
+                </PrivateRoute>
+              }
+            />
+          </Routes>
         </BrowserRouter>
       </AuthProvider>
     </StoreProvider>

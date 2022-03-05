@@ -24,7 +24,7 @@ export const Learn: FC = () => {
   const { getLearnItems, reportProgress } = useApi();
 
   const { lists } = useLists();
-  const list = lists.find(list => list.slug === slug);
+  const list = lists.find((list) => list.slug === slug);
   const listPath = getListPath(slug);
 
   const [items, setItems] = useState<LearnItemForLearning[] | null>(null);
@@ -185,7 +185,7 @@ export const Learn: FC = () => {
               disabled={revising}
               correct={revising && isCorrect}
               incorrect={revising && !isCorrect}
-              onChange={e => setAnswer(e.target.value)}
+              onChange={(e) => setAnswer(e.target.value)}
               onFocus={() => {
                 // prevent iOS from pushing content out of view
                 setTimeout(() => window.scrollTo({ top: 0 }), 200);
