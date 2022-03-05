@@ -350,7 +350,8 @@ const SolutionInput = styled(Input)<{ incorrect?: boolean; correct?: boolean }>`
     incorrect
       ? ` color: ${colors.negative[100]};
           border-color: ${colors.negative[100]};
-          text-decoration: line-through;`
+          text-decoration: line-through;
+          background: ${colors.negative[10]};`
       : ``}
 `;
 const RevisionIcon = styled.div<{ correct: boolean }>`

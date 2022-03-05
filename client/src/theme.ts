@@ -38,6 +38,7 @@ export const theme = {
       100: '#FF8360',
       75: '#DD9F8D',
       50: '#DBB5AB',
+      10: '#F9F0F0',
     },
   },
   font: {
