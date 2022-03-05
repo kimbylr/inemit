@@ -12,6 +12,7 @@ export const Button = styled.button<{ primary?: boolean; small?: boolean }>`
   white-space: nowrap;
   font-size: ${({ small, theme: { font } }) => (small ? font.sizes.xxs : font.sizes.xs)};
   font-weight: 600;
+  position: relative;
 
   cursor: pointer;
   user-select: none;
@@ -21,8 +22,8 @@ export const Button = styled.button<{ primary?: boolean; small?: boolean }>`
   box-shadow: 0 4px
     ${({ primary, theme: { colors } }) =>
       primary ? colors.primary[150] : colors.grey[60]};
-  padding: ${({ small }) => (small ? '0.375rem 0.75rem' : '0.5rem 1rem')};
-  margin: 4px 0;
+  padding: ${({ small }) => (small ? '5px 12px' : '8px 16px')};
+  margin: 0 0 4px;
 
   :hover:not(:disabled),
   :active {
@@ -30,13 +31,21 @@ export const Button = styled.button<{ primary?: boolean; small?: boolean }>`
       primary ? colors.grey[25] : colors.grey[98]};
   }
 
-  :focus,
   :active {
     background: ${({ primary, theme: { colors } }) =>
       primary ? colors.primary[150] : colors.grey[60]};
     box-shadow: none;
-    position: relative;
     top: 4px;
+  }
+
+  :focus-visible:not(:active)::after {
+    content: '';
+    position: absolute;
+    inset: -4px -4px -8px;
+    border-radius: 8px;
+    border: 2px solid
+      ${({ primary, theme: { colors } }) =>
+        primary ? colors.primary[50] : colors.grey[75]};
   }
 
   :disabled {

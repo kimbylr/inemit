@@ -28,7 +28,7 @@ export const ExpandableArea: FC<Props> = ({
   useEffect(() => {
     ref.current
       ?.querySelectorAll(FOCUSABLE_ELEMENTS.join(', '))
-      .forEach(el => el.setAttribute('tabindex', open ? '0' : '-1'));
+      .forEach((el) => el.setAttribute('tabindex', open ? '0' : '-1'));
   }, [open]);
 
   if (showChevronButton) {
@@ -92,7 +92,7 @@ const ToggleButton = styled.button<ToggleButtonProps>`
   padding: 0;
 
   :focus {
-    outline: 2px dashed ${({ theme: { colors } }) => colors.primary[150]};
+    outline: 2px solid ${({ theme: { colors } }) => colors.primary[150]};
   }
 
   ${({ flexed }) =>

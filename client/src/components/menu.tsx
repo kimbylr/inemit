@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import { FC, useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 import { Button } from '../elements/button';
@@ -43,8 +43,8 @@ export const Menu: FC = () => {
   }
 
   const hasLists = lists.length > 0;
-  const inactiveLists = lists.filter(list => list.slug !== slug);
-  const activeList = slug && lists.find(list => list.slug === slug);
+  const inactiveLists = lists.filter((list) => list.slug !== slug);
+  const activeList = slug && lists.find((list) => list.slug === slug);
 
   const onAddList = async () => {
     const name = prompt('Name der neuen Liste:');
@@ -83,7 +83,7 @@ export const Menu: FC = () => {
       >
         {hasLists && (
           <List>
-            {inactiveLists.map(list => (
+            {inactiveLists.map((list) => (
               <ListItem key={list.id}>
                 <ListLink to={getListPath(list.slug)} onClick={() => setOpen(false)}>
                   {list.name}
@@ -163,6 +163,10 @@ const ListLink = styled(Link)`
   :hover {
     color: ${({ theme: { colors } }) => colors.grey[25]};
   }
+  :focus {
+    outline: ${({ theme: { colors } }: any) => colors.primary[150]} solid 2px;
+    outline-offset: 4px;
+  }
 `;
 
 const TeaserStyles = css`
@@ -201,6 +205,9 @@ const OutlineButton = styled(Button)<{ caution?: boolean }>`
       caution ? colors.negative[150] : colors.primary[150]};
     color: ${({ theme: { colors } }) => colors.grey[25]};
     top: 0;
+  }
+  :focus::after {
+    display: none;
   }
 `;
 
