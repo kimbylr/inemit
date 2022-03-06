@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useRef, useState } from 'react';
+import React, { FC, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { FlagButton } from '../components/flag-button';
@@ -11,6 +11,7 @@ import { ExtLink } from '../elements/link';
 import { Spinner } from '../elements/spinner';
 import { Paragraph } from '../elements/typography';
 import { evaluateAnswer } from '../helpers/evaluate-answer';
+import { isMobileAppleDevice } from '../helpers/is-mobile-apple-device';
 import { useApi } from '../hooks/use-api';
 import { useHeight } from '../hooks/use-height';
 import { useLists } from '../hooks/use-lists';
@@ -61,6 +62,11 @@ export const Learn: FC = () => {
 
   // focus input field when ready
   useEffect(() => {
+    if (isMobileAppleDevice()) {
+      // let user focus for scroll to work (◔_◔)
+      return;
+    }
+
     items && answerFieldRef.current?.focus();
   }, [items]);
 
