@@ -1,3 +1,12 @@
+## [1.17.1](https://github.com/kimbylr/inemit/compare/v1.17.0...v1.17.1) (2022-03-06)
+
+
+### Bug Fixes
+
+* button focus style ([a4ed740](https://github.com/kimbylr/inemit/commit/a4ed740f25cb068a56b117f78d83f6b73e39b367))
+* Calculate viewport height initially when learning ([b57d0d7](https://github.com/kimbylr/inemit/commit/b57d0d7567e5554eda8ed089b86fdd8ca32f6541))
+* unify layouts ([e966ed1](https://github.com/kimbylr/inemit/commit/e966ed1a3ddef134487694d9738aeeecbed766e2))
+
 # [1.17.0](https://github.com/kimbylr/inemit/compare/v1.16.0...v1.17.0) (2021-12-24)
 
 
