@@ -1,3 +1,10 @@
+## [1.17.2](https://github.com/kimbylr/inemit/compare/v1.17.1...v1.17.2) (2022-03-06)
+
+
+### Bug Fixes
+
+* Focus and scroll in learn mode on iPhone ([9917c17](https://github.com/kimbylr/inemit/commit/9917c1774bd4a14dcc82e60a9e7aa38a68d3ff49))
+
 ## [1.17.1](https://github.com/kimbylr/inemit/compare/v1.17.0...v1.17.1) (2022-03-06)
 
 
