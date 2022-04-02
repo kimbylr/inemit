@@ -116,9 +116,9 @@ const Title = styled.h1`
   position: absolute;
   left: 0;
   right: 0;
-  padding: 0 1rem;
+  padding: 5rem 1rem;
   margin: 0 auto;
-  margin-top: calc(-12vw - 10vh - 40px);
+  margin-top: calc(-12vw - 12vh - 120px);
   text-align: center;
   color: ${({ theme: { colors } }) => colors.grey[98]};
   font-size: clamp(4rem, calc(2.5rem + 8vw), 10rem);
@@ -127,6 +127,10 @@ const Title = styled.h1`
   transform-origin: bottom;
   transform: translateZ(1px) scale(0.66);
   text-shadow: 0 0 4rem #000;
+
+  @media (min-width: 1500px) {
+    margin-top: calc(-8vw - 12vh - 180px);
+  }
 `;
 
 // =======
