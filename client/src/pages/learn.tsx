@@ -1,5 +1,4 @@
-import React, { FC, useEffect, useLayoutEffect, useRef, useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { FC, useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import { FlagButton } from '../components/flag-button';
 import { LearnProgress } from '../components/learn-progress';
@@ -74,9 +73,9 @@ export const Learn: FC = () => {
     return (
       <Container height={height}>
         <Header>
-          <StyledLink to={listPath} title="Zurück zur Übersicht">
+          <StyledLinkButton onClick={() => goToList(slug)} title="Zurück zur Übersicht">
             <Icon type="cancel" width="20px" />
-          </StyledLink>
+          </StyledLinkButton>
         </Header>
         <Content height={height}>
           <Spinner />
@@ -155,9 +154,9 @@ export const Learn: FC = () => {
           itemId={itemId}
           onDismissHint={showFlagHint && (() => onDismissHint(Hints.learningFlag))}
         />
-        <StyledLink to={listPath} title="Zurück zur Übersicht" tabIndex={0}>
+        <StyledLinkButton onClick={() => goToList(slug)} title="Zurück zur Übersicht">
           <Icon type="cancel" width="20px" />
-        </StyledLink>
+        </StyledLinkButton>
       </Header>
       <Content height={height}>
         <Prompt hasImage={!!image}>
@@ -263,7 +262,11 @@ const Header = styled.header`
   justify-content: space-between;
 `;
 
-const StyledLink = styled(Link)`
+const StyledLinkButton = styled.button`
+  background: none;
+  padding: 0;
+  border: none;
+  cursor: pointer;
   color: ${({ theme: { colors } }) => colors.grey[75]};
 
   :hover {

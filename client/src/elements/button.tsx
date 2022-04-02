@@ -41,9 +41,9 @@ export const Button = styled.button<{ primary?: boolean; small?: boolean }>`
   :focus-visible:not(:active)::after {
     content: '';
     position: absolute;
-    inset: -4px -4px -8px;
+    inset: -6px -6px -10px;
     border-radius: 8px;
-    border: 2px solid
+    border: 3px dotted
       ${({ primary, theme: { colors } }) =>
         primary ? colors.primary[50] : colors.grey[75]};
   }
