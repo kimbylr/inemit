@@ -127,6 +127,7 @@ const Title = styled.h1`
   transform-origin: bottom;
   transform: translateZ(1px) scale(0.66);
   text-shadow: 0 0 4rem #000;
+  pointer-events: none;
 
   @media (min-width: 1500px) {
     margin-top: calc(-8vw - 12vh - 180px);
