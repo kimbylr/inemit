@@ -1,3 +1,10 @@
+## [1.17.4](https://github.com/kimbylr/inemit/compare/v1.17.3...v1.17.4) (2022-04-08)
+
+
+### Bug Fixes
+
+* Home title clicktrough ([78f0340](https://github.com/kimbylr/inemit/commit/78f0340a4ebeadd82868fde3fecad76ac1605675))
+
 ## [1.17.3](https://github.com/kimbylr/inemit/compare/v1.17.2...v1.17.3) (2022-04-02)
 
 
