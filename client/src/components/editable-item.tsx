@@ -60,11 +60,11 @@ export const EditableItem: FC<Props> = ({
   };
 
   const onChangePrompt = (value: string) => {
-    setCurrentItem(item => ({ ...item, prompt: value }));
+    setCurrentItem((item) => ({ ...item, prompt: value }));
     hasEdited();
   };
   const onChangeSolution = (value: string) => {
-    setCurrentItem(item => ({ ...item, solution: value }));
+    setCurrentItem((item) => ({ ...item, solution: value }));
     hasEdited();
   };
 
@@ -134,22 +134,23 @@ export const EditableItem: FC<Props> = ({
   };
 
   const onSetImage = async (img: UnsplashImage | null) => {
-    if (!initiallyEdited || saving) {
+    if (!initiallyEdited || saving || !img) {
       return;
     }
 
     setSaving(true);
     try {
-      const { prompt, solution, image } = await editItem({
+      const { trackSet, ...imageWithoutTrackFn } = img;
+      const { prompt, solution, image, flagged } = await editItem({
         listId,
         itemId: item.id,
-        item: { image: img }, // TODO: don't send trackSet
+        item: { image: imageWithoutTrackFn, flagged: false },
       });
       if (img !== null && !image) throw 'could not save image';
-      setSavedItem({ prompt, solution, image });
-      setCurrentItem({ prompt, solution, image });
+      setSavedItem({ prompt, solution, image, flagged });
+      setCurrentItem({ prompt, solution, image, flagged });
       setShowImagePicker(false);
-      img?.trackSet?.();
+      trackSet?.();
     } catch (error) {
       console.error(error);
     } finally {
@@ -171,7 +172,7 @@ export const EditableItem: FC<Props> = ({
               flagged={savedItem.flagged}
               listId={listId}
               itemId={item.id}
-              onFlagged={flagged => setSavedItem(item => ({ ...item, flagged }))}
+              onFlagged={(flagged) => setSavedItem((item) => ({ ...item, flagged }))}
             />
           ) : (
             <Index>{index}</Index>
@@ -208,7 +209,7 @@ export const EditableItem: FC<Props> = ({
                 onBlur={submit}
                 value={currentItem.solution}
                 placeholder={savedItem.solution}
-                onChange={e => onChangeSolution(e.target.value)}
+                onChange={(e) => onChangeSolution(e.target.value)}
                 ref={lastInputRef}
               />
               Vokabel
@@ -221,14 +222,14 @@ export const EditableItem: FC<Props> = ({
                 onBlur={submit}
                 value={currentItem.prompt}
                 placeholder={savedItem.prompt}
-                onChange={e => onChangePrompt(e.target.value)}
+                onChange={(e) => onChangePrompt(e.target.value)}
               />
               {!item.isNew && (
                 <ImageButtonContainer style={{ position: 'relative' }}>
                   <ImageButton
                     type="button"
                     isActive={showImagePicker}
-                    onClick={() => setShowImagePicker(active => !active)}
+                    onClick={() => setShowImagePicker((active) => !active)}
                   >
                     {currentItem.image ? (
                       <ImageThumbContainer showImagePicker={showImagePicker}>
