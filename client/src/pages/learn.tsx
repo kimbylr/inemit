@@ -25,7 +25,6 @@ export const Learn: FC = () => {
 
   const { lists } = useLists();
   const list = lists.find((list) => list.slug === slug);
-  const listPath = getListPath(slug);
 
   const [items, setItems] = useState<LearnItemForLearning[] | null>(null);
   const [current, setCurrent] = useState(0);
@@ -263,7 +262,11 @@ export const Learn: FC = () => {
 };
 
 const showRefinementHint = (answer: string, solution: string) =>
-  answer.toLowerCase().trim() !== solution.toLowerCase().trim();
+  answer.toLowerCase().trim() !==
+  solution
+    .toLowerCase()
+    .trim()
+    .replaceAll(/[\(\)]/g, ''); // no refinement hint if answer included optional part in brackets
 
 const Container = styled.div<{ height: number }>`
   height: ${({ height }) => height}px;
