@@ -1,3 +1,16 @@
+# [1.18.0](https://github.com/kimbylr/inemit/compare/v1.17.4...v1.18.0) (2022-05-21)
+
+
+### Bug Fixes
+
+* Don't show hint if optional parts are in answer ([d8451a9](https://github.com/kimbylr/inemit/commit/d8451a9755d039ef6378646b17549c45a73221ef))
+* Unset flag when adding picture ([aa4cf0c](https://github.com/kimbylr/inemit/commit/aa4cf0c2eb658d69351f5a319273d17c3ff906c2))
+
+
+### Features
+
+* use arrow keys to focus "was indeed correct" button ([5bcaf6f](https://github.com/kimbylr/inemit/commit/5bcaf6fc1d9ea6df2aca4cc75b4f9a850eb18ca7))
+
 ## [1.17.4](https://github.com/kimbylr/inemit/compare/v1.17.3...v1.17.4) (2022-04-08)
 
 
