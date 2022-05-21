@@ -83,7 +83,7 @@ export const Learn: FC = () => {
 
     document.addEventListener('keydown', handleFocus);
     return () => document.removeEventListener('keydown', handleFocus);
-  }, []);
+  }, [revising]);
 
   if (!list || !items) {
     return (
