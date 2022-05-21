@@ -41,6 +41,7 @@ export const Learn: FC = () => {
 
   const answerFieldRef = useRef<HTMLInputElement>(null);
   const submitButtonRef = useRef<HTMLButtonElement>(null);
+  const correctionButtonRef = useRef<HTMLButtonElement>(null);
 
   const load = async (listId: string) => {
     try {
@@ -68,6 +69,22 @@ export const Learn: FC = () => {
 
     items && answerFieldRef.current?.focus();
   }, [items]);
+
+  // if answer wasn't correct, use ⬆️/⬇️ to focus submit/correction button
+  useEffect(() => {
+    const handleFocus = (e: KeyboardEvent) => {
+      if (!revising || isCorrect || !['ArrowUp', 'ArrowDown'].includes(e.key)) {
+        return;
+      }
+
+      document.activeElement === correctionButtonRef.current
+        ? submitButtonRef.current?.focus()
+        : correctionButtonRef.current?.focus();
+    };
+
+    document.addEventListener('keydown', handleFocus);
+    return () => document.removeEventListener('keydown', handleFocus);
+  }, []);
 
   if (!list || !items) {
     return (
@@ -214,6 +231,7 @@ export const Learn: FC = () => {
                   type="button"
                   onClick={onAcceptCorrection}
                   disabled={disableNext}
+                  ref={correctionButtonRef}
                 >
                   {solution}
                 </Correction>
