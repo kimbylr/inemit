@@ -1,3 +1,10 @@
+## [1.18.1](https://github.com/kimbylr/inemit/compare/v1.18.0...v1.18.1) (2022-05-21)
+
+
+### Bug Fixes
+
+* Use arrow keys to focus "was indeed correct" ([82067a9](https://github.com/kimbylr/inemit/commit/82067a96418dcc5d71195ec3ffe1d40a1866d6a4))
+
 # [1.18.0](https://github.com/kimbylr/inemit/compare/v1.17.4...v1.18.0) (2022-05-21)
 
 
