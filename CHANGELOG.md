@@ -1,3 +1,10 @@
+# [1.19.0](https://github.com/kimbylr/inemit/compare/v1.18.2...v1.19.0) (2022-06-17)
+
+
+### Features
+
+* Filter by text or doublet in edit view ([19290e5](https://github.com/kimbylr/inemit/commit/19290e5eaa87150b08b6c2bfa4e6e2de2213f932))
+
 ## [1.18.2](https://github.com/kimbylr/inemit/compare/v1.18.1...v1.18.2) (2022-06-17)
 
 
