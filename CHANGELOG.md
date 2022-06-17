@@ -1,3 +1,10 @@
+## [1.18.2](https://github.com/kimbylr/inemit/compare/v1.18.1...v1.18.2) (2022-06-17)
+
+
+### Bug Fixes
+
+* Remove item from flagged list when deleted ([cb31bf9](https://github.com/kimbylr/inemit/commit/cb31bf95c41567580d2ad14604536ab9e8b445c8))
+
 ## [1.18.1](https://github.com/kimbylr/inemit/compare/v1.18.0...v1.18.1) (2022-05-21)
 
 
