@@ -1,6 +1,6 @@
 # Inemit!
 
-**Inemit** is a Web App / PWA for practicing vocabulary (or anything else) using [Spaced repetition](https://en.wikipedia.org/wiki/Spaced_repetition). It was born out of dissatisfaction with the available options after my former learning platform of choice had shut down their spaced repetition feature.
+**Inemit** is a Web App / PWA for practicing vocabulary (or anything else) using [Spaced repetition](https://en.wikipedia.org/wiki/Spaced_repetition).
 
 Features include:
 
@@ -8,7 +8,7 @@ Features include:
 - A clever algorithm to evaluate if the solution entered is correct (starship science, at least)
 - A nice palette of green colours. Also some smilies.
 - A progress graphic meant to be motivating. That is, if you learn regularly.
-- Glitches: possibly more than zero, but far less than could be (Sensible sizes. Software keyboard handling. Return does what it should. That kind of stuff.)
+- Glitches: possibly more than zero, but far less than could be (Software keyboard handling. Return does what it should. That kind of stuff.)
 - Image prompts with search
 - Import
 
@@ -54,8 +54,7 @@ npm install
 npm run dev
 ```
 
-If env var `VITE_LIVE_API` is true, this will hit the `VITE_LIVE_API`. Set to false to use with local API.
-
+If env var `VITE_LIVE_API` is true, this will hit the `VITE_API_URL`. Set to false to use with local API.
 
 ### Tests
 

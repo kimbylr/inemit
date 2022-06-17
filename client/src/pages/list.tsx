@@ -71,7 +71,7 @@ export const List: FC = () => {
     setItems((items) => [...items, ...newItems]);
     setList((list) =>
       list ? { ...list, itemsCount: list.itemsCount + newItems.length } : null,
-    ); // TODO: state handling (will not propagate to list-edit)
+    );
   };
 
   const onItemSaved = (editedItem: LearnItem) => {
@@ -82,7 +82,19 @@ export const List: FC = () => {
 
   const onItemDeleted = (id: string) => {
     setItems((items) => items.filter((item) => item.id !== id));
-    setList((list) => (list ? { ...list, itemsCount: list.itemsCount - 1 } : null)); // TODO: state handling (will not propagate to list-edit)
+    setList((list) => (list ? { ...list, itemsCount: list.itemsCount - 1 } : null));
+  };
+
+  const onFlaggedItemDeleted = (id: string) => {
+    setList((list) =>
+      list
+        ? {
+            ...list,
+            itemsCount: list.itemsCount - 1,
+            flaggedItems: list.flaggedItems.filter((item) => item.id !== id),
+          }
+        : null,
+    );
   };
 
   const { dueToday, dueTomorrow } = list.progress;
@@ -111,8 +123,11 @@ export const List: FC = () => {
         </>
       )}
       <Paragraph>
-        In dieser Liste gibt es <strong>{list.itemsCount} Vokabeln</strong>.{' '}
-        <DueDaysSummary dueToday={dueToday} dueTomorrow={dueTomorrow} />
+        In dieser Liste {items.length === 1 ? 'befindet' : 'befinden'} sich{' '}
+        <strong>
+          {items.length} {items.length === 1 ? 'Vokabel' : 'Vokabeln'}
+        </strong>
+        . <DueDaysSummary dueToday={dueToday} dueTomorrow={dueTomorrow} />
       </Paragraph>
       <Paragraph>
         {dueToday > 0 && (
@@ -134,7 +149,12 @@ export const List: FC = () => {
           <LearnItemList>
             {list.flaggedItems.map((item, index) => (
               <LearnItemListElement key={item.id}>
-                <EditableItem item={item} index={index + 1} listId={list.id} />
+                <EditableItem
+                  item={item}
+                  index={index + 1}
+                  listId={list.id}
+                  onItemDeleted={onFlaggedItemDeleted}
+                />
               </LearnItemListElement>
             ))}
           </LearnItemList>

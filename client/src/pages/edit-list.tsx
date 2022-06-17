@@ -120,7 +120,11 @@ export const EditList: FC = () => {
     <MenuLayout>
       <Heading>{list.name}</Heading>
       <Paragraph>
-        In dieser Liste gibt es <strong>{items.length} Vokabeln</strong>.
+        In dieser Liste {items.length === 1 ? 'befindet' : 'befinden'} sich{' '}
+        <strong>
+          {items.length} {items.length === 1 ? 'Vokabel' : 'Vokabeln'}
+        </strong>
+        .
       </Paragraph>
 
       <Paragraph>
@@ -231,7 +235,8 @@ export const EditList: FC = () => {
 const StickyParagraph = styled(Paragraph)`
   position: sticky;
   top: env(safe-area-inset-top);
-  padding: 0.5rem 0 1rem;
+  padding: 0.5rem 0.5rem 1rem;
+  margin: 0 -0.5rem;
   z-index: 2;
   background: ${({ theme: { colors } }) => colors.grey[98]};
 `;
