@@ -6,7 +6,9 @@ import { BatchImport } from '../compositions/batch-import';
 import { EditListName } from '../compositions/edit-list-name';
 import { EditableItemsList } from '../compositions/editable-items-list';
 import { Button, CautionButton } from '../elements/button';
+import { Checkbox } from '../elements/checkbox';
 import { Icon } from '../elements/icon';
+import { Input } from '../elements/input';
 import { Spinner } from '../elements/spinner';
 import {
   Heading,
@@ -20,18 +22,21 @@ import { useApi } from '../hooks/use-api';
 import { useLists } from '../hooks/use-lists';
 import { useRouting } from '../hooks/use-routing';
 import { MenuLayout } from '../layout/menu-layout';
-import { LearnItem, LearnItemWithDoublet, LoadingStates } from '../models';
+import { LearnItem, LoadingStates } from '../models';
 
 const DELETE_PROMPT = `Gib "JA" ein, um diese Liste unwiderruflich zu löschen.`;
 
 export const EditList: FC = () => {
   const { getItems, deleteList } = useApi();
-  const [items, setItems] = useState<LearnItemWithDoublet[]>([]);
+  const [items, setItems] = useState<LearnItem[]>([]);
   const lastInputRef = useRef<HTMLInputElement | null>(null);
   const [state, setState] = useState<LoadingStates>(LoadingStates.initial);
   const { slug, goToList } = useRouting();
   const { lists, state: listsState, updateList, removeList } = useLists();
   const list = lists.find((list) => list.slug === slug);
+
+  const [search, setSearch] = useState('');
+  const [showDoublets, setShowDoublets] = useState(false);
 
   const fetchItems = async () => {
     if (!list) {
@@ -66,7 +71,7 @@ export const EditList: FC = () => {
 
   if (state === 'loading' || state === 'initial') {
     return (
-      <MenuLayout>
+      <MenuLayout pageWidth="wide">
         <Spinner />
       </MenuLayout>
     );
@@ -74,7 +79,7 @@ export const EditList: FC = () => {
 
   if (state === 'error' || !list) {
     return (
-      <MenuLayout>
+      <MenuLayout pageWidth="wide">
         <Heading>¯\_(ツ)_/¯</Heading>
         <Paragraph>Leider ist etwas schief gelaufen.</Paragraph>
       </MenuLayout>
@@ -116,8 +121,22 @@ export const EditList: FC = () => {
 
   const flaggedItems = items.filter(({ flagged }) => flagged);
 
+  const filteredItems =
+    search || showDoublets
+      ? items
+          .map((item, i) => ({ ...item, index: i + 1 }))
+          .filter(showDoublets ? (item) => typeof item.doubletOf === 'number' : Boolean)
+          .filter(
+            search
+              ? (item) =>
+                  item.prompt.toLowerCase().includes(search) ||
+                  item.solution.toLowerCase().includes(search)
+              : Boolean,
+          )
+      : items;
+
   return (
-    <MenuLayout>
+    <MenuLayout pageWidth="wide">
       <Heading>{list.name}</Heading>
       <Paragraph>
         In dieser Liste {items.length === 1 ? 'befindet' : 'befinden'} sich{' '}
@@ -195,33 +214,49 @@ export const EditList: FC = () => {
         </li>
       </LearnItemsIntroList>
 
-      {
-        /** to be replaced with filtering */
-        flaggedItems.length > 0 && (
-          <>
-            <SubSubHeading>
-              Markiert <Icon type="flag" width="16px" />
-            </SubSubHeading>
-            <LearnItemList>
-              {flaggedItems.map((item, index) => (
-                <LearnItemListElement key={item.id}>
-                  <EditableItem
-                    item={item}
-                    index={index + 1}
-                    listId={list.id}
-                    onItemDeleted={onItemDeleted}
-                  />
-                </LearnItemListElement>
-              ))}
-            </LearnItemList>
-            <Divider />
-            <SubSubHeading>Alle</SubSubHeading>
-          </>
-        )
-      }
+      {flaggedItems.length > 0 && (
+        <>
+          <SubSubHeading>
+            Markiert <Icon type="flag" width="16px" />
+          </SubSubHeading>
+          <LearnItemList>
+            {flaggedItems.map((item, index) => (
+              <LearnItemListElement key={item.id}>
+                <EditableItem
+                  item={item}
+                  index={index + 1}
+                  listId={list.id}
+                  onItemDeleted={onItemDeleted}
+                />
+              </LearnItemListElement>
+            ))}
+          </LearnItemList>
+          <Divider />
+          <SubSubHeading>Alle</SubSubHeading>
+        </>
+      )}
+
+      <div
+        style={{
+          display: 'flex',
+          gap: '1rem',
+          flexWrap: 'wrap',
+          alignItems: 'center',
+          marginBottom: '1rem',
+        }}
+      >
+        <SearchInput
+          value={search}
+          placeholder="Suchen…"
+          onChange={(e) => setSearch(e.target.value.toLowerCase())}
+        />
+        <Checkbox checked={showDoublets} onCheck={() => setShowDoublets((s) => !s)}>
+          Doppelte anzeigen
+        </Checkbox>
+      </div>
 
       <EditableItemsList
-        items={items}
+        items={filteredItems}
         listId={list.id}
         onItemsAdded={onItemsAdded}
         onItemDeleted={onItemDeleted}
@@ -267,10 +302,12 @@ const BatchImportIntro = styled(Paragraph)`
 
 const LearnItemsIntro = styled(Paragraph)`
   font-size: ${({ theme: { font } }) => font.sizes.xs};
+  max-width: 1000px;
 `;
 const LearnItemsIntroList = styled.ul`
   margin: 0 0 2rem;
   padding: 0 0 0 1rem;
+  max-width: 1000px;
 
   li {
     padding-bottom: 0.5rem;
@@ -297,4 +334,8 @@ const Divider = styled.hr`
   margin: 1rem 0 2rem;
   border: none;
   border-top: 4px dotted ${({ theme: { colors } }) => colors.grey[85]};
+`;
+
+const SearchInput = styled(Input)`
+  max-width: 300px;
 `;

@@ -60,9 +60,8 @@ export interface LearnItem extends BaseLearnItem {
   created: ISODate;
   updated: ISODate;
   progress: Progress;
-}
-export interface LearnItemWithDoublet extends LearnItem {
   doubletOf?: number;
+  index?: number;
 }
 
 export interface Progress {

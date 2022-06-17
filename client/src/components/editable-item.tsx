@@ -13,7 +13,7 @@ import { ImagePicker } from './image-picker';
 
 interface Props {
   listId: string;
-  index: number;
+  index?: number;
   item: LearnItemForEditing;
   lastInputRef?: React.RefObject<HTMLInputElement>;
   onDismissHint?: false | (() => void);

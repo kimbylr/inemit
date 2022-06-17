@@ -4,13 +4,15 @@ import { Main } from '../components/main';
 import { Menu } from '../components/menu';
 import { PageLayout } from './page-layout';
 
-export const MenuLayout: FC<{ withPageLayout?: boolean }> = ({
+export const MenuLayout: FC<{ pageWidth: 'tight' | 'wide' }> = ({
   children,
-  withPageLayout,
+  pageWidth,
 }) => (
   <>
     <Header />
     <Menu />
-    <Main>{withPageLayout ? <PageLayout>{children}</PageLayout> : children}</Main>
+    <Main>
+      <PageLayout width={pageWidth}>{children}</PageLayout>
+    </Main>
   </>
 );

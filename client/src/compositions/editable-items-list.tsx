@@ -3,10 +3,10 @@ import styled from 'styled-components';
 import { EditableItem } from '../components/editable-item';
 import { useRouting } from '../hooks/use-routing';
 import { useSettings } from '../hooks/use-settings';
-import { Hints, LearnItem, LearnItemWithDoublet } from '../models';
+import { Hints, LearnItem } from '../models';
 
 type Props = {
-  items: LearnItemWithDoublet[];
+  items: LearnItem[];
   listId: string;
   lastInputRef?: React.MutableRefObject<HTMLInputElement | null>;
   onItemsAdded: (newItems: LearnItem[]) => void;
@@ -39,11 +39,11 @@ export const EditableItemsList: FC<Props> = ({
 
   return (
     <LearnItemList>
-      {items.map((item, index) => (
+      {items.map((item, i) => (
         <LearnItemListElement key={item.id}>
           <EditableItem
             item={item}
-            index={index + 1}
+            index={item.index || i + 1}
             listId={listId}
             onItemDeleted={onItemDeleted}
             onItemSaved={onItemSaved}
@@ -65,7 +65,6 @@ export const EditableItemsList: FC<Props> = ({
             <EditableItem
               onDismissHint={showHint && (() => onDismissHint(Hints.editingIntro))}
               item={item}
-              index={items.length + index + 1}
               listId={listId}
               onNewItemEdited={onNewItemEdited}
               onNewItemSaved={onNewItemSaved}

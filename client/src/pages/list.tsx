@@ -13,19 +13,14 @@ import { Heading, Paragraph, SubHeading } from '../elements/typography';
 import { useApi } from '../hooks/use-api';
 import { useRouting } from '../hooks/use-routing';
 import { MenuLayout } from '../layout/menu-layout';
-import {
-  LearnItem,
-  LearnItemWithDoublet,
-  ListWithProgress,
-  LoadingStates,
-} from '../models';
+import { LearnItem, ListWithProgress, LoadingStates } from '../models';
 
 export const List: FC = () => {
   const [list, setList] = useState<ListWithProgress | null>(null);
   const [state, setState] = useState<LoadingStates>(LoadingStates.initial);
   const { slug, goToList } = useRouting();
   const { getListBySlug } = useApi();
-  const [items, setItems] = useState<LearnItemWithDoublet[]>([]);
+  const [items, setItems] = useState<LearnItem[]>([]);
 
   const fetchList = async () => {
     if (!slug) {
@@ -52,7 +47,7 @@ export const List: FC = () => {
 
   if (state === 'loading' || state === 'initial') {
     return (
-      <MenuLayout>
+      <MenuLayout pageWidth="tight">
         <Spinner />
       </MenuLayout>
     );
@@ -60,9 +55,12 @@ export const List: FC = () => {
 
   if (state === 'error' || !list) {
     return (
-      <MenuLayout>
+      <MenuLayout pageWidth="tight">
         <Heading>¯\_(ツ)_/¯</Heading>
-        <Paragraph>Unter dieser Adresse existiert keine Liste.</Paragraph>
+        <Paragraph>
+          <strong>Liste nicht gefunden.</strong> Entweder gibt es sie wirklich nicht, oder
+          du bist nicht mehr eingeloggt. Dann hilft neu laden.
+        </Paragraph>
       </MenuLayout>
     );
   }
@@ -102,7 +100,7 @@ export const List: FC = () => {
   const startLearning = () => goToList(list.slug, 'learn');
 
   return (
-    <MenuLayout withPageLayout>
+    <MenuLayout pageWidth="tight">
       <Heading>{list.name}</Heading>
       {list.itemsCount > 0 && (
         <>
@@ -123,9 +121,9 @@ export const List: FC = () => {
         </>
       )}
       <Paragraph>
-        In dieser Liste {items.length === 1 ? 'befindet' : 'befinden'} sich{' '}
+        In dieser Liste {list.itemsCount === 1 ? 'befindet' : 'befinden'} sich{' '}
         <strong>
-          {items.length} {items.length === 1 ? 'Vokabel' : 'Vokabeln'}
+          {list.itemsCount} {list.itemsCount === 1 ? 'Vokabel' : 'Vokabeln'}
         </strong>
         . <DueDaysSummary dueToday={dueToday} dueTomorrow={dueTomorrow} />
       </Paragraph>

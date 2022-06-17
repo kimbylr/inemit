@@ -1,4 +1,4 @@
-import { LearnItem, LearnItemWithDoublet } from '../models';
+import { LearnItem } from '../models';
 
 const normalise = (solution: string): string =>
   solution
@@ -6,7 +6,7 @@ const normalise = (solution: string): string =>
     .toLowerCase()
     .replace(/[.…?!]/g, '');
 
-export const markDoublets = (items: LearnItem[]): LearnItemWithDoublet[] => {
+export const markDoublets = (items: LearnItem[]): LearnItem[] => {
   const arr = items.map(({ solution }, index) => ({
     solution: normalise(solution),
     index,
