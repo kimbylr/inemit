@@ -1,3 +1,10 @@
+## [1.20.1](https://github.com/kimbylr/inemit/compare/v1.20.0...v1.20.1) (2022-06-18)
+
+
+### Bug Fixes
+
+* Imports in entry file (normalize.css) ([8867a92](https://github.com/kimbylr/inemit/commit/8867a929fabc7eeb6b9bb3f36d579664969ecc7e))
+
 # [1.20.0](https://github.com/kimbylr/inemit/compare/v1.19.0...v1.20.0) (2022-06-18)
 
 
