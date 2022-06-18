@@ -1,10 +1,9 @@
-import 'normalize.css';
 import ReactDOM from 'react-dom';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
+
 import { AuthProvider } from './helpers/auth';
 import { PrivateRoute } from './helpers/private-route';
-import './index.css';
 import { About } from './pages/about';
 import { EditList } from './pages/edit-list';
 import { LandingPage } from './pages/landing-page';
@@ -13,6 +12,8 @@ import { List } from './pages/list';
 import { Start } from './pages/start';
 import { StoreProvider } from './store';
 import { theme } from './theme';
+
+import './index.css';
 
 const App = () => (
   <ThemeProvider theme={theme}>
