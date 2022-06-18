@@ -1,3 +1,10 @@
+# [1.20.0](https://github.com/kimbylr/inemit/compare/v1.19.0...v1.20.0) (2022-06-18)
+
+
+### Features
+
+* Modals for settings and image picker; include tailwind and refactor CSS; improved about page; new layout for edit list view ([75edd40](https://github.com/kimbylr/inemit/commit/75edd40158d5dd0103783c3d999348eb065f91af))
+
 # [1.19.0](https://github.com/kimbylr/inemit/compare/v1.18.2...v1.19.0) (2022-06-17)
 
 
