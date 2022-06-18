@@ -1,7 +1,6 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 import styled, { keyframes } from 'styled-components';
 import { Button } from '../elements/button';
-import { Heading, Paragraph } from '../elements/typography';
 import { Icon } from '../elements/icon';
 
 const Box = styled.div<{ tint: number }>`
@@ -37,20 +36,19 @@ const Rotating = styled.div`
 export const Test: FC = () => {
   return (
     <>
-      <Heading>inemit! Wörter lernen!</Heading>
-      <Paragraph>
-        Hello. Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-        Excepturi, <em>laborum. Lorem ipsum dolor sit amet</em> consectetur
-        adipisicing{' '}
+      <h2>inemit! Wörter lernen!</h2>
+      <p>
+        Hello. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Excepturi,{' '}
+        <em>laborum. Lorem ipsum dolor sit amet</em> consectetur adipisicing{' '}
         <strong>
           elit. Quo, hic. Dolores unde <em>necessitatibus</em>
         </strong>{' '}
         cumque omnis quis laborum exercitationem alias reiciendis?
-      </Paragraph>
-      <Paragraph>
+      </p>
+      <p>
         <Button>asdf</Button>
         <Button primary>primary</Button>
-      </Paragraph>
+      </p>
 
       <div>
         <Box tint={98}>

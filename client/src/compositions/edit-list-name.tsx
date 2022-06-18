@@ -1,7 +1,6 @@
 import React, { FC, useState } from 'react';
-import styled from 'styled-components';
 import { Button } from '../elements/button';
-import { Input } from '../elements/input';
+import { TextField } from '../elements/text-field';
 import { useApi } from '../hooks/use-api';
 
 interface Props {
@@ -10,11 +9,7 @@ interface Props {
   onNameChanged(name: string): void;
 }
 
-export const EditListName: FC<Props> = ({
-  currentName,
-  listId,
-  onNameChanged,
-}) => {
+export const EditListName: FC<Props> = ({ currentName, listId, onNameChanged }) => {
   const { editListName } = useApi();
   const [name, setName] = useState<string>(currentName);
   const [disabled, setDisabled] = useState(false);
@@ -39,28 +34,18 @@ export const EditListName: FC<Props> = ({
   };
 
   return (
-    <Container>
-      <InputSection>
-        <Input
-          id="listName"
-          disabled={disabled}
-          value={name}
-          placeholder={currentName}
-          onChange={e => setName(e.target.value)}
-        />
-      </InputSection>
+    <form className="flex items-start">
+      <TextField
+        id="listName"
+        disabled={disabled}
+        value={name}
+        placeholder={currentName}
+        onChange={(e) => setName(e.target.value)}
+        className="mr-5"
+      />
       <Button type="submit" disabled={disabled} onClick={submit}>
         ändern
       </Button>
-    </Container>
+    </form>
   );
 };
-
-const InputSection = styled.div`
-  margin-right: 20px;
-`;
-
-const Container = styled.form`
-  display: flex;
-  align-items: flex-end;
-`;

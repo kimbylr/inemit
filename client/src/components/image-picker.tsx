@@ -1,9 +1,8 @@
-import React, { FC, useEffect, useRef, useState } from 'react';
-import styled from 'styled-components';
+import { FC, useEffect, useState } from 'react';
 import { Button } from '../elements/button';
-import { Input } from '../elements/input';
 import { ExtLink } from '../elements/link';
 import { Spinner } from '../elements/spinner';
+import { TextField } from '../elements/text-field';
 import { translate } from '../helpers/translate';
 import { mapUnsplashImage, searchUnsplash, UnsplashImage } from '../helpers/unsplash';
 import { useDebounce } from '../hooks/use-debounce';
@@ -67,11 +66,11 @@ export const ImagePicker: FC<Props> = ({ searchTerm: initialSearchTerm, onSetIma
       const translatedSearchTerm = await translate(searchTerm);
       const res = await searchUnsplash(translatedSearchTerm, page + 1);
       const { results } = await res.json();
-      setPage(page => page + 1);
+      setPage((page) => page + 1);
       if (results.length === 0) {
         return setError('Keine weiteren Bilder');
       }
-      setImgs(imgs => [...imgs, ...results.map(mapUnsplashImage)]);
+      setImgs((imgs) => [...imgs, ...results.map(mapUnsplashImage)]);
     } catch {
       setError('Fehler beim Laden weiterer Bilder');
     } finally {
@@ -79,208 +78,92 @@ export const ImagePicker: FC<Props> = ({ searchTerm: initialSearchTerm, onSetIma
     }
   };
 
-  // scroll shadows
-  const ref = useRef<HTMLUListElement | null>(null);
-  const [imgsLoaded, setImgsLoaded] = useState(0);
-  const increaseImgsLoaded = () => setImgsLoaded(n => n + 1);
-  const [hasMoreLeft, setHasMoreLeft] = useState(false);
-  const [hasMoreRight, setHasMoreRight] = useState(false);
-  useEffect(() => {
-    const checkScroll = () => {
-      if (ref.current) {
-        const { scrollLeft, clientWidth, scrollWidth } = ref.current;
-        setHasMoreLeft(scrollLeft > 0);
-        setHasMoreRight(scrollWidth - clientWidth > scrollLeft);
-      }
-    };
-    checkScroll();
-    ref.current?.addEventListener('scroll', checkScroll);
-    return () => ref.current?.removeEventListener('scroll', checkScroll);
-  }, [ref.current, imgsLoaded]);
-
   return (
-    <Container>
-      <SearchRow
-        onSubmit={e => {
+    <div className="flex flex-col">
+      <form
+        onSubmit={(e) => {
           e.preventDefault();
           search(searchTerm);
         }}
+        className="h-12 mb-2 flex justify-between items-start"
       >
-        <SearchInput
+        <TextField
           small
           autoFocus
           autoCapitalize="none"
           value={searchTerm}
-          onChange={e => setSearchTerm(e.target.value)}
-          onFocus={e => e.target.select()}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          onFocus={(e) => e.target.select()}
+          className="max-w-[250px] mb-1"
         />
-        <SearchState>
+        <div className="flex ml-4 mt-1 text-right">
           {error}
           {searching && (
-            <SpinnerContainer>
+            <div className="relative -top-5 ml-2">
               <Spinner small />
-            </SpinnerContainer>
+            </div>
           )}
-        </SearchState>
-      </SearchRow>
+        </div>
+      </form>
 
       {imgs.length > 0 && (
-        <>
-          <ImagesContainer>
-            {hasMoreLeft && <ScrollShadow position="left" />}
-            {hasMoreRight && <ScrollShadow position="right" />}
-            <Images ref={ref}>
-              {imgs.map(img => (
-                <ImageContainer
-                  key={img.id}
-                  role="button"
-                  onClick={() => onSetImage(img)}
-                >
-                  <Image src={img.urls.small} onLoad={increaseImgsLoaded} />
-                  <ImageCredits>
-                    <ExtLink
-                      href={`${img.user.link}?utm_source=inemit&utm_medium=referral`}
-                      onClick={e => e.stopPropagation()}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      {img.user.name}
-                    </ExtLink>
-                  </ImageCredits>
-                </ImageContainer>
-              ))}
-              {Math.floor(imgs.length / page) === IMGS_PER_PAGE && (
-                <LoadMoreButton onClick={loadMore} disabled={loadingMore}>
-                  Mehr…
-                </LoadMoreButton>
-              )}
-            </Images>
-          </ImagesContainer>
-          <GeneralCredits>
+        <div className="flex flex-col gap-4">
+          <ul className="flex flex-col xs:flex-row gap-4">
+            <div className="flex flex-col gap-4 flex-start">
+              {imgs
+                .filter((_, i) => i % 10 < 5)
+                .map((img) => (
+                  <Image img={img} onSetImage={onSetImage} />
+                ))}
+            </div>
+            <div className="flex flex-col gap-4 flex-start">
+              {imgs
+                .filter((_, i) => i % 10 >= 5)
+                .map((img) => (
+                  <Image img={img} onSetImage={onSetImage} />
+                ))}
+            </div>
+          </ul>
+
+          {Math.floor(imgs.length / page) === IMGS_PER_PAGE && (
+            <Button onClick={loadMore} disabled={loadingMore}>
+              Mehr laden…
+            </Button>
+          )}
+
+          <p className="text-xs">
             Fotos von{' '}
             <ExtLink href="https://unsplash.com/?utm_source=inemit&utm_medium=referral">
               Unsplash
             </ExtLink>
-          </GeneralCredits>
-        </>
+          </p>
+        </div>
       )}
-    </Container>
+    </div>
   );
 };
 
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 1rem;
-`;
-
-const SearchRow = styled.form`
-  height: 50px;
-  margin-bottom: 0.5rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-`;
-
-const SearchInput = styled(Input)`
-  max-width: 250px;
-  margin-bottom: 0.25rem;
-`;
-
-const SearchState = styled.div`
-  display: flex;
-  margin-left: 1rem;
-  margin-top: 0.25rem;
-  text-align: right;
-`;
-const SpinnerContainer = styled.div`
-  position: relative;
-  top: -1.25rem;
-  margin-left: 0.5rem;
-`;
-
-const ImagesContainer = styled.div`
-  position: relative;
-`;
-
-const Images = styled.ul`
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  display: flex;
-  height: 200px;
-  overflow-x: auto;
-  overflow-y: hidden;
-`;
-
-const ScrollShadow = styled.div<{ position: 'left' | 'right' }>`
-  position: absolute;
-  content: '';
-  top: 0;
-  bottom: 0;
-  ${({ position }) => `${position}: 0`};
-  width: 1.5rem;
-  background: linear-gradient(
-    to ${({ position }) => (position === 'left' ? 'right' : 'left')},
-    rgba(0, 0, 0, 0.5),
-    rgba(0, 0, 0, 0)
-  );
-  z-index: 1;
-`;
-
-const ImageContainer = styled.li`
-  position: relative;
-  height: 100%;
-  margin-right: 0.75rem;
-  line-height: 1;
-  cursor: pointer;
-
-  :hover {
-    opacity: 0.75;
-  }
-`;
-
-const Image = styled.img`
-  height: 100%;
-  width: auto;
-  border-radius: 4px;
-`;
-
-const ImageCredits = styled.div`
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  padding: 0.25rem;
-  background: rgba(0, 0, 0, 0.5);
-  font-size: ${({ theme: { font } }) => font.sizes.xxs};
-  color: ${({ theme: { colors } }) => colors.grey[10]};
-  border-bottom-right-radius: 4px;
-  border-bottom-left-radius: 4px;
-
-  a {
-    color: ${({ theme: { colors } }) => colors.grey[85]};
-  }
-
-  display: none;
-  ${ImageContainer}:hover & {
-    display: block;
-  }
-`;
-
-const GeneralCredits = styled.div`
-  margin: 0.5rem 0;
-  font-size: ${({ theme: { font } }) => font.sizes.xxs};
-  color: ${({ theme: { colors } }) => colors.grey[10]};
-`;
-
-const LoadMoreButton = styled(Button)`
-  margin: 0;
-  color: ${({ theme: { colors } }) => colors.grey[10]};
-  background: ${({ theme: { colors } }) => colors.grey[85]};
-  box-shadow: none;
-
-  :active {
-    top: 0;
-  }
-`;
+const Image: FC<{ img: UnsplashImage; onSetImage: (img: UnsplashImage) => void }> = ({
+  img,
+  onSetImage,
+}) => (
+  <li
+    key={img.id}
+    role="button"
+    onClick={() => onSetImage(img)}
+    className="relative cursor-pointer hover:opacity-75 group rounded overflow-hidden"
+  >
+    <img src={img.urls.small} className="w-full" />
+    <div className="hidden group-hover:block absolute bottom-0 left-0 right-0 py-1 px-2 bg-[rgba(0,0,0,0.5)] text-xxs text-grey-10">
+      <ExtLink
+        href={`${img.user.link}?utm_source=inemit&utm_medium=referral`}
+        onClick={(e) => e.stopPropagation()}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="text-grey-85"
+      >
+        {img.user.name}
+      </ExtLink>
+    </div>
+  </li>
+);

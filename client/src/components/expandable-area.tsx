@@ -91,10 +91,6 @@ const ToggleButton = styled.button<ToggleButtonProps>`
   margin: 0;
   padding: 0;
 
-  :focus {
-    outline: 2px solid ${({ theme: { colors } }) => colors.primary[150]};
-  }
-
   ${({ flexed }) =>
     flexed
       ? ` display: flex;

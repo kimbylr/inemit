@@ -1,22 +1,12 @@
-import React, { FC, useEffect, useRef, useState } from 'react';
-import styled, { css } from 'styled-components';
+import { FC, useEffect, useState } from 'react';
 import { EditableItem } from '../components/editable-item';
-import { ExpandableArea } from '../components/expandable-area';
-import { BatchImport } from '../compositions/batch-import';
-import { EditListName } from '../compositions/edit-list-name';
 import { EditableItemsList } from '../compositions/editable-items-list';
-import { Button, CautionButton } from '../elements/button';
+import { ListSettings } from '../compositions/list-settings';
+import { Button } from '../elements/button';
 import { Checkbox } from '../elements/checkbox';
 import { Icon } from '../elements/icon';
-import { Input } from '../elements/input';
 import { Spinner } from '../elements/spinner';
-import {
-  Heading,
-  Paragraph,
-  SubHeading,
-  SubHeadingUncolored,
-  SubSubHeading,
-} from '../elements/typography';
+import { TextField } from '../elements/text-field';
 import { markDoublets } from '../helpers/mark-doublets';
 import { useApi } from '../hooks/use-api';
 import { useLists } from '../hooks/use-lists';
@@ -24,15 +14,12 @@ import { useRouting } from '../hooks/use-routing';
 import { MenuLayout } from '../layout/menu-layout';
 import { LearnItem, LoadingStates } from '../models';
 
-const DELETE_PROMPT = `Gib "JA" ein, um diese Liste unwiderruflich zu löschen.`;
-
 export const EditList: FC = () => {
-  const { getItems, deleteList } = useApi();
+  const { getItems } = useApi();
   const [items, setItems] = useState<LearnItem[]>([]);
-  const lastInputRef = useRef<HTMLInputElement | null>(null);
   const [state, setState] = useState<LoadingStates>(LoadingStates.initial);
   const { slug, goToList } = useRouting();
-  const { lists, state: listsState, updateList, removeList } = useLists();
+  const { lists, state: listsState, updateList } = useLists();
   const list = lists.find((list) => list.slug === slug);
 
   const [search, setSearch] = useState('');
@@ -80,29 +67,14 @@ export const EditList: FC = () => {
   if (state === 'error' || !list) {
     return (
       <MenuLayout pageWidth="wide">
-        <Heading>¯\_(ツ)_/¯</Heading>
-        <Paragraph>Leider ist etwas schief gelaufen.</Paragraph>
+        <h2>¯\_(ツ)_/¯</h2>
+        <p>Leider ist etwas schief gelaufen.</p>
       </MenuLayout>
     );
   }
 
   const onListNameChanged = (name: string) => {
     updateList({ ...list, name });
-  };
-
-  const onListDeleted = async (event: React.MouseEvent) => {
-    event.preventDefault();
-
-    if (prompt(DELETE_PROMPT) !== 'JA') {
-      return;
-    }
-
-    try {
-      await deleteList(list.id);
-      removeList(list.id);
-    } catch (error) {
-      console.error(error);
-    }
   };
 
   const onItemsAdded = (newItems: LearnItem[]) => {
@@ -137,205 +109,123 @@ export const EditList: FC = () => {
 
   return (
     <MenuLayout pageWidth="wide">
-      <Heading>{list.name}</Heading>
-      <Paragraph>
+      <div className="flex items-start justify-between gap-4">
+        <button className="text-xs mt-0 mb-6 text-grey-50" onClick={() => goToList(slug)}>
+          ← Zurück zur Übersicht
+        </button>
+        <ListSettings
+          list={list}
+          onListNameChanged={onListNameChanged}
+          onItemsAdded={onItemsAdded}
+        />
+      </div>
+      <h2>{list.name}</h2>
+      <p className="spaced">
         In dieser Liste {items.length === 1 ? 'befindet' : 'befinden'} sich{' '}
         <strong>
           {items.length} {items.length === 1 ? 'Vokabel' : 'Vokabeln'}
         </strong>
-        .
-      </Paragraph>
-
-      <Paragraph>
-        <Button onClick={() => lastInputRef?.current?.focus()}>
-          <Icon type="add" width="17px" /> Vokabel hinzufügen …
+        .{' '}
+        <Button
+          small
+          onClick={() => Array.from(document.querySelectorAll('input')).at(-2)?.focus()}
+        >
+          <Icon type="add" width="17px" /> Hinzufügen …
         </Button>
-      </Paragraph>
-
-      <StickyParagraph>
-        <Button primary onClick={() => goToList(slug)}>
-          <Icon type="done" width="14px" /> bearbeiten abschliessen
-        </Button>
-      </StickyParagraph>
-      <StickyNotchCover />
-
-      <ExpandableArea
-        canExpand
-        teaserStyles={TeaserStyles}
-        teaser={<SubHeadingUncolored>Umbenennen</SubHeadingUncolored>}
-      >
-        <EditListName
-          currentName={list.name}
-          listId={list.id}
-          onNameChanged={onListNameChanged}
-        />
-      </ExpandableArea>
-
-      <ExpandableArea
-        canExpand
-        teaserStyles={TeaserStyles}
-        teaser={<SubHeadingUncolored>Liste löschen</SubHeadingUncolored>}
-      >
-        <CautionButton onClick={onListDeleted}>
-          <Icon type="delete" width="14px" /> Liste löschen
-        </CautionButton>
-      </ExpandableArea>
-
-      <ExpandableArea
-        canExpand
-        teaserStyles={TeaserStyles}
-        teaser={<SubHeadingUncolored>Import</SubHeadingUncolored>}
-      >
-        <BatchImportIntro>
-          1 Eintrag pro Zeile. Vokabel und Abfrage mit Tabulator trennen.
-        </BatchImportIntro>
-        <BatchImport listId={list.id} onBatchImportDone={onItemsAdded} />
-      </ExpandableArea>
-
-      <SubHeading>Vokabeln</SubHeading>
-      <LearnItemsIntro>
-        <strong>Vokabelpaare selbst eingeben ist sinnvoll investierte Zeit.</strong> Das
-        Ausdenken einer Aufgabe verankert das Wort ein erstes Mal. Und es verhindert, dass
-        du Lernzeit mit Wörtern vergeudest, die du schon beherrschst.
-      </LearnItemsIntro>
-      <LearnItemsIntro>Einige Tipps für grösseren Lerneffekt:</LearnItemsIntro>
-      <LearnItemsIntroList>
-        <li>
-          <strong>Kontext</strong>: Am besten funktionieren Aufgaben, die das Lernmaterial
-          in einen Kontext stellen, also z.B. in einem Satz oder Ausdruck verwenden.
-        </li>
-        <li>
-          <strong>Bilder</strong> unterstützen den immersiven Effekt.
-        </li>
-        <li>
-          <strong>Synonyme</strong> haben den Vorteil, dass die Verknüpfungen{' '}
-          <em>innerhalb</em> der Lernsprache verstärkt werden (und nicht zur
-          Muttersprache).
-        </li>
-      </LearnItemsIntroList>
-
+      </p>
+      <Explainer />
       {flaggedItems.length > 0 && (
         <>
-          <SubSubHeading>
+          <h4 className="flex items-center gap-2 mb-2">
             Markiert <Icon type="flag" width="16px" />
-          </SubSubHeading>
-          <LearnItemList>
+          </h4>
+          <ul>
             {flaggedItems.map((item, index) => (
-              <LearnItemListElement key={item.id}>
+              <li
+                key={item.id}
+                className="border-t-4 border-dotted border-grey-85 pt-4 pb-1 last:border-b-4"
+              >
                 <EditableItem
                   item={item}
                   index={index + 1}
                   listId={list.id}
                   onItemDeleted={onItemDeleted}
                 />
-              </LearnItemListElement>
+              </li>
             ))}
-          </LearnItemList>
-          <Divider />
-          <SubSubHeading>Alle</SubSubHeading>
+          </ul>
+          <h4 className="relative top-8">Alle</h4>
         </>
       )}
 
       <div
-        style={{
-          display: 'flex',
-          gap: '1rem',
-          flexWrap: 'wrap',
-          alignItems: 'center',
-          marginBottom: '1rem',
-        }}
+        className="flex gap-8 justify-between items-start sticky top-0 mt-8 p-2 pb-4 -mx-2 z-20 bg-grey-98"
+        style={{ paddingTop: 'calc(env(safe-area-inset-top) + 8px)' }}
       >
-        <SearchInput
-          value={search}
-          placeholder="Suchen…"
-          onChange={(e) => setSearch(e.target.value.toLowerCase())}
-        />
-        <Checkbox checked={showDoublets} onCheck={() => setShowDoublets((s) => !s)}>
-          Doppelte anzeigen
-        </Checkbox>
-      </div>
+        <div className="flex gap-4 flex-wrap items-center">
+          <TextField
+            small
+            value={search}
+            placeholder="Suchen…"
+            onChange={(e) => setSearch(e.target.value.toLowerCase())}
+            className={`${search ? 'w-[200px]' : 'w-[100px] sm:w-[200px]'} max-w-full`}
+          />
+          <Checkbox checked={showDoublets} onCheck={() => setShowDoublets((s) => !s)}>
+            Doppelte <span className="hidden xs:inline">zeigen</span>
+          </Checkbox>
+        </div>
 
+        <Button primary small onClick={() => goToList(slug)}>
+          <Icon type="done" width="14px" /> fertig
+        </Button>
+      </div>
       <EditableItemsList
         items={filteredItems}
         listId={list.id}
         onItemsAdded={onItemsAdded}
         onItemDeleted={onItemDeleted}
         onItemSaved={onItemSaved}
-        lastInputRef={lastInputRef}
       />
     </MenuLayout>
   );
 };
 
-const StickyParagraph = styled(Paragraph)`
-  position: sticky;
-  top: env(safe-area-inset-top);
-  padding: 0.5rem 0.5rem 1rem;
-  margin: 0 -0.5rem;
-  z-index: 2;
-  background: ${({ theme: { colors } }) => colors.grey[98]};
-`;
+const Explainer = () => {
+  const [expanded, setExpanded] = useState(false);
 
-const StickyNotchCover = styled.div`
-  position: sticky;
-  top: 0;
-  content: '';
-  height: env(safe-area-inset-top);
-  width: 100%;
-  background: ${({ theme: { colors } }) => colors.grey[98]};
-  z-index: 1;
-`;
-
-const TeaserStyles = css`
-  width: 100%;
-  color: ${({ theme: { colors } }) => colors.primary[150]};
-
-  :hover {
-    color: ${({ theme: { colors } }) => colors.primary[100]};
-  }
-`;
-
-const BatchImportIntro = styled(Paragraph)`
-  margin-top: 0;
-  font-size: ${({ theme: { font } }) => font.sizes.xs};
-`;
-
-const LearnItemsIntro = styled(Paragraph)`
-  font-size: ${({ theme: { font } }) => font.sizes.xs};
-  max-width: 1000px;
-`;
-const LearnItemsIntroList = styled.ul`
-  margin: 0 0 2rem;
-  padding: 0 0 0 1rem;
-  max-width: 1000px;
-
-  li {
-    padding-bottom: 0.5rem;
-    line-height: 1.4;
-
-    strong {
-      font-weight: 600;
-      color: ${({ theme: { colors } }) => colors.grey[25]};
-    }
-  }
-`;
-
-const LearnItemList = styled.ul`
-  list-style: none;
-  margin: 0;
-  padding: 0;
-`;
-const LearnItemListElement = styled.li`
-  border-top: 4px dotted ${({ theme: { colors } }) => colors.grey[85]};
-  padding: 16px 0 4px;
-`;
-
-const Divider = styled.hr`
-  margin: 1rem 0 2rem;
-  border: none;
-  border-top: 4px dotted ${({ theme: { colors } }) => colors.grey[85]};
-`;
-
-const SearchInput = styled(Input)`
-  max-width: 300px;
-`;
+  return (
+    <>
+      <p className="mb-4">
+        <strong>Denk dran:</strong> Vokabelpaare selbst erfassen ist sinnvoll investierte
+        Zeit!{' '}
+        {expanded ? (
+          'Das Ausdenken einer Aufgabe verankert das Wort ein erstes Mal. Und es verhindert, dass du Lernzeit mit Wörtern vergeudest, die du schon beherrschst.'
+        ) : (
+          <Button small onClick={() => setExpanded(true)} className="relative -top-1">
+            Wieso?
+          </Button>
+        )}
+      </p>
+      {expanded && (
+        <>
+          <p>Einige Tipps für grösseren Lerneffekt:</p>
+          <ul className="actual-list mb-8">
+            <li>
+              <strong>Kontext</strong>: Am besten funktionieren Aufgaben, die das
+              Lernmaterial in einen Kontext stellen, also z.B. in einem Satz oder Ausdruck
+              verwenden.
+            </li>
+            <li>
+              <strong>Bilder</strong> unterstützen den immersiven Effekt.
+            </li>
+            <li>
+              <strong>Synonyme</strong> haben den Vorteil, dass die Verknüpfungen{' '}
+              <em>innerhalb</em> der Lernsprache verstärkt werden (und nicht zur
+              Muttersprache).
+            </li>
+          </ul>
+        </>
+      )}
+    </>
+  );
+};

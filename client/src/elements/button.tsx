@@ -1,70 +1,35 @@
-import styled from 'styled-components';
+import React, { ButtonHTMLAttributes, FC } from 'react';
 
-export const Button = styled.button<{ primary?: boolean; small?: boolean }>`
-  background: ${({ primary, theme: { colors } }) =>
-    primary ? colors.primary[100] : colors.grey[75]};
-  color: ${({ primary, theme: { colors } }) =>
-    primary ? colors.grey[98] : colors.grey[25]};
+export const Button: FC<
+  {
+    primary?: boolean;
+    caution?: boolean;
+    small?: boolean;
+    ref?: React.ForwardedRef<HTMLButtonElement>;
+  } & ButtonHTMLAttributes<HTMLButtonElement>
+> = React.forwardRef(
+  ({ primary, caution, small, children, className = '', ...props }, ref) => {
+    const baseClasses =
+      'leading- inline-flex items-center justify-center gap-2 uppercase whitespace-nowrap font-bold relative select-none outline-none rounded mb-1 active:shadow-none active:top-1 disabled:opacity-50 disabled:cursor-not-allowed button-focus';
+    const primaryClasses =
+      'bg-primary-100 text-grey-98 shadow-button-primary hover:text-grey-25 active:text-grey-25 active:bg-primary-150 button-focus-primary';
+    const secondaryAndCaution =
+      'text-grey-25 hover:text-grey-98 active:text-grey-98 button-focus-secondary';
+    const secondaryClasses = `bg-grey-85 shadow-button-secondary active:bg-grey-85 ${secondaryAndCaution}`;
+    const cautionClasses = `bg-negative-75 shadow-button-caution active:bg-negative-150 ${secondaryAndCaution}`;
 
-  text-align: center;
-  text-decoration: none;
-  text-transform: uppercase;
-  white-space: nowrap;
-  font-size: ${({ small, theme: { font } }) => (small ? font.sizes.xxs : font.sizes.xs)};
-  font-weight: 600;
-  position: relative;
-
-  cursor: pointer;
-  user-select: none;
-  outline: none;
-  border: none;
-  border-radius: 4px;
-  box-shadow: 0 4px
-    ${({ primary, theme: { colors } }) =>
-      primary ? colors.primary[150] : colors.grey[60]};
-  padding: ${({ small }) => (small ? '5px 12px' : '8px 16px')};
-  margin: 0 0 4px;
-
-  :hover:not(:disabled),
-  :active {
-    color: ${({ primary, theme: { colors } }) =>
-      primary ? colors.grey[25] : colors.grey[98]};
-  }
-
-  :active {
-    background: ${({ primary, theme: { colors } }) =>
-      primary ? colors.primary[150] : colors.grey[60]};
-    box-shadow: none;
-    top: 4px;
-  }
-
-  :focus-visible:not(:active)::after {
-    content: '';
-    position: absolute;
-    inset: -6px -6px -10px;
-    border-radius: 8px;
-    border: 3px dotted
-      ${({ primary, theme: { colors } }) =>
-        primary ? colors.primary[50] : colors.grey[75]};
-  }
-
-  :disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-  }
-
-  svg {
-    position: relative;
-    top: 1px;
-    margin-right: 4px;
-  }
-`;
-
-export const CautionButton = styled(Button)`
-  background: ${({ theme: { colors } }) => colors.negative[75]};
-  box-shadow: 0 4px ${({ theme: { colors } }) => colors.negative[150]};
-
-  :active {
-    background: ${({ theme: { colors } }) => colors.negative[150]};
-  }
-`;
+    return (
+      <button
+        className={`${baseClasses} leading-terse ${
+          small ? 'text-xxs py-[5px] px-3' : 'text-xs py-2 px-4'
+        }  ${
+          caution ? cautionClasses : primary ? primaryClasses : secondaryClasses
+        } ${className}`}
+        {...props}
+        ref={ref}
+      >
+        {children}
+      </button>
+    );
+  },
+);

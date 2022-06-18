@@ -7,7 +7,7 @@ import { useAuth } from '../helpers/auth';
 import { useApi } from '../hooks/use-api';
 import { useLists } from '../hooks/use-lists';
 
-export const Home: FC = () => {
+export const LandingPage: FC = () => {
   const { login } = useAuth();
   const { state, fetchLists } = useLists(); // trigger initial fetching of lists + redirect to last learnt if logged in
   const { ping } = useApi();
@@ -207,9 +207,11 @@ const Intro = styled.div`
 const Paragraph = styled.p`
   line-height: 1.5;
   color: ${({ theme: { colors } }) => colors.grey[98]};
+  margin: 1em 0;
 
   strong {
     font-weight: ${({ theme: { font } }) => font.weights.massive};
+    color: ${({ theme: { colors } }) => colors.grey[98]};
   }
 
   em {

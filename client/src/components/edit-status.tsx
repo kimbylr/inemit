@@ -1,6 +1,5 @@
-import React, { FC, useState, ReactNode } from 'react';
+import React, { FC } from 'react';
 import { Icon } from '../elements/icon';
-import styled, { keyframes, css } from 'styled-components';
 
 interface Props {
   saved: boolean;
@@ -21,85 +20,47 @@ export const EditStatus: FC<Props> = ({
 }) => {
   if (saving) {
     return (
-      <Saving title="speichern...">
+      <div
+        title="speichern..."
+        className="h-6 w-6 flex-shrink-0 animate-spin text-primary-100"
+      >
         <Icon type="syncInCircle" />
-      </Saving>
+      </div>
     );
   }
 
   if (error) {
     return (
-      <SaveButton
+      <button
         type="submit"
-        error
+        className="h-6 w-6 flex-shrink-0 outline-none disabled:text-grey-85 text-negative-100"
         onClick={submit}
         tabIndex={-1}
         title={error}
       >
         <Icon type="attention" />
-      </SaveButton>
+      </button>
     );
   }
 
   if (saved) {
     return (
-      <Saved title="gespeichert">
+      <div title="gespeichert" className="h-6 w-6 flex-shrink-0 text-primary-25">
         <Icon type="ok" />
-      </Saved>
+      </div>
     );
   }
 
   return (
-    <SaveButton
+    <button
       type="submit"
       onClick={submit}
       tabIndex={-1}
       title="speichern"
       disabled={!canSave} // new items
+      className="h-6 w-6 flex-shrink-0 outline-none disabled:text-grey-85 text-primary-100"
     >
       <Icon type={isNew ? 'new' : 'ok'} />
-    </SaveButton>
+    </button>
   );
 };
-
-const BaseStyles = css`
-  height: 24px;
-  width: 24px;
-  flex-shrink: 0;
-  border: none;
-  background: none;
-  padding: 0;
-  margin-bottom: 32px;
-`;
-
-const rotate = keyframes`
-from {
-  transform: rotate(0deg);
-}
-to {
-  transform: rotate(360deg);
-}
-`;
-
-const Saving = styled.div`
-  ${BaseStyles}
-  animation: ${rotate} 2s infinite linear;
-  color: ${({ theme: { colors } }) => colors.primary[100]};
-`;
-
-const Saved = styled.div`
-  ${BaseStyles}
-  color: ${({ theme: { colors } }) => colors.primary[25]};
-`;
-
-const SaveButton = styled.button<{ error?: boolean }>`
-  ${BaseStyles}
-  ${({ disabled }) => (disabled ? '' : 'cursor: pointer;')}
-  outline: none;
-  color: ${({ disabled, error, theme: { colors } }) =>
-    disabled
-      ? colors.grey[85]
-      : error
-      ? colors.negative[100]
-      : colors.primary[100]};
-`;

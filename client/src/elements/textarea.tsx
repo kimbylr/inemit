@@ -1,30 +1,12 @@
-import styled from 'styled-components';
+import { FC, TextareaHTMLAttributes } from 'react';
 
-export const Textarea = styled.textarea`
-  color: ${({ theme: { colors } }) => colors.grey[10]};
-  font-size: ${({ theme: { font } }) => font.sizes.sm};
-  border: 2px solid ${({ theme: { colors } }) => colors.grey[85]};
-  outline: none;
-  padding: 0.375rem;
-  border-radius: 4px;
-  width: 100%;
-  box-sizing: border-box;
-  background-color: white;
-
-  :focus {
-    border-color: ${({ theme: { colors } }) => colors.grey[50]};
-  }
-
-  transition-property: opacity;
-  transition-duration: 0.2s;
-
-  :disabled {
-    opacity: 0.5;
-    transition-delay: 0.2s;
-    cursor: not-allowed;
-  }
-
-  ::placeholder {
-    color: ${({ theme: { colors } }) => colors.grey[85]};
-  }
-`;
+export const Textarea: FC<
+  { className?: string } & TextareaHTMLAttributes<HTMLTextAreaElement>
+> = ({ children, className = '', ...props }) => (
+  <textarea
+    className={`text-grey-10 text-xs border-2 border-grey-85 outline-none p-1.5 rounded w-full bg-white transition-opacity duration-200 focus:border-grey-50 disabled:opacity-50 disabled:delay-200 disabled:cursor-not-allowed placeholder:text-grey-85 ${className}`}
+    {...props}
+  >
+    {children}
+  </textarea>
+);

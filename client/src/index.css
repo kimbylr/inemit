@@ -1,0 +1,78 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  font-family: 'Work Sans', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+  background: #fafafa;
+}
+
+button,
+input,
+textarea {
+  font-family: inherit;
+  font-size: 100%;
+  line-height: 1;
+  margin: 0;
+}
+
+strong {
+  @apply font-bold;
+  @apply text-grey-25;
+}
+
+ul.actual-list {
+  @apply list-disc;
+  @apply ml-6;
+}
+ul.actual-list li {
+  @apply my-2;
+  @apply list-[circle];
+  @apply pl-1;
+}
+
+.button-focus:focus-visible:not(:active)::after {
+  content: '';
+  position: absolute;
+  inset: -6px -6px -10px;
+  border-radius: 8px;
+  border: 3px dotted;
+}
+.button-focus-primary:focus-visible:not(:active)::after {
+  @apply border-primary-50;
+}
+.button-focus-secondary:focus-visible:not(:active)::after {
+  @apply border-grey-75;
+}
+
+h2,
+h3,
+h4 {
+  @apply text-primary-150;
+  @apply font-massive;
+  @apply break-words;
+}
+h2 {
+  @apply text-xl;
+}
+h3 {
+  @apply text-md;
+}
+h4 {
+  @apply text-sm;
+}
+
+p {
+  @apply leading-normal;
+  @apply text-grey-10;
+  @apply font-light;
+  @apply text-sm;
+}
+p.spaced {
+  @apply my-[1em];
+}
+
+hr {
+  @apply text-grey-75;
+  @apply my-6;
+}

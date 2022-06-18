@@ -1,5 +1,4 @@
 import React, { FC, useEffect, useState } from 'react';
-import styled from 'styled-components';
 import { EditableItem } from '../components/editable-item';
 import { ExpandableArea } from '../components/expandable-area';
 import { ProgressBar } from '../components/progress-bar';
@@ -9,7 +8,6 @@ import { Button } from '../elements/button';
 import { DueDaysSummary } from '../elements/due-days-summary';
 import { Icon } from '../elements/icon';
 import { Spinner } from '../elements/spinner';
-import { Heading, Paragraph, SubHeading } from '../elements/typography';
 import { useApi } from '../hooks/use-api';
 import { useRouting } from '../hooks/use-routing';
 import { MenuLayout } from '../layout/menu-layout';
@@ -56,11 +54,11 @@ export const List: FC = () => {
   if (state === 'error' || !list) {
     return (
       <MenuLayout pageWidth="tight">
-        <Heading>¯\_(ツ)_/¯</Heading>
-        <Paragraph>
+        <h2>¯\_(ツ)_/¯</h2>
+        <p>
           <strong>Liste nicht gefunden.</strong> Entweder gibt es sie wirklich nicht, oder
           du bist nicht mehr eingeloggt. Dann hilft neu laden.
-        </Paragraph>
+        </p>
       </MenuLayout>
     );
   }
@@ -101,66 +99,71 @@ export const List: FC = () => {
 
   return (
     <MenuLayout pageWidth="tight">
-      <Heading>{list.name}</Heading>
+      <h2>{list.name}</h2>
       {list.itemsCount > 0 && (
         <>
-          <ProgressContainerDesktop>
+          <div className="mt-8 hidden xs:block">
             <ProgressBar stages={list.progress!.stages} showCountOnClick />
-          </ProgressContainerDesktop>
+          </div>
 
-          <ProgressContainerMobile>
+          <div className="mt-4 xs:hidden">
             <ExpandableArea
               teaser={<ProgressPie stages={list.progress!.stages} />}
               showChevronButton={false}
             >
-              <CountPerStageBarContainer>
+              <div className="pt-2">
                 <ProgressBar stages={list.progress!.stages} showCountPerStage />
-              </CountPerStageBarContainer>
+              </div>
             </ExpandableArea>
-          </ProgressContainerMobile>
+          </div>
         </>
       )}
-      <Paragraph>
+
+      <p className="spaced">
         In dieser Liste {list.itemsCount === 1 ? 'befindet' : 'befinden'} sich{' '}
         <strong>
           {list.itemsCount} {list.itemsCount === 1 ? 'Vokabel' : 'Vokabeln'}
         </strong>
         . <DueDaysSummary dueToday={dueToday} dueTomorrow={dueTomorrow} />
-      </Paragraph>
-      <Paragraph>
+      </p>
+
+      <div className="flex gap-3 flex-col items-stretch xxs:flex-row">
         {dueToday > 0 && (
-          <ButtonWithSpacing primary onClick={startLearning}>
+          <Button primary onClick={startLearning}>
             <Icon type="logo" width="18px" />
             Jetzt lernen!
-          </ButtonWithSpacing>
+          </Button>
         )}
         <Button onClick={editList}>
           <Icon type="edit" width="14px" /> bearbeiten
         </Button>
-      </Paragraph>
+      </div>
 
       {list.flaggedItems.length > 0 && (
-        <ListParagraph>
-          <SubHeading>
+        <div className="mt-12">
+          <h3 className="flex gap-3 items-center">
             Markiert <Icon type="flag" width="16px" />
-          </SubHeading>
-          <LearnItemList>
+          </h3>
+          <ul>
             {list.flaggedItems.map((item, index) => (
-              <LearnItemListElement key={item.id}>
+              <li
+                key={item.id}
+                className="border-t-4 border-dotted border-grey-85 pt-4 m-0 last:border-b-4"
+              >
                 <EditableItem
                   item={item}
                   index={index + 1}
                   listId={list.id}
                   onItemDeleted={onFlaggedItemDeleted}
                 />
-              </LearnItemListElement>
+              </li>
             ))}
-          </LearnItemList>
-        </ListParagraph>
+          </ul>
+        </div>
       )}
 
-      <ListParagraph>
-        <SubHeading>Hinzufügen</SubHeading>
+      <div className="mt-12">
+        <h3>Hinzufügen</h3>
         <EditableItemsList
           items={items}
           listId={list.id}
@@ -168,49 +171,7 @@ export const List: FC = () => {
           onItemDeleted={onItemDeleted}
           onItemSaved={onItemSaved}
         />
-      </ListParagraph>
+      </div>
     </MenuLayout>
   );
 };
-
-const CountPerStageBarContainer = styled.div`
-  padding-top: 0.5rem;
-`;
-
-const ButtonWithSpacing = styled(Button)`
-  margin-right: 0.5rem;
-  margin-bottom: 0.5rem;
-`;
-
-const ProgressContainerMobile = styled.div`
-  margin-top: 1rem;
-
-  @media (min-width: 480.02px) {
-    display: none;
-  }
-`;
-
-const ProgressContainerDesktop = styled.div`
-  margin-top: 2rem;
-
-  @media (max-width: 480px) {
-    display: none;
-  }
-`;
-
-const ListParagraph = styled.div`
-  margin-top: 3rem;
-`;
-const LearnItemList = styled.ul`
-  list-style: none;
-  margin: 0;
-  padding: 0;
-`;
-const LearnItemListElement = styled.li`
-  border-top: 4px dotted ${({ theme: { colors } }) => colors.grey[85]};
-  padding: 16px 0 4px;
-
-  :last-child {
-    border-bottom: 4px dotted ${({ theme: { colors } }) => colors.grey[85]};
-  }
-`;

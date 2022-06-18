@@ -8,7 +8,6 @@ import { Hints, LearnItem } from '../models';
 type Props = {
   items: LearnItem[];
   listId: string;
-  lastInputRef?: React.MutableRefObject<HTMLInputElement | null>;
   onItemsAdded: (newItems: LearnItem[]) => void;
   onItemDeleted: (id: string) => void;
   onItemSaved: (editedItem: LearnItem) => void;
@@ -17,7 +16,6 @@ type Props = {
 export const EditableItemsList: FC<Props> = ({
   items,
   listId,
-  lastInputRef,
   onItemsAdded,
   onItemDeleted,
   onItemSaved,
@@ -51,8 +49,7 @@ export const EditableItemsList: FC<Props> = ({
         </LearnItemListElement>
       ))}
 
-      {newItemIds.map((id, index) => {
-        const isLast = index + 1 === newItemIds.length;
+      {newItemIds.map((id) => {
         const item = {
           id: `${id}`,
           prompt: '',
@@ -68,7 +65,6 @@ export const EditableItemsList: FC<Props> = ({
               listId={listId}
               onNewItemEdited={onNewItemEdited}
               onNewItemSaved={onNewItemSaved}
-              lastInputRef={isLast ? lastInputRef : undefined}
             />
           </LearnItemListElement>
         );

@@ -4,18 +4,17 @@ import { EditStatus } from '../components/edit-status';
 import { FlagButton } from '../components/flag-button';
 import { Hint } from '../elements/hint';
 import { Icon } from '../elements/icon';
-import { Input } from '../elements/input';
-import { Label } from '../elements/label';
+import { TextField } from '../elements/text-field';
 import { UnsplashImage } from '../helpers/unsplash';
 import { useApi } from '../hooks/use-api';
 import { BaseLearnItem, LearnItem, LearnItemForEditing } from '../models';
 import { ImagePicker } from './image-picker';
+import { Modal } from './modal';
 
 interface Props {
   listId: string;
   index?: number;
   item: LearnItemForEditing;
-  lastInputRef?: React.RefObject<HTMLInputElement>;
   onDismissHint?: false | (() => void);
   onItemDeleted?(id: string): void;
   onItemSaved?(item: LearnItem): void;
@@ -27,7 +26,6 @@ export const EditableItem: FC<Props> = ({
   listId,
   index,
   item,
-  lastInputRef,
   onDismissHint,
   onItemDeleted = () => {},
   onItemSaved = () => {},
@@ -165,8 +163,8 @@ export const EditableItem: FC<Props> = ({
 
   return (
     <>
-      <Container onSubmit={submit}>
-        <MetaColumn>
+      <form onSubmit={submit} className="flex items-start">
+        <div className="w-5 self-stretch shrink-0 flex flex-col justify-between mr-3 mb-4">
           {item.flagged ? (
             <FlagButton
               flagged={savedItem.flagged}
@@ -175,17 +173,17 @@ export const EditableItem: FC<Props> = ({
               onFlagged={(flagged) => setSavedItem((item) => ({ ...item, flagged }))}
             />
           ) : (
-            <Index>{index}</Index>
+            <span className="text-xxs text-grey-75 flex justify-center">{index}</span>
           )}
           {!item.isNew && (
             <DeleteButton type="button" tabIndex={-1} onClick={onDelete} title="Löschen">
               <Icon type="deleteInCircle" />
             </DeleteButton>
           )}
-        </MetaColumn>
+        </div>
 
         <InputsColumn>
-          <SolutionContainer>
+          <div className="mr-5 mb-3 basis-[200px] flex-grow relative">
             {onDismissHint && (
               <Hint onDismiss={onDismissHint} triangle>
                 <>
@@ -201,31 +199,32 @@ export const EditableItem: FC<Props> = ({
                 </>
               </Hint>
             )}
-            <Label>
-              <SolutionInput
-                doublet={isDoublet}
-                title={doubletTitle}
-                autoCapitalize="none"
-                onBlur={submit}
-                value={currentItem.solution}
-                placeholder={savedItem.solution}
-                onChange={(e) => onChangeSolution(e.target.value)}
-                ref={lastInputRef}
-              />
-              Vokabel
-            </Label>
-          </SolutionContainer>
-          <LabelWithSpacing>
-            <InputWithImageButton>
-              <Input
-                autoCapitalize="none"
-                onBlur={submit}
-                value={currentItem.prompt}
-                placeholder={savedItem.prompt}
-                onChange={(e) => onChangePrompt(e.target.value)}
-              />
+
+            <TextField
+              className={isDoublet ? '!border-orange-100' : ''}
+              title={doubletTitle}
+              autoCapitalize="none"
+              onBlur={submit}
+              value={currentItem.solution}
+              placeholder={savedItem.solution}
+              onChange={(e) => onChangeSolution(e.target.value)}
+              label="Vokabel"
+            />
+          </div>
+          <div className="mr-5 mb-3 basis-[200px] flex-grow">
+            <div className="flex items-start">
+              <div className="flex-grow">
+                <TextField
+                  autoCapitalize="none"
+                  onBlur={submit}
+                  value={currentItem.prompt}
+                  placeholder={savedItem.prompt}
+                  onChange={(e) => onChangePrompt(e.target.value)}
+                  label="Abfrage"
+                />
+              </div>
               {!item.isNew && (
-                <ImageButtonContainer style={{ position: 'relative' }}>
+                <div className="relative ml-2 h-10 flex items-center">
                   <ImageButton
                     type="button"
                     isActive={showImagePicker}
@@ -233,7 +232,10 @@ export const EditableItem: FC<Props> = ({
                   >
                     {currentItem.image ? (
                       <ImageThumbContainer showImagePicker={showImagePicker}>
-                        <ImageThumb src={currentItem.image.urls.thumb} />
+                        <img
+                          src={currentItem.image.urls.thumb}
+                          className="h-9 mb-0.5 rounded-sm w-auto"
+                        />
                         <Icon type="edit" />
                       </ImageThumbContainer>
                     ) : (
@@ -250,54 +252,36 @@ export const EditableItem: FC<Props> = ({
                       <Icon type="deleteInCircle" width="16px" />
                     </ImageDeleteButton>
                   )}
-                </ImageButtonContainer>
+                </div>
               )}
-            </InputWithImageButton>
-            Abfrage
-          </LabelWithSpacing>
+            </div>
+          </div>
         </InputsColumn>
 
-        <EditStatus
-          isNew={item.isNew}
-          canSave={canSave}
-          saving={saving}
-          saved={saved}
-          error={error}
-          submit={submit}
-        />
-      </Container>
+        <div className="flex items-center self-stretch mb-9">
+          <EditStatus
+            isNew={item.isNew}
+            canSave={canSave}
+            saving={saving}
+            saved={saved}
+            error={error}
+            submit={submit}
+          />
+        </div>
+      </form>
 
       {showImagePicker && (
-        <ImagePickerContainer>
+        <Modal
+          title="Bild hinzufügen"
+          onClose={() => setShowImagePicker(false)}
+          width="md"
+        >
           <ImagePicker searchTerm={currentItem.solution} onSetImage={onSetImage} />
-        </ImagePickerContainer>
+        </Modal>
       )}
     </>
   );
 };
-
-const Container = styled.form`
-  display: flex;
-  align-items: center;
-`;
-
-const MetaColumn = styled.div`
-  width: 20px;
-  align-self: stretch;
-  flex-shrink: 0;
-  font-size: ${({ theme: { font } }) => font.sizes.xxs};
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  margin-right: 12px;
-  margin-bottom: 12px;
-`;
-
-const Index = styled.div`
-  display: flex;
-  justify-content: center;
-  color: ${({ theme: { colors } }) => colors.grey[75]};
-`;
 
 const DeleteButton = styled.button`
   padding: 0;
@@ -317,15 +301,6 @@ const InputsColumn = styled.div`
   display: flex;
   flex-grow: 1;
   flex-wrap: wrap;
-`;
-
-const InputWithImageButton = styled.div`
-  display: flex;
-  align-items: center;
-`;
-
-const ImageButtonContainer = styled.div`
-  margin-left: 0.5rem;
 `;
 
 const ImageButton = styled(DeleteButton)<{ isActive: boolean }>`
@@ -378,36 +353,4 @@ const ImageDeleteButton = styled(DeleteButton)`
   :hover {
     color: ${({ theme: { colors } }) => colors.negative[100]};
   }
-`;
-
-const ImageThumb = styled.img`
-  height: 36px;
-  margin-bottom: 2px;
-  width: auto;
-  border-radius: 2px;
-`;
-
-const SolutionInput = styled(Input)<{ doublet?: boolean }>`
-  ${({ doublet, theme: { colors } }) =>
-    doublet ? `border-color: ${colors.orange[100]}` : ''}
-`;
-
-const SolutionContainer = styled.div`
-  position: relative;
-  margin-right: 20px;
-  margin-bottom: 12px;
-  flex-basis: 200px;
-  flex-grow: 1;
-`;
-
-const LabelWithSpacing = styled(Label)`
-  margin-right: 20px;
-  margin-bottom: 12px;
-  flex-basis: 200px;
-  flex-grow: 1;
-`;
-
-const ImagePickerContainer = styled.div`
-  margin-left: 32px; // 20px + 12px
-  margin-right: 44px; // 20px + 24px
 `;

@@ -1,5 +1,4 @@
 import React, { FC, useState } from 'react';
-import styled from 'styled-components';
 import { Button } from '../elements/button';
 import { Checkbox } from '../elements/checkbox';
 import { Textarea } from '../elements/textarea';
@@ -49,62 +48,30 @@ export const BatchImport: FC<Props> = ({ listId, onBatchImportDone }) => {
   };
 
   return (
-    <Container>
-      <TextareaWithSpacing
+    <form className="flex flex-col items-end font-light">
+      <Textarea
         value={text}
-        onChange={e => setText(e.target.value)}
+        onChange={(e) => setText(e.target.value)}
         placeholder={PLACEHOLDER}
         disabled={disabled}
         rows={5}
+        className="mb-5 m-h-20"
       />
-      <Footer>
-        <ImportToStage3>
-          <Checkbox checked={stage3} onCheck={() => setStage3(s => !s)}>
-            Die Vokabeln sind mir schon bekannt und ich möchte sie direkt ins 3.
-            Fach importieren.
+      <div className="flex justify-between flex-col items-end">
+        <div className='"pt-0.5 mr-4 mb-4"'>
+          <Checkbox checked={stage3} onCheck={() => setStage3((s) => !s)}>
+            Vokabeln sind mir schon bekannt und ich möchte sie direkt ins 3. Fach
+            importieren.
           </Checkbox>
-        </ImportToStage3>
-        <div>
-          <Button type="submit" disabled={disabled} onClick={submit}>
-            importieren
-          </Button>
         </div>
-      </Footer>
-    </Container>
+
+        <Button type="submit" disabled={disabled} onClick={submit}>
+          importieren
+        </Button>
+      </div>
+    </form>
   );
 };
-
-const TextareaWithSpacing = styled(Textarea)`
-  margin-bottom: 20px;
-  width: 100%;
-  min-width: 100%;
-  max-width: 100%;
-  min-height: 100px;
-`;
-
-const Container = styled.form`
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-`;
-
-const Footer = styled.div`
-  display: flex;
-  flex-direction: row;
-  width: 100%;
-  justify-content: space-between;
-
-  @media (max-width: 450px) {
-    flex-direction: column;
-    align-items: flex-end;
-  }
-`;
-
-const ImportToStage3 = styled.div`
-  padding-top: 2px;
-  margin-right: 1rem;
-  margin-bottom: 1rem;
-`;
 
 // TODO: more info about wrong formatting
 const parseList = (lines: string): BaseLearnItem[] | null => {
@@ -112,7 +79,7 @@ const parseList = (lines: string): BaseLearnItem[] | null => {
     .split('\n')
     .filter(Boolean)
     .map(splitByTab)
-    .filter((Boolean as any) as ExcludesNull);
+    .filter(Boolean as any as ExcludesNull);
 
   if (!items || items.length === 0) {
     return null;

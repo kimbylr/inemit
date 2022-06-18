@@ -1,8 +1,6 @@
-import React, { Children, FC, ReactNode } from 'react';
+import { Children, FC, ReactNode } from 'react';
 import styled from 'styled-components';
 import { Button } from './button';
-import { Icon } from './icon';
-import { Paragraph } from './typography';
 
 interface Props {
   children: ReactNode;
@@ -16,11 +14,11 @@ export const Hint: FC<Props> = ({ children, onDismiss, triangle, position = 'top
       {Children.map(children, (paragraph, i) => (
         <SmallParagraph key={i}>{paragraph}</SmallParagraph>
       ))}
-      <CenteredParagraph key="dismiss">
+      <p className="text-center" key="dismiss">
         <Button small type="button" onClick={onDismiss}>
           Alles klar
         </Button>
-      </CenteredParagraph>
+      </p>
     </Bubble>
   </Container>
 );
@@ -79,15 +77,11 @@ const Bubble = styled.div<{ triangle?: boolean; position: 'top' | 'bottom' }>`
       : ''}
 `;
 
-const SmallParagraph = styled(Paragraph)`
+const SmallParagraph = styled.p`
   font-size: ${({ theme: { font } }) => font.sizes.xxs};
 
   em {
     color: ${({ theme: { colors } }) => colors.grey[25]};
     font-weight: ${({ theme: { font } }) => font.weights.bold};
   }
-`;
-
-const CenteredParagraph = styled(Paragraph)`
-  text-align: center;
 `;

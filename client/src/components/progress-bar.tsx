@@ -17,7 +17,7 @@ export const ProgressBar: FC<ProgressBarProps> = ({
 
   return (
     <Bar
-      onClick={showCountOnClick ? () => setShowCount(s => !s) : undefined}
+      onClick={showCountOnClick ? () => setShowCount((s) => !s) : undefined}
       as={showCountOnClick ? 'button' : undefined}
       isButton={showCountOnClick}
     >
@@ -42,8 +42,8 @@ const Bar = styled.div<{ isButton?: boolean }>`
 `;
 
 const BarPart = styled.div<{ stage: string; count: number }>`
-  height: 32px;
-  padding: 4px 8px;
+  height: 40px;
+  padding: 0 8px;
   flex-grow: ${({ count }) => count};
   background: ${({ stage, theme: { colors } }) => getColor(colors, stage)};
   display: flex;

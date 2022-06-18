@@ -1,11 +1,10 @@
-import React, { FC, useState } from 'react';
+import { FC, useState } from 'react';
 import styled from 'styled-components';
 import { Header } from '../components/header';
 import { Main } from '../components/main';
 import { Button } from '../elements/button';
 import { Icon } from '../elements/icon';
-import { Input } from '../elements/input';
-import { Heading, Paragraph, SubHeading } from '../elements/typography';
+import { TextField } from '../elements/text-field';
 import { useApi } from '../hooks/use-api';
 import { AppleDevices, useInstallPWA } from '../hooks/use-install-pwa';
 import { useLists } from '../hooks/use-lists';
@@ -46,27 +45,27 @@ export const Start: FC = () => {
       <Header />
       <Main>
         <PageLayout>
-          <Heading>Schön bist du da!</Heading>
-          <SubHeading>Leg gleich deine erste Liste an.</SubHeading>
-          <StyledParagraph appleDevice={appleDevice}>
+          <h2>Schön bist du da!</h2>
+          <h3>Leg gleich deine erste Liste an.</h3>
+          <p className={appleDevice === 'iPad' ? 'w-[480px]' : ''}>
             Lerninhalte werden in Listen abgelegt. Wie soll deine erste Liste heissen?
-          </StyledParagraph>
+          </p>
           <Form
-            onSubmit={e => {
+            onSubmit={(e) => {
               e.preventDefault();
               submit();
             }}
           >
-            <Input
+            <TextField
               value={listName}
               placeholder="Italienisch"
-              onChange={e => setListName(e.target.value)}
+              onChange={(e) => setListName(e.target.value)}
             />
             <SubmitButton primary disabled={submitting}>
               Los!
             </SubmitButton>
           </Form>
-          <ErrorParagraph>{error}</ErrorParagraph>
+          <p className="text-negative-100">{error}</p>
         </PageLayout>
       </Main>
 
@@ -96,16 +95,8 @@ const Form = styled.form`
   align-items: flex-start;
 `;
 
-const StyledParagraph = styled(Paragraph)<{ appleDevice: AppleDevices }>`
-  ${({ appleDevice }) => (appleDevice === 'iPad' ? 'width: 480px' : '')};
-`;
-
 const SubmitButton = styled(Button)`
   margin: 0 0 0 1rem;
-`;
-
-const ErrorParagraph = styled(Paragraph)`
-  color: ${({ theme: { colors } }) => colors.negative[100]};
 `;
 
 const Spacer = styled.div`

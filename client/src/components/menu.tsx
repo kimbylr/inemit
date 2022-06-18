@@ -175,7 +175,8 @@ const TeaserStyles = css`
   justify-content: center;
   color: ${({ theme: { colors } }) => colors.primary[150]};
 
-  :hover {
+  :hover,
+  :hover h3 {
     color: ${({ theme: { colors } }) => colors.grey[25]};
   }
 `;

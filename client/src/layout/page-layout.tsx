@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
 
-export const PageLayout: FC<{ width: 'wide' | 'tight' }> = ({
+export const PageLayout: FC<{ width?: 'wide' | 'tight' }> = ({
   children,
   width = 'tight',
 }) => <Container width={width}>{children}</Container>;

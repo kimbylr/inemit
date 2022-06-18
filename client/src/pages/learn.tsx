@@ -5,10 +5,9 @@ import { LearnProgress } from '../components/learn-progress';
 import { Button } from '../elements/button';
 import { Hint } from '../elements/hint';
 import { Icon } from '../elements/icon';
-import { Input } from '../elements/input';
 import { ExtLink } from '../elements/link';
 import { Spinner } from '../elements/spinner';
-import { Paragraph } from '../elements/typography';
+import { TextField } from '../elements/text-field';
 import { evaluateAnswer } from '../helpers/evaluate-answer';
 import { isMobileAppleDevice } from '../helpers/is-mobile-apple-device';
 import { useApi } from '../hooks/use-api';
@@ -303,7 +302,7 @@ const Content = styled.main<{ height: number }>`
   justify-content: space-evenly;
 `;
 
-const Prompt = styled(Paragraph).attrs({ as: 'div' })<{ hasImage: boolean }>`
+const Prompt = styled.p.attrs({ as: 'div' })<{ hasImage: boolean }>`
   margin: 0 0 0.5rem;
   display: flex;
   flex-direction: column;
@@ -364,7 +363,7 @@ const SolutionInputContainer = styled.div`
   margin-right: 20px;
   position: relative;
 `;
-const SolutionInput = styled(Input)<{ incorrect?: boolean; correct?: boolean }>`
+const SolutionInput = styled(TextField)<{ incorrect?: boolean; correct?: boolean }>`
   :disabled {
     transition-delay: 0s;
   }
@@ -406,6 +405,7 @@ const SolutionButton = styled(Button)`
 `;
 
 const CorrectionBubbleContainer = styled.div`
+  line-height: 1.125;
   position: absolute;
   text-align: center;
   bottom: 60px;
