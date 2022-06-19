@@ -16,6 +16,7 @@ export const TextField: FC<
       } focus:border-grey-50 transition-opacity duration-200 disabled:opacity-50 disabled:delay-200 disabled:cursor-not-allowed placeholder:text-grey-85 ${className}`}
       {...props}
       ref={ref}
+      name={`1pw-escape-hatch--search`}
     />
   );
 

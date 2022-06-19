@@ -209,6 +209,7 @@ export const EditableItem: FC<Props> = ({
               placeholder={savedItem.solution}
               onChange={(e) => onChangeSolution(e.target.value)}
               label="Vokabel"
+              autoComplete="off"
             />
           </div>
           <div className="mr-5 mb-3 basis-[200px] flex-grow">
