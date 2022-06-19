@@ -1,3 +1,11 @@
+## [1.20.2](https://github.com/kimbylr/inemit/compare/v1.20.1...v1.20.2) (2022-06-19)
+
+
+### Bug Fixes
+
+* Image picker sorting ([96b84a0](https://github.com/kimbylr/inemit/commit/96b84a006fb0d52864e7f6b787d05dcc9cee1ee8))
+* Modal on iOS ([85a5dcb](https://github.com/kimbylr/inemit/commit/85a5dcbbda20cf54e1f1e321753465057cde622d))
+
 ## [1.20.1](https://github.com/kimbylr/inemit/compare/v1.20.0...v1.20.1) (2022-06-18)
 
 
