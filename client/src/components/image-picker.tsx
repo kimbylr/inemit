@@ -89,7 +89,6 @@ export const ImagePicker: FC<Props> = ({ searchTerm: initialSearchTerm, onSetIma
       >
         <TextField
           small
-          autoFocus
           autoCapitalize="none"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
@@ -109,19 +108,27 @@ export const ImagePicker: FC<Props> = ({ searchTerm: initialSearchTerm, onSetIma
       {imgs.length > 0 && (
         <div className="flex flex-col gap-4">
           <ul className="flex flex-col xs:flex-row gap-4">
-            <div className="flex flex-col gap-4 flex-start">
+            {/* >480px: two cols */}
+            <div className="hidden xs:flex flex-col gap-4 flex-start">
               {imgs
                 .filter((_, i) => i % 10 < 5)
                 .map((img) => (
                   <Image img={img} onSetImage={onSetImage} />
                 ))}
             </div>
-            <div className="flex flex-col gap-4 flex-start">
+            <div className="hidden xs:flex flex-col gap-4 flex-start">
               {imgs
                 .filter((_, i) => i % 10 >= 5)
                 .map((img) => (
                   <Image img={img} onSetImage={onSetImage} />
                 ))}
+            </div>
+
+            {/* mobile */}
+            <div className="flex flex-col gap-4 flex-start xs:hidden">
+              {imgs.map((img) => (
+                <Image img={img} onSetImage={onSetImage} />
+              ))}
             </div>
           </ul>
 
@@ -160,7 +167,7 @@ const Image: FC<{ img: UnsplashImage; onSetImage: (img: UnsplashImage) => void }
         onClick={(e) => e.stopPropagation()}
         target="_blank"
         rel="noopener noreferrer"
-        className="text-grey-85"
+        className="!text-grey-85 hover:!text-grey-75"
       >
         {img.user.name}
       </ExtLink>
