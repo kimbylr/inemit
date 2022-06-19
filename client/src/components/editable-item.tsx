@@ -132,23 +132,22 @@ export const EditableItem: FC<Props> = ({
   };
 
   const onSetImage = async (img: UnsplashImage | null) => {
-    if (!initiallyEdited || saving || !img) {
+    if (!initiallyEdited || saving) {
       return;
     }
 
     setSaving(true);
     try {
-      const { trackSet, ...imageWithoutTrackFn } = img;
       const { prompt, solution, image, flagged } = await editItem({
         listId,
         itemId: item.id,
-        item: { image: imageWithoutTrackFn, flagged: false },
+        item: { image: removeTrackSet(img), flagged: false },
       });
       if (img !== null && !image) throw 'could not save image';
       setSavedItem({ prompt, solution, image, flagged });
       setCurrentItem({ prompt, solution, image, flagged });
       setShowImagePicker(false);
-      trackSet?.();
+      img?.trackSet?.();
     } catch (error) {
       console.error(error);
     } finally {
@@ -282,6 +281,15 @@ export const EditableItem: FC<Props> = ({
       )}
     </>
   );
+};
+
+const removeTrackSet = (img: UnsplashImage | null) => {
+  if (!img) {
+    return null;
+  }
+
+  const { trackSet, ...rest } = img;
+  return rest;
 };
 
 const DeleteButton = styled.button`
