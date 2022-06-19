@@ -77,3 +77,8 @@ hr {
   @apply text-grey-75;
   @apply my-6;
 }
+
+p.hint em {
+  @apply text-grey-25;
+  @apply font-bold;
+}

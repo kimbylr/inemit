@@ -19,7 +19,7 @@ import { Hints, LearnItemForLearning } from '../models';
 
 export const Learn: FC = () => {
   const height = useHeight();
-  const { slug, goToList, getListPath } = useRouting();
+  const { slug, goToList } = useRouting();
   const { getLearnItems, reportProgress } = useApi();
 
   const { lists } = useLists();
@@ -35,7 +35,7 @@ export const Learn: FC = () => {
 
   const { hintDismissed, onDismissHint } = useSettings();
   const showFalseNegativeHint = !hintDismissed(Hints.learningFalseNegative);
-  const showFlagHint = !hintDismissed(Hints.learningFlag) && current > 3;
+  const showFlagHint = !hintDismissed(Hints.learningFlag) && current > 7;
 
   const answerFieldRef = useRef<HTMLInputElement>(null);
   const submitButtonRef = useRef<HTMLButtonElement>(null);
