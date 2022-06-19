@@ -45,10 +45,9 @@ export const Start: FC = () => {
       <Header />
       <Main>
         <PageLayout>
-          <h2>Schön bist du da!</h2>
-          <h3>Leg gleich deine erste Liste an.</h3>
-          <p className={appleDevice === 'iPad' ? 'w-[480px]' : ''}>
-            Lerninhalte werden in Listen abgelegt. Wie soll deine erste Liste heissen?
+          <h2 className="mb-6">Schön bist du da!</h2>
+          <p className={`mb-4 ${appleDevice === 'iPad' ? 'w-[480px]' : ''}`}>
+            Was möchtest du lernen? (Das wird der Name deiner ersten Liste.)
           </p>
           <Form
             onSubmit={(e) => {
@@ -60,6 +59,7 @@ export const Start: FC = () => {
               value={listName}
               placeholder="Italienisch"
               onChange={(e) => setListName(e.target.value)}
+              className="max-w-[300px]"
             />
             <SubmitButton primary disabled={submitting}>
               Los!

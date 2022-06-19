@@ -4,7 +4,7 @@ import { EditListName } from '../compositions/edit-list-name';
 import { Button } from '../elements/button';
 import { Icon } from '../elements/icon';
 import { useApi } from '../hooks/use-api';
-import { useRouting } from '../hooks/use-routing';
+import { useLists } from '../hooks/use-lists';
 import { LearnItem, ListSummary } from '../models';
 import { BatchImport } from './batch-import';
 
@@ -19,7 +19,7 @@ type Props = {
 export const ListSettings: FC<Props> = ({ list, onListNameChanged, onItemsAdded }) => {
   const [show, setShow] = useState(false);
   const { deleteList } = useApi();
-  const { goToPage } = useRouting();
+  const { removeList } = useLists();
 
   const onListDeleted = async (event: React.MouseEvent) => {
     event.preventDefault();
@@ -30,7 +30,7 @@ export const ListSettings: FC<Props> = ({ list, onListNameChanged, onItemsAdded 
 
     try {
       await deleteList(list.id);
-      goToPage('home'); // TODO
+      removeList(list.id);
     } catch (error) {
       console.error(error);
     }
@@ -73,9 +73,11 @@ export const ListSettings: FC<Props> = ({ list, onListNameChanged, onItemsAdded 
 
           <h3>Löschen</h3>
           <p className="mb-2 text-xs+">Du brauchst die Liste nicht mehr?</p>
-          <Button onClick={onListDeleted} className="w-full" caution>
-            <Icon type="delete" width="14px" /> Liste löschen
-          </Button>
+          <div className="flex justify-end">
+            <Button onClick={onListDeleted} caution>
+              <Icon type="delete" width="14px" /> Liste löschen
+            </Button>
+          </div>
         </Modal>
       )}
     </div>
