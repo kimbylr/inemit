@@ -5,6 +5,7 @@
 html {
   font-family: 'Work Sans', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
   background: #fafafa;
+  min-height: calc(100% + env(safe-area-inset-top)); /* prevent white bar in the bottom */
 }
 
 button,

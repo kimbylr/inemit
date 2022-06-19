@@ -159,7 +159,7 @@ export const EditList: FC = () => {
       )}
 
       <div
-        className="flex gap-8 justify-between items-start sticky top-0 mt-8 p-2 pb-4 -mx-2 z-20 bg-grey-98"
+        className="flex gap-6 justify-between items-start sticky top-0 mt-8 p-2 pb-4 -mx-2 z-20 bg-grey-98"
         style={{ paddingTop: 'calc(env(safe-area-inset-top) + 8px)' }}
       >
         <div className="flex gap-4 flex-wrap items-center">
