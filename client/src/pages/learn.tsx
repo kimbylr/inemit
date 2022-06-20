@@ -420,6 +420,7 @@ const Correction = styled.button`
   border-radius: 4px;
   padding: 0.5rem;
   overflow-wrap: break-word;
+  line-height: 1.25;
 
   background: ${({ theme: { colors } }) => colors.primary[10]};
   border: 3px solid ${({ theme: { colors } }) => colors.primary[100]};

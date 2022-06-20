@@ -78,6 +78,20 @@ module.exports = {
         xxs: '380px',
         xs: '480px',
       },
+      keyframes: {
+        fadeIn: {
+          '0%': { opacity: '0' },
+          '100%': { opacity: '1' },
+        },
+        wobble: {
+          '0%, 100%': { transform: 'scale(0)' },
+          '50%': { transform: 'scale(1)' },
+        },
+      },
+      animation: {
+        'fade-in': 'fadeIn 1s ease-in 0.5s forwards',
+        bounce: 'wobble 2s infinite ease-in-out;',
+      },
     },
   },
   plugins: [],

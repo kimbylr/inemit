@@ -1,5 +1,4 @@
 import React, { FC, useEffect } from 'react';
-import { Route } from 'react-router-dom';
 import { useAuth } from './auth';
 
 // component adapted from auth0
