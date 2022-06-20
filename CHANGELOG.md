@@ -1,3 +1,12 @@
+## [1.20.4](https://github.com/kimbylr/inemit/compare/v1.20.3...v1.20.4) (2022-06-20)
+
+
+### Bug Fixes
+
+* Correction box line-height, tailwind refactoring (spinner) ([a3f02c4](https://github.com/kimbylr/inemit/commit/a3f02c4df4a97ed9c8675f235143f6fc332929fc))
+* Go to last used list after deleting a list ([bf4507a](https://github.com/kimbylr/inemit/commit/bf4507a16782479679ef5db01cf2b7bfe113629a))
+* Remove image ([0663c27](https://github.com/kimbylr/inemit/commit/0663c27ae7c8ab22931eca3f2fbc5b0566949902))
+
 ## [1.20.3](https://github.com/kimbylr/inemit/compare/v1.20.2...v1.20.3) (2022-06-19)
 
 
