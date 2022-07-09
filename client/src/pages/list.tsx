@@ -54,7 +54,7 @@ export const List: FC = () => {
   if (state === 'error' || !list) {
     return (
       <MenuLayout pageWidth="tight">
-        <h2>¯\_(ツ)_/¯</h2>
+        <h2 className="mb-4">¯\_(ツ)_/¯</h2>
         <p>
           <strong>Liste nicht gefunden.</strong> Entweder gibt es sie wirklich nicht, oder
           du bist nicht mehr eingeloggt. Dann hilft neu laden.

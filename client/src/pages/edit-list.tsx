@@ -67,7 +67,7 @@ export const EditList: FC = () => {
   if (state === 'error' || !list) {
     return (
       <MenuLayout pageWidth="wide">
-        <h2>¯\_(ツ)_/¯</h2>
+        <h2 className="mb-4">¯\_(ツ)_/¯</h2>
         <p>Leider ist etwas schief gelaufen.</p>
       </MenuLayout>
     );
