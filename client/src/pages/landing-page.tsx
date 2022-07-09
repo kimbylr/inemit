@@ -1,5 +1,4 @@
 import { FC, useEffect } from 'react';
-import styled from 'styled-components';
 import { Icon } from '../elements/icon';
 import { Link } from '../elements/link';
 import { Spinner } from '../elements/spinner';
@@ -20,231 +19,80 @@ export const LandingPage: FC = () => {
 
   if (state === 'loading') {
     return (
-      <AbsoluteCenter>
+      <div className="h-screen w-screen grid place-items-center">
         <Spinner />
-      </AbsoluteCenter>
+      </div>
     );
   }
 
   const enter = state === 'loaded' ? fetchLists : login;
 
   return (
-    <ParallaxContainer>
-      <CoverImageContainer>
-        <CoverImage srcSet="assets/home-536.jpg 600w, assets/home-1072.jpg 1200w, assets/home-2144.jpg 2000w" />
-      </CoverImageContainer>
+    <div className="h-screen w-screen overflow-x-hidden" style={{ perspective: '3px' }}>
+      <div className="relative h-[90vh] z-[-1]">
+        <img
+          srcSet="assets/home-536.jpg 600w, assets/home-1072.jpg 1200w, assets/home-2144.jpg 2000w"
+          className="h-screen w-screen object-cover"
+        />
+      </div>
 
-      <Content>
-        <Title>inemit!</Title>
+      <div
+        className="absolute top-[80vh] z-[1] w-screen"
+        style={{ transformStyle: 'preserve-3d' /*  Safari needs this ¯\_(ツ)_/¯ */ }}
+      >
+        <h1 className="landing-page-title absolute left-0 right-0 py-20 px-4 mx-auto text-center text-grey-98 font-massive break-words pointer-events-none">
+          inemit!
+        </h1>
 
-        <Shard1 />
-        <LogoContainer>
-          <LoginButton onClick={enter}>
+        {/* "shard" in light green */}
+        <div className="absolute z-[-1] h-[max(500px,50vw)] w-screen bg-primary-100 before:content-[''] before:absolute before:w-0 before:h-0 before:top-[calc(1px-15vw)] before:left-0 before:border-l-[100vw] before:border-l-[transparent] before:border-b-[15vw] before:border-b-primary-100" />
+        <div className="absolute top-[calc(40px-2vw)] w-screen flex justify-center">
+          <button onClick={enter} className="text-grey-98 w-[calc(4rem+6vw)]">
             <Icon type="logo" />
-          </LoginButton>
-        </LogoContainer>
+          </button>
+        </div>
 
-        <Shard2>
-          <Intro>
-            <Paragraph>
+        {/* "shard" in darker green */}
+        <div className="absolute z-[-1] w-screen top-[calc(35vw+120px)] bg-primary-150 px-4 pb-4 before:content-[''] before:absolute before:w-0 before:h-0 before:top-[calc(1px-50vw)] before:left-0 before:border-l-[100vw] before:border-l-[transparent] before:border-b-[50vw] before:border-b-primary-150">
+          <div className="relative text-center xs:top-[calc(80px-15vw)]">
+            <p className={PARAGRAPH_CLASSES}>
               Lernen heisst
               <br />
-              <strong>
-                Wiederholen. <em>Wiederholen</em>
+              <strong className="font-massive text-grey-98">
+                Wiederholen. <em className="text-secondary-50 not-italic">Wiederholen</em>
               </strong>
               <br />
-              <em>braucht</em>{' '}
-              <strong>
-                <em>Zeit.</em> Zeit
+              <em className="text-secondary-50 not-italic">braucht</em>{' '}
+              <strong className="font-massive text-grey-98">
+                <em className="text-secondary-50 not-italic">Zeit.</em> Zeit
               </strong>{' '}
               spart,
               <br />
               wer effizient lernt.
-            </Paragraph>
-            <Paragraph>
-              <strong>inemit</strong>
+            </p>
+            <p className={PARAGRAPH_CLASSES}>
+              <strong className="font-massive text-grey-98">inemit</strong>
               <br />
               hilft, effizient zu lernen.
               <br />
-              <StyledLink to="/about">Wie das?</StyledLink>
-            </Paragraph>
-            <Paragraph>
-              <LinkButton onClick={enter}>Anmelden oder registrieren</LinkButton>
-            </Paragraph>
-          </Intro>
-        </Shard2>
-      </Content>
-    </ParallaxContainer>
+              <Link to="/about" className="!text-grey-98 hover:!text-secondary-50">
+                Wie das?
+              </Link>
+            </p>
+            <p className={PARAGRAPH_CLASSES}>
+              <button
+                onClick={enter}
+                className="leading-normal underline text-grey-98 hover:text-secondary-50"
+              >
+                Anmelden oder registrieren
+              </button>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 };
 
-const AbsoluteCenter = styled.div`
-  height: 100vh;
-  width: 100vw;
-  display: grid;
-  place-items: center;
-`;
-
-const ParallaxContainer = styled.div`
-  height: 100vh;
-  width: 100vw;
-  perspective: 3px;
-  overflow-x: hidden;
-`;
-
-const CoverImageContainer = styled.div`
-  position: relative;
-  height: 90vh;
-  z-index: -1;
-`;
-
-const CoverImage = styled.img`
-  object-fit: cover;
-  height: 100vh;
-  width: 100vw;
-`;
-
-const Content = styled.div`
-  position: absolute;
-  top: 80vh;
-  z-index: 1;
-  width: 100vw;
-  transform-style: preserve-3d; // Safari needs this ¯\_(ツ)_/¯
-`;
-
-const Title = styled.h1`
-  position: absolute;
-  left: 0;
-  right: 0;
-  padding: 5rem 1rem;
-  margin: 0 auto;
-  margin-top: calc(-12.5vw - 10vh - 150px);
-  text-align: center;
-  color: ${({ theme: { colors } }) => colors.grey[98]};
-  font-size: clamp(4rem, calc(2.5rem + 8vw), 10rem);
-  font-weight: ${({ theme: { font } }) => font.weights.massive};
-  overflow-wrap: break-word;
-  transform-origin: bottom;
-  transform: translateZ(1px) scale(0.66);
-  text-shadow: 0 0 4rem #000;
-  pointer-events: none;
-
-  @media (min-width: 1500px) {
-    margin-top: calc(-9vw - 12vh - 180px);
-  }
-`;
-
-// =======
-
-const Shard1 = styled.div`
-  position: absolute;
-  z-index: -1;
-  height: max(550px, 50vw);
-  width: 100vw;
-  background: ${({ theme: { colors } }) => colors.primary[100]};
-
-  ::before {
-    content: '';
-    position: absolute;
-    width: 0;
-    height: 0;
-    top: calc(1px - 15vw); // ohai Safari, there's a pixel for you
-    left: 0;
-    border-left: 100vw solid transparent;
-    border-bottom: 15vw solid ${({ theme: { colors } }) => colors.primary[100]};
-  }
-`;
-
-const LogoContainer = styled.div`
-  position: absolute;
-  top: calc(40px - 2vw);
-  width: 100vw;
-  display: flex;
-  justify-content: center;
-`;
-
-const LoginButton = styled.button`
-  cursor: pointer;
-  color: ${({ theme: { colors } }) => colors.grey[98]};
-  background: none;
-  border: none;
-  width: calc(4rem + 6vw);
-`;
-
-// =========
-
-const Shard2 = styled.div`
-  position: absolute;
-  z-index: -1;
-  width: 100vw;
-  top: calc(35vw + 120px); // 50vw - 15vw + px primary[100] on the right
-  background: ${({ theme: { colors } }) => colors.primary[150]};
-
-  ::before {
-    content: '';
-    position: absolute;
-    width: 0;
-    height: 0;
-    top: calc(1px - 50vw); // ohai Safari again, there's another pixel for you
-    left: 0;
-    border-left: 100vw solid transparent;
-    border-bottom: 50vw solid ${({ theme: { colors } }) => colors.primary[150]};
-  }
-
-  box-sizing: border-box;
-  padding: 0 1rem 1rem;
-`;
-
-const Intro = styled.div`
-  position: relative;
-  text-align: center;
-
-  @media (min-width: 480px) {
-    top: calc(80px - 15vw);
-  }
-`;
-
-const Paragraph = styled.p`
-  line-height: 1.5;
-  color: ${({ theme: { colors } }) => colors.grey[98]};
-  margin: 1em 0;
-
-  strong {
-    font-weight: ${({ theme: { font } }) => font.weights.massive};
-    color: ${({ theme: { colors } }) => colors.grey[98]};
-  }
-
-  em {
-    color: ${({ theme: { colors } }) => colors.secondary[50]};
-    font-style: normal;
-  }
-
-  font-size: ${({ theme: { font } }) => font.sizes.md};
-  @media (min-width: 720px) {
-    font-size: ${({ theme: { font } }) => font.sizes.lg};
-  }
-  @media (min-width: 720px) {
-    font-size: ${({ theme: { font } }) => font.sizes.xl};
-  }
-`;
-
-const StyledLink = styled(Link)`
-  color: ${({ theme: { colors } }) => colors.grey[98]};
-
-  :hover {
-    color: ${({ theme: { colors } }) => colors.secondary[50]};
-  }
-`;
-
-const LinkButton = styled.button`
-  line-height: 1.5;
-  background: none;
-  border: none;
-  text-decoration: underline;
-  cursor: pointer;
-  color: ${({ theme: { colors } }) => colors.grey[98]};
-
-  :hover {
-    color: ${({ theme: { colors } }) => colors.secondary[50]};
-  }
-`;
+const PARAGRAPH_CLASSES =
+  'leading-normal text-grey-98 my-[1em] text-md sm:text-lg md:text-xl';

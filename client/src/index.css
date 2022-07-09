@@ -82,3 +82,16 @@ p.hint em {
   @apply text-grey-25;
   @apply font-bold;
 }
+
+.landing-page-title {
+  margin-top: calc(-12.5vw - 10vh - 150px);
+  font-size: clamp(4rem, calc(2.5rem + 8vw), 10rem);
+  transform-origin: bottom;
+  transform: translateZ(1px) scale(0.66);
+  text-shadow: 0 0 4rem #000;
+}
+@media (min-width: 1500px) {
+  .landing-page-title {
+    margin-top: calc(-9vw - 12vh - 180px);
+  }
+}
