@@ -1,3 +1,10 @@
+## [1.20.5](https://github.com/kimbylr/inemit/compare/v1.20.4...v1.20.5) (2022-07-09)
+
+
+### Bug Fixes
+
+* Title position on landing page ([723bcf0](https://github.com/kimbylr/inemit/commit/723bcf0c44e4008ccc6630d45097255ebd3b2e44))
+
 ## [1.20.4](https://github.com/kimbylr/inemit/compare/v1.20.3...v1.20.4) (2022-06-20)
 
 
