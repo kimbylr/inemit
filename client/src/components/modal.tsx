@@ -57,17 +57,22 @@ export const Modal: FC<Props> = ({ onClose, title, children, width = 'sm' }) => 
     const firstFocusableElement = focusableContent[0];
     const lastFocusableElement = focusableContent[focusableContent.length - 1];
 
-    const onTabListener = (event: KeyboardEvent) => {
-      if (
-        event.key === 'Tab' &&
-        event.shiftKey &&
-        document.activeElement === firstFocusableElement
-      ) {
+    const onTabListener = (e: KeyboardEvent) => {
+      if (e.key !== 'Tab') {
+        return;
+      }
+
+      console.log(111);
+
+      if (e.shiftKey && document.activeElement === firstFocusableElement) {
+        console.log(222);
         lastFocusableElement.focus();
-        event.preventDefault();
-      } else if (event.key === 'Tab' && document.activeElement === lastFocusableElement) {
+        e.preventDefault();
+      }
+      if (!e.shiftKey && document.activeElement === lastFocusableElement) {
+        console.log(333);
         firstFocusableElement.focus();
-        event.preventDefault();
+        e.preventDefault();
       }
     };
 
@@ -102,6 +107,7 @@ export const Modal: FC<Props> = ({ onClose, title, children, width = 'sm' }) => 
             className="absolute right-4 w-6 h-6 text-grey-25"
             style={{ top: 'max(env(safe-area-inset-top), 1rem)' }}
             onClick={onClose}
+            type="button"
           >
             <Icon type="closeCross" />
           </button>
