@@ -6,7 +6,10 @@ import { useApi } from '../hooks/use-api';
 import { BaseLearnItem, ExcludesNull, LearnItem } from '../models';
 
 const PLACEHOLDER = `to learn	lernen
-…	…`;
+to know	wissen
+language	Sprache
+…`;
+
 const successNotice = (count: number, stage: 1 | 3) =>
   `Import erfolgreich. ${
     count === 1 ? '1 Aufgabe wurde' : `${count} Aufgaben wurden`
@@ -52,7 +55,10 @@ export const BatchImport: FC<Props> = ({ listId, onBatchImportDone }) => {
       <Textarea
         value={text}
         onChange={(e) => setText(e.target.value)}
-        placeholder={PLACEHOLDER}
+        placeholder={PLACEHOLDER.replaceAll(
+          '\n',
+          `                                                   `,
+        )} // ohai Safari
         disabled={disabled}
         rows={5}
         className="mb-5 m-h-20"

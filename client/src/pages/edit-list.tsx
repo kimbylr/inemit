@@ -220,7 +220,7 @@ const Explainer = () => {
             </li>
             <li>
               <strong>Synonyme</strong> haben den Vorteil, dass die Verknüpfungen{' '}
-              <em>innerhalb</em> der Lernsprache verstärkt werden (und nicht zur
+              <em>innerhalb</em> der Lernsprache verstärkt werden (und nicht zu deiner
               Muttersprache).
             </li>
           </ul>
