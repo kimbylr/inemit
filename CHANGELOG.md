@@ -1,3 +1,11 @@
+## [1.20.6](https://github.com/kimbylr/inemit/compare/v1.20.5...v1.20.6) (2022-08-20)
+
+
+### Bug Fixes
+
+* clarify copy ([2359801](https://github.com/kimbylr/inemit/commit/2359801840a7b70fea288fd563fd8b46f2cb4bdc))
+* Modal focus with shift ([e6f6635](https://github.com/kimbylr/inemit/commit/e6f6635d8fa4152df19b3bee8c4c8049cf562f80))
+
 ## [1.20.5](https://github.com/kimbylr/inemit/compare/v1.20.4...v1.20.5) (2022-07-09)
 
 
