@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "tsc",
+    "postinstall": "tsc",
     "gcp-build": "tsc -p .",
     "start": "node ./dist/index.js",
     "start:dev": "ts-node --files index.ts",
