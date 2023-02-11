@@ -1,5 +1,5 @@
 import * as jwt from 'express-jwt';
-import * as jwksRsa from 'jwks-rsa';
+import { expressJwtSecret } from 'jwks-rsa';
 import * as dotenv from 'dotenv';
 
 dotenv.config();
@@ -13,7 +13,7 @@ const authConfig = {
 };
 
 // cache public key of the auth server to verify token
-const secret = jwksRsa.expressJwtSecret({
+const secret = expressJwtSecret({
   cache: true,
   rateLimit: true,
   jwksRequestsPerMinute: 5,
