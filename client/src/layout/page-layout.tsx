@@ -1,7 +1,6 @@
-import React, { FC } from 'react';
-import styled from 'styled-components';
+import { FC, ReactNode } from 'react';
 
-export const PageLayout: FC<{ width?: 'wide' | 'tight' }> = ({
+export const PageLayout: FC<{ width?: 'wide' | 'tight'; children: ReactNode }> = ({
   children,
   width = 'tight',
 }) => (

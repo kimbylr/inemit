@@ -1,6 +1,6 @@
 import createAuth0Client, { RedirectLoginOptions } from '@auth0/auth0-spa-js';
 import Auth0Client from '@auth0/auth0-spa-js/dist/typings/Auth0Client';
-import React, { FC, useContext, useEffect, useState } from 'react';
+import React, { FC, ReactNode, useContext, useEffect, useState } from 'react';
 
 const AUTH_DOMAIN = import.meta.env.VITE_AUTH_DOMAIN as string;
 const AUTH_CLIENT_ID = import.meta.env.VITE_AUTH_CLIENT_ID as string;
@@ -30,7 +30,7 @@ export const AuthContext = React.createContext<AuthContextData>(initialData);
 export const useAuth = () => useContext(AuthContext);
 
 // component adapted from auth0
-export const AuthProvider: FC = ({ children }) => {
+export const AuthProvider: FC<{ children: ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<object | null>(null);
   const [auth0Client, setAuth0Client] = useState<Auth0Client>();
   const [loading, setLoading] = useState(true);

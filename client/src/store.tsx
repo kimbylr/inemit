@@ -1,4 +1,4 @@
-import React, { useReducer, FC, useContext } from 'react';
+import React, { FC, ReactNode, useContext, useReducer } from 'react';
 import { Hints, ListSummary, LoadingStates } from './models';
 
 type DismissedHints = { [key in Hints]: boolean };
@@ -36,7 +36,7 @@ const reducer = (data: StoreData, changed: Partial<StoreData>) => ({
 
 export const useStore = () => useContext(StoreContext);
 
-export const StoreProvider: FC = ({ children }) => {
+export const StoreProvider: FC<{ children: ReactNode }> = ({ children }) => {
   const [data, dispatch] = useReducer<
     (data: StoreData, changed: Partial<StoreData>) => StoreData
   >(reducer, INITIAL_DATA);

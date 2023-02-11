@@ -9,6 +9,7 @@ interface Props {
   teaser?: ReactNode;
   teaserStyles?: FlattenInterpolation<ThemeProps<any>>;
   state?: [boolean, React.Dispatch<React.SetStateAction<boolean>>];
+  children: ReactNode;
 }
 
 export const ExpandableArea: FC<Props> = ({

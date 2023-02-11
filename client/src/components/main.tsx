@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import { FC, ReactNode } from 'react';
 import styled from 'styled-components';
 
 export const Container = styled.main`
@@ -24,7 +24,7 @@ const Shadow = styled.div`
 `;
 
 // separate Shadow element because "overflow: hidden" prevents sticky elements inside children
-export const Main: FC = ({ children }) => (
+export const Main: FC<{ children: ReactNode }> = ({ children }) => (
   <>
     <Shadow />
     <Container>{children}</Container>

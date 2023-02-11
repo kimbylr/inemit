@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import { FC, ReactNode } from 'react';
 import styled from 'styled-components';
 import { Icon } from './icon';
 
@@ -6,6 +6,7 @@ interface Props {
   checked: boolean;
   onCheck(): void;
   small?: boolean;
+  children: ReactNode;
 }
 export const Checkbox: FC<Props> = ({ children, checked, onCheck, small }) => (
   <Label small={small}>

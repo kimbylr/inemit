@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, ReactNode } from 'react';
 import { version } from '../../../package.json';
 import { Header } from '../components/header';
 import { Main } from '../components/main';
@@ -106,7 +106,10 @@ export const About: FC = () => (
   </>
 );
 
-const CircledNumber: FC<{ className: string }> = ({ className, children }) => (
+const CircledNumber: FC<{ className: string; children: ReactNode }> = ({
+  className,
+  children,
+}) => (
   <span
     className={`inline-flex justify-center items-center rounded-full w-7 h-7 mr-2 font-bold text-grey-98 text-xs+ ${className}`}
   >
@@ -114,7 +117,10 @@ const CircledNumber: FC<{ className: string }> = ({ className, children }) => (
   </span>
 );
 
-const Highlight: FC<{ color: 'orange' | 'yellow' | 'green' }> = ({ color, children }) => (
+const Highlight: FC<{ color: 'orange' | 'yellow' | 'green'; children: ReactNode }> = ({
+  color,
+  children,
+}) => (
   <strong
     className={
       color === 'green'
@@ -128,6 +134,6 @@ const Highlight: FC<{ color: 'orange' | 'yellow' | 'green' }> = ({ color, childr
   </strong>
 );
 
-const Inemit: FC = ({ children }) => (
+const Inemit: FC<{ children: ReactNode }> = ({ children }) => (
   <span className="font-massive text-primary-150">{children}</span>
 );
