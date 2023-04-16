@@ -4,7 +4,7 @@ import { Icon } from '../elements/icon';
 type Props = {
   title: string;
   children: React.ReactNode;
-  width?: 'sm' | 'md';
+  width?: 'sm' | 'lg';
   onClose: () => void;
 };
 
@@ -98,7 +98,7 @@ export const Modal: FC<Props> = ({ onClose, title, children, width = 'sm' }) => 
         {/* modal panel */}
         <div
           className={`relative bg-grey-98 overflow-hidden xs:rounded-lg shadow-modal transform transition-all w-full ${
-            width === 'sm' ? 'xs:max-w-sm' : 'xs:max-w-xl'
+            width === 'sm' ? 'xs:max-w-sm' : 'xs:max-w-lg'
           } h-full max-h-screen xs:h-auto xs:max-h-[calc(100vh-2rem)] flex flex-col`}
           ref={modalRef}
           onClick={(event) => event.stopPropagation()} // prevent propagation to parent div with close handler

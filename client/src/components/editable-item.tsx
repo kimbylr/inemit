@@ -274,7 +274,7 @@ export const EditableItem: FC<Props> = ({
         <Modal
           title="Bild hinzufügen"
           onClose={() => setShowImagePicker(false)}
-          width="md"
+          width="lg"
         >
           <ImagePicker searchTerm={currentItem.solution} onSetImage={onSetImage} />
         </Modal>

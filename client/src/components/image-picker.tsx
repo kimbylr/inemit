@@ -107,29 +107,10 @@ export const ImagePicker: FC<Props> = ({ searchTerm: initialSearchTerm, onSetIma
 
       {imgs.length > 0 && (
         <div className="flex flex-col gap-4">
-          <ul className="flex flex-col xs:flex-row gap-4">
-            {/* >480px: two cols */}
-            <div className="hidden xs:flex flex-col gap-4 flex-start">
-              {imgs
-                .filter((_, i) => i % 10 < 5)
-                .map((img) => (
-                  <Image img={img} onSetImage={onSetImage} />
-                ))}
-            </div>
-            <div className="hidden xs:flex flex-col gap-4 flex-start">
-              {imgs
-                .filter((_, i) => i % 10 >= 5)
-                .map((img) => (
-                  <Image img={img} onSetImage={onSetImage} />
-                ))}
-            </div>
-
-            {/* mobile */}
-            <div className="flex flex-col gap-4 flex-start xs:hidden">
-              {imgs.map((img) => (
-                <Image img={img} onSetImage={onSetImage} />
-              ))}
-            </div>
+          <ul className="flex flex-col gap-4 flex-start">
+            {imgs.map((img) => (
+              <Image img={img} onSetImage={onSetImage} key={img.id} />
+            ))}
           </ul>
 
           {Math.floor(imgs.length / page) === IMGS_PER_PAGE && (
@@ -157,10 +138,9 @@ const Image: FC<{ img: UnsplashImage; onSetImage: (img: UnsplashImage) => void }
   <li
     key={img.id}
     role="button"
-    onClick={() => onSetImage(img)}
     className="relative cursor-pointer hover:opacity-75 group rounded overflow-hidden"
   >
-    <img src={img.urls.small} className="w-full" />
+    <img src={img.urls.small} className="w-full" onClick={() => onSetImage(img)} />
     <div className="hidden group-hover:block absolute bottom-0 left-0 right-0 py-1 px-2 bg-[rgba(0,0,0,0.5)] text-xxs text-grey-10">
       <ExtLink
         href={`${img.user.link}?utm_source=inemit&utm_medium=referral`}

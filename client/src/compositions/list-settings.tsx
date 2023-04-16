@@ -55,7 +55,7 @@ export const ListSettings: FC<Props> = ({ list, onListNameChanged, onItemsAdded 
             onNameChanged={onListNameChanged}
           />
 
-          <hr className="mb-4" />
+          <hr className="mb-4 -mx-8" />
 
           <h3>Import</h3>
           <p className="text-xs+">Übernimm Vokabellisten von anderswo.</p>
@@ -69,7 +69,7 @@ export const ListSettings: FC<Props> = ({ list, onListNameChanged, onItemsAdded 
 
           <BatchImport listId={list.id} onBatchImportDone={onItemsAdded} />
 
-          <hr className="mb-4" />
+          <hr className="mb-4 -mx-8" />
 
           <h3>Löschen</h3>
           <p className="mb-2 text-xs+">Du brauchst die Liste nicht mehr?</p>
