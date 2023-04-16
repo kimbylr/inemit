@@ -28,7 +28,10 @@ export const LandingPage: FC = () => {
   const enter = state === 'loaded' ? fetchLists : login;
 
   return (
-    <div className="h-screen w-screen overflow-x-hidden" style={{ perspective: '3px' }}>
+    <div
+      className="h-screen w-screen overflow-x-hidden"
+      style={{ transformStyle: 'preserve-3d', perspective: '3px' }}
+    >
       <div className="relative h-[90vh] z-[-1]">
         <img
           srcSet="assets/home-536.jpg 600w, assets/home-1072.jpg 1200w, assets/home-2144.jpg 2000w"
@@ -36,14 +39,11 @@ export const LandingPage: FC = () => {
         />
       </div>
 
-      <div
-        className="absolute top-[80vh] z-[1] w-screen"
-        style={{ transformStyle: 'preserve-3d' /*  Safari needs this ¯\_(ツ)_/¯ */ }}
-      >
-        <h1 className="landing-page-title absolute left-0 right-0 py-20 px-4 mx-auto text-center text-grey-98 font-massive break-words pointer-events-none">
-          inemit!
-        </h1>
+      <h1 className="landing-page-title absolute top-[80vh] left-0 right-0 py-20 px-4 mx-auto text-center text-grey-98 font-massive break-words pointer-events-none z-10">
+        inemit!
+      </h1>
 
+      <div className="absolute top-[80vh] z-[1] w-screen">
         {/* "shard" in light green */}
         <div className="absolute z-[-1] h-[max(500px,50vw)] w-screen bg-primary-100 before:content-[''] before:absolute before:w-0 before:h-0 before:top-[calc(1px-15vw)] before:left-0 before:border-l-[100vw] before:border-l-[transparent] before:border-b-[15vw] before:border-b-primary-100" />
         <div className="absolute top-[calc(40px-2vw)] w-screen flex justify-center">
