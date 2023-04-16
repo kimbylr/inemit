@@ -1,3 +1,11 @@
+## [1.20.7](https://github.com/kimbylr/inemit/compare/v1.20.6...v1.20.7) (2023-04-16)
+
+
+### Bug Fixes
+
+* landing page button ([e288d58](https://github.com/kimbylr/inemit/commit/e288d58b861b2023b03c0056112b1e39e72aad90))
+* serve only 10 items to learn ([7db2f7c](https://github.com/kimbylr/inemit/commit/7db2f7c6622f5f5fb7ae75df4f2043cf76402276))
+
 ## [1.20.6](https://github.com/kimbylr/inemit/compare/v1.20.5...v1.20.6) (2022-08-20)
 
 
