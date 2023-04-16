@@ -11,6 +11,8 @@ import {
 const devMode = import.meta.env.DEV && !import.meta.env.VITE_LIVE_API;
 const API_URL = devMode ? import.meta.env.VITE_API_URL_DEV : import.meta.env.VITE_API_URL;
 
+const AMOUNT = 10;
+
 const routes = {
   ping: () => `${API_URL}/ping`,
   lists: () => `${API_URL}/lists`,
@@ -20,7 +22,7 @@ const routes = {
   items: (listId: string) => `${API_URL}/lists/${listId}/items`,
   item: (listId: string, itemId: string) => `${API_URL}/lists/${listId}/items/${itemId}`,
 
-  learn: (listId: string) => `${API_URL}/lists/${listId}/items/learn`,
+  learn: (listId: string) => `${API_URL}/lists/${listId}/items/learn/${AMOUNT}`,
   progress: (listId: string, itemId: string) =>
     `${API_URL}/lists/${listId}/items/${itemId}/progress`,
 
