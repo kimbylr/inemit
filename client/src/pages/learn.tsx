@@ -385,15 +385,17 @@ const SolutionInput = styled(TextField)<{ incorrect?: boolean; correct?: boolean
 `;
 const RevisionIcon = styled.div<{ correct: boolean }>`
   position: absolute;
-  height: 100%;
-  width: 1.25rem;
-  right: 0.625rem;
-  top: 0;
+  height: calc(100% - 4px);
+  width: 1.5rem;
+  right: 0.5rem;
+  top: 2px;
+  padding: 0 0.125rem;
   display: flex;
   align-items: center;
-  opacity: 0.5;
   color: ${({ correct, theme: { colors } }) =>
-    correct ? colors.primary[100] : colors.negative[100]};
+    correct ? colors.primary[100] : colors.negative[100]}90;
+  background: ${({ correct, theme: { colors } }) =>
+    correct ? colors.primary[5] : colors.negative[5]};
   pointer-events: none;
 `;
 const SolutionButton = styled(Button)`
