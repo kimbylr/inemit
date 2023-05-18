@@ -11,8 +11,6 @@ import {
 const devMode = import.meta.env.DEV && !import.meta.env.VITE_LIVE_API;
 const API_URL = devMode ? import.meta.env.VITE_API_URL_DEV : import.meta.env.VITE_API_URL;
 
-const AMOUNT = 10;
-
 const routes = {
   ping: () => `${API_URL}/ping`,
   lists: () => `${API_URL}/lists`,
@@ -22,7 +20,7 @@ const routes = {
   items: (listId: string) => `${API_URL}/lists/${listId}/items`,
   item: (listId: string, itemId: string) => `${API_URL}/lists/${listId}/items/${itemId}`,
 
-  learn: (listId: string) => `${API_URL}/lists/${listId}/items/learn/${AMOUNT}`,
+  learn: (listId: string) => `${API_URL}/lists/${listId}/items/learn`,
   progress: (listId: string, itemId: string) =>
     `${API_URL}/lists/${listId}/items/${itemId}/progress`,
 
@@ -33,6 +31,11 @@ const routes = {
 interface EditListName {
   listId: string;
   name: string;
+}
+
+interface EditListAmount {
+  listId: string;
+  amount: 'auto' | number;
 }
 interface AddItems {
   listId: string;
@@ -142,6 +145,17 @@ export const useApi = () => {
     return res.name;
   };
 
+  const editListLearnAmount = async ({ listId, amount }: EditListAmount) => {
+    const res = await fetchAndUnpack<ListWithProgress>({
+      getToken,
+      url: routes.listById(listId),
+      method: 'PATCH',
+      body: { amount },
+    });
+
+    return res.name;
+  };
+
   const getItems = async (listId: string) =>
     fetchAndUnpack<LearnItem[]>({
       getToken,
@@ -210,6 +224,7 @@ export const useApi = () => {
     addList,
     deleteList,
     editListName,
+    editListLearnAmount,
     getItems,
     addItems,
     editItem,

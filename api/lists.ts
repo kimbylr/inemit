@@ -117,13 +117,15 @@ router.post('/', async ({ body: { name }, user }, res, next) => {
 });
 
 // change list properties
-router.patch('/:listId', async ({ list, body: { name } }, res, next) => {
-  if (!name) {
-    return next(new Error('Name must be provided.'));
+router.patch('/:listId', async ({ list, body: { name, amount } }, res, next) => {
+  if (!name && typeof amount !== 'number' && amount !== 'auto') {
+    return next(new Error('Name or amount must be provided.'));
   }
 
   try {
-    list.name = name;
+    if (name) list.name = name;
+    if (amount === 'auto') list.learnCount = null;
+    if (typeof amount === 'number') list.learnCount = amount;
     list.updated = new Date();
     const changedList = await list.save();
     res.json(mapList(changedList));
@@ -135,7 +137,6 @@ router.patch('/:listId', async ({ list, body: { name } }, res, next) => {
 // delete list
 router.delete('/:listId', async (req, res, next) => {
   try {
-    // TODO: delete items as well
     await List.findByIdAndDelete(req.params.listId);
     res.sendStatus(200);
   } catch (error) {

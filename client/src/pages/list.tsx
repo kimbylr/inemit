@@ -1,9 +1,10 @@
-import React, { FC, useEffect, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { EditableItem } from '../components/editable-item';
 import { ExpandableArea } from '../components/expandable-area';
 import { ProgressBar } from '../components/progress-bar';
 import { ProgressPie } from '../components/progress-pie';
 import { EditableItemsList } from '../compositions/editable-items-list';
+import { LearnSettings } from '../compositions/learn-settings';
 import { Button } from '../elements/button';
 import { DueDaysSummary } from '../elements/due-days-summary';
 import { Icon } from '../elements/icon';
@@ -99,7 +100,11 @@ export const List: FC = () => {
 
   return (
     <MenuLayout pageWidth="tight">
-      <h2>{list.name}</h2>
+      <div className="flex items-center justify-between gap-4">
+        <h2>{list.name}</h2>
+        <LearnSettings list={list} />
+      </div>
+
       {list.itemsCount > 0 && (
         <>
           <div className="mt-8 hidden xs:block">

@@ -31,6 +31,7 @@ export interface ListSummary {
   created: ISODate;
   updated: ISODate;
   itemsCount: number;
+  learnCount?: number;
   lastLearnt: ISODate;
 }
 

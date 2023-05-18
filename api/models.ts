@@ -70,6 +70,7 @@ export interface ListType {
   userId: string;
   name: string;
   slug: string;
+  learnCount?: number;
   created: Date;
   updated: Date;
   items: LearnItemType[];
@@ -80,6 +81,7 @@ const ListSchema = new Schema<ListType & Document>({
   userId: { type: String, required: true },
   name: { type: String, required: true },
   slug: { type: String, required: true },
+  learnCount: Number,
   created: { type: Date, default: () => new Date() },
   updated: { type: Date, default: () => new Date() },
   items: [LearnItemSchema],

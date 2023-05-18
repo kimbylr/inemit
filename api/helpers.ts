@@ -42,7 +42,7 @@ export interface IncludeOptions {
   lastLearnt?: boolean;
 }
 export const mapList = (
-  { _id, name, slug, created, updated, items }: ListType,
+  { _id, name, slug, created, updated, items, learnCount }: ListType,
   options?: IncludeOptions,
 ) => ({
   id: _id,
@@ -50,6 +50,7 @@ export const mapList = (
   slug,
   created,
   updated,
+  learnCount,
   itemsCount: items.length,
   items: options?.items ? items.map((item) => mapItem(item, true)) : undefined,
   flaggedItems: options?.flaggedItems
@@ -115,4 +116,12 @@ export const getInitialProgress = (stage: any) => {
   };
 
   return new Progress({ due: getDue(1), ...(stages[stage] || {}) });
+};
+
+export const getLearnCount = (total: number) => {
+  if (total <= 15) return total;
+  if (total <= 30) return Math.ceil(total / 2);
+
+  const chunks = Math.round(total / 12);
+  return Math.ceil(total / chunks);
 };

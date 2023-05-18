@@ -3,6 +3,7 @@ import { Router } from 'express';
 import {
   getDue,
   getInitialProgress,
+  getLearnCount,
   mapItem,
   mapItems,
   recalcEasiness,
@@ -37,7 +38,6 @@ router.get('/', async ({ listLean: list }, res, next) => {
 });
 
 // get items to learn
-const DEFAULT_AMOUNT = 20;
 router.get('/learn/:count?', async ({ listLean: list, params: { count } }, res, next) => {
   try {
     const itemsToLearn = list.items
@@ -46,7 +46,7 @@ router.get('/learn/:count?', async ({ listLean: list, params: { count } }, res, 
         ({ progress: { due: a } }, { progress: { due: b } }) => a.getTime() - b.getTime(),
       );
 
-    const amount = parseInt(count, 10) > 0 ? parseInt(count) : DEFAULT_AMOUNT;
+    const amount = list.learnCount || getLearnCount(itemsToLearn.length);
     res.json(mapItems(itemsToLearn.slice(0, amount)));
   } catch (error) {
     next(error);
