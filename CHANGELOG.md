@@ -1,3 +1,18 @@
+# [1.21.0](https://github.com/kimbylr/inemit/compare/v1.20.7...v1.21.0) (2023-05-18)
+
+
+### Bug Fixes
+
+* Improve modal focus handling ([569fbec](https://github.com/kimbylr/inemit/commit/569fbec9c39cf12766833f30f1ac1883022a691b))
+* Put incorrect/correct icons above text in solution prompt when long text ([79be86b](https://github.com/kimbylr/inemit/commit/79be86b1854b8a0759ac4e642defb501ba6f14b5))
+* update packages ([01477cd](https://github.com/kimbylr/inemit/commit/01477cdd46d8df353fa3815e9257cec231b9baf1))
+
+
+### Features
+
+* Add radio button element ([aba3965](https://github.com/kimbylr/inemit/commit/aba3965765289b3261c0bba58f7b94c938251324))
+* Add setting to control amount of learn items ([4dbb1f2](https://github.com/kimbylr/inemit/commit/4dbb1f2b1b0b608ab9067e0dbf072dfb3afbfd77))
+
 ## [1.20.7](https://github.com/kimbylr/inemit/compare/v1.20.6...v1.20.7) (2023-04-16)
 
 
