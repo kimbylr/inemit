@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from 'react';
+import { FC, useEffect, useRef, useState } from 'react';
 import { EditableItem } from '../components/editable-item';
 import { ExpandableArea } from '../components/expandable-area';
 import { ProgressBar } from '../components/progress-bar';
@@ -20,6 +20,28 @@ export const List: FC = () => {
   const { slug, goToList } = useRouting();
   const { getListBySlug } = useApi();
   const [items, setItems] = useState<LearnItem[]>([]);
+  const learnButtonRef = useRef<HTMLButtonElement>(null);
+
+  // Manage focus (tab when noting in focus => learn)
+  useEffect(() => {
+    if (!learnButtonRef.current) {
+      return;
+    }
+
+    const onTabListener = (e: KeyboardEvent) => {
+      if (e.key !== 'Tab') {
+        return;
+      }
+
+      if (document.activeElement === null || document.activeElement.nodeName === 'BODY') {
+        // wait a tick (so that browser handles tab first)
+        requestAnimationFrame(() => learnButtonRef.current?.focus());
+      }
+    };
+
+    document.addEventListener('keydown', onTabListener);
+    return () => document.removeEventListener('keydown', onTabListener);
+  }, [list?.id]);
 
   const fetchList = async () => {
     if (!slug) {
@@ -134,7 +156,7 @@ export const List: FC = () => {
 
       <div className="flex gap-3 flex-col items-stretch xxs:flex-row">
         {dueToday > 0 && (
-          <Button primary onClick={startLearning}>
+          <Button primary onClick={startLearning} ref={learnButtonRef}>
             <Icon type="logo" width="18px" />
             Jetzt lernen!
           </Button>
