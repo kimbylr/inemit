@@ -46,6 +46,22 @@ ul.actual-list li {
   @apply border-grey-75;
 }
 
+.dotted-focus:focus-within {
+  outline: none;
+  position: relative;
+}
+.dotted-focus:focus-within::after {
+  content: '';
+  position: absolute;
+  inset: -6px;
+  border-radius: 8px;
+  border: 3px dotted;
+  @apply border-primary-50;
+}
+.dotted-focus-dark:focus-within::after {
+  @apply border-primary-100;
+}
+
 h2,
 h3,
 h4 {
@@ -94,4 +110,11 @@ p.hint em {
   .landing-page-title {
     margin-top: calc(-9vw - 12vh - 180px);
   }
+}
+
+.no-show {
+  clip: rect(0, 0, 0, 0);
+  position: absolute;
+  height: 0;
+  width: 0;
 }

@@ -1,80 +1,38 @@
 import { FC, ReactNode } from 'react';
-import styled from 'styled-components';
 import { Icon } from './icon';
 
-interface Props {
+type Props = {
   checked: boolean;
   onCheck(): void;
   small?: boolean;
   children: ReactNode;
-}
+};
+
 export const Checkbox: FC<Props> = ({ children, checked, onCheck, small }) => (
-  <Label small={small}>
-    <InvisibleActualCheckbox
-      type="checkbox"
-      checked={checked}
-      onChange={() => onCheck()}
-    />
-    <CheckboxContainer small={small}>
-      <CheckboxDiv checked={checked} small={small} />
-      {checked && (
-        <CheckboxHook small={small}>
-          <Icon type="done" />
-        </CheckboxHook>
-      )}
-    </CheckboxContainer>
-    <Text>{children}</Text>
-  </Label>
+  <label
+    className={`cursor-pointer flex dotted-focus ${
+      small ? 'text-xxs items-end' : 'text-xs items-start'
+    }  `}
+  >
+    <input className="no-show " type="checkbox" checked={checked} onChange={onCheck} />
+    <div className={`pt-[1px] flex-shrink-0 relative ${small ? 'w-5' : 'w-7'}`}>
+      <div
+        className={`border-2 rounded-sm  ${small ? 'h-4 w-4' : 'h-5 w-5'} ${
+          checked ? 'border-primary-100 bg-primary-100' : 'border-grey-85 bg-white'
+        }`}
+      />
+      {checked && <CheckIcon small={small} />}
+    </div>
+    <span className="text-grey-10">{children}</span>
+  </label>
 );
 
-const Label = styled.label<{ small?: boolean }>`
-  cursor: pointer;
-  font-size: ${({ small, theme: { font } }) => (small ? font.sizes.xxs : font.sizes.xs)};
-  display: flex;
-  align-items: ${({ small }) => (small ? 'flex-end' : 'flex-start')};
-
-  color: ${({ theme: { colors } }) => colors.grey[85]};
-  :focus-within {
-    color: ${({ theme: { colors } }) => colors.grey[50]};
-  }
-`;
-
-const InvisibleActualCheckbox = styled.input`
-  clip: rect(0, 0, 0, 0);
-  position: absolute;
-  height: 0;
-  width: 0;
-`;
-
-const CheckboxContainer = styled.div<{ small?: boolean }>`
-  width: ${({ small }) => (small ? '1.25rem' : '1.75rem')};
-  padding-top: 1px;
-  flex-shrink: 0;
-  position: relative;
-`;
-
-const CheckboxDiv = styled.div<{ checked: boolean; small?: boolean }>`
-  height: ${({ small }) => (small ? '1rem' : '1.25rem')};
-  width: ${({ small }) => (small ? '1rem' : '1.25rem')};
-  box-sizing: border-box;
-  border: 2px solid
-    ${({ theme: { colors }, checked }) =>
-      checked ? colors.primary[100] : 'currentColor'};
-  border-radius: 2px;
-  background: ${({ checked, theme: { colors } }) =>
-    checked ? colors.primary[100] : 'white'};
-`;
-
-const CheckboxHook = styled.div<{ small?: boolean }>`
-  position: absolute;
-  top: 0.125rem;
-  left: 0.125rem;
-  height: ${({ small }) => (small ? '0.75rem' : '1rem')};
-  width: ${({ small }) => (small ? '0.75rem' : '1rem')};
-  pointer-events: none;
-  color: white;
-`;
-
-const Text = styled.span`
-  color: ${({ theme: { colors } }) => colors.grey[10]};
-`;
+const CheckIcon: FC<{ small?: boolean }> = ({ small }) => (
+  <div
+    className={`absolute top-0.5 left-0.5 pointer-events-none text-white ${
+      small ? 'h-3 w-3' : 'h-4 w-4'
+    }`}
+  >
+    <Icon type="done" />
+  </div>
+);
