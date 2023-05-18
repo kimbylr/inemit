@@ -1,3 +1,10 @@
+## [1.21.1](https://github.com/kimbylr/inemit/compare/v1.21.0...v1.21.1) (2023-05-18)
+
+
+### Bug Fixes
+
+* Focus "learn" with first tap ([4a25881](https://github.com/kimbylr/inemit/commit/4a2588169e2257e441a323719708c0526954c314))
+
 # [1.21.0](https://github.com/kimbylr/inemit/compare/v1.20.7...v1.21.0) (2023-05-18)
 
 
