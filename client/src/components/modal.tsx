@@ -62,15 +62,11 @@ export const Modal: FC<Props> = ({ onClose, title, children, width = 'sm' }) => 
         return;
       }
 
-      console.log(111);
-
       if (e.shiftKey && document.activeElement === firstFocusableElement) {
-        console.log(222);
         lastFocusableElement.focus();
         e.preventDefault();
       }
       if (!e.shiftKey && document.activeElement === lastFocusableElement) {
-        console.log(333);
         firstFocusableElement.focus();
         e.preventDefault();
       }
@@ -104,7 +100,7 @@ export const Modal: FC<Props> = ({ onClose, title, children, width = 'sm' }) => 
           onClick={(event) => event.stopPropagation()} // prevent propagation to parent div with close handler
         >
           <button
-            className="absolute right-4 w-6 h-6 text-grey-25"
+            className="!absolute right-4 w-6 h-6 text-grey-25 dotted-focus dotted-focus-dark"
             style={{ top: 'max(env(safe-area-inset-top), 1rem)' }}
             onClick={onClose}
             type="button"
