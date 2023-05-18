@@ -1,4 +1,4 @@
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 
@@ -40,5 +40,6 @@ const App = () => (
   </ThemeProvider>
 );
 
-var mountNode = document.getElementById('app');
-ReactDOM.render(<App />, mountNode);
+const mountNode = document.getElementById('app');
+const root = createRoot(mountNode!);
+root.render(<App />);
