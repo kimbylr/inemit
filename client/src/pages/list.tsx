@@ -21,6 +21,7 @@ export const List: FC = () => {
   const { getListBySlug } = useApi();
   const [items, setItems] = useState<LearnItem[]>([]);
   const learnButtonRef = useRef<HTMLButtonElement>(null);
+  const [settingsOpen, setSettingsOpen] = useState(false);
 
   // Manage focus (tab when noting in focus => learn)
   useEffect(() => {
@@ -29,7 +30,7 @@ export const List: FC = () => {
     }
 
     const onTabListener = (e: KeyboardEvent) => {
-      if (e.key !== 'Tab') {
+      if (e.key !== 'Tab' || settingsOpen) {
         return;
       }
 
@@ -41,7 +42,7 @@ export const List: FC = () => {
 
     document.addEventListener('keydown', onTabListener);
     return () => document.removeEventListener('keydown', onTabListener);
-  }, [list?.id]);
+  }, [list?.id, settingsOpen]);
 
   const fetchList = async () => {
     if (!slug) {
@@ -124,7 +125,7 @@ export const List: FC = () => {
     <MenuLayout pageWidth="tight">
       <div className="flex items-center justify-between gap-4">
         <h2>{list.name}</h2>
-        <LearnSettings list={list} />
+        <LearnSettings list={list} open={settingsOpen} setOpen={setSettingsOpen} />
       </div>
 
       {list.itemsCount > 0 && (

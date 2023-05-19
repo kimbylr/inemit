@@ -11,10 +11,11 @@ import { TextField } from '../elements/text-field';
 
 type Props = {
   list: ListSummary;
+  open: boolean;
+  setOpen: (open: boolean) => void;
 };
 
-export const LearnSettings: FC<Props> = ({ list }) => {
-  const [show, setShow] = useState(false);
+export const LearnSettings: FC<Props> = ({ list, open, setOpen }) => {
   const [count, setCount] = useState<'auto' | number>(list.learnCount || 'auto');
   const { editListLearnAmount } = useApi();
 
@@ -22,17 +23,17 @@ export const LearnSettings: FC<Props> = ({ list }) => {
     <div>
       <button
         className="w-6 h-6 text-grey-75 hover:text-grey-50"
-        onClick={() => setShow(true)}
+        onClick={() => setOpen(true)}
       >
         <Icon type="settings" />
       </button>
 
-      {show && (
+      {open && (
         <Modal
           title="Lernen"
           onClose={() => {
             editListLearnAmount({ listId: list.id, amount: count });
-            setShow(false);
+            setOpen(false);
           }}
         >
           <h3>Anzahl Vokabeln</h3>
