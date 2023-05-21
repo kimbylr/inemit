@@ -71,6 +71,7 @@ export interface ListType {
   name: string;
   slug: string;
   learnCount?: number;
+  repeat?: boolean;
   created: Date;
   updated: Date;
   items: LearnItemType[];
@@ -82,6 +83,7 @@ const ListSchema = new Schema<ListType & Document>({
   name: { type: String, required: true },
   slug: { type: String, required: true },
   learnCount: Number,
+  repeat: { type: Boolean, default: true },
   created: { type: Date, default: () => new Date() },
   updated: { type: Date, default: () => new Date() },
   items: [LearnItemSchema],

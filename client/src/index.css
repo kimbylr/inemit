@@ -118,3 +118,8 @@ p.hint em {
   height: 0;
   width: 0;
 }
+
+.break-when-needed {
+  word-break: break-word; /* ohai Safari */
+  overflow-wrap: anywhere;
+}

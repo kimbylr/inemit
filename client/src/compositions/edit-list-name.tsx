@@ -10,7 +10,7 @@ interface Props {
 }
 
 export const EditListName: FC<Props> = ({ currentName, listId, onNameChanged }) => {
-  const { editListName } = useApi();
+  const { editListSettings } = useApi();
   const [name, setName] = useState<string>(currentName);
   const [disabled, setDisabled] = useState(false);
 
@@ -24,7 +24,7 @@ export const EditListName: FC<Props> = ({ currentName, listId, onNameChanged }) 
     setDisabled(true);
 
     try {
-      const newName = await editListName({ listId, name });
+      const { name: newName } = await editListSettings({ listId, name });
       onNameChanged(newName);
     } catch (error) {
       console.error(error);

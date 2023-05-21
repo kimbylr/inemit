@@ -28,15 +28,13 @@ const routes = {
   hint: () => `${API_URL}/settings/hint`,
 };
 
-interface EditListName {
+interface EditListSettings {
   listId: string;
-  name: string;
+  name?: string;
+  amount?: 'auto' | number;
+  repeat?: boolean;
 }
 
-interface EditListAmount {
-  listId: string;
-  amount: 'auto' | number;
-}
 interface AddItems {
   listId: string;
   items: BaseLearnItem[];
@@ -134,26 +132,15 @@ export const useApi = () => {
     });
   };
 
-  const editListName = async ({ listId, name }: EditListName) => {
+  const editListSettings = async ({ listId, name, amount, repeat }: EditListSettings) => {
     const res = await fetchAndUnpack<ListWithProgress>({
       getToken,
       url: routes.listById(listId),
       method: 'PATCH',
-      body: { name },
+      body: { name, amount, repeat },
     });
 
-    return res.name;
-  };
-
-  const editListLearnAmount = async ({ listId, amount }: EditListAmount) => {
-    const res = await fetchAndUnpack<ListWithProgress>({
-      getToken,
-      url: routes.listById(listId),
-      method: 'PATCH',
-      body: { amount },
-    });
-
-    return res.name;
+    return res;
   };
 
   const getItems = async (listId: string) =>
@@ -223,8 +210,7 @@ export const useApi = () => {
     getListBySlug,
     addList,
     deleteList,
-    editListName,
-    editListLearnAmount,
+    editListSettings,
     getItems,
     addItems,
     editItem,

@@ -4,6 +4,8 @@ module.exports = {
   content: ['./src/**/*.{js,ts,jsx,tsx}'],
   theme: {
     colors: {
+      transparent: 'transparent',
+      current: 'currentColor',
       primary: {
         150: '#00A878',
         100: '#6CC17A', // green = primary
@@ -42,6 +44,7 @@ module.exports = {
         150: '#AD705F',
         100: '#FF8360',
         75: '#DD9F8D',
+        60: '#FBAD97',
         50: '#DBB5AB',
         10: '#F9F0F0',
         5: '#FAF5F4',
@@ -71,6 +74,8 @@ module.exports = {
         'button-secondary': '0 4px #a8a8a8',
         'button-caution': '0 4px #AD705F',
         modal: '0 20px 25px -5px rgb(0 0 0 / 0.2), 0 8px 10px -6px rgb(0 0 0 / 0.2);',
+        image: '0 8px 32px #9a9a9a',
+        "blurry-focus": "0 0 10px #6CC17A"
       },
       lineHeight: {
         terse: 1.125,

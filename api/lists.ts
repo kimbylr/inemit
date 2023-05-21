@@ -117,15 +117,21 @@ router.post('/', async ({ body: { name }, user }, res, next) => {
 });
 
 // change list properties
-router.patch('/:listId', async ({ list, body: { name, amount } }, res, next) => {
-  if (!name && typeof amount !== 'number' && amount !== 'auto') {
-    return next(new Error('Name or amount must be provided.'));
+router.patch('/:listId', async ({ list, body: { name, amount, repeat } }, res, next) => {
+  if (
+    !name &&
+    typeof amount !== 'number' &&
+    amount !== 'auto' &&
+    typeof repeat !== 'boolean'
+  ) {
+    return next(new Error('Name, amount or repear must be provided.'));
   }
 
   try {
     if (name) list.name = name;
     if (amount === 'auto') list.learnCount = null;
     if (typeof amount === 'number') list.learnCount = amount;
+    if (typeof repeat === 'boolean') list.repeat = repeat;
     list.updated = new Date();
     const changedList = await list.save();
     res.json(mapList(changedList));

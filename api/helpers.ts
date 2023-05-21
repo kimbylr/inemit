@@ -42,7 +42,7 @@ export interface IncludeOptions {
   lastLearnt?: boolean;
 }
 export const mapList = (
-  { _id, name, slug, created, updated, items, learnCount }: ListType,
+  { _id, name, slug, created, updated, items, learnCount, repeat }: ListType,
   options?: IncludeOptions,
 ) => ({
   id: _id,
@@ -51,6 +51,7 @@ export const mapList = (
   created,
   updated,
   learnCount,
+  repeat,
   itemsCount: items.length,
   items: options?.items ? items.map((item) => mapItem(item, true)) : undefined,
   flaggedItems: options?.flaggedItems

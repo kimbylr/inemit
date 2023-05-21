@@ -1,5 +1,4 @@
-import React, { FC, useEffect, useRef, useState } from 'react';
-import styled from 'styled-components';
+import React, { FC, useEffect, useReducer, useRef, useState } from 'react';
 import { FlagButton } from '../components/flag-button';
 import { LearnProgress } from '../components/learn-progress';
 import { Button } from '../elements/button';
@@ -15,47 +14,45 @@ import { useHeight } from '../hooks/use-height';
 import { useLists } from '../hooks/use-lists';
 import { useRouting } from '../hooks/use-routing';
 import { useSettings } from '../hooks/use-settings';
-import { Hints, LearnItemForLearning } from '../models';
+import { Hints, LearnItemForLearning, ListSummary } from '../models';
+import { useAsyncEffect } from '../hooks/use-async-effect';
 
 export const Learn: FC = () => {
   const height = useHeight();
   const { slug, goToList } = useRouting();
   const { getLearnItems, reportProgress } = useApi();
-
   const { lists } = useLists();
   const list = lists.find((list) => list.slug === slug);
 
-  const [items, setItems] = useState<LearnItemForLearning[] | null>(null);
-  const [current, setCurrent] = useState(0);
-  const [answer, setAnswer] = useState('');
-  const [revising, setRevising] = useState(false);
-  const [isCorrect, setIsCorrect] = useState(false);
-  const [count, setCount] = useState({ correct: 0, incorrect: 0 });
-  const [disableNext, setDisableNext] = useState(false);
+  const [{ mode, data }, dispatch] = useReducer(reducer, getInitialData(list));
+  const { items, item, currentIndex, count, isCorrect, answer } = data;
 
   const { hintDismissed, onDismissHint } = useSettings();
   const showFalseNegativeHint = !hintDismissed(Hints.learningFalseNegative);
-  const showFlagHint = !hintDismissed(Hints.learningFlag) && current > 7;
+  const showFlagHint = !hintDismissed(Hints.learningFlag) && currentIndex > 7;
 
   const answerFieldRef = useRef<HTMLInputElement>(null);
   const submitButtonRef = useRef<HTMLButtonElement>(null);
   const correctionButtonRef = useRef<HTMLButtonElement>(null);
 
-  const load = async (listId: string) => {
+  // initial fetch
+  useAsyncEffect(async () => {
+    if (!list?.id) {
+      return;
+    }
+
     try {
-      const learnItems = await getLearnItems(listId);
-      if (learnItems.length === 0) {
+      const items = await getLearnItems(list.id);
+      if (items.length === 0) {
         window.alert('Nichts zu lernen :D');
         goToList(slug);
+        return;
       }
-      setItems(learnItems);
+      dispatch({ type: Action.START, items });
     } catch {
       window.alert('Fehler beim laden der Lerninhalte 0_ò');
       goToList(slug);
     }
-  };
-  useEffect(() => {
-    list && load(list.id);
   }, [list]);
 
   // focus input field when ready
@@ -71,7 +68,7 @@ export const Learn: FC = () => {
   // if answer wasn't correct, use ⬆️/⬇️ to focus submit/correction button
   useEffect(() => {
     const handleFocus = (e: KeyboardEvent) => {
-      if (!revising || isCorrect || !['ArrowUp', 'ArrowDown'].includes(e.key)) {
+      if (!mode.includes('revising') || isCorrect || !['ArrowUp', 'ArrowDown'].includes(e.key)) {
         return;
       }
 
@@ -82,62 +79,55 @@ export const Learn: FC = () => {
 
     document.addEventListener('keydown', handleFocus);
     return () => document.removeEventListener('keydown', handleFocus);
-  }, [revising]);
+  }, [mode, isCorrect]);
 
-  if (!list || !items) {
+  const [saving, setSaving] = useState(false);
+  useEffect(() => {
+    if (mode === 'end' && !saving) {
+      goToList(slug);
+    }
+  }, [mode, saving]);
+
+  if (mode === 'init' || !list) {
     return (
-      <Container height={height}>
-        <Header>
-          <StyledLinkButton onClick={() => goToList(slug)} title="Zurück zur Übersicht">
+      <div className="w-[100vw] p-4" style={{ height: height + 'px' }}>
+        <header
+          className="flex flex-row-reverse"
+          style={{ paddingTop: 'env(safe-area-inset-top)' }}
+        >
+          <button
+            onClick={() => goToList(slug)}
+            title="Zurück zur Übersicht"
+            className="text-grey-75 hover:text-grey-50"
+          >
             <Icon type="cancel" width="20px" />
-          </StyledLinkButton>
-        </Header>
-        <Content height={height}>
+          </button>
+        </header>
+        <main
+          className="py-4 flex flex-col justify-evenly"
+          style={{ height: `${height - 72}px` /* header 40 + container 2 * 16 */ }}
+        >
           <Spinner />
-        </Content>
-      </Container>
+        </main>
+      </div>
     );
   }
 
-  const { id: itemId, prompt, solution, flagged, image } = items[current];
-
-  const check = () => {
-    setIsCorrect(evaluateAnswer(answer, solution));
-    submitButtonRef.current?.focus();
-    setRevising(true);
-  };
-
-  const updateCount = (wasCorrect: boolean) => {
-    const correct = count.correct + (wasCorrect ? 1 : 0);
-    const incorrect = count.incorrect + (!wasCorrect ? 1 : 0);
-    setCount({ correct, incorrect });
-  };
-
-  const save = async (answerQuality: 5 | 3 | 1) => {
-    updateCount(answerQuality >= 3);
-
-    try {
-      await reportProgress({ listId: list.id, itemId, answerQuality });
-    } catch (error) {
-      console.error('Speichern fehlgeschlagen:', error);
-    }
-  };
-
   const next = async (overruleCorrect?: boolean) => {
-    // TODO: more fine-grained
-    const answerQuality = overruleCorrect ? 3 : isCorrect ? 5 : 1;
+    const answerQuality = overruleCorrect ? 3 : isCorrect ? 5 : 1; // TODO: more fine-grained?
+    const save = async () => {
+      setSaving(true);
+      try {
+        await reportProgress({ listId: list.id, itemId: item.id, answerQuality });
+      } catch (error) {
+        console.error('Speichern fehlgeschlagen:', error);
+      } finally {
+        setSaving(false);
+      }
+    };
 
-    if (current + 1 >= items.length) {
-      setDisableNext(true);
-      await save(answerQuality);
-      goToList(slug);
-      return;
-    }
-
-    save(answerQuality);
-    setAnswer('');
-    setRevising(false);
-    setCurrent(current + 1);
+    mode === 'revising' && save(); // don't save when repeating
+    dispatch({ type: Action.NEXT, correct: answerQuality >= 3 });
 
     // iOS only displays the soft keyboard if an input is focused _in a click event fn_
     if (answerFieldRef.current) {
@@ -146,42 +136,50 @@ export const Learn: FC = () => {
     }
   };
 
-  const onButtonClick = (event: React.MouseEvent) => {
-    event.preventDefault();
-    revising ? next() : check();
-  };
-
-  const onAcceptCorrection = async (event: React.MouseEvent) => {
-    event.preventDefault();
-    await next(true);
-    showFalseNegativeHint && onDismissHint(Hints.learningFalseNegative);
-  };
-
+  const { id: itemId, prompt, solution, flagged, image } = item;
+  const revising = mode === 'revising' || mode === 'repeat-revising';
   const hasSpaceForImage = height > 600; // most likely soft keyboard
 
   return (
-    <Container height={height}>
+    <div className="w-[100vw] overflow-hidden fixed p-4" style={{ height: height + 'px' }}>
       <LearnProgress count={count} total={items.length} />
-      <Header>
+      <header className="flex justify-between" style={{ paddingTop: 'env(safe-area-inset-top)' }}>
         <FlagButton
           flagged={flagged}
+          onFlagged={(flagged) => dispatch({ type: Action.FLAG, itemId, flagged })}
           listId={list.id}
           itemId={itemId}
           onDismissHint={showFlagHint && (() => onDismissHint(Hints.learningFlag))}
         />
-        <StyledLinkButton onClick={() => goToList(slug)} title="Zurück zur Übersicht">
+        <button
+          onClick={() => goToList(slug)}
+          title="Zurück zur Übersicht"
+          className="text-grey-75 hover:text-grey-50"
+        >
           <Icon type="cancel" width="20px" />
-        </StyledLinkButton>
-      </Header>
-      <Content height={height}>
-        <Prompt hasImage={!!image}>
+        </button>
+      </header>
+
+      <main
+        className="py-4 flex flex-col justify-evenly"
+        style={{ height: `${height - 72}px` /* header 40 + container 2 * 16 */ }}
+      >
+        <div
+          className="mb-2 flex flex-col justify-evenly items-center text-center break-when-needed"
+          style={{ fontSize: 'calc(0.75rem + 2vh + 2vw)', flexGrow: image ? 2 : 1 }}
+        >
           {image && (
-            <PromptImageContainer hasSpaceForImage={hasSpaceForImage}>
-              <PromptImage
+            <div
+              className={`leading-[0] group ${
+                hasSpaceForImage ? 'relative' : 'absolute opacity-25'
+              }`}
+            >
+              <img
                 srcSet={`${image.urls.small} 400w, ${image.urls.regular} 1080w`}
                 sizes="calc(20vw + 25vh)"
+                className="max-h-[calc(25vw+20vh)] max-w-[calc(20vw+25vh)] shadow-image"
               />
-              <ImageCredits>
+              <div className="absolute bottom-0 left-0 leading-none p-1 bg-opacity-50 bg-grey-10 text-xs text-grey-10 hidden group-hover:block">
                 <ExtLink
                   href={`${image.user.link}?utm_source=inemit&utm_medium=referral`}
                   target="_blank"
@@ -189,76 +187,142 @@ export const Learn: FC = () => {
                 >
                   {image.user.name}
                 </ExtLink>
-              </ImageCredits>
-            </PromptImageContainer>
+              </div>
+            </div>
           )}
           {prompt}
-        </Prompt>
-        <Divider reposition={!hasSpaceForImage} />
-        <SolutionForm autoComplete="off">
-          <SolutionInputContainer>
-            <SolutionInput
+        </div>
+        <hr
+          className={`w-full border-t-4 border-dotted border-grey-85 my-4 relative ${
+            hasSpaceForImage ? 'top-4' : ''
+          }`}
+        />
+        <form
+          autoComplete="off"
+          className="flex justify-center items-center grow"
+          style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}
+        >
+          <div className="mr-5 relative">
+            <TextField
               id="solution"
               autoCapitalize="none"
               ref={answerFieldRef}
               value={answer}
               disabled={revising}
-              correct={revising && isCorrect}
-              incorrect={revising && !isCorrect}
-              onChange={(e) => setAnswer(e.target.value)}
+              onChange={(e) => dispatch({ type: Action.TYPE, answer: e.target.value })}
               onFocus={() => {
-                // prevent iOS from pushing content out of view
+                // prevent iOS from pushing content out of mode
                 setTimeout(() => window.scrollTo({ top: 0 }), 200);
               }}
+              className={`disabled:!delay-0 ${
+                !revising
+                  ? ''
+                  : isCorrect
+                  ? '!text-primary-150 !border-primary-100 !bg-primary-10'
+                  : '!text-negative-100 !border-negative-100 !bg-negative-10 line-through'
+              }`}
             />
             {revising && (
-              <RevisionIcon correct={isCorrect}>
+              <div
+                className={`absolute h-[calc(100%-4px)] w-5 right-2 top-[2px] py-0.5 pr-0.5 flex items-center pointer-events-none ${
+                  isCorrect ? 'text-primary-50 bg-primary-5' : 'text-negative-60 bg-negative-5'
+                }`}
+              >
                 <Icon type={isCorrect ? 'ok' : 'deleteInCircle'} />
-              </RevisionIcon>
+              </div>
             )}
 
-            {revising && !isCorrect && (
-              <CorrectionBubbleContainer>
+            {(revising || mode === 'end') && !isCorrect && (
+              <div className="leading-[1.125] absolute text-center bottom-[60px] left-0 w-full">
                 {showFalseNegativeHint && (
                   <Hint onDismiss={() => onDismissHint(Hints.learningFalseNegative)}>
-                    Du findest, deine Antwort war richtig? Dann klick auf die grüne
-                    Korrektur. Sie dient als "Hab ich doch gemeint!"-Knopf.
+                    Du findest, deine Antwort war richtig? Dann klick auf die grüne Korrektur. Sie
+                    dient als "Hab ich doch gemeint!"-Knopf.
                   </Hint>
                 )}
                 <Correction
-                  type="button"
-                  onClick={onAcceptCorrection}
-                  disabled={disableNext}
+                  onClick={async (event) => {
+                    event.preventDefault();
+                    await next(true);
+                    showFalseNegativeHint && onDismissHint(Hints.learningFalseNegative);
+                  }}
+                  disabled={mode === 'end'}
                   ref={correctionButtonRef}
                 >
                   {solution}
                 </Correction>
-              </CorrectionBubbleContainer>
+              </div>
             )}
             {revising && isCorrect && showRefinementHint(answer, solution) && (
-              <CorrectionBubbleContainer>
-                <RefinementHint as="div">{solution}</RefinementHint>
-              </CorrectionBubbleContainer>
+              <div className="leading-[1.125] absolute text-center bottom-[60px] left-0 w-full">
+                <Correction>{solution}</Correction>
+              </div>
             )}
-          </SolutionInputContainer>
-          <SolutionButton
+          </div>
+          <Button
             primary
             type="submit"
-            disabled={disableNext}
-            onClick={onButtonClick}
+            disabled={mode === 'end'}
+            onClick={(event) => {
+              event.preventDefault();
+              if (revising) {
+                next();
+              } else {
+                dispatch({ type: Action.CHECK });
+                submitButtonRef.current?.focus();
+              }
+            }}
             ref={submitButtonRef}
+            className="w-14"
           >
-            {revising ? (
-              <Icon width="16px" type="next" />
-            ) : (
-              <Icon width="16px" type="done" />
-            )}
-          </SolutionButton>
-        </SolutionForm>
-      </Content>
-    </Container>
+            <Icon width="16px" type={revising ? 'next' : 'done'} />
+          </Button>
+        </form>
+      </main>
+    </div>
   );
 };
+
+const Correction: FC<{
+  onClick?: (event: React.MouseEvent) => Promise<void>;
+  disabled?: boolean;
+  children: React.ReactNode;
+  ref?: React.ForwardedRef<HTMLButtonElement | any>;
+}> = React.forwardRef(({ onClick, disabled, children }, ref) => {
+  const Element = onClick ? 'button' : 'div';
+  const triangleClasses =
+    'absolute top-[100%] left-[50%] border-transparent border-solid h-0 w-0 pointer-events-none';
+
+  return (
+    <Element
+      type={onClick ? 'button' : undefined}
+      onClick={onClick}
+      disabled={disabled}
+      ref={ref}
+      className={`min-w-[50%] max-w-full rounded p-2 break-when-needed leading-tight relative text-sm ${
+        onClick
+          ? 'bg-primary-10 border-[3px] border-primary-100 text-primary-100 font-bold'
+          : 'bg-grey-95 border-2 border-grey-50 text-grey-25 font-light'
+      } focus:shadow-blurry-focus outline-none disabled:opacity-50 disabled:cursor-not-allowed`}
+    >
+      {/* triangle border */}
+      <span
+        className={`${triangleClasses} ${
+          onClick
+            ? 'border-t-primary-100 border-[16px] -ml-4'
+            : 'border-t-grey-50 border-[15px] ml-[-15px]'
+        }`}
+      />
+      {/* triangle fill */}
+      <span
+        className={`${triangleClasses} border-[12px] -ml-3 ${
+          onClick ? 'border-t-primary-10' : 'border-t-grey-95'
+        }`}
+      />
+      {children}
+    </Element>
+  );
+});
 
 const showRefinementHint = (answer: string, solution: string) =>
   answer.toLowerCase().trim() !==
@@ -267,224 +331,108 @@ const showRefinementHint = (answer: string, solution: string) =>
     .trim()
     .replaceAll(/[\(\)]/g, ''); // no refinement hint if answer included optional part in brackets
 
-const Container = styled.div<{ height: number }>`
-  height: ${({ height }) => height}px;
-  width: 100vw;
-  box-sizing: border-box;
-  overflow: hidden;
-  position: fixed;
-  padding: 1rem;
-`;
+type State = {
+  mode: 'init' | 'answering' | 'revising' | 'repeat-answering' | 'repeat-revising' | 'end';
+  data: {
+    items: LearnItemForLearning[];
+    item: LearnItemForLearning;
+    repeat: boolean;
+    repeatItems: LearnItemForLearning[];
+    answer: string;
+    currentIndex: number;
+    isCorrect: boolean;
+    count: { correct: number; incorrect: number };
+  };
+};
+const getInitialData = (list?: ListSummary): State => ({
+  mode: 'init',
+  data: {
+    items: [],
+    item: {} as LearnItemForLearning,
+    repeat: list?.repeat || false,
+    repeatItems: [],
+    answer: '',
+    currentIndex: 0,
+    isCorrect: false,
+    count: { correct: 0, incorrect: 0 },
+  },
+});
 
-const Header = styled.header`
-  padding-top: env(safe-area-inset-top);
-  display: flex;
-  justify-content: space-between;
-`;
+enum Action {
+  START,
+  TYPE,
+  FLAG,
+  CHECK,
+  NEXT,
+}
+type Actions =
+  | { type: Action.START; items: LearnItemForLearning[] }
+  | { type: Action.TYPE; answer: string }
+  | { type: Action.CHECK }
+  | { type: Action.NEXT; correct: boolean }
+  | { type: Action.FLAG; itemId: string; flagged: boolean };
 
-const StyledLinkButton = styled.button`
-  background: none;
-  padding: 0;
-  border: none;
-  cursor: pointer;
-  color: ${({ theme: { colors } }) => colors.grey[75]};
+const reducer = (state: State, action: Actions): State => {
+  const { answer, items, item, currentIndex, count, repeat, repeatItems } = state.data;
 
-  :hover {
-    color: ${({ theme: { colors } }) => colors.grey[50]};
+  switch (action.type) {
+    case Action.START:
+      return {
+        mode: 'answering',
+        data: { ...state.data, items: action.items, item: action.items[0] },
+      };
+
+    case Action.TYPE:
+      if (!state.mode.includes('answering')) return state;
+      return { mode: state.mode, data: { ...state.data, answer: action.answer } };
+
+    case Action.FLAG:
+      return { ...state, data: { ...state.data, item: { ...item, flagged: action.flagged } } };
+
+    case Action.CHECK:
+      if (!state.mode.includes('answering')) return state;
+      return {
+        mode: state.mode === 'answering' ? 'revising' : 'repeat-revising',
+        data: { ...state.data, isCorrect: evaluateAnswer(answer, item.solution) },
+      };
+
+    case Action.NEXT:
+      if (!state.mode.includes('revising')) return state;
+
+      const newRepeatItems = repeat ? [...repeatItems, ...(action.correct ? [] : [item])] : [];
+      const nextItem = items[currentIndex + 1] || newRepeatItems[currentIndex - items.length + 1];
+      const newCount = getCount(count, action.correct, state.mode === 'repeat-revising');
+
+      if (!nextItem) {
+        return { mode: 'end', data: { ...state.data, count: newCount } };
+      }
+
+      return {
+        mode:
+          newCount.correct + newCount.incorrect >= items.length ? 'repeat-answering' : 'answering',
+        data: {
+          ...state.data,
+          currentIndex: currentIndex + 1,
+          item: nextItem,
+          count: newCount,
+          answer: '',
+          repeatItems: newRepeatItems,
+        },
+      };
+
+    default:
+      return state;
   }
-`;
+};
 
-const Content = styled.main<{ height: number }>`
-  height: ${({ height }) => height - 72}px; // header 40 + container 2*16
-  padding: 1rem 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-`;
-
-const Prompt = styled.p.attrs({ as: 'div' })<{ hasImage: boolean }>`
-  margin: 0 0 0.5rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-  align-items: center;
-  text-align: center;
-  font-size: calc(0.75rem + 2vh + 2vw);
-  flex-grow: ${({ hasImage }) => (hasImage ? 2 : 1)};
-  word-break: break-word; // ohai Safari
-  overflow-wrap: anywhere;
-`;
-const PromptImageContainer = styled.div<{ hasSpaceForImage?: boolean }>`
-  line-height: 0;
-  ${({ hasSpaceForImage }) =>
-    hasSpaceForImage
-      ? 'position: relative;'
-      : `position: absolute;
-         opacity: 0.25;`}
-`;
-const PromptImage = styled.img`
-  max-height: calc(25vw + 20vh);
-  max-width: calc(20vw + 25vh);
-  box-shadow: 0 8px 32px ${({ theme: { colors } }) => colors.grey[60]};
-`;
-const ImageCredits = styled.div`
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  line-height: 1;
-  padding: 0.25rem;
-  background: rgba(0, 0, 0, 0.5);
-  font-size: ${({ theme: { font } }) => font.sizes.xs};
-  color: ${({ theme: { colors } }) => colors.grey[10]};
-
-  display: none;
-  ${PromptImageContainer}:hover & {
-    display: block;
-  }
-`;
-
-const Divider = styled.hr<{ reposition?: boolean }>`
-  width: 100%;
-  border: none;
-  border-top: 4px dotted ${({ theme: { colors } }) => colors.grey[85]};
-  margin: 1rem 0;
-  position: relative;
-  top: ${({ reposition }) => (reposition ? '1rem' : '0')}; // hacky tweaky
-`;
-
-const SolutionForm = styled.form`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-grow: 1;
-  padding-bottom: env(safe-area-inset-bottom);
-`;
-const SolutionInputContainer = styled.div`
-  margin-right: 20px;
-  position: relative;
-`;
-const SolutionInput = styled(TextField)<{ incorrect?: boolean; correct?: boolean }>`
-  :disabled {
-    transition-delay: 0s;
-  }
-
-  ${({ correct, theme: { colors } }) =>
-    correct
-      ? ` color: ${colors.primary[150]};
-          border-color: ${colors.primary[100]};
-          background-color: ${colors.primary[10]};`
-      : ``}
-
-  ${({ incorrect, theme: { colors } }) =>
-    incorrect
-      ? ` color: ${colors.negative[100]};
-          border-color: ${colors.negative[100]};
-          text-decoration: line-through;
-          background: ${colors.negative[10]};`
-      : ``}
-`;
-const RevisionIcon = styled.div<{ correct: boolean }>`
-  position: absolute;
-  height: calc(100% - 4px);
-  width: 1.5rem;
-  right: 0.5rem;
-  top: 2px;
-  padding: 0 0.125rem;
-  display: flex;
-  align-items: center;
-  color: ${({ correct, theme: { colors } }) =>
-    correct ? colors.primary[100] : colors.negative[100]}90;
-  background: ${({ correct, theme: { colors } }) =>
-    correct ? colors.primary[5] : colors.negative[5]};
-  pointer-events: none;
-`;
-const SolutionButton = styled(Button)`
-  width: 60px;
-
-  > svg {
-    margin-right: 0;
-  }
-`;
-
-const CorrectionBubbleContainer = styled.div`
-  line-height: 1.125;
-  position: absolute;
-  text-align: center;
-  bottom: 60px;
-  left: 0;
-  width: 100%;
-  box-sizing: border-box;
-`;
-
-const Correction = styled.button`
-  min-width: 50%;
-  max-width: 100%;
-  border-radius: 4px;
-  padding: 0.5rem;
-  overflow-wrap: break-word;
-  line-height: 1.25;
-
-  background: ${({ theme: { colors } }) => colors.primary[10]};
-  border: 3px solid ${({ theme: { colors } }) => colors.primary[100]};
-
-  font-weight: ${({ theme: { font } }) => font.weights.bold};
-  color: ${({ theme: { colors } }) => colors.primary[100]};
-  font-size: ${({ theme: { font } }) => font.sizes.sm};
-
-  outline: none;
-  cursor: pointer;
-
-  :disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-  }
-
-  :focus {
-    box-shadow: 0 0 10px ${({ theme: { colors } }) => colors.primary[100]};
-  }
-
-  /** triangle */
-  position: relative;
-  ::after,
-  ::before {
-    top: 100%;
-    left: 50%;
-    border: solid transparent;
-    content: '';
-    height: 0;
-    width: 0;
-    position: absolute;
-    pointer-events: none;
-    border-color: rgba(0, 0, 0, 0);
-  }
-
-  ::after {
-    border-top-color: ${({ theme: { colors } }) => colors.primary[10]};
-    border-width: 12px;
-    margin-left: -12px;
-  }
-  /** border */
-  ::before {
-    border-color: rgba(131, 245, 0, 0);
-    border-top-color: ${({ theme: { colors } }) => colors.primary[100]};
-    border-width: 16px;
-    margin-left: -16px;
-  }
-`;
-
-const RefinementHint = styled(Correction)`
-  background: ${({ theme: { colors } }) => colors.grey[95]};
-  border: 2px solid ${({ theme: { colors } }) => colors.grey[50]};
-  color: ${({ theme: { colors } }) => colors.grey[25]};
-  font-weight: ${({ theme: { font } }) => font.weights.light};
-  cursor: default;
-
-  ::after {
-    border-top-color: ${({ theme: { colors } }) => colors.grey[95]};
-  }
-  ::before {
-    border-top-color: ${({ theme: { colors } }) => colors.grey[50]};
-    border-width: 15px;
-    margin-left: -15px;
-  }
-`;
+const getCount = (
+  count: { correct: number; incorrect: number },
+  correct: boolean,
+  repeating?: boolean,
+) => {
+  const newCount = { ...count };
+  if (correct) newCount.correct++;
+  if (!correct && !repeating) newCount.incorrect++;
+  if (correct && repeating) newCount.incorrect--;
+  return newCount;
+};

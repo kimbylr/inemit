@@ -80,8 +80,8 @@ export const List: FC = () => {
       <MenuLayout pageWidth="tight">
         <h2 className="mb-4">¯\_(ツ)_/¯</h2>
         <p>
-          <strong>Liste nicht gefunden.</strong> Entweder gibt es sie wirklich nicht, oder
-          du bist nicht mehr eingeloggt. Dann hilft neu laden.
+          <strong>Liste nicht gefunden.</strong> Entweder gibt es sie wirklich nicht, oder du bist
+          nicht mehr eingeloggt. Dann hilft neu laden.
         </p>
       </MenuLayout>
     );
@@ -89,15 +89,11 @@ export const List: FC = () => {
 
   const onItemsAdded = (newItems: LearnItem[]) => {
     setItems((items) => [...items, ...newItems]);
-    setList((list) =>
-      list ? { ...list, itemsCount: list.itemsCount + newItems.length } : null,
-    );
+    setList((list) => (list ? { ...list, itemsCount: list.itemsCount + newItems.length } : null));
   };
 
   const onItemSaved = (editedItem: LearnItem) => {
-    setItems((items) =>
-      items.map((item) => (editedItem.id === item.id ? editedItem : item)),
-    );
+    setItems((items) => items.map((item) => (editedItem.id === item.id ? editedItem : item)));
   };
 
   const onItemDeleted = (id: string) => {
