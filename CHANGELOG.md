@@ -1,3 +1,15 @@
+# [1.22.0](https://github.com/kimbylr/inemit/compare/v1.21.1...v1.22.0) (2023-05-21)
+
+
+### Bug Fixes
+
+* Only focus learn button on first tab when settings closed ([ad9484e](https://github.com/kimbylr/inemit/commit/ad9484e52082be974af9f558e0f2985a5b27058a))
+
+
+### Features
+
+* Add repetition ([433bf61](https://github.com/kimbylr/inemit/commit/433bf619ab3a885b64f003605fe69e51ce68bef8))
+
 ## [1.21.1](https://github.com/kimbylr/inemit/compare/v1.21.0...v1.21.1) (2023-05-18)
 
 
