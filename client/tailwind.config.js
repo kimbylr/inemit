@@ -16,16 +16,19 @@ module.exports = {
         5: '#E4F3E6',
       },
       secondary: {
+        150: '#62C332',
         100: '#8CD867',
         50: '#ABE290',
         20: '#CDEFBD',
       },
       yellow: {
+        150: '#D4CE21',
         100: '#E5E059',
         50: '#EFEC9C',
         20: '#F1EDA7',
       },
       orange: {
+        150: '#F59700',
         100: '#FFC15E',
         20: '#FFE0AD',
       },
@@ -75,7 +78,7 @@ module.exports = {
         'button-caution': '0 4px #AD705F',
         modal: '0 20px 25px -5px rgb(0 0 0 / 0.2), 0 8px 10px -6px rgb(0 0 0 / 0.2);',
         image: '0 8px 32px #9a9a9a',
-        "blurry-focus": "0 0 10px #6CC17A"
+        'blurry-focus': '0 0 10px #6CC17A',
       },
       lineHeight: {
         terse: 1.125,
