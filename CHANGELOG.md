@@ -1,3 +1,10 @@
+## [1.22.1](https://github.com/kimbylr/inemit/compare/v1.22.0...v1.22.1) (2023-05-21)
+
+
+### Bug Fixes
+
+* About page colors ([4847f4a](https://github.com/kimbylr/inemit/commit/4847f4af4edb3c3f18f2eee258f06c611abf594e))
+
 # [1.22.0](https://github.com/kimbylr/inemit/compare/v1.21.1...v1.22.0) (2023-05-21)
 
 
