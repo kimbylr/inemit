@@ -1,3 +1,10 @@
+## [1.22.4](https://github.com/kimbylr/inemit/compare/v1.22.3...v1.22.4) (2023-05-26)
+
+
+### Bug Fixes
+
+* Separate list settings and import ([d866b6d](https://github.com/kimbylr/inemit/commit/d866b6d45ce5012f573474b4e3c5bcefa05c80e4))
+
 ## [1.22.3](https://github.com/kimbylr/inemit/compare/v1.22.2...v1.22.3) (2023-05-26)
 
 
