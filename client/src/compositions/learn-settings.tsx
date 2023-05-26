@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { Modal } from '../components/modal';
 import { Icon } from '../elements/icon';
 import { RadioButton } from '../elements/radio-button';
@@ -15,7 +15,7 @@ type Props = {
 };
 
 export const LearnSettings: FC<Props> = ({ list, open, setOpen }) => {
-  const [count, setCount] = useState<'auto' | number>(list.learnCount || 'auto');
+  const [count, setCount] = useState<'auto' | string>(`${list.learnCount}` || 'auto');
   const [repeat, setRepeat] = useState(list.repeat);
   const { editListSettings } = useApi();
   const { updateList } = useLists();
@@ -31,7 +31,9 @@ export const LearnSettings: FC<Props> = ({ list, open, setOpen }) => {
           title="Lernen"
           onClose={() => {
             updateList({ ...list, repeat });
-            editListSettings({ listId: list.id, amount: count, repeat });
+            const amount = isNaN(parseInt(count)) ? 1 : Math.max(1, Math.min(parseInt(count), 100));
+            setCount(`${amount}`);
+            editListSettings({ listId: list.id, amount, repeat });
             setOpen(false);
           }}
         >
@@ -50,7 +52,7 @@ export const LearnSettings: FC<Props> = ({ list, open, setOpen }) => {
               <span className="flex gap-4 items-center">
                 <RadioButton
                   checked={count !== 'auto'}
-                  onCheck={() => setCount(10)}
+                  onCheck={() => setCount('10')}
                   name="learn-item-count"
                 >
                   Anzahl festlegen:
@@ -58,11 +60,7 @@ export const LearnSettings: FC<Props> = ({ list, open, setOpen }) => {
                 <div className="w-24">
                   <TextField
                     value={count}
-                    onChange={(e) => {
-                      const parsed = parseInt(e.target.value);
-                      if (isNaN(parsed)) return setCount(1);
-                      setCount(Math.max(1, Math.min(parsed, 100)));
-                    }}
+                    onChange={(e) => setCount(e.target.value)}
                     min={1}
                     max={100}
                     type="number"
