@@ -1,3 +1,10 @@
+## [1.22.3](https://github.com/kimbylr/inemit/compare/v1.22.2...v1.22.3) (2023-05-26)
+
+
+### Bug Fixes
+
+* Learn settings auto amount ([3f5ed82](https://github.com/kimbylr/inemit/commit/3f5ed82b29f9c863ccd4a45b76e4281973a89582))
+
 ## [1.22.2](https://github.com/kimbylr/inemit/compare/v1.22.1...v1.22.2) (2023-05-26)
 
 
