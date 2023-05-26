@@ -6,6 +6,7 @@ import { TextField } from '../elements/text-field';
 import { translate } from '../helpers/translate';
 import { mapUnsplashImage, searchUnsplash, UnsplashImage } from '../helpers/unsplash';
 import { useDebounce } from '../hooks/use-debounce';
+import { isMobileAppleDevice } from '../helpers/is-mobile-apple-device';
 
 const IMGS_PER_PAGE = 10; // unsplash default
 
@@ -141,7 +142,11 @@ const Image: FC<{ img: UnsplashImage; onSetImage: (img: UnsplashImage) => void }
     className="relative cursor-pointer hover:opacity-75 group rounded overflow-hidden"
   >
     <img src={img.urls.small} className="w-full" onClick={() => onSetImage(img)} />
-    <div className="hidden group-hover:block absolute bottom-0 left-0 right-0 py-1 px-2 bg-[rgba(0,0,0,0.5)] text-xxs text-grey-10">
+    <div
+      className={`hidden ${
+        isMobileAppleDevice() ? '' : 'group-hover:block'
+      } absolute bottom-0 left-0 right-0 py-1 px-2 bg-[rgba(0,0,0,0.5)] text-xxs text-grey-10`}
+    >
       <ExtLink
         href={`${img.user.link}?utm_source=inemit&utm_medium=referral`}
         onClick={(e) => e.stopPropagation()}
