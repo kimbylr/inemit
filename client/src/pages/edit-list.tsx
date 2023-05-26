@@ -168,10 +168,11 @@ export const EditList: FC = () => {
             value={search}
             placeholder="Suchen…"
             onChange={(e) => setSearch(e.target.value.toLowerCase())}
-            className={`${search ? 'w-[200px]' : 'w-[100px] sm:w-[200px]'} max-w-full`}
+            className="w-44"
+            type="search"
           />
           <Checkbox checked={showDoublets} onCheck={() => setShowDoublets((s) => !s)}>
-            Doppelte <span className="hidden xs:inline">zeigen</span>
+            Doppelte <span className="xs:hidden sm:inline">anzeigen</span>
           </Checkbox>
         </div>
 
@@ -196,8 +197,7 @@ const Explainer = () => {
   return (
     <>
       <p className="mb-4">
-        <strong>Denk dran:</strong> Vokabelpaare selbst erfassen ist sinnvoll investierte
-        Zeit!{' '}
+        <strong>Denk dran:</strong> Vokabelpaare selbst erfassen ist sinnvoll investierte Zeit!{' '}
         {expanded ? (
           'Das Ausdenken einer Aufgabe verankert das Wort ein erstes Mal. Und es verhindert, dass du Lernzeit mit Wörtern vergeudest, die du schon beherrschst.'
         ) : (
@@ -211,17 +211,15 @@ const Explainer = () => {
           <p>Einige Tipps für grösseren Lerneffekt:</p>
           <ul className="actual-list mb-8">
             <li>
-              <strong>Kontext</strong>: Am besten funktionieren Aufgaben, die das
-              Lernmaterial in einen Kontext stellen, also z.B. in einem Satz oder Ausdruck
-              verwenden.
+              <strong>Kontext</strong>: Am besten funktionieren Aufgaben, die das Lernmaterial in
+              einen Kontext stellen, also z.B. in einem Satz oder Ausdruck verwenden.
             </li>
             <li>
               <strong>Bilder</strong> unterstützen den immersiven Effekt.
             </li>
             <li>
-              <strong>Synonyme</strong> haben den Vorteil, dass die Verknüpfungen{' '}
-              <em>innerhalb</em> der Lernsprache verstärkt werden (und nicht zu deiner
-              Muttersprache).
+              <strong>Synonyme</strong> haben den Vorteil, dass die Verknüpfungen <em>innerhalb</em>{' '}
+              der Lernsprache verstärkt werden (und nicht zu deiner Muttersprache).
             </li>
           </ul>
         </>
