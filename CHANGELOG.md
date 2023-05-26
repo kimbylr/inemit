@@ -1,3 +1,13 @@
+## [1.22.2](https://github.com/kimbylr/inemit/compare/v1.22.1...v1.22.2) (2023-05-26)
+
+
+### Bug Fixes
+
+* Disable edit field while saving last learn item ([1904e5c](https://github.com/kimbylr/inemit/commit/1904e5c7c5fea8b8f08a7c39e1f8ed96e0efeb6a))
+* Image picker on iOS needs only one click ([4d983fb](https://github.com/kimbylr/inemit/commit/4d983fb60aa117a18c0b65e0e1de53bdf5be7227))
+* Learn settings popup state handling ([6b97119](https://github.com/kimbylr/inemit/commit/6b97119f608c6231106ed27675260b9f3217acc2))
+* Search bar styling (edit mode) ([e70961a](https://github.com/kimbylr/inemit/commit/e70961ab27b3c91377c3b3a0a011f4bd1b21c4ca))
+
 ## [1.22.1](https://github.com/kimbylr/inemit/compare/v1.22.0...v1.22.1) (2023-05-21)
 
 
