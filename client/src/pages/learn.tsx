@@ -85,6 +85,13 @@ export const Learn: FC = () => {
   useEffect(() => {
     if (mode === 'end' && !saving) {
       goToList(slug);
+      return;
+    }
+
+    // ugly as hell but necessary for iOS, cf. next() fn below
+    if (mode === 'end' && answerFieldRef.current) {
+      answerFieldRef.current.disabled = true;
+      answerFieldRef.current.blur();
     }
   }, [mode, saving]);
 
@@ -130,6 +137,7 @@ export const Learn: FC = () => {
     dispatch({ type: Action.NEXT, correct: answerQuality >= 3 });
 
     // iOS only displays the soft keyboard if an input is focused _in a click event fn_
+    // to be changed soon? https://github.com/WebKit/WebKit/pull/2907
     if (answerFieldRef.current) {
       answerFieldRef.current.disabled = false; // can't focus before enabled (next render)
       answerFieldRef.current.focus();
@@ -137,7 +145,7 @@ export const Learn: FC = () => {
   };
 
   const { id: itemId, prompt, solution, flagged, image } = item;
-  const revising = mode === 'revising' || mode === 'repeat-revising';
+  const revising = mode === 'revising' || mode === 'repeat-revising' || mode === 'end';
   const hasSpaceForImage = height > 600; // most likely soft keyboard
 
   return (
@@ -232,7 +240,7 @@ export const Learn: FC = () => {
               </div>
             )}
 
-            {(revising || mode === 'end') && !isCorrect && (
+            {revising && !isCorrect && (
               <div className="leading-[1.125] absolute text-center bottom-[60px] left-0 w-full">
                 {showFalseNegativeHint && (
                   <Hint onDismiss={() => onDismissHint(Hints.learningFalseNegative)}>
