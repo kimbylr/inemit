@@ -15,7 +15,9 @@ type Props = {
 };
 
 export const LearnSettings: FC<Props> = ({ list, open, setOpen }) => {
-  const [count, setCount] = useState<'auto' | string>(`${list.learnCount}` || 'auto');
+  const [count, setCount] = useState<'auto' | string>(
+    list.learnCount ? `${list.learnCount}` : 'auto',
+  );
   const [repeat, setRepeat] = useState(list.repeat);
   const { editListSettings } = useApi();
   const { updateList } = useLists();
@@ -31,7 +33,9 @@ export const LearnSettings: FC<Props> = ({ list, open, setOpen }) => {
           title="Lernen"
           onClose={() => {
             updateList({ ...list, repeat });
-            const amount = isNaN(parseInt(count)) ? 1 : Math.max(1, Math.min(parseInt(count), 100));
+            const amount = isNaN(parseInt(count))
+              ? 'auto'
+              : Math.max(1, Math.min(parseInt(count), 100));
             setCount(`${amount}`);
             editListSettings({ listId: list.id, amount, repeat });
             setOpen(false);
