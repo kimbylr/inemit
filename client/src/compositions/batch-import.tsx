@@ -5,9 +5,9 @@ import { Textarea } from '../elements/textarea';
 import { useApi } from '../hooks/use-api';
 import { BaseLearnItem, ExcludesNull, LearnItem } from '../models';
 
-const PLACEHOLDER = `to learn	lernen
-to know	wissen
-language	Sprache
+const PLACEHOLDER = `to learn		lernen
+to know		wissen
+language		Sprache
 …`;
 
 const successNotice = (count: number, stage: 1 | 3) =>
@@ -57,21 +57,20 @@ export const BatchImport: FC<Props> = ({ listId, onBatchImportDone }) => {
         onChange={(e) => setText(e.target.value)}
         placeholder={PLACEHOLDER.replaceAll(
           '\n',
-          `                                                   `,
+          `                                                             `,
         )} // ohai Safari
         disabled={disabled}
-        rows={5}
-        className="mb-5 m-h-20"
+        rows={10}
+        className="mb-6 mt-2 m-h-20"
       />
       <div className="flex justify-between flex-col items-end">
-        <div className='"pt-0.5 mr-4 mb-4"'>
+        <div className="mr-4 mb-4">
           <Checkbox checked={stage3} onCheck={() => setStage3((s) => !s)}>
-            Vokabeln sind mir schon bekannt und ich möchte sie direkt ins 3. Fach
-            importieren.
+            Vokabeln sind mir schon bekannt und ich möchte sie direkt ins 3. Fach importieren.
           </Checkbox>
         </div>
 
-        <Button type="submit" disabled={disabled} onClick={submit}>
+        <Button type="submit" disabled={disabled} onClick={submit} primary>
           importieren
         </Button>
       </div>

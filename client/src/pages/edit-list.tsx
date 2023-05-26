@@ -1,6 +1,7 @@
 import { FC, useEffect, useState } from 'react';
 import { EditableItem } from '../components/editable-item';
 import { EditableItemsList } from '../compositions/editable-items-list';
+import { ImportPopup } from '../compositions/import-popup';
 import { ListSettings } from '../compositions/list-settings';
 import { Button } from '../elements/button';
 import { Checkbox } from '../elements/checkbox';
@@ -22,6 +23,7 @@ export const EditList: FC = () => {
   const { lists, state: listsState, updateList } = useLists();
   const list = lists.find((list) => list.slug === slug);
 
+  const [showImport, setShowImport] = useState(false);
   const [search, setSearch] = useState('');
   const [showDoublets, setShowDoublets] = useState(false);
 
@@ -125,14 +127,26 @@ export const EditList: FC = () => {
         <strong>
           {items.length} {items.length === 1 ? 'Vokabel' : 'Vokabeln'}
         </strong>
-        .{' '}
+        .
+      </p>
+      <div className="mb-8 flex gap-4">
         <Button
-          small
+          primary
           onClick={() => Array.from(document.querySelectorAll('input')).at(-2)?.focus()}
         >
-          <Icon type="add" width="17px" /> Hinzufügen …
+          <Icon type="add" width="17px" /> Erfassen
         </Button>
-      </p>
+        <Button onClick={() => setShowImport(true)}>
+          <Icon type="import" width="17px" /> Importieren…
+        </Button>
+        {showImport && (
+          <ImportPopup
+            listId={list.id}
+            onClose={() => setShowImport(false)}
+            onItemsAdded={onItemsAdded}
+          />
+        )}
+      </div>
       <Explainer />
       {flaggedItems.length > 0 && (
         <>
@@ -167,16 +181,16 @@ export const EditList: FC = () => {
             small
             value={search}
             placeholder="Suchen…"
-            onChange={(e) => setSearch(e.target.value.toLowerCase())}
-            className="w-44"
+            onChange={(e) => setSearch(e.target.value)}
+            className="!w-44"
             type="search"
           />
           <Checkbox checked={showDoublets} onCheck={() => setShowDoublets((s) => !s)}>
-            Doppelte <span className="xs:hidden sm:inline">anzeigen</span>
+            Doppelte anzeigen
           </Checkbox>
         </div>
 
-        <Button primary small onClick={() => goToList(slug)}>
+        <Button small onClick={() => goToList(slug)}>
           <Icon type="done" width="14px" /> fertig
         </Button>
       </div>
@@ -196,7 +210,7 @@ const Explainer = () => {
 
   return (
     <>
-      <p className="mb-4">
+      <p className="mb-4 text-xs">
         <strong>Denk dran:</strong> Vokabelpaare selbst erfassen ist sinnvoll investierte Zeit!{' '}
         {expanded ? (
           'Das Ausdenken einer Aufgabe verankert das Wort ein erstes Mal. Und es verhindert, dass du Lernzeit mit Wörtern vergeudest, die du schon beherrschst.'
@@ -208,7 +222,7 @@ const Explainer = () => {
       </p>
       {expanded && (
         <>
-          <p>Einige Tipps für grösseren Lerneffekt:</p>
+          <p className="text-xs">Einige Tipps für grösseren Lerneffekt:</p>
           <ul className="actual-list mb-8">
             <li>
               <strong>Kontext</strong>: Am besten funktionieren Aufgaben, die das Lernmaterial in
