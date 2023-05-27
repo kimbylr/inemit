@@ -210,7 +210,7 @@ const Explainer = () => {
 
   return (
     <>
-      <p className="mb-4 text-xs">
+      <p className="mb-4 text-xs leading-relaxed">
         <strong>Denk dran:</strong> Vokabelpaare selbst erfassen ist sinnvoll investierte Zeit!{' '}
         {expanded ? (
           'Das Ausdenken einer Aufgabe verankert das Wort ein erstes Mal. Und es verhindert, dass du Lernzeit mit Wörtern vergeudest, die du schon beherrschst.'

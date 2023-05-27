@@ -54,7 +54,7 @@ export const ListSettings: FC<Props> = ({ list, onListNameChanged, onItemsAdded 
           <hr className="mb-4 -mx-8" />
 
           <h3>Löschen</h3>
-          <p className="mb-3 text-xs+">Die Liste und alle Inhalte unwider&shy;ruflich löschen</p>
+          <p className="mb-3 text-xs+">Diese Liste und alle Inhalte unwider&shy;ruflich löschen</p>
           <Button onClick={onListDeleted} caution className="w-full">
             <Icon type="delete" width="14px" /> Liste löschen
           </Button>

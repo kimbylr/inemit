@@ -1,5 +1,4 @@
 import React, { FC, useState } from 'react';
-import styled from 'styled-components';
 import { EditStatus } from '../components/edit-status';
 import { FlagButton } from '../components/flag-button';
 import { Hint } from '../elements/hint';
@@ -175,13 +174,19 @@ export const EditableItem: FC<Props> = ({
             <span className="text-xxs text-grey-75 flex justify-center">{index}</span>
           )}
           {!item.isNew && (
-            <DeleteButton type="button" tabIndex={-1} onClick={onDelete} title="Löschen">
+            <button
+              type="button"
+              tabIndex={-1}
+              onClick={onDelete}
+              title="Löschen"
+              className="text-negative-50 hover:text-negative-100"
+            >
               <Icon type="deleteInCircle" />
-            </DeleteButton>
+            </button>
           )}
         </div>
 
-        <InputsColumn>
+        <div className="flex grow-1 flex-wrap">
           <div className="mr-5 mb-3 basis-[200px] flex-grow relative">
             {onDismissHint && (
               <Hint onDismiss={onDismissHint} triangle>
@@ -189,12 +194,12 @@ export const EditableItem: FC<Props> = ({
                   Hier schreibst du rein, was du lernen willst (z.B. <em>il gatto</em>).
                 </>
                 <>
-                  Optionales in Klammern: <em>(il) gatto</em> akzeptiert <em>il gatto</em>{' '}
-                  oder <em>gatto</em> als Lösung.
+                  Optionales in Klammern: <em>(il) gatto</em> akzeptiert <em>il gatto</em> oder{' '}
+                  <em>gatto</em> als Lösung.
                 </>
                 <>
-                  Mehrere mögliche Lösungen mit Komma abtrennen: <em>certo, sicuro</em>{' '}
-                  heisst, <em>certo</em> und <em>sicuro</em> sind beide richtig.
+                  Mehrere mögliche Lösungen mit Komma abtrennen: <em>certo, sicuro</em> heisst,{' '}
+                  <em>certo</em> und <em>sicuro</em> sind beide richtig.
                 </>
               </Hint>
             )}
@@ -225,38 +230,51 @@ export const EditableItem: FC<Props> = ({
               </div>
               {!item.isNew && (
                 <div className="relative ml-2 h-10 flex items-center">
-                  <ImageButton
+                  <button
                     type="button"
-                    isActive={showImagePicker}
                     onClick={() => setShowImagePicker((active) => !active)}
+                    className={`${
+                      showImagePicker ? 'text-grey-25' : 'text-grey-75'
+                    } hover:text-grey-25 outline-none group`}
                   >
                     {currentItem.image ? (
-                      <ImageThumbContainer showImagePicker={showImagePicker}>
+                      <div className="relative">
                         <img
                           src={currentItem.image.urls.thumb}
-                          className="h-9 mb-0.5 rounded-sm w-auto"
+                          className="h-9 mb-0.5 rounded-sm w-auto group-focus-visible:shadow-blurry-focus opacity-50"
                         />
-                        <Icon type="edit" />
-                      </ImageThumbContainer>
+                        <span className="absolute top-2 text-grey-25 flex justify-center w-full">
+                          <Icon
+                            type="edit"
+                            width="20px"
+                            className="drop-shadow-[0_0_4px_white] hidden group-hover:block"
+                          />
+                        </span>
+                      </div>
                     ) : (
-                      <Icon type="image" width="32px" />
+                      <Icon
+                        type="image"
+                        width="32px"
+                        className="group-focus-visible:drop-shadow-[0_0_4px_#6cc17a]"
+                      />
                     )}
-                  </ImageButton>
+                  </button>
                   {currentItem.image && (
-                    <ImageDeleteButton
+                    <button
                       type="button"
                       tabIndex={-1}
                       onClick={() => onSetImage(null)}
                       title="Bild entfernen"
+                      className="absolute -top-2 -left-2 bg-grey-98 text-negative-50 rounded-full leading-none p-0.5 hover:text-negative-100"
                     >
                       <Icon type="deleteInCircle" width="16px" />
-                    </ImageDeleteButton>
+                    </button>
                   )}
                 </div>
               )}
             </div>
           </div>
-        </InputsColumn>
+        </div>
 
         <div className="flex items-center self-stretch mb-9">
           <EditStatus
@@ -271,11 +289,7 @@ export const EditableItem: FC<Props> = ({
       </form>
 
       {showImagePicker && (
-        <Modal
-          title="Bild hinzufügen"
-          onClose={() => setShowImagePicker(false)}
-          width="lg"
-        >
+        <Modal title="Bild hinzufügen" onClose={() => setShowImagePicker(false)} width="lg">
           <ImagePicker searchTerm={currentItem.solution} onSetImage={onSetImage} />
         </Modal>
       )}
@@ -291,75 +305,3 @@ const removeTrackSet = (img: UnsplashImage | null) => {
   const { trackSet, ...rest } = img;
   return rest;
 };
-
-const DeleteButton = styled.button`
-  padding: 0;
-  margin: 0;
-  background: none;
-  border: none;
-  outline: none;
-  cursor: pointer;
-  color: ${({ theme: { colors } }) => colors.negative[50]};
-
-  :hover {
-    color: ${({ theme: { colors } }) => colors.negative[100]};
-  }
-`;
-
-const InputsColumn = styled.div`
-  display: flex;
-  flex-grow: 1;
-  flex-wrap: wrap;
-`;
-
-const ImageButton = styled(DeleteButton)<{ isActive: boolean }>`
-  color: ${({ isActive, theme: { colors } }) =>
-    isActive ? colors.grey[25] : colors.grey[75]};
-
-  :hover {
-    color: ${({ theme: { colors } }) => colors.grey[25]};
-  }
-
-  :focus-visible > svg {
-    filter: drop-shadow(0 0 4px ${({ theme: { colors } }) => colors.primary[100]});
-  }
-`;
-
-const ImageThumbContainer = styled.div<{ showImagePicker: boolean }>`
-  position: relative;
-
-  img {
-    opacity: ${({ showImagePicker }) => (showImagePicker ? '0.5' : '1')};
-  }
-  :hover img {
-    opacity: 0.5;
-  }
-
-  // edit icon
-  > svg {
-    position: absolute;
-    color: ${({ theme: { colors } }) => colors.grey[25]};
-    top: 0.5rem;
-    height: 1.25rem;
-    left: 0;
-    display: ${({ showImagePicker }) => (showImagePicker ? 'block' : 'none')};
-    filter: drop-shadow(0 0 4px white);
-  }
-  :hover svg {
-    display: block;
-  }
-`;
-
-const ImageDeleteButton = styled(DeleteButton)`
-  position: absolute;
-  top: -0.5rem;
-  left: -0.5rem;
-  background: ${({ theme: { colors } }) => colors.grey[98]};
-  border-radius: 1rem; // full
-  padding: 2px;
-  line-height: 0;
-
-  :hover {
-    color: ${({ theme: { colors } }) => colors.negative[100]};
-  }
-`;

@@ -57,36 +57,6 @@ ul.actual-list li {
   @apply pl-1;
 }
 
-.button-focus:focus-visible:not(:active)::after {
-  content: '';
-  position: absolute;
-  inset: -6px -6px -10px;
-  border-radius: 8px;
-  border: 3px dotted;
-}
-.button-focus-primary:focus-visible:not(:active)::after {
-  @apply border-primary-50;
-}
-.button-focus-secondary:focus-visible:not(:active)::after {
-  @apply border-grey-75;
-}
-
-.dotted-focus:focus-within {
-  outline: none;
-  position: relative;
-}
-.dotted-focus:focus-within::after {
-  content: '';
-  position: absolute;
-  inset: -6px;
-  border-radius: 8px;
-  border: 3px dotted;
-  @apply border-primary-50;
-}
-.dotted-focus-dark:focus-within::after {
-  @apply border-primary-100;
-}
-
 h2,
 h3,
 h4 {
@@ -123,6 +93,40 @@ p.hint em {
   @apply text-grey-25;
   @apply font-bold;
 }
+
+/* focus styling */
+
+.button-focus:focus-visible:not(:active)::after {
+  content: '';
+  position: absolute;
+  inset: -6px -6px -10px;
+  border-radius: 8px;
+  border: 3px dotted;
+}
+.button-focus-primary:focus-visible:not(:active)::after {
+  @apply border-primary-50;
+}
+.button-focus-secondary:focus-visible:not(:active)::after {
+  @apply border-grey-75;
+}
+
+.dotted-focus:focus-within {
+  outline: none;
+  position: relative;
+}
+.dotted-focus:focus-within::after {
+  content: '';
+  position: absolute;
+  inset: -6px;
+  border-radius: 8px;
+  border: 3px dotted;
+  @apply border-primary-50;
+}
+.dotted-focus-dark:focus-within::after {
+  @apply border-primary-100;
+}
+
+/* other styling */
 
 .landing-page-title {
   margin-top: calc(-12.5vw - 10vh - 150px);
