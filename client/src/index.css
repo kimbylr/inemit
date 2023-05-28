@@ -109,6 +109,10 @@ p.hint em {
 .button-focus-secondary:focus-visible:not(:active)::after {
   @apply border-grey-75;
 }
+.button-focus-caution:focus-visible:not(:active)::after {
+  @apply border-negative-100;
+  inset: -8px -10px;
+}
 
 .dotted-focus:focus-within {
   outline: none;

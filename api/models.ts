@@ -46,6 +46,7 @@ export interface LearnItemType extends Document {
   created: Date;
   updated: Date;
   prompt: string;
+  promptAddition?: string;
   solution: string;
   flagged?: boolean;
   image?: UnsplashImage | null;
@@ -56,6 +57,7 @@ const LearnItemSchema = new Schema<LearnItemType>({
   created: { type: Date, default: () => new Date() },
   updated: { type: Date, default: () => new Date() },
   prompt: { type: String, required: true },
+  promptAddition: String,
   solution: { type: String, required: true },
   flagged: Boolean,
   image: UnsplashImageSchema,

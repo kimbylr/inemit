@@ -144,7 +144,7 @@ export const Learn: FC = () => {
     }
   };
 
-  const { id: itemId, prompt, solution, flagged, image } = item;
+  const { id: itemId, prompt, promptAddition, solution, flagged, image } = item;
   const revising = mode === 'revising' || mode === 'repeat-revising' || mode === 'end';
   const hasSpaceForImage = height > 600; // most likely soft keyboard
 
@@ -174,7 +174,7 @@ export const Learn: FC = () => {
       >
         <div
           className="mb-2 flex flex-col justify-evenly items-center text-center break-when-needed"
-          style={{ fontSize: 'calc(0.75rem + 2vh + 2vw)', flexGrow: image ? 2 : 1 }}
+          style={{ flexGrow: image ? 2 : 1 }}
         >
           {image && (
             <div
@@ -198,7 +198,12 @@ export const Learn: FC = () => {
               </div>
             </div>
           )}
-          {prompt}
+          <div className="flex flex-col gap-4">
+            <span style={{ fontSize: 'calc(0.75rem + 2vh + 2vw)' }} className="text-grey-10">
+              {prompt}
+            </span>
+            <span className="text-grey-10 text-md sm:text-lg">{promptAddition}</span>
+          </div>
         </div>
         <hr
           className={`w-full border-t-4 border-dotted border-grey-85 my-4 relative ${

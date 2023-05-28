@@ -43,6 +43,7 @@ export interface ListWithProgress extends ListSummary {
 
 export interface BaseLearnItem {
   prompt: string;
+  promptAddition?: string;
   solution: string;
   flagged?: boolean;
   image?: UnsplashImage | null;

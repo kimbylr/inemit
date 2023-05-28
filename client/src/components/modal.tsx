@@ -58,8 +58,13 @@ export const Modal: FC<Props> = ({ onClose, title, children, width = 'sm' }) => 
     const lastFocusableElement = focusableContent[focusableContent.length - 1];
 
     const onTabListener = (e: KeyboardEvent) => {
-      if (e.key !== 'Tab') {
+      if (e.key !== 'Tab' || !modalRef.current) {
         return;
+      }
+
+      if (!modalRef.current.contains(document.activeElement)) {
+        e.preventDefault();
+        e.shiftKey ? lastFocusableElement.focus() : firstFocusableElement.focus();
       }
 
       if (e.shiftKey && document.activeElement === firstFocusableElement) {

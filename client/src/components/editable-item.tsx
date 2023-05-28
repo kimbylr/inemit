@@ -1,10 +1,11 @@
 import React, { FC, useState } from 'react';
 import { EditStatus } from '../components/edit-status';
 import { FlagButton } from '../components/flag-button';
+import { ItemPopup } from '../compositions/item-popup';
 import { Hint } from '../elements/hint';
 import { Icon } from '../elements/icon';
 import { TextField } from '../elements/text-field';
-import { UnsplashImage } from '../helpers/unsplash';
+import { UnsplashImage, removeTrackSet } from '../helpers/unsplash';
 import { useApi } from '../hooks/use-api';
 import { BaseLearnItem, LearnItem, LearnItemForEditing } from '../models';
 import { ImagePicker } from './image-picker';
@@ -31,15 +32,17 @@ export const EditableItem: FC<Props> = ({
   onNewItemEdited = () => {},
   onNewItemSaved = () => {},
 }) => {
-  const { addItems, deleteItem, editItem } = useApi();
+  const { addItems, editItem } = useApi();
   const [savedItem, setSavedItem] = useState<BaseLearnItem>({
     prompt: item.prompt,
+    promptAddition: item.promptAddition,
     solution: item.solution,
     flagged: item.flagged,
     image: item.image,
   });
   const [currentItem, setCurrentItem] = useState<BaseLearnItem>({
     prompt: item.prompt,
+    promptAddition: item.promptAddition,
     solution: item.solution,
     flagged: item.flagged,
     image: item.image,
@@ -47,6 +50,7 @@ export const EditableItem: FC<Props> = ({
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [showImagePicker, setShowImagePicker] = useState(false);
+  const [showDetail, setShowDetail] = useState(false);
 
   const [initiallyEdited, setInitiallyEdited] = useState(!item.isNew);
   const hasEdited = () => {
@@ -111,25 +115,6 @@ export const EditableItem: FC<Props> = ({
     }
   };
 
-  const onDelete = async (event: React.MouseEvent) => {
-    event.preventDefault();
-
-    if (!confirm('Diesen Eintrag löschen?')) {
-      return;
-    }
-
-    setSaving(true);
-    setError(null);
-
-    try {
-      await deleteItem({ listId, itemId: item.id });
-      onItemDeleted(item.id);
-    } catch (error) {
-      setSaving(false);
-      setError('Löschen hat nicht geklappt. Bitte nochmals versuchen.');
-    }
-  };
-
   const onSetImage = async (img: UnsplashImage | null) => {
     if (!initiallyEdited || saving) {
       return;
@@ -162,7 +147,7 @@ export const EditableItem: FC<Props> = ({
   return (
     <>
       <form onSubmit={submit} className="flex items-start">
-        <div className="w-5 self-stretch shrink-0 flex flex-col justify-between mr-3 mb-4">
+        <div className="w-5 self-stretch shrink-0 flex flex-col justify-between items-center mr-3 mb-4">
           {item.flagged ? (
             <FlagButton
               flagged={savedItem.flagged}
@@ -175,18 +160,15 @@ export const EditableItem: FC<Props> = ({
           )}
           {!item.isNew && (
             <button
-              type="button"
-              tabIndex={-1}
-              onClick={onDelete}
-              title="Löschen"
-              className="text-negative-50 hover:text-negative-100"
+              className="text-grey-75 hover:text-grey-25 outline-none focus-visible:drop-shadow-[0_0_2px_#6cc17a]"
+              onClick={() => setShowDetail(true)}
             >
-              <Icon type="deleteInCircle" />
+              <Icon type={currentItem.promptAddition ? 'morePlus' : 'more'} />
             </button>
           )}
         </div>
 
-        <div className="flex grow-1 flex-wrap">
+        <div className="flex flex-grow flex-wrap">
           <div className="mr-5 mb-3 basis-[200px] flex-grow relative">
             {onDismissHint && (
               <Hint onDismiss={onDismissHint} triangle>
@@ -233,9 +215,7 @@ export const EditableItem: FC<Props> = ({
                   <button
                     type="button"
                     onClick={() => setShowImagePicker((active) => !active)}
-                    className={`${
-                      showImagePicker ? 'text-grey-25' : 'text-grey-75'
-                    } hover:text-grey-25 outline-none group`}
+                    className="text-grey-75 hover:text-grey-25 outline-none group"
                   >
                     {currentItem.image ? (
                       <div className="relative">
@@ -293,15 +273,23 @@ export const EditableItem: FC<Props> = ({
           <ImagePicker searchTerm={currentItem.solution} onSetImage={onSetImage} />
         </Modal>
       )}
+
+      {showDetail && (
+        <ItemPopup
+          item={{ ...item, ...currentItem }}
+          listId={listId}
+          onClose={(newItem?: BaseLearnItem) => {
+            if (newItem) {
+              setCurrentItem(newItem);
+              setSavedItem(newItem);
+              onItemSaved({ ...item, ...newItem } as LearnItem);
+            }
+
+            setShowDetail(false);
+          }}
+          onItemDeleted={() => onItemDeleted(item.id)}
+        />
+      )}
     </>
   );
-};
-
-const removeTrackSet = (img: UnsplashImage | null) => {
-  if (!img) {
-    return null;
-  }
-
-  const { trackSet, ...rest } = img;
-  return rest;
 };

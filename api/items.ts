@@ -42,9 +42,7 @@ router.get('/learn/:count?', async ({ listLean: list, params: { count } }, res, 
   try {
     const itemsToLearn = list.items
       .filter(({ progress: { due } }) => dayjs(due).isBefore(dayjs()))
-      .sort(
-        ({ progress: { due: a } }, { progress: { due: b } }) => a.getTime() - b.getTime(),
-      );
+      .sort(({ progress: { due: a } }, { progress: { due: b } }) => a.getTime() - b.getTime());
 
     const amount = list.learnCount || getLearnCount(itemsToLearn.length);
     res.json(mapItems(itemsToLearn.slice(0, amount)));
@@ -79,16 +77,18 @@ router.post('/', async ({ listLean: list, body: { items, stage } }, res, next) =
 
 // change an item
 router.patch('/:itemId', async ({ body, listLean: list, item }, res, next) => {
-  const { prompt, solution, flagged, image } = body;
+  const { prompt, promptAddition, solution, flagged, image } = body;
   const setFlagged = typeof flagged === 'boolean';
   const setImage = typeof image === 'object'; // null is also 'object'
+  const setPromptAddition = typeof promptAddition === 'string';
 
-  if (!prompt && !solution && !setFlagged && !setImage) {
+  if (!prompt && !promptAddition && !solution && !setFlagged && !setImage) {
     return next(new Error('Could not find a changeable property in body'));
   }
 
   try {
     item.prompt = prompt || item.prompt;
+    item.promptAddition = setPromptAddition ? promptAddition : item.promptAddition;
     item.solution = solution || item.solution;
     item.flagged = setFlagged ? flagged : item.flagged;
     item.image = setImage ? image : item.image;

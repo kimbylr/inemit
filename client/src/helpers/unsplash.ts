@@ -35,3 +35,12 @@ export const searchUnsplash = (searchString: string, page: number) =>
 
 export const getTrackSetFn = (download_location: string) => () =>
   fetch(download_location, { headers });
+
+export const removeTrackSet = (img: UnsplashImage | null) => {
+  if (!img) {
+    return null;
+  }
+
+  const { trackSet, ...rest } = img;
+  return rest;
+};
