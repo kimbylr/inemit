@@ -1,5 +1,4 @@
-import React, { FC, useEffect, useRef, useState } from 'react';
-import styled, { keyframes } from 'styled-components';
+import { FC, useEffect, useRef, useState } from 'react';
 import { Hint } from '../elements/hint';
 import { Icon } from '../elements/icon';
 import { useApi } from '../hooks/use-api';
@@ -54,75 +53,37 @@ export const FlagButton: FC<Props> = ({
   };
 
   return (
-    <Container>
+    <div className="w-6 h-6 relative flex justify-center">
       {onDismissHint && (
         <Hint onDismiss={onDismissHint} position="bottom">
-          Die Flagge? Klick sie an, wenn du an einer Vokabel oder Abfrage etwas ändern
-          möchtest. So merkst du sie zum Bearbeiten vor.
+          Die Flagge? Klick sie an, wenn du an einer Vokabel oder Abfrage etwas ändern möchtest. So
+          merkst du sie zum Bearbeiten vor.
         </Hint>
       )}
-      <Button
+      <button
         type="button"
-        flagged={flagged}
         onClick={toggleFlagged}
         title="markieren"
         tabIndex={tabIndex}
+        className={`leading-none outline-none ${
+          loading ? 'cursor-not-allowed' : 'cursor-pointer'
+        } ${
+          flagged ? 'text-primary-100 hover:text-primary-50' : 'text-grey-75 hover:text-grey-50'
+        }`}
       >
         {loading ? (
-          <Saving title="speichern..." flagged={flagged}>
+          <div
+            title="speichern..."
+            className={`animate-spin relative w-6 h-6 leading-none ${
+              flagged ? 'text-grey-75' : 'text-primary-100'
+            }`}
+          >
             <Icon type="sync" width="24px" />
-          </Saving>
+          </div>
         ) : (
           <Icon type="flag" width="20px" />
         )}
-      </Button>
-    </Container>
+      </button>
+    </div>
   );
 };
-
-const Container = styled.div`
-  padding: 0;
-  margin: 0;
-  width: 240px;
-  height: 24px;
-  position: relative;
-`;
-
-const Button = styled.button<{ flagged?: boolean; loading?: boolean }>`
-  padding: 0;
-  margin: 0;
-  width: 24px;
-  height: 24px;
-  line-height: 1;
-  background: none;
-  border: none;
-  cursor: ${({ loading }) => (loading ? 'not-allowed' : 'pointer')};
-  color: ${({ flagged, theme: { colors } }) =>
-    flagged ? colors.primary[100] : colors.grey[75]};
-
-  :hover {
-    color: ${({ flagged, theme: { colors } }) =>
-      flagged ? colors.primary[50] : colors.grey[50]};
-  }
-`;
-
-const rotate = keyframes`
-from {
-  transform: rotate(0deg);
-}
-to {
-  transform: rotate(360deg);
-}
-`;
-
-const Saving = styled.div<{ flagged?: boolean }>`
-  position: relative;
-  top: -2px;
-  left: -2px;
-  width: 24px;
-  height: 24px;
-  line-height: 1;
-  animation: ${rotate} 2s infinite linear;
-  color: ${({ flagged, theme: { colors } }) =>
-    flagged ? colors.grey[75] : colors.primary[100]};
-`;
