@@ -1,3 +1,15 @@
+# [1.23.0](https://github.com/kimbylr/inemit/compare/v1.22.5...v1.23.0) (2023-05-28)
+
+
+### Bug Fixes
+
+* Flag button without SC ([4e14dac](https://github.com/kimbylr/inemit/commit/4e14daca670e5af513ef6a2c4cc3a19206ba4ee5))
+
+
+### Features
+
+* Add detail popup for editing, add prompt additions ([4291cae](https://github.com/kimbylr/inemit/commit/4291cae90e68ed0a25f7bfa980546a52bbaaba00))
+
 ## [1.22.5](https://github.com/kimbylr/inemit/compare/v1.22.4...v1.22.5) (2023-05-28)
 
 
