@@ -1,3 +1,10 @@
+## [1.22.5](https://github.com/kimbylr/inemit/compare/v1.22.4...v1.22.5) (2023-05-28)
+
+
+### Bug Fixes
+
+* Editable items styling without styled-components ([d045018](https://github.com/kimbylr/inemit/commit/d0450180820123b473355617088b9e69e4803da8))
+
 ## [1.22.4](https://github.com/kimbylr/inemit/compare/v1.22.3...v1.22.4) (2023-05-26)
 
 
