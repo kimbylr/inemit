@@ -162,6 +162,7 @@ export const EditableItem: FC<Props> = ({
             <button
               className="text-grey-75 hover:text-grey-25 outline-none focus-visible:drop-shadow-[0_0_2px_#6cc17a]"
               onClick={() => setShowDetail(true)}
+              type="button"
             >
               <Icon type={currentItem.promptAddition ? 'morePlus' : 'more'} />
             </button>
