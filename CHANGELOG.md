@@ -1,3 +1,10 @@
+## [1.23.1](https://github.com/kimbylr/inemit/compare/v1.23.0...v1.23.1) (2023-06-03)
+
+
+### Bug Fixes
+
+* Popup button icon + type button not submit ([bf2b5c8](https://github.com/kimbylr/inemit/commit/bf2b5c8f8b7fff39d0ff166a62c48cf2a7b07376))
+
 # [1.23.0](https://github.com/kimbylr/inemit/compare/v1.22.5...v1.23.0) (2023-05-28)
 
 
