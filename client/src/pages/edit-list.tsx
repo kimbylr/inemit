@@ -104,6 +104,7 @@ export const EditList: FC = () => {
             search
               ? (item) =>
                   item.prompt.toLowerCase().includes(search) ||
+                  item.promptAddition?.toLowerCase().includes(search) ||
                   item.solution.toLowerCase().includes(search)
               : Boolean,
           )
