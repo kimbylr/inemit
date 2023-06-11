@@ -202,7 +202,7 @@ export const Learn: FC = () => {
             <span style={{ fontSize: 'calc(0.75rem + 2vh + 2vw)' }} className="text-grey-10">
               {prompt}
             </span>
-            <span className="text-grey-10 text-md sm:text-lg">{promptAddition}</span>
+            <span className="text-grey-60 text-md sm:text-lg">{promptAddition}</span>
           </div>
         </div>
         <hr
