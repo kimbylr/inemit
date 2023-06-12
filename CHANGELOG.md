@@ -1,3 +1,19 @@
+# [1.24.0](https://github.com/kimbylr/inemit/compare/v1.23.1...v1.24.0) (2023-06-12)
+
+
+### Bug Fixes
+
+* also search in additional prompt ([8d7a4d6](https://github.com/kimbylr/inemit/commit/8d7a4d6049ea49ba24863efdbb72e88e8f6ee961))
+* Link component typing and props passing ([79f5b20](https://github.com/kimbylr/inemit/commit/79f5b2000f2656bff513684bc2f0d3a0fc1a5946))
+* make prompt additions less prominent in learn mode ([5d96eeb](https://github.com/kimbylr/inemit/commit/5d96eebf6558db14b28d3d858dfc7a4e0a0f3cdb))
+* Tailwind everywhere, get rid of styled-components ([59a2894](https://github.com/kimbylr/inemit/commit/59a28940197f2e1f9c89ce92aa0261ca9293c9ce))
+* Use tailwind for menu + expandable area, focus-visible ([73ba2b8](https://github.com/kimbylr/inemit/commit/73ba2b8c80609e95e028ff08a221d43f0b102eb4))
+
+
+### Features
+
+* Better handling of parentheses in evaluation ([b5db5e9](https://github.com/kimbylr/inemit/commit/b5db5e92cf127696d327b0715835296e6baee01f))
+
 ## [1.23.1](https://github.com/kimbylr/inemit/compare/v1.23.0...v1.23.1) (2023-06-03)
 
 
