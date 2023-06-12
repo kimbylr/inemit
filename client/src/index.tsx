@@ -1,6 +1,5 @@
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { ThemeProvider } from 'styled-components';
 
 import { AuthProvider } from './helpers/auth';
 import { PrivateRoute } from './helpers/private-route';
@@ -11,33 +10,27 @@ import { Learn } from './pages/learn';
 import { List } from './pages/list';
 import { Start } from './pages/start';
 import { StoreProvider } from './store';
-import { theme } from './theme';
 
 import './index.css';
 
 const App = () => (
-  <ThemeProvider theme={theme}>
-    <StoreProvider>
-      <AuthProvider>
-        <BrowserRouter>
-          <Routes>
-            <Route
-              path="/lists/:slug/learn"
-              element={<PrivateRoute redirectTo="/" children={<Learn />} />}
-            />
-            <Route path="/" element={<LandingPage />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/start" element={<PrivateRoute children={<Start />} />} />
-            <Route path="/lists/:slug" element={<PrivateRoute children={<List />} />} />
-            <Route
-              path="/lists/:slug/edit"
-              element={<PrivateRoute children={<EditList />} />}
-            />
-          </Routes>
-        </BrowserRouter>
-      </AuthProvider>
-    </StoreProvider>
-  </ThemeProvider>
+  <StoreProvider>
+    <AuthProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route
+            path="/lists/:slug/learn"
+            element={<PrivateRoute redirectTo="/" children={<Learn />} />}
+          />
+          <Route path="/" element={<LandingPage />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/start" element={<PrivateRoute children={<Start />} />} />
+          <Route path="/lists/:slug" element={<PrivateRoute children={<List />} />} />
+          <Route path="/lists/:slug/edit" element={<PrivateRoute children={<EditList />} />} />
+        </Routes>
+      </BrowserRouter>
+    </AuthProvider>
+  </StoreProvider>
 );
 
 const mountNode = document.getElementById('app');

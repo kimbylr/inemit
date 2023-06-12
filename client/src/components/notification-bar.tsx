@@ -1,14 +1,11 @@
-import React, { FC } from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import styled from 'styled-components';
-import { Icon } from '../elements/icon';
+import { FC } from 'react';
+import { useLocation } from 'react-router-dom';
 
 const useIsUnapproved = () => {
   const params = new URLSearchParams(useLocation().search);
 
   return (
-    params.get('error') === 'unauthorized' &&
-    params.get('error_description')?.includes('approved')
+    params.get('error') === 'unauthorized' && params.get('error_description')?.includes('approved')
   );
 };
 
@@ -20,18 +17,9 @@ export const NotificationBar: FC = () => {
   }
 
   return (
-    <Container>
-      Deine Registrierung muss von einem Administrator bestätigt werden. Du
-      wirst per E-Mail benachrichtigt.
-    </Container>
+    <div className="w-full p-2 bg-negative-75 text-center select-none">
+      Deine Registrierung muss von einem Administrator bestätigt werden. Du wirst per E-Mail
+      benachrichtigt.
+    </div>
   );
 };
-
-const Container = styled.div`
-  box-sizing: border-box;
-  width: 100%;
-  padding: 0.5rem;
-  background: ${({ theme: { colors } }) => colors.negative[75]};
-  text-align: center;
-  user-select: none;
-`;

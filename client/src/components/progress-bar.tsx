@@ -1,5 +1,4 @@
-import React, { FC, useState } from 'react';
-import styled from 'styled-components';
+import { FC, useState } from 'react';
 import { getColor, getLegend } from '../helpers/progress-mappers';
 import { ProgressSummaryStages } from '../models';
 
@@ -15,47 +14,28 @@ export const ProgressBar: FC<ProgressBarProps> = ({
 }) => {
   const [showCount, setShowCount] = useState(false);
 
+  const Element = showCountOnClick ? 'button' : 'div';
+
   return (
-    <Bar
+    <Element
       onClick={showCountOnClick ? () => setShowCount((s) => !s) : undefined}
-      as={showCountOnClick ? 'button' : undefined}
-      isButton={showCountOnClick}
-      className="dotted-focus dotted-focus-dark"
+      className={`w-full h-10 flex text-xs ${
+        showCountOnClick ? 'dotted-focus dotted-focus-dark' : ''
+      }`}
     >
       {Object.entries(stages).map(([stage, count]) => (
-        <BarPart key={stage} stage={stage} count={count}>
-          <Content>{showCount || showCountPerStage ? count : getLegend(stage)}</Content>
-        </BarPart>
+        <div
+          key={stage}
+          className={`h-10 px-2 ${getColor(
+            stage,
+          )} flex items-center justify-center pointer-events-none`}
+          style={{ flexGrow: count }}
+        >
+          <span className="inline-block min-w-[40px] text-center">
+            {showCount || showCountPerStage ? count : getLegend(stage)}
+          </span>
+        </div>
       ))}
-    </Bar>
+    </Element>
   );
 };
-
-const Bar = styled.div<{ isButton?: boolean }>`
-  width: 100%;
-  height: 40px;
-  display: flex;
-  font-size: ${({ theme: { font } }) => font.sizes.xs};
-  padding: 0;
-  margin: 0;
-  border: none;
-  ${({ isButton }) => (isButton ? 'cursor: pointer;' : undefined)}
-`;
-
-const BarPart = styled.div<{ stage: string; count: number }>`
-  height: 40px;
-  padding: 0 8px;
-  flex-grow: ${({ count }) => count};
-  background: ${({ stage, theme: { colors } }) => getColor(colors, stage)};
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: default;
-  pointer-events: none;
-`;
-
-const Content = styled.span`
-  display: inline-block;
-  min-width: 40px;
-  text-align: center;
-`;

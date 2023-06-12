@@ -1,5 +1,4 @@
-import React, { FC, useState } from 'react';
-import styled from 'styled-components';
+import { FC, useState } from 'react';
 import { EditableItem } from '../components/editable-item';
 import { useRouting } from '../hooks/use-routing';
 import { useSettings } from '../hooks/use-settings';
@@ -36,9 +35,9 @@ export const EditableItemsList: FC<Props> = ({
   const showHint = isEditing && !items.length && !hintDismissed(Hints.editingIntro);
 
   return (
-    <LearnItemList>
+    <ul>
       {items.map((item, i) => (
-        <LearnItemListElement key={item.id}>
+        <li key={item.id} className="border-t-4 border-dotted border-grey-85 pt-4 pb-1">
           <EditableItem
             item={item}
             index={item.index || i + 1}
@@ -46,7 +45,7 @@ export const EditableItemsList: FC<Props> = ({
             onItemDeleted={onItemDeleted}
             onItemSaved={onItemSaved}
           />
-        </LearnItemListElement>
+        </li>
       ))}
 
       {newItemIds.map((id) => {
@@ -58,7 +57,7 @@ export const EditableItemsList: FC<Props> = ({
         };
 
         return (
-          <LearnItemListElement key={item.id}>
+          <li key={item.id} className="border-t-4 border-dotted border-grey-85 pt-4 pb-1">
             <EditableItem
               onDismissHint={showHint && (() => onDismissHint(Hints.editingIntro))}
               item={item}
@@ -66,19 +65,9 @@ export const EditableItemsList: FC<Props> = ({
               onNewItemEdited={onNewItemEdited}
               onNewItemSaved={onNewItemSaved}
             />
-          </LearnItemListElement>
+          </li>
         );
       })}
-    </LearnItemList>
+    </ul>
   );
 };
-
-const LearnItemList = styled.ul`
-  list-style: none;
-  margin: 0;
-  padding: 0;
-`;
-const LearnItemListElement = styled.li`
-  border-top: 4px dotted ${({ theme: { colors } }) => colors.grey[85]};
-  padding: 16px 0 4px;
-`;

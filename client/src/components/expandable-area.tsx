@@ -1,7 +1,6 @@
-import React, { FC, useState, ReactNode, useEffect, useRef } from 'react';
-import { Icon } from '../elements/icon';
-import styled, { FlattenInterpolation, ThemeProps } from 'styled-components';
+import React, { FC, ReactNode, useEffect, useRef, useState } from 'react';
 import { Collapse } from 'react-collapse';
+import { Icon } from '../elements/icon';
 
 interface Props {
   canExpand?: boolean;

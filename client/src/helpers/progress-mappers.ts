@@ -7,17 +7,17 @@ const mapLegendToStage: { [key: string]: string } = {
 
 export const getLegend = (stage: string) => mapLegendToStage[stage] ?? '';
 
-export const getColor = (colors: { [key: string]: string }, stage: string) => {
+export const getColor = (stage: string, type?: 'bg' | 'stroke') => {
   switch (stage) {
     case '1':
-      return colors.yellow[50];
+      return type === 'stroke' ? 'stroke-yellow-50' : 'bg-yellow-50';
     case '2':
-      return colors.secondary[50];
+      return type === 'stroke' ? 'stroke-secondary-50' : 'bg-secondary-50';
     case '3':
-      return colors.primary[100];
+      return type === 'stroke' ? 'stroke-primary-100' : 'bg-primary-100';
     case '4':
-      return colors.primary[150];
+      return type === 'stroke' ? 'stroke-primary-150' : 'bg-primary-150';
     default:
-      return null;
+      return '';
   }
 };

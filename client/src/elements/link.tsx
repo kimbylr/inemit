@@ -1,20 +1,10 @@
-import styled from 'styled-components';
+import { FC } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 
-export const Link = styled(RouterLink)`
-  color: ${({ theme: { colors } }) => colors.primary[100]};
-  text-decoration: underline;
+export const Link: FC<any> = (props) => (
+  <RouterLink className="text-primary-100 underline hover:text-primary-150" {...props} />
+);
 
-  :hover {
-    color: ${({ theme: { colors } }) => colors.primary[150]};
-  }
-`;
-
-export const ExtLink = styled.a`
-  color: ${({ theme: { colors } }) => colors.primary[100]};
-  text-decoration: underline;
-
-  :hover {
-    color: ${({ theme: { colors } }) => colors.primary[150]};
-  }
-`;
+export const ExtLink: FC<any> = (props) => (
+  <a className="text-primary-100 underline hover:text-primary-150" {...props} />
+);
