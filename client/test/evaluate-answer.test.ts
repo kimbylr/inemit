@@ -43,6 +43,36 @@ const tests = [
     correctAnswers: ['tanto (altrettanto) stupido', 'tanto stupido'],
     wrongAnswers: [''],
   },
+  {
+    name: 'parenthesis before and after',
+    solution: "(il) letto (['lɛtːo])",
+    correctAnswers: ['letto', 'il letto'],
+    wrongAnswers: [''],
+  },
+  {
+    name: 'multi-parenthesis',
+    solution: 'vänja (vande) sig (vid)',
+    correctAnswers: ['vänja sig', 'vänja sig vid'],
+    wrongAnswers: ['', 'vänja', 'sig', 'vande', 'vande vid'],
+  },
+  {
+    name: 'multi-parenthesis 2',
+    solution: '(1) 2 (3)',
+    correctAnswers: ['1 2', '2', '1 2 3', '2 3'],
+    wrongAnswers: ['', '1 3', '1', '3'],
+  },
+  {
+    name: 'multi-parenthesis 3',
+    solution: '1 (2) 3 (4) (5) (6)',
+    correctAnswers: ['1 3', '1 2 3', '1 3 5', '1 3 6', '1 3 4 5 6'],
+    wrongAnswers: ['', '2 3', '1 2', '4 5 6'],
+  },
+  {
+    name: 'comma and parentheses',
+    solution: '(la) lite, (il) litigio',
+    correctAnswers: ['lite', 'la lite', 'il litigio', 'litigio'],
+    wrongAnswers: ['', 'la', 'il'],
+  },
 ];
 
 tests.map(({ name, solution, correctAnswers, wrongAnswers }) => {
