@@ -20,6 +20,7 @@ export const ProgressBar: FC<ProgressBarProps> = ({
       onClick={showCountOnClick ? () => setShowCount((s) => !s) : undefined}
       as={showCountOnClick ? 'button' : undefined}
       isButton={showCountOnClick}
+      className="dotted-focus dotted-focus-dark"
     >
       {Object.entries(stages).map(([stage, count]) => (
         <BarPart key={stage} stage={stage} count={count}>

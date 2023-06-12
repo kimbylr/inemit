@@ -132,6 +132,10 @@ p.hint em {
 
 /* other styling */
 
+.ReactCollapse--collapse {
+  transition: height 0.2s;
+}
+
 .landing-page-title {
   margin-top: calc(-12.5vw - 10vh - 150px);
   font-size: clamp(4rem, calc(2.5rem + 8vw), 10rem);

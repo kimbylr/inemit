@@ -7,7 +7,7 @@ interface Props {
   canExpand?: boolean;
   showChevronButton?: boolean;
   teaser?: ReactNode;
-  teaserStyles?: FlattenInterpolation<ThemeProps<any>>;
+  teaserStyles?: string;
   state?: [boolean, React.Dispatch<React.SetStateAction<boolean>>];
   children: ReactNode;
 }
@@ -17,7 +17,7 @@ export const ExpandableArea: FC<Props> = ({
   showChevronButton = true,
   children,
   teaser,
-  teaserStyles,
+  teaserStyles = '',
   state: externalState,
 }) => {
   const internalState = useState<boolean>(false);
@@ -34,84 +34,42 @@ export const ExpandableArea: FC<Props> = ({
 
   if (showChevronButton) {
     return (
-      <Container>
-        <ToggleButton
-          flexed
-          isOpened={open}
+      <section>
+        <button
+          className={`w-full flex justify-center items-center ${teaserStyles} dotted-focus dotted-focus-dark`}
           onClick={canExpand ? toggle : undefined}
-          additionalStyles={teaserStyles || ''}
         >
           {teaser}
           {canExpand && (
-            <ToggleButtonIcon isOpened={open}>
+            <div
+              className={`ml-2 relative w-8 h-8 top-0.5 flex flex-col justify-center transition-transform ${
+                open ? '-rotate-180' : 'rotate-0'
+              }`}
+            >
               <Icon type="chevronDown" />
-            </ToggleButtonIcon>
+            </div>
           )}
-        </ToggleButton>
+        </button>
 
         <Collapse isOpened={open}>
           <div ref={ref}>{children}</div>
         </Collapse>
-      </Container>
+      </section>
     );
   }
 
   return (
-    <Container>
-      <ToggleButton
-        isOpened={open}
-        additionalStyles={teaserStyles || ''}
+    <section>
+      <button
+        className={`w-full flex justify-center items-center ${teaserStyles} dotted-focus dotted-focus-dark`}
         onClick={canExpand ? toggle : undefined}
       >
         {teaser}
-      </ToggleButton>
+      </button>
 
       <Collapse isOpened={open}>{children}</Collapse>
-    </Container>
+    </section>
   );
 };
 
 const FOCUSABLE_ELEMENTS = ['a', 'button', 'input', 'textarea', '[tabindex]'];
-
-const Container = styled.section`
-  .ReactCollapse--collapse {
-    transition: height 0.2s;
-  }
-`;
-
-interface ToggleButtonProps {
-  isOpened: boolean;
-  flexed?: boolean;
-  additionalStyles: FlattenInterpolation<ThemeProps<any>> | string;
-}
-
-const ToggleButton = styled.button<ToggleButtonProps>`
-  cursor: pointer;
-  border: none;
-  background: none;
-  margin: 0;
-  padding: 0;
-
-  ${({ flexed }) =>
-    flexed
-      ? ` display: flex;
-          justify-content: space-between;
-          align-items: center;`
-      : 'width: 100%;'}
-
-  ${({ additionalStyles }) => additionalStyles}
-`;
-
-const ToggleButtonIcon = styled.div<{ isOpened: boolean }>`
-  margin-left: 0.5rem;
-  position: relative;
-  width: 30px;
-  height: 30px;
-  top: 2px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-
-  transform: rotate(${({ isOpened }) => (isOpened ? '-180' : '0')}deg);
-  transition: transform 0.2s ease-in-out;
-`;

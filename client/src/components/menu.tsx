@@ -1,7 +1,6 @@
 import { FC, useState } from 'react';
 import { Link } from 'react-router-dom';
-import styled, { css } from 'styled-components';
-import { Button } from '../elements/button';
+import { OutlineButton } from '../elements/button';
 import { Icon } from '../elements/icon';
 import { Spinner } from '../elements/spinner';
 import { useAuth } from '../helpers/auth';
@@ -23,22 +22,20 @@ export const Menu: FC = () => {
 
   if (state === 'loading' || state === 'initial') {
     return (
-      <Container>
+      <Nav>
         <Spinner small white />
-      </Container>
+      </Nav>
     );
   }
 
   if (state === 'error') {
     return (
-      <Container>
-        <ErrorContainer>
-          <Title>Habemus Fehler 🙄</Title>
-          <OutlineButton onClick={() => window.location.reload()}>
-            Neu laden
-          </OutlineButton>
-        </ErrorContainer>
-      </Container>
+      <Nav>
+        <div className="my-2 text-center w-full flex flex-col items-center">
+          <h3 className="font-bold text-sm my-2">Habemus Fehler 🙄</h3>
+          <OutlineButton onClick={() => window.location.reload()}>Neu laden</OutlineButton>
+        </div>
+      </Nav>
     );
   }
 
@@ -64,13 +61,13 @@ export const Menu: FC = () => {
   };
 
   return (
-    <Container>
+    <Nav>
       <ExpandableArea
         canExpand={hasLists}
         state={[open, setOpen]}
-        teaserStyles={TeaserStyles}
+        teaserStyles="mb-2 text-primary-150 hover:text-grey-25 group"
         teaser={
-          <Title>
+          <h3 className="font-bold text-sm mt-2 mb-1 group-hover:text-grey-25">
             {!hasLists && (
               <OutlineButton onClick={onAddList}>
                 <Icon type="addList" width="14px" /> Neue Liste
@@ -78,155 +75,43 @@ export const Menu: FC = () => {
             )}
             {hasLists && !activeList && 'Liste auswählen...'}
             {hasLists && activeList && activeList.name}
-          </Title>
+          </h3>
         }
       >
         {hasLists && (
-          <List>
+          <ul className="flex flex-col items-center gap-4 py-2">
             {inactiveLists.map((list) => (
-              <ListItem key={list.id}>
-                <ListLink to={getListPath(list.slug)} onClick={() => setOpen(false)}>
+              <li key={list.id}>
+                <Link
+                  to={getListPath(list.slug)}
+                  onClick={() => setOpen(false)}
+                  className="font-bold text-sm text-primary-150 hover:text-grey-25 dotted-focus dotted-focus-dark"
+                >
                   {list.name}
-                </ListLink>
-              </ListItem>
+                </Link>
+              </li>
             ))}
-            <ListItem>
+            <li>
               <OutlineButton onClick={onAddList}>
                 <Icon type="addList" width="14px" /> Neue Liste
               </OutlineButton>
-            </ListItem>
-          </List>
+            </li>
+          </ul>
         )}
 
-        <LogoutButtonContainer>
+        <div className="pt-4 pb-2 flex justify-center">
           <OutlineButton caution onClick={logout}>
             Logout
           </OutlineButton>
-        </LogoutButtonContainer>
+        </div>
       </ExpandableArea>
-    </Container>
+    </Nav>
   );
 };
 
-const Container = styled.nav`
-  width: 100%;
-  box-sizing: border-box;
-  padding: 0.75rem 1rem 0.5rem;
-
-  display: flex;
-  justify-content: center;
-
-  background: linear-gradient(
-    to bottom,
-    ${({ theme: { colors } }) => colors.secondary[50]},
-    ${({ theme: { colors } }) => colors.primary[50]}
-  );
-
-  position: relative;
-  overflow: hidden;
-  ::before {
-    content: '';
-    pointer-events: none;
-    position: absolute;
-    left: -20px;
-    top: 0;
-    right: -20px;
-    bottom: -20px;
-    box-shadow: inset 0 0 10px rgba(0, 0, 0, 1);
-  }
-`;
-
-const Title = styled.h3`
-  font-weight: ${({ theme: { font } }) => font.weights.bold};
-  font-size: ${({ theme: { font } }) => font.sizes.sm};
-  margin: 0.5rem 0 0.25rem;
-`;
-
-const List = styled.ul`
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`;
-const ListItem = styled.li`
-  margin: 0.5rem 0;
-  padding: 0;
-`;
-const ListLink = styled(Link)`
-  font-weight: ${({ theme: { font } }) => font.weights.bold};
-  font-size: ${({ theme: { font } }) => font.sizes.sm};
-  text-decoration: none;
-  color: ${({ theme: { colors } }) => colors.primary[150]};
-
-  :hover {
-    color: ${({ theme: { colors } }) => colors.grey[25]};
-  }
-  :focus {
-    outline: ${({ theme: { colors } }: any) => colors.primary[150]} solid 2px;
-    outline-offset: 4px;
-  }
-`;
-
-const TeaserStyles = css`
-  margin-bottom: 0.25rem;
-  width: 100%;
-  justify-content: center;
-  color: ${({ theme: { colors } }) => colors.primary[150]};
-
-  :hover,
-  :hover h3 {
-    color: ${({ theme: { colors } }) => colors.grey[25]};
-  }
-`;
-
-const OutlineButton = styled(Button)<{ caution?: boolean }>`
-  color: ${({ caution, theme: { colors } }) =>
-    caution ? colors.negative[150] : colors.primary[150]};
-  border: 1px solid
-    ${({ caution, theme: { colors } }) =>
-      caution ? colors.negative[150] : colors.primary[150]};
-  background: none;
-  box-shadow: none;
-
-  :hover:not(:disabled),
-  :active {
-    color: ${({ theme: { colors } }) => colors.grey[25]};
-    border-color: ${({ theme: { colors } }) => colors.grey[25]};
-  }
-
-  :active {
-    background: none;
-    top: 0;
-  }
-
-  :focus {
-    background: ${({ caution, theme: { colors } }) =>
-      caution ? colors.negative[150] : colors.primary[150]};
-    color: ${({ theme: { colors } }) => colors.grey[25]};
-    top: 0;
-  }
-  :focus::after {
-    display: none;
-  }
-`;
-
-const ErrorContainer = styled.div`
-  margin: 0.5rem 0;
-  text-align: center;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-
-  > :first-child {
-    margin-bottom: 0.5rem;
-  }
-`;
-
-const LogoutButtonContainer = styled.div`
-  padding: 1rem 0 0.5rem;
-  display: flex;
-  justify-content: center;
-`;
+const Nav: FC<{ children: React.ReactNode }> = ({ children }) => (
+  <nav className="w-full pt-3 px-1 pb-2 flex justify-center bg-gradient-to-b from-secondary-50 to-primary-50 relative overflow-hidden">
+    <div className="absolute pointer-events-none -inset-5 top-0 shadow-[inset_0_0_10px_#000]" />
+    {children}
+  </nav>
+);
