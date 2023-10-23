@@ -1,9 +1,0 @@
-runtime: nodejs12
-
-env_variables:
-  DB_HOST: mongo.db/path
-  DB_USER: user
-  DB_PASS: pass
-  AUTH_ISSUER: https://name.region.auth0.com/
-  AUTH_AUDIENCE: audience
-  CORS_WHITELIST: comma,separated,list

@@ -1,6 +1,0 @@
-{
-  "compilerOptions": {
-    "typeRoots": ["./*.d.ts"],
-    "outDir": "dist"
-  }
-}

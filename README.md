@@ -2,66 +2,39 @@
 
 **Inemit** is a Web App / PWA for practicing vocabulary (or anything else) using [Spaced repetition](https://en.wikipedia.org/wiki/Spaced_repetition).
 
-Features include:
+v1 (2020): SPA; v2 (2023): partial rewrite using Next.js
 
-- Lists. With stuff. To learn. (Yes, it's rocket science.)
-- A clever algorithm to evaluate if the solution entered is correct (starship science, at least)
-- A nice palette of green colours. Also some smilies.
-- A progress graphic meant to be motivating. That is, if you learn regularly.
-- Glitches: possibly more than zero, but far less than could be (Software keyboard handling. Return does what it should. That kind of stuff.)
-- Image prompts with search
-- Import
+Features:
 
-`Ine mit` means "In with it" in Swiss German.
+- **Edit mode**: Create and maintain self-curated lists of vocuabulary (or other stuff to learn)
+  - Add images from Unsplash or import lists
+  - Search and duplicate detection
+- **Learn mode**: Get it into your head
+  - Spaced repetition is made for long-term retention
+  - Evaluation algorithm takes care of variants
+  - Flagging and quick edit
+  - Progress visualisations
+- Simple yet powerful
 
-## Setup and run
+`Ine mit!` is Swiss German for "Get it in!".
 
-Make sure to use Node.js v16
 
-```sh
-nvm use
-```
+## Setup
 
-### API
+1. Make sure to use correct Node.js version: `nvm use`
 
-1. Copy `.env.dist` -> `.env` and set env variables (you'll need an auth service like Auth0 and a Mongo DB)
+2. Install dependencies: `npm install`
 
-2. Install dependencies
+3. Copy `.env.dist` -> `.env` and set env variables for Auth0, Mongo DB, Deepl, and Unsplash
 
-```sh
-npm install
-```
 
-3. Run locally (http://localhost:3003)
+## Run
 
-```sh
-npm run dev
-```
+Run Next.js dev server: `npm run dev`
 
-### Frontend
 
-1. Copy `.env.dist` -> `.env` and set env variables
-
-2. Install dependencies
-
-```sh
-npm install
-```
-
-3. Run locally (http://localhost:8080):
-
-```sh
-npm run dev
-```
-
-If env var `VITE_LIVE_API` is true, this will hit the `VITE_API_URL`. Set to false to use with local API.
-
-### Tests
+## Tests
 
 ```sh
 npm test
 ```
-
-## Credits
-
-Made with [createapp.dev](https://createapp.dev/)
