@@ -1,6 +1,30 @@
 # [2.0.0](https://github.com/kimbylr/inemit/compare/v1.24.0...v2.0.0) (2023-10-23)
 
 
+* v2 (#70) ([0b344b3](https://github.com/kimbylr/inemit/commit/0b344b33ba359f9032c5da7eab1c85f265411a01)), closes [#70](https://github.com/kimbylr/inemit/issues/70)
+
+
+### BREAKING CHANGES
+
+* Next.js rewrite
+
+* fix pkg lock
+
+* chore(release): 2.0.0
+
+# [2.0.0](https://github.com/kimbylr/inemit/compare/v1.24.0...v2.0.0) (2023-10-23)
+
+### chore
+
+* inemit v2 👯 ([cac7157](https://github.com/kimbylr/inemit/commit/cac7157428005315b96ec0813e59f7b231401a9c))
+
+### BREAKING CHANGES
+
+* Next.js rewrite
+
+# [2.0.0](https://github.com/kimbylr/inemit/compare/v1.24.0...v2.0.0) (2023-10-23)
+
+
 ### chore
 
 * inemit v2 👯 ([cac7157](https://github.com/kimbylr/inemit/commit/cac7157428005315b96ec0813e59f7b231401a9c))
