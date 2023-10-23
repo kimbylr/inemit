@@ -1,3 +1,11 @@
+## [2.0.2](https://github.com/kimbylr/inemit/compare/v2.0.1...v2.0.2) (2023-10-23)
+
+
+### Bug Fixes
+
+* downgrade to mongoose 7.6.1 ([8a97a38](https://github.com/kimbylr/inemit/commit/8a97a38a102834372adf153e243de60e5acd8d22))
+* readme ([35102d8](https://github.com/kimbylr/inemit/commit/35102d8222f184eaab4c03a9c98ce963037f479a))
+
 ## [2.0.1](https://github.com/kimbylr/inemit/compare/v2.0.0...v2.0.1) (2023-10-23)
 
 
