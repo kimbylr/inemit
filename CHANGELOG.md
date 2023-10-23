@@ -1,3 +1,10 @@
+## [2.0.1](https://github.com/kimbylr/inemit/compare/v2.0.0...v2.0.1) (2023-10-23)
+
+
+### Bug Fixes
+
+* changelog link on about page ([dc5ca0c](https://github.com/kimbylr/inemit/commit/dc5ca0c381489979097ea196ab0735c5feb0d826))
+
 # [2.0.0](https://github.com/kimbylr/inemit/compare/v1.24.0...v2.0.0) (2023-10-23)
 
 Version 2 is here! (same same, but with Next.js underneath)
