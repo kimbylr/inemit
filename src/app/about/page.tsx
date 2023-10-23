@@ -57,8 +57,8 @@ const AboutPage = () => (
 
     <p className="spaced text-xs">
       <strong>Version</strong>: {version} •{' '}
-      <ExtLink href="https://github.com/kimbylr/inemit/blob/master/CHANGELOG.md">Changelog</ExtLink>{' '}
-      • <ExtLink href="https://github.com/kimbylr/inemit/">Quellcode auf Github</ExtLink>
+      <ExtLink href="https://github.com/kimbylr/inemit/blob/main/CHANGELOG.md">Changelog</ExtLink> •{' '}
+      <ExtLink href="https://github.com/kimbylr/inemit/">Quellcode auf Github</ExtLink>
     </p>
     <p className="spaced text-xs !mb-0">
       <strong>Datenschutz</strong>: <Inemit>Inemit</Inemit> ist ein Hobby-Projekt von{' '}
