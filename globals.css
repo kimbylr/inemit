@@ -1,0 +1,145 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  font-family: var(--font-work-sans), -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+}
+.content-div {
+  min-height: calc(100vh + env(safe-area-inset-top));
+}
+
+button,
+input,
+textarea {
+  font-family: inherit;
+  font-size: 100%;
+  line-height: 1;
+  margin: 0;
+}
+
+strong {
+  @apply font-bold;
+  @apply text-grey-25;
+}
+
+ul.actual-list {
+  @apply list-disc;
+  @apply ml-6;
+}
+ul.actual-list li {
+  @apply my-2;
+  @apply list-[circle];
+  @apply pl-1;
+}
+
+h1,
+h2,
+h3 {
+  @apply text-primary-150;
+  @apply font-massive;
+  @apply break-words;
+}
+h1 {
+  @apply text-xl;
+}
+h2 {
+  @apply text-md;
+}
+h3 {
+  @apply text-sm;
+}
+
+p {
+  @apply leading-normal;
+  @apply text-grey-10;
+  @apply font-light;
+  @apply text-sm;
+}
+p.spaced {
+  @apply my-[1em];
+}
+
+hr {
+  @apply text-grey-75;
+  @apply my-6;
+}
+
+p.hint em {
+  @apply text-grey-25;
+  @apply font-bold;
+}
+
+/* focus styling */
+
+.button-focus:focus-visible:not(:active)::after {
+  content: '';
+  position: absolute;
+  inset: -6px -6px -10px;
+  border-radius: 8px;
+  border: 3px dotted;
+}
+.button-focus-primary:focus-visible:not(:active)::after {
+  @apply border-primary-100;
+}
+.button-focus-secondary:focus-visible:not(:active)::after {
+  @apply border-grey-75;
+}
+.button-focus-caution:focus-visible:not(:active)::after {
+  @apply border-negative-100;
+}
+
+.dotted-focus:focus-visible,
+a:focus-visible {
+  outline: none;
+  position: relative;
+}
+.dotted-focus:focus-visible::after,
+a:focus-visible::after {
+  content: '';
+  position: absolute;
+  inset: -6px;
+  border-radius: 8px;
+  border: 3px dotted;
+  @apply border-primary-100;
+}
+.dotted-focus-white:focus-visible::after {
+  @apply border-white;
+}
+.dotted-focus-rounded:focus-visible::after {
+  @apply rounded-full;
+}
+.dotted-focus-unspaced:focus-visible::after {
+  inset: 0;
+}
+
+/* other styling */
+
+.ReactCollapse--collapse {
+  transition: height 0.2s;
+}
+
+.landing-page-title {
+  margin-top: calc(-12.5vw - 10vh - 150px);
+  font-size: clamp(4rem, calc(2.5rem + 8vw), 10rem);
+  transform-origin: bottom;
+  transform: translateZ(1px) scale(0.66);
+  text-shadow: 0 0 4rem #000;
+}
+@media (min-width: 1500px) {
+  .landing-page-title {
+    margin-top: calc(-9vw - 12vh - 180px);
+  }
+}
+
+.no-show {
+  clip: rect(0, 0, 0, 0);
+  position: absolute;
+  height: 0;
+  width: 0;
+}
+
+.break-when-needed {
+  word-break: break-word; /* ohai Safari */
+  overflow-wrap: anywhere;
+}

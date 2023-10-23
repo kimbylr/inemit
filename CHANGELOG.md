@@ -1,3 +1,15 @@
+# [2.0.0](https://github.com/kimbylr/inemit/compare/v1.24.0...v2.0.0) (2023-10-23)
+
+
+### chore
+
+* inemit v2 👯 ([cac7157](https://github.com/kimbylr/inemit/commit/cac7157428005315b96ec0813e59f7b231401a9c))
+
+
+### BREAKING CHANGES
+
+* Next.js rewrite
+
 # [1.24.0](https://github.com/kimbylr/inemit/compare/v1.23.1...v1.24.0) (2023-06-12)
 
 
