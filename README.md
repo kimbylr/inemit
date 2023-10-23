@@ -25,7 +25,7 @@ Features:
 
 2. Install dependencies: `npm install`
 
-3. Copy `.env.dist` -> `.env` and set env variables for Auth0, Mongo DB, Deepl, and Unsplash
+3. Copy `.env.dist` -> `.env.local` and set env variables for Auth0, Mongo DB, Deepl, and Unsplash
 
 
 ## Run
