@@ -38,11 +38,9 @@ export const User: FC<Props> = ({ loggedInComponent, loggedOutComponent, navigat
     return (
       <span ref={ref}>
         {loggedOutComponent || (
-          <span className="bg-primary-50">
-            <a href="/api/auth/login" className="dotted-focus">
-              Login
-            </a>
-          </span>
+          <a href="/api/auth/login" className="dotted-focus">
+            Login
+          </a>
         )}
       </span>
     );

@@ -4,8 +4,16 @@ import { sortByLastLearnt } from '@/db/helpers';
 import { List } from '@/types/types';
 import { FC, ReactNode } from 'react';
 
+const getLists = async () => {
+  try {
+    return sortByLastLearnt(await getListsSummary()) as unknown as List[];
+  } catch {
+    return [];
+  }
+};
+
 export const Layout: FC<{ children: ReactNode }> = async ({ children }) => {
-  const lists = sortByLastLearnt(await getListsSummary()) as unknown as List[];
+  const lists = await getLists();
 
   return (
     <div className="bg-grey-95 content-div">
