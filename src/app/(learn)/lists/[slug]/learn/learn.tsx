@@ -34,15 +34,9 @@ export const Learn: FC<{ list: List<'items'> }> = ({ list }) => {
   const submitButtonRef = useRef<HTMLButtonElement>(null);
   const correctionButtonRef = useRef<HTMLButtonElement>(null);
 
-  // focus input field when ready
   useEffect(() => {
-    if (isMobileAppleDevice()) {
-      // let user focus for scroll to work (◔_◔)
-      return;
-    }
-
-    answerFieldRef.current?.focus();
-  }, []);
+    mode.includes('answering') && answerFieldRef.current?.focus();
+  }, [mode]);
 
   // if answer wasn't correct, use ⬆️/⬇️ to focus submit/correction button
   useEffect(() => {
@@ -89,13 +83,6 @@ export const Learn: FC<{ list: List<'items'> }> = ({ list }) => {
 
     mode === 'revising' && save(); // don't save when repeating
     dispatch({ type: LearnAction.NEXT, correct: answerQuality >= 3 });
-
-    // iOS only displays the soft keyboard if an input is focused _in a click event fn_
-    // TODO: to be changed soon? https://github.com/WebKit/WebKit/pull/2907
-    if (answerFieldRef.current) {
-      answerFieldRef.current.disabled = false; // can't focus before enabled (next render)
-      answerFieldRef.current.focus();
-    }
   };
 
   const { id: itemId, prompt, promptAddition, solution, flagged, image } = item;
