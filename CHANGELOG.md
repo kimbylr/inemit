@@ -1,3 +1,10 @@
+## [2.1.1](https://github.com/kimbylr/inemit/compare/v2.1.0...v2.1.1) (2023-11-19)
+
+
+### Bug Fixes
+
+* Simplify focusing text field after answering ([f8eefd1](https://github.com/kimbylr/inemit/commit/f8eefd1d4e90247dd4442bf22d957048e9480e6f))
+
 # [2.1.0](https://github.com/kimbylr/inemit/compare/v2.0.2...v2.1.0) (2023-11-19)
 
 
