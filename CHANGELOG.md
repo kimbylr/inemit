@@ -1,3 +1,10 @@
+## [2.1.4](https://github.com/kimbylr/inemit/compare/v2.1.3...v2.1.4) (2023-11-19)
+
+
+### Bug Fixes
+
+* Add meta tags to use notch area ([92a5365](https://github.com/kimbylr/inemit/commit/92a5365f343ff34bf4aafc7bbc13989d8e745c29))
+
 ## [2.1.3](https://github.com/kimbylr/inemit/compare/v2.1.2...v2.1.3) (2023-11-19)
 
 
