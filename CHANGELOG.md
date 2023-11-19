@@ -1,3 +1,10 @@
+## [2.1.8](https://github.com/kimbylr/inemit/compare/v2.1.7...v2.1.8) (2023-11-19)
+
+
+### Bug Fixes
+
+* uncomment ([0565ad7](https://github.com/kimbylr/inemit/commit/0565ad7dfa62770121c22d14de9d2d72128e68ee))
+
 ## [2.1.7](https://github.com/kimbylr/inemit/compare/v2.1.6...v2.1.7) (2023-11-19)
 
 
