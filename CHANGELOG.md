@@ -1,3 +1,10 @@
+## [2.1.7](https://github.com/kimbylr/inemit/compare/v2.1.6...v2.1.7) (2023-11-19)
+
+
+### Bug Fixes
+
+* Use next metadata to set iOS PAW head ([0832480](https://github.com/kimbylr/inemit/commit/0832480a17b975fa8ccf8db54f3ca1e11e455c08))
+
 ## [2.1.6](https://github.com/kimbylr/inemit/compare/v2.1.5...v2.1.6) (2023-11-19)
 
 
