@@ -35,8 +35,15 @@ export const Learn: FC<{ list: List<'items'> }> = ({ list }) => {
   const correctionButtonRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
-    mode.includes('answering') && answerFieldRef.current?.focus();
-  }, [mode]);
+    if (isMobileAppleDevice() && currentIndex === 0 && mode === 'answering') {
+      // let user click initially, otherwise soft keyboard does not come up
+      return;
+    }
+
+    if (mode.includes('answering')) {
+      answerFieldRef.current?.focus();
+    }
+  }, [mode, currentIndex]);
 
   // if answer wasn't correct, use ⬆️/⬇️ to focus submit/correction button
   useEffect(() => {
