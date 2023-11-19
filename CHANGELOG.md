@@ -1,3 +1,10 @@
+## [2.1.9](https://github.com/kimbylr/inemit/compare/v2.1.8...v2.1.9) (2023-11-19)
+
+
+### Bug Fixes
+
+* imports ([c69a2a9](https://github.com/kimbylr/inemit/commit/c69a2a9e4f737ed81aebb5cd3beabe875cf4bb8f))
+
 ## [2.1.8](https://github.com/kimbylr/inemit/compare/v2.1.7...v2.1.8) (2023-11-19)
 
 
