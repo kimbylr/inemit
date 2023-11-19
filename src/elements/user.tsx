@@ -56,6 +56,7 @@ export const User: FC<Props> = ({ loggedInComponent, loggedOutComponent, navigat
           <a
             href="/api/auth/logout"
             aria-label="Logout"
+            title="Logout"
             className="dotted-focus dotted-focus-rounded"
           >
             <IconLogout className="w-11 h-11 -m-3 p-3 hover:text-grey-35" />

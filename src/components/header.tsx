@@ -2,10 +2,11 @@
 
 import { Menu } from '@/components/menu';
 import { IconLogo } from '@/elements/icons/logo';
+import { List } from '@/types/types';
 import Link from 'next/link';
 import { FC, useLayoutEffect } from 'react';
 
-export const Header: FC = () => {
+export const Header: FC<{ lists: List[] }> = ({ lists }) => {
   useLayoutEffect(() => {
     const body = document.getElementsByTagName('body')[0];
     body.style.backgroundColor = '#6CC17A';
@@ -28,7 +29,7 @@ export const Header: FC = () => {
         <span className="font-massive text-xxl ml-4">inemit!</span>
       </Link>
       <div className="absolute top-4 right-4 z-40">
-        <Menu />
+        <Menu lists={lists} />
       </div>
     </header>
   );
