@@ -7,7 +7,7 @@ const LOGIN_BUTTON_STYLE =
 
 const Page = () => (
   <>
-    <nav className="fixed top-2 right-2 z-10 left-2 text-center xs:left-auto">
+    <nav className="fixed top-4 right-4 z-10 left-4 text-center xs:left-auto">
       <User
         loggedOutComponent={
           <a href="/api/auth/login" className={LOGIN_BUTTON_STYLE}>
