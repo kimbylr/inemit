@@ -1,3 +1,10 @@
+## [2.1.2](https://github.com/kimbylr/inemit/compare/v2.1.1...v2.1.2) (2023-11-19)
+
+
+### Bug Fixes
+
+* Re-introduce iOS focusing check ([da6253b](https://github.com/kimbylr/inemit/commit/da6253ba00a71f1ca6ce433293e63de63255518e))
+
 ## [2.1.1](https://github.com/kimbylr/inemit/compare/v2.1.0...v2.1.1) (2023-11-19)
 
 
