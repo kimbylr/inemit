@@ -1,3 +1,10 @@
+## [2.1.5](https://github.com/kimbylr/inemit/compare/v2.1.4...v2.1.5) (2023-11-19)
+
+
+### Bug Fixes
+
+* Still trying to use the notch ([9436542](https://github.com/kimbylr/inemit/commit/943654214181fe6a125127e944ce5cf8cf73160b))
+
 ## [2.1.4](https://github.com/kimbylr/inemit/compare/v2.1.3...v2.1.4) (2023-11-19)
 
 
