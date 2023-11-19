@@ -1,3 +1,10 @@
+## [2.1.6](https://github.com/kimbylr/inemit/compare/v2.1.5...v2.1.6) (2023-11-19)
+
+
+### Bug Fixes
+
+* Can navigate to about when not logged in ([3cfcdae](https://github.com/kimbylr/inemit/commit/3cfcdaeac7e8b31f2ec0864693e4a7e0b1f02447))
+
 ## [2.1.5](https://github.com/kimbylr/inemit/compare/v2.1.4...v2.1.5) (2023-11-19)
 
 
