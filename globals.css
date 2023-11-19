@@ -2,6 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
+/* notch */
+@supports (padding: max(0px)) {
+  body,
+  header,
+  footer {
+    padding-left: min(0vmin, env(safe-area-inset-left));
+    padding-right: min(0vmin, env(safe-area-inset-right));
+  }
+}
+
 html {
   font-family: var(--font-work-sans), -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
 }
