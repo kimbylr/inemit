@@ -1,3 +1,10 @@
+## [2.1.3](https://github.com/kimbylr/inemit/compare/v2.1.2...v2.1.3) (2023-11-19)
+
+
+### Bug Fixes
+
+* Use notch area in iOS ([470a7c0](https://github.com/kimbylr/inemit/commit/470a7c0fc9857604206ad401bd1de6f1acee9e0d))
+
 ## [2.1.2](https://github.com/kimbylr/inemit/compare/v2.1.1...v2.1.2) (2023-11-19)
 
 
