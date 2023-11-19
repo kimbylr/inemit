@@ -1,3 +1,15 @@
+# [2.1.0](https://github.com/kimbylr/inemit/compare/v2.0.2...v2.1.0) (2023-11-19)
+
+
+### Bug Fixes
+
+* Set PWA theme color to black ([b3e4722](https://github.com/kimbylr/inemit/commit/b3e4722b3d6c9dba63c6360e18e004d160376131))
+
+
+### Features
+
+* Add links to lists in menu (also: click outside, update mongoose) ([f871acd](https://github.com/kimbylr/inemit/commit/f871acdf5756c5d592b6f875462a3c7cca86d0de))
+
 ## [2.0.2](https://github.com/kimbylr/inemit/compare/v2.0.1...v2.0.2) (2023-10-23)
 
 
