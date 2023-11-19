@@ -1,3 +1,10 @@
+## [2.1.10](https://github.com/kimbylr/inemit/compare/v2.1.9...v2.1.10) (2023-11-19)
+
+
+### Bug Fixes
+
+* startupImages have url, not link ([63e0c14](https://github.com/kimbylr/inemit/commit/63e0c142eca027087aab8d635d2c5b584203d25b))
+
 ## [2.1.9](https://github.com/kimbylr/inemit/compare/v2.1.8...v2.1.9) (2023-11-19)
 
 
