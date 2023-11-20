@@ -3,7 +3,7 @@
 import { useHeight } from '@/hooks/use-height';
 import { FC, ReactNode, useLayoutEffect } from 'react';
 
-export const Layout: FC<{ children: ReactNode }> = ({ children }) => {
+const Layout: FC<{ children: ReactNode }> = ({ children }) => {
   const height = useHeight();
 
   useLayoutEffect(() => {
