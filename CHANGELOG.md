@@ -1,3 +1,10 @@
+## [2.1.11](https://github.com/kimbylr/inemit/compare/v2.1.10...v2.1.11) (2023-11-20)
+
+
+### Bug Fixes
+
+* header/bgcolor generally green, learn mode black ([80d94fc](https://github.com/kimbylr/inemit/commit/80d94fc04a7341b9d5b537b1d32d5dab16028701))
+
 ## [2.1.10](https://github.com/kimbylr/inemit/compare/v2.1.9...v2.1.10) (2023-11-19)
 
 
