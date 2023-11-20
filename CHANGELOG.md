@@ -1,3 +1,10 @@
+## [2.1.12](https://github.com/kimbylr/inemit/compare/v2.1.11...v2.1.12) (2023-11-20)
+
+
+### Bug Fixes
+
+* export error ([90d6d64](https://github.com/kimbylr/inemit/commit/90d6d643a21e6f8d89850eb3da0ea7400ea8d3ba))
+
 ## [2.1.11](https://github.com/kimbylr/inemit/compare/v2.1.10...v2.1.11) (2023-11-20)
 
 
