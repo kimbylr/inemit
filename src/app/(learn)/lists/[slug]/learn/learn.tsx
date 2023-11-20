@@ -97,7 +97,7 @@ export const Learn: FC<{ list: List<'items'> }> = ({ list }) => {
   const hasSpaceForImage = height > 600; // most likely soft keyboard
 
   return (
-    <div className="w-[100vw] overflow-hidden fixed p-4" style={{ height: height + 'px' }}>
+    <>
       <LearnProgress count={count} total={items.length} />
       <header className="flex justify-between" style={{ paddingTop: 'env(safe-area-inset-top)' }}>
         <span className="relative -left-1">
@@ -250,7 +250,7 @@ export const Learn: FC<{ list: List<'items'> }> = ({ list }) => {
           </Button>
         </form>
       </main>
-    </div>
+    </>
   );
 };
 

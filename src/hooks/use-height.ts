@@ -1,8 +1,9 @@
+'use client';
+
 import { useLayoutEffect, useState } from 'react';
 
 export const useHeight = () => {
-  // initialising with window height makes Next.js hickup when looking for the window server-side
-  const [height, setHeight] = useState(0);
+  const [height, setHeight] = useState(window.visualViewport?.height ?? window.innerHeight);
 
   useLayoutEffect(() => {
     const update = () => setHeight(window.visualViewport?.height ?? window.innerHeight);

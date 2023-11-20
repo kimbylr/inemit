@@ -43,6 +43,7 @@ module.exports = {
         98: '#fafafa', // aka white-ish
       },
       white: '#fff',
+      black: '#000',
       negative: {
         150: '#AD705F',
         100: '#FF8360',

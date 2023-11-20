@@ -177,7 +177,7 @@ export const metadata = {
 const RootLayout: FC<{ children: ReactNode }> = ({ children }) => (
   <UserProvider>
     <html lang="de" className={workSans.variable}>
-      <body className="bg-grey-95 min-h-screen">{children}</body>
+      <body className="min-h-screen bg-primary-100">{children}</body>
     </html>
   </UserProvider>
 );

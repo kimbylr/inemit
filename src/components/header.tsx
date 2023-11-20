@@ -10,10 +10,6 @@ export const Header: FC<{ lists: List[] }> = ({ lists }) => {
   useLayoutEffect(() => {
     const body = document.getElementsByTagName('body')[0];
     body.style.backgroundColor = '#6CC17A';
-
-    return () => {
-      body.style.backgroundColor = '#f2f2f2';
-    };
   }, []);
 
   return (
