@@ -1,3 +1,10 @@
+# [2.2.0](https://github.com/kimbylr/inemit/compare/v2.1.13...v2.2.0) (2023-12-29)
+
+
+### Features
+
+* Display learning progress as dots instead of bars ([b248cdf](https://github.com/kimbylr/inemit/commit/b248cdf7c103923e138a992a7b13d24bdc6fc1ee))
+
 ## [2.1.13](https://github.com/kimbylr/inemit/compare/v2.1.12...v2.1.13) (2023-11-20)
 
 
