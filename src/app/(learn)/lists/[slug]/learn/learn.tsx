@@ -98,9 +98,11 @@ export const Learn: FC<{ list: List<'items'> }> = ({ list }) => {
 
   return (
     <>
-      <LearnProgress count={count} total={items.length} />
-      <header className="flex justify-between" style={{ paddingTop: 'env(safe-area-inset-top)' }}>
-        <span className="relative -left-1">
+      <header
+        className="flex justify-between items-center gap-3"
+        style={{ paddingTop: 'env(safe-area-inset-top)' }}
+      >
+        <span className="relative -left-1 shrink-0">
           <FlagButton
             flagged={flagged}
             onFlagged={(flagged) => dispatch({ type: LearnAction.FLAG, itemId, flagged })}
@@ -109,10 +111,11 @@ export const Learn: FC<{ list: List<'items'> }> = ({ list }) => {
             // onDismissHint={showFlagHint && (() => onDismissHint(Hints.learningFlag))}
           />
         </span>
+        <LearnProgress correct={count.correct} incorrect={count.incorrect} total={items.length} />
         <button
           onClick={backToList}
           title="Zurück zur Übersicht"
-          className="text-grey-75 hover:text-grey-50 dotted-focus dotted-focus-rounded h-6 w-6 flex justify-center relative -right-0.5"
+          className="text-grey-75 hover:text-grey-50 dotted-focus dotted-focus-rounded h-6 w-6 flex justify-center relative -right-0.5 shrink-0"
         >
           <IconCrossThick className="w-5" />
         </button>

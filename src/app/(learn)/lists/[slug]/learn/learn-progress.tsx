@@ -1,31 +1,37 @@
-'use client';
+import { merge } from '@/helpers/merge';
+import { FC } from 'react';
 
-import React, { FC } from 'react';
+const MAX_DOTS = 16;
 
-interface LearnProgressProps {
-  count: {
-    correct: number;
-    incorrect: number;
-  };
+type LearnProgressProps = {
+  correct: number;
+  incorrect: number;
   total: number;
-}
-export const LearnProgress: FC<LearnProgressProps> = ({ count, total }) => (
-  <div
-    className="w-full flex fixed top-0 left-0"
-    style={{ height: 'calc(env(safe-area-inset-top) + 0.25rem)' }}
-  >
-    <div
-      className="absolute z-10 w-full bg-grey-10"
-      style={{ height: 'env(safe-area-inset-top)' }}
-    />
-    <div className="h-full duration-[0.4s] bg-primary-100" style={{ flex: `${count.correct}` }} />
-    <div
-      className="h-full duration-[0.4s]"
-      style={{ flex: `${total - count.correct - count.incorrect}` }}
-    />
-    <div
-      className="h-full duration-[0.4s] bg-negative-100"
-      style={{ flex: `${count.incorrect}` }}
-    />
-  </div>
-);
+};
+
+export const LearnProgress: FC<LearnProgressProps> = ({ correct, incorrect, total }) => {
+  const factor = Math.min(MAX_DOTS / total, 1);
+  const correctDots = Math.ceil(correct * factor);
+  const incorrectDots = Math.ceil(incorrect * factor);
+  const totalDots = Math.min(total, MAX_DOTS);
+
+  return (
+    <div className="flex gap-1.5 md:gap-2.5 mt-1">
+      {Array.from({ length: totalDots }, (_, i) => (
+        <span
+          key={i}
+          className={merge(
+            'size-1.5 rounded-full transition-colors duration-500',
+            getDotColor(i < correctDots, i >= totalDots - incorrectDots),
+          )}
+        />
+      ))}
+    </div>
+  );
+};
+
+const getDotColor = (correct: boolean, incorrect: boolean) => {
+  if (correct) return 'bg-primary-100';
+  if (incorrect) return 'bg-negative-100';
+  return 'bg-grey-90';
+};

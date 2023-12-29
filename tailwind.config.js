@@ -39,6 +39,7 @@ module.exports = {
         60: '#9a9a9a',
         75: '#c0c0c0',
         85: '#dadada',
+        90: '#e5e5e5',
         95: '#f2f2f2',
         98: '#fafafa', // aka white-ish
       },
