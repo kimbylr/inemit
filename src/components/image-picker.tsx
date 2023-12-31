@@ -150,7 +150,11 @@ const Image: FC<{ img: UnsplashImage; onSetImage: (img: UnsplashImage) => void }
     role="button"
     className="relative cursor-pointer hover:opacity-75 group rounded overflow-hidden"
   >
-    <img src={img.urls.small} className="w-full" onClick={() => onSetImage(img)} />
+    <img
+      srcSet={`${img.urls.small} 400w, ${img.urls.regular} 1080w`}
+      className="w-full aspect-square object-cover"
+      onClick={() => onSetImage(img)}
+    />
     <div
       className={`hidden ${
         isMobileAppleDevice() ? '' : 'group-hover:block'

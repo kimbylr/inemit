@@ -12,7 +12,7 @@ import { TextField } from '@/elements/text-field';
 import { isMobileAppleDevice } from '@/helpers/is-mobile-apple-device';
 import { merge } from '@/helpers/merge';
 import { useHeight } from '@/hooks/use-height';
-import { List } from '@/types/types';
+import { List, UnsplashImage } from '@/types/types';
 import { useRouter } from 'next/navigation';
 import React, { FC, useEffect, useReducer, useRef, useState } from 'react';
 import { LearnProgress } from './learn-progress';
@@ -94,7 +94,12 @@ export const Learn: FC<{ list: List<'items'> }> = ({ list }) => {
 
   const { id: itemId, prompt, promptAddition, solution, flagged, image } = item;
   const revising = mode === 'revising' || mode === 'repeat-revising' || mode === 'end';
-  const hasSpaceForImage = height > 600; // most likely soft keyboard
+  const textSize =
+    prompt.length < 40 && !promptAddition?.length
+      ? 'large'
+      : prompt.length + (promptAddition?.length || -20) < 60
+      ? 'medium'
+      : 'small';
 
   return (
     <>
@@ -125,54 +130,19 @@ export const Learn: FC<{ list: List<'items'> }> = ({ list }) => {
         className="pt-4 flex flex-col justify-evenly"
         style={{ height: `${height - 72}px` /* header 40 + container 2 * 16 */ }}
       >
-        <div
-          className="mb-2 flex flex-col justify-evenly items-center text-center break-when-needed"
-          style={{ flexGrow: image ? 2 : 1 }}
-        >
-          {image && (
-            <div
-              className={merge(
-                'leading-[0] group',
-                hasSpaceForImage ? 'relative' : 'absolute opacity-25',
-              )}
-            >
-              <img
-                srcSet={`${image.urls.small} 400w, ${image.urls.regular} 1080w`}
-                sizes="calc(20vw + 25vh)"
-                className={merge(
-                  'max-w-[calc(20vw+25vh)] shadow-image',
-                  hasSpaceForImage ? 'max-h-[50vh]' : 'max-h-[25vh]',
-                )}
-              />
-              <div className="absolute bottom-0 left-0 leading-none p-1 rounded-tr bg-opacity-50 bg-grey-10 text-xxs text-grey-10 hidden group-hover:block">
-                <a
-                  href={`${image.user.link}?utm_source=inemit&utm_medium=referral`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-grey-85 hover:text-primary-100"
-                >
-                  {image.user.name}
-                </a>
-              </div>
-            </div>
-          )}
-          <div className="flex flex-col gap-4">
-            <span style={{ fontSize: 'calc(0.75rem + 2vh + 2vw)' }} className="text-grey-10">
-              {prompt}
+        <div className="text-center break-when-needed bg-white border border-grey-85 rounded-xl shadow-card max-h-[calc(100vh-200px)] min-h-[50%] w-full max-w-96 my-8 mx-auto overflow-hidden flex flex-col">
+          {image && <Image image={image} />}
+          <div className="flex flex-col gap-2 m-8 grow justify-center">
+            <span className={merge('text-grey-10', TEXT_SIZES.prompt[textSize])}>{prompt}</span>
+            <span className={merge('text-grey-60', TEXT_SIZES.addition[textSize])}>
+              {promptAddition}
             </span>
-            <span className="text-grey-60 text-md sm:text-lg">{promptAddition}</span>
           </div>
         </div>
 
-        <hr
-          className={`w-full border-t-4 border-dotted border-grey-85 my-4 relative ${
-            hasSpaceForImage ? 'top-4' : ''
-          }`}
-        />
-
         <form
           autoComplete="off"
-          className="flex justify-center items-center grow pt-6"
+          className="flex justify-center items-center pt-6"
           style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}
         >
           <div className="mr-5 relative">
@@ -252,9 +222,45 @@ export const Learn: FC<{ list: List<'items'> }> = ({ list }) => {
             {revising ? <IconNext className="h-4 w-6" /> : <IconDone className="h-4 w-6" />}
           </Button>
         </form>
+
+        {/* if space, push everything a bit up */}
+        <div />
       </main>
     </>
   );
+};
+
+const Image: FC<{ image: UnsplashImage }> = ({ image }) => (
+  <div className="leading-[0] group relative">
+    <img
+      srcSet={`${image.urls.small} 400w, ${image.urls.regular} 1080w`}
+      sizes="480px"
+      className="aspect-square object-cover"
+    />
+    <div className="absolute bottom-0 left-0 leading-none p-1 rounded-tr bg-opacity-50 bg-grey-10 text-xxs text-grey-10 hidden group-hover:block">
+      <a
+        href={`${image.user.link}?utm_source=inemit&utm_medium=referral`}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="text-grey-85 hover:text-primary-100"
+      >
+        {image.user.name}
+      </a>
+    </div>
+  </div>
+);
+
+const TEXT_SIZES: Record<'prompt' | 'addition', Record<'small' | 'medium' | 'large', string>> = {
+  prompt: {
+    large: 'text-xl sm:text-xxl',
+    medium: 'text-lg sm:text-xl',
+    small: 'text-md sm:text-lg',
+  },
+  addition: {
+    large: 'text-md sm:text-lg',
+    medium: 'text-sm sm:text-md',
+    small: 'text-xs sm:text-sm',
+  },
 };
 
 const Correction: FC<{

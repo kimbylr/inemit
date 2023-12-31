@@ -63,7 +63,7 @@ module.exports = {
       md: '1.5rem', // h2
       lg: '1.75rem',
       xl: '2.125rem', // h1
-      xxl: '2.625rem', //
+      xxl: '2.625rem',
     },
     fontWeight: {
       light: '300',
@@ -79,7 +79,7 @@ module.exports = {
         'button-secondary': '0 4px #a8a8a8',
         'button-caution': '0 4px #AD705F',
         modal: '0 20px 25px -5px rgb(0 0 0 / 0.2), 0 8px 10px -6px rgb(0 0 0 / 0.2);',
-        image: '0 8px 32px #9a9a9a',
+        card: '0 4px 24px #bbb',
         'blurry-focus': '0 0 16px #6CC17A',
       },
       lineHeight: {
