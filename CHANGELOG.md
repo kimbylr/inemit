@@ -1,3 +1,10 @@
+# [2.3.0](https://github.com/kimbylr/inemit/compare/v2.2.0...v2.3.0) (2023-12-31)
+
+
+### Features
+
+* New learning mode design with card ([753b4e4](https://github.com/kimbylr/inemit/commit/753b4e4d77e71a1c4b21e61216c56484a39d35e1))
+
 # [2.2.0](https://github.com/kimbylr/inemit/compare/v2.1.13...v2.2.0) (2023-12-29)
 
 
