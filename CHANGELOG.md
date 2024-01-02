@@ -1,3 +1,10 @@
+## [2.3.1](https://github.com/kimbylr/inemit/compare/v2.3.0...v2.3.1) (2024-01-02)
+
+
+### Bug Fixes
+
+* Optimise card size in learning mode ([b1aa28c](https://github.com/kimbylr/inemit/commit/b1aa28cfa4105c858c03080793b332f526104ce0))
+
 # [2.3.0](https://github.com/kimbylr/inemit/compare/v2.2.0...v2.3.0) (2023-12-31)
 
 
