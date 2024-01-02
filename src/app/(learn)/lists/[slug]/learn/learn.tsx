@@ -130,9 +130,15 @@ export const Learn: FC<{ list: List<'items'> }> = ({ list }) => {
         className="pt-4 flex flex-col justify-evenly"
         style={{ height: `${height - 72}px` /* header 40 + container 2 * 16 */ }}
       >
-        <div className="text-center break-when-needed bg-white border border-grey-85 rounded-xl shadow-card max-h-[calc(100vh-200px)] min-h-[50%] w-full max-w-96 my-8 mx-auto overflow-hidden flex flex-col">
+        <div
+          className={merge(
+            'bg-white border border-grey-85 rounded-lg shadow-card my-8 mx-auto overflow-hidden flex flex-col',
+            'min-h-[min(320px,50%)] max-h-[calc(100vh-200px)] w-full',
+            image ? 'max-w-96' : 'max-w-lg',
+          )}
+        >
           {image && <Image image={image} />}
-          <div className="flex flex-col gap-2 m-8 grow justify-center">
+          <div className="flex flex-col gap-2 m-8 grow justify-center text-center break-when-needed">
             <span className={merge('text-grey-10', TEXT_SIZES.prompt[textSize])}>{prompt}</span>
             <span className={merge('text-grey-60', TEXT_SIZES.addition[textSize])}>
               {promptAddition}
@@ -234,7 +240,7 @@ const Image: FC<{ image: UnsplashImage }> = ({ image }) => (
   <div className="leading-[0] group relative">
     <img
       srcSet={`${image.urls.small} 400w, ${image.urls.regular} 1080w`}
-      sizes="480px"
+      sizes="512px"
       className="aspect-square object-cover"
     />
     <div className="absolute bottom-0 left-0 leading-none p-1 rounded-tr bg-opacity-50 bg-grey-10 text-xxs text-grey-10 hidden group-hover:block">
