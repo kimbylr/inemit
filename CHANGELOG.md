@@ -1,3 +1,10 @@
+## [2.3.2](https://github.com/kimbylr/inemit/compare/v2.3.1...v2.3.2) (2024-01-02)
+
+
+### Bug Fixes
+
+* Balanced text wrapping in leaning mode ([37a90f5](https://github.com/kimbylr/inemit/commit/37a90f54e232b0bee22e506d6aaf173857c2b515))
+
 ## [2.3.1](https://github.com/kimbylr/inemit/compare/v2.3.0...v2.3.1) (2024-01-02)
 
 
