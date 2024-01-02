@@ -138,7 +138,7 @@ export const Learn: FC<{ list: List<'items'> }> = ({ list }) => {
           )}
         >
           {image && <Image image={image} />}
-          <div className="flex flex-col gap-2 m-8 grow justify-center text-center break-when-needed">
+          <div className="flex flex-col gap-2 m-8 grow justify-center text-center break-when-needed text-balance">
             <span className={merge('text-grey-10', TEXT_SIZES.prompt[textSize])}>{prompt}</span>
             <span className={merge('text-grey-60', TEXT_SIZES.addition[textSize])}>
               {promptAddition}
