@@ -83,6 +83,8 @@ export const ImagePicker: FC<Props> = ({ searchTerm: initialSearchTerm, onSetIma
     }
   };
 
+  console.log(imgs[0]);
+
   return (
     <Modal
       title="Bild hinzufügen"

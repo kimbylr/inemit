@@ -53,6 +53,10 @@ if (!cached.Progress) {
 
 const UnsplashImageSchema = new Schema<UnsplashImage>({
   id: { type: String, required: true },
+  width: Number,
+  height: Number,
+  color: String,
+  blurHash: String,
   urls: {
     thumb: { type: String, required: true },
     small: { type: String, required: true },

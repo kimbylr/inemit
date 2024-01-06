@@ -98,7 +98,7 @@ module.exports = {
         },
       },
       animation: {
-        'fade-in': 'fadeIn 1s ease-in 0.5s forwards',
+        'fade-in': 'fadeIn 0.5s ease-in forwards',
         bounce: 'wobble 2s infinite ease-in-out',
         'slide-in': 'slideIn 0.2s ease-out',
       },

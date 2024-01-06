@@ -5,6 +5,7 @@ import { UnsplashImage } from '@/types/types';
 type Input = UnsplashImage & {
   user: { links: { html: string } };
   links: { download_location: string };
+  blur_hash?: string;
 };
 
 const headers = {
@@ -18,16 +19,25 @@ export const searchUnsplash = async (searchString: string, page: number) => {
     { headers },
   );
   const { results } = await res.json();
+  console.log(results);
   return results.map(mapUnsplashImage);
 };
 
 const mapUnsplashImage = ({
   id,
+  width,
+  height,
+  color,
+  blur_hash,
   urls: { thumb, small, regular },
   user: { name, links },
   links: { download_location },
 }: Input): UnsplashImage => ({
   id,
+  width,
+  height,
+  color,
+  blurHash: blur_hash,
   urls: { thumb, small, regular },
   user: { name, link: links.html },
   onChooseImgUrl: download_location,

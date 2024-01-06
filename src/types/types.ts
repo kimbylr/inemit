@@ -6,6 +6,10 @@ export type ListProgressSummary = Record<1 | 2 | 3 | 4, number>;
 
 export type UnsplashImage = {
   id: string;
+  width?: number;
+  height?: number;
+  color?: string;
+  blurHash?: string;
   urls: { thumb: string; small: string; regular: string };
   user: { name: string; link: string };
   onChooseImgUrl?: string;

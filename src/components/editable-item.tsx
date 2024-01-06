@@ -212,7 +212,7 @@ export const EditableItem: FC<Props> = ({
                 />
               </div>
               {!item.isNew && (
-                <div className="relative ml-2 h-10 flex items-center shrink-0">
+                <div className="relative ml-2.5 h-10 flex items-center shrink-0">
                   <button
                     type="button"
                     onClick={() => setShowImagePicker((active) => !active)}
@@ -224,14 +224,14 @@ export const EditableItem: FC<Props> = ({
                         <img
                           src={currentItem.image.urls.thumb}
                           alt=""
-                          className="h-[38px] rounded-sm w-auto hover:opacity-75"
+                          className="h-[38px] w-[38px] rounded-sm hover:opacity-75 object-cover"
                         />
                         <span className="absolute top-2 text-grey-25 flex justify-center w-full">
                           <IconEdit className="w-5 drop-shadow-[0_0_4px_white] hidden group-hover:block" />
                         </span>
                       </div>
                     ) : (
-                      <IconImage className="w-8" />
+                      <IconImage className="w-[38px]" />
                     )}
                   </button>
                   {currentItem.image && (

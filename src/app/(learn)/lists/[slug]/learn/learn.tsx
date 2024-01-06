@@ -17,6 +17,7 @@ import { useRouter } from 'next/navigation';
 import React, { FC, useEffect, useReducer, useRef, useState } from 'react';
 import { LearnProgress } from './learn-progress';
 import { LearnAction, getInitialLearnMachineData, learnMachine } from './state-machine';
+import { Blurhash } from 'react-blurhash';
 
 export const Learn: FC<{ list: List<'items'> }> = ({ list }) => {
   const height = useHeight();
@@ -100,6 +101,8 @@ export const Learn: FC<{ list: List<'items'> }> = ({ list }) => {
       : prompt.length + (promptAddition?.length || -20) < 60
       ? 'medium'
       : 'small';
+
+  console.log(image);
 
   return (
     <>
@@ -237,11 +240,16 @@ export const Learn: FC<{ list: List<'items'> }> = ({ list }) => {
 };
 
 const Image: FC<{ image: UnsplashImage }> = ({ image }) => (
-  <div className="leading-[0] group relative">
+  <div className="leading-[0] group relative w-full aspect-square">
+    {image.blurHash && (
+      <div className="absolute inset-0">
+        <Blurhash hash={image.blurHash} height="100%" width="100%" />
+      </div>
+    )}
     <img
       srcSet={`${image.urls.small} 400w, ${image.urls.regular} 1080w`}
       sizes="512px"
-      className="aspect-square object-cover"
+      className="absolute inset-0 aspect-square object-cover h-full"
     />
     <div className="absolute bottom-0 left-0 leading-none p-1 rounded-tr bg-opacity-50 bg-grey-10 text-xxs text-grey-10 hidden group-hover:block">
       <a
