@@ -1,3 +1,10 @@
+# [2.4.0](https://github.com/kimbylr/inemit/compare/v2.3.2...v2.4.0) (2024-01-06)
+
+
+### Features
+
+* Images and placeholders always square, blurhash ([227a126](https://github.com/kimbylr/inemit/commit/227a126e6c64b82bd67e03a3e09d695e606192f9))
+
 ## [2.3.2](https://github.com/kimbylr/inemit/compare/v2.3.1...v2.3.2) (2024-01-02)
 
 
