@@ -102,8 +102,6 @@ export const Learn: FC<{ list: List<'items'> }> = ({ list }) => {
       ? 'medium'
       : 'small';
 
-  console.log(image);
-
   return (
     <>
       <header
@@ -135,18 +133,20 @@ export const Learn: FC<{ list: List<'items'> }> = ({ list }) => {
       >
         <div
           className={merge(
-            'bg-white border border-grey-85 rounded-lg shadow-card my-8 mx-auto overflow-hidden flex flex-col',
+            'bg-white border border-grey-85 rounded-lg shadow-card my-8 mx-auto overflow-hidden flex flex-col-reverse',
             'min-h-[min(320px,50%)] max-h-[calc(100vh-200px)] w-full',
             image ? 'max-w-96' : 'max-w-lg',
           )}
         >
-          {image && <Image image={image} />}
           <div className="flex flex-col gap-2 m-8 grow justify-center text-center break-when-needed text-balance">
             <span className={merge('text-grey-10', TEXT_SIZES.prompt[textSize])}>{prompt}</span>
-            <span className={merge('text-grey-60', TEXT_SIZES.addition[textSize])}>
-              {promptAddition}
-            </span>
+            {promptAddition && (
+              <span className={merge('text-grey-60', TEXT_SIZES.addition[textSize])}>
+                {promptAddition}
+              </span>
+            )}
           </div>
+          {image && <Image image={image} />}
         </div>
 
         <form
