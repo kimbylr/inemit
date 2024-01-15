@@ -1,3 +1,11 @@
+## [2.4.1](https://github.com/kimbylr/inemit/compare/v2.4.0...v2.4.1) (2024-01-15)
+
+
+### Bug Fixes
+
+* Keep body background color green in learn mode ([f01efe9](https://github.com/kimbylr/inemit/commit/f01efe972b1c5258a9da3217da608bf02df5cc6f))
+* Learning mode card squashing on mobile ([e859a8b](https://github.com/kimbylr/inemit/commit/e859a8b8792d521ca404c44cf75e3fc40859c076))
+
 # [2.4.0](https://github.com/kimbylr/inemit/compare/v2.3.2...v2.4.0) (2024-01-06)
 
 
