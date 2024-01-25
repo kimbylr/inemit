@@ -96,7 +96,7 @@ export const Learn: FC<{ list: List<'items'> }> = ({ list }) => {
   const { id: itemId, prompt, promptAddition, solution, flagged, image } = item;
   const revising = mode === 'revising' || mode === 'repeat-revising' || mode === 'end';
   const textSize =
-    prompt.length < 40 && !promptAddition?.length
+    prompt.length + (promptAddition?.length || -10) < 30
       ? 'large'
       : prompt.length + (promptAddition?.length || -20) < 60
       ? 'medium'
