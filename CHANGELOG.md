@@ -1,3 +1,10 @@
+## [2.4.2](https://github.com/kimbylr/inemit/compare/v2.4.1...v2.4.2) (2024-01-25)
+
+
+### Bug Fixes
+
+* Bigger font for learning card with little text ([95f2e39](https://github.com/kimbylr/inemit/commit/95f2e3900480ab9ec30465429134dec9f5153cac))
+
 ## [2.4.1](https://github.com/kimbylr/inemit/compare/v2.4.0...v2.4.1) (2024-01-15)
 
 
