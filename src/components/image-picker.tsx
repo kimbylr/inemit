@@ -8,7 +8,7 @@ import { translate } from '@/helpers/translate';
 import { searchUnsplash } from '@/helpers/unsplash';
 import { useDebounce } from '@/hooks/use-debounce';
 import { UnsplashImage } from '@/types/types';
-import { FC, useEffect, useState } from 'react';
+import { FC, useEffect, useRef, useState } from 'react';
 import { Modal } from './modal';
 
 const IMGS_PER_PAGE = 10; // unsplash default
@@ -20,6 +20,7 @@ type Props = {
 };
 
 export const ImagePicker: FC<Props> = ({ searchTerm: initialSearchTerm, onSetImage, onClose }) => {
+  const topRef = useRef<HTMLSpanElement>(null);
   const [searching, setSearching] = useState(false);
   const [searchTerm, setSearchTerm] = useState(initialSearchTerm);
   const [lastSearched, setLastSearched] = useState('');
@@ -51,6 +52,7 @@ export const ImagePicker: FC<Props> = ({ searchTerm: initialSearchTerm, onSetIma
       }
       setPage(1);
       setImgs(imgs);
+      topRef.current?.scrollIntoView({ behavior: 'instant' });
     } catch {
       setError('Fehler beim Laden der Bilder');
     } finally {
@@ -82,8 +84,6 @@ export const ImagePicker: FC<Props> = ({ searchTerm: initialSearchTerm, onSetIma
       setLoadingMore(false);
     }
   };
-
-  console.log(imgs[0]);
 
   return (
     <Modal
@@ -121,6 +121,7 @@ export const ImagePicker: FC<Props> = ({ searchTerm: initialSearchTerm, onSetIma
     >
       {imgs.length > 0 && (
         <div className="flex flex-col gap-4">
+          <span ref={topRef} />
           <ul className="flex flex-col gap-4 flex-start">
             {imgs.map((img) => (
               <Image img={img} onSetImage={onSetImage} key={img.id} />
