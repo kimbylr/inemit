@@ -1,3 +1,11 @@
+## [2.4.3](https://github.com/kimbylr/inemit/compare/v2.4.2...v2.4.3) (2024-02-07)
+
+
+### Bug Fixes
+
+* Scroll to top when image search changed ([c01ca07](https://github.com/kimbylr/inemit/commit/c01ca0735a27f4e84e8cd5e2dde5a085a290769f))
+* Slightly increase auto learn count ([2682126](https://github.com/kimbylr/inemit/commit/268212678e2545d679ab7e4a03789b5f3afaf354))
+
 ## [2.4.2](https://github.com/kimbylr/inemit/compare/v2.4.1...v2.4.2) (2024-01-25)
 
 
