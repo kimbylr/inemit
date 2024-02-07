@@ -130,10 +130,7 @@ export const getInitialProgress = (stage: 1 | 2 | 3 = 1) => {
 };
 
 export const getLearnCount = (total: number) => {
-  if (total <= 15) return total;
-  if (total <= 30) return Math.ceil(total / 2);
-
-  const chunks = Math.round(total / 12);
+  const chunks = Math.ceil(total / 15);
   return Math.ceil(total / chunks);
 };
 
