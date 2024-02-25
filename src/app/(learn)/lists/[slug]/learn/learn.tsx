@@ -15,9 +15,9 @@ import { useHeight } from '@/hooks/use-height';
 import { List, UnsplashImage } from '@/types/types';
 import { useRouter } from 'next/navigation';
 import React, { FC, useEffect, useReducer, useRef, useState } from 'react';
+import { Blurhash } from 'react-blurhash';
 import { LearnProgress } from './learn-progress';
 import { LearnAction, getInitialLearnMachineData, learnMachine } from './state-machine';
-import { Blurhash } from 'react-blurhash';
 
 export const Learn: FC<{ list: List<'items'> }> = ({ list }) => {
   const height = useHeight();
@@ -96,7 +96,8 @@ export const Learn: FC<{ list: List<'items'> }> = ({ list }) => {
   const { id: itemId, prompt, promptAddition, solution, flagged, image } = item;
   const revising = mode === 'revising' || mode === 'repeat-revising' || mode === 'end';
   const textSize =
-    prompt.length + (promptAddition?.length || -10) < 30
+    prompt.length + (promptAddition?.length || -10) < 30 &&
+    prompt.split(' ').every((word) => word.length < 10)
       ? 'large'
       : prompt.length + (promptAddition?.length || -20) < 60
       ? 'medium'
