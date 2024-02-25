@@ -1,3 +1,10 @@
+## [2.4.4](https://github.com/kimbylr/inemit/compare/v2.4.3...v2.4.4) (2024-02-25)
+
+
+### Bug Fixes
+
+* Smaller prompt in learn mode if it contains long words ([d7c5d03](https://github.com/kimbylr/inemit/commit/d7c5d03bae3c540ee6db1effa802a97b7dc30dac))
+
 ## [2.4.3](https://github.com/kimbylr/inemit/compare/v2.4.2...v2.4.3) (2024-02-07)
 
 
