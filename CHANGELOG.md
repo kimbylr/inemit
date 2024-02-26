@@ -1,3 +1,10 @@
+## [2.4.5](https://github.com/kimbylr/inemit/compare/v2.4.4...v2.4.5) (2024-02-26)
+
+
+### Bug Fixes
+
+* Ignore case when searching ([574cb05](https://github.com/kimbylr/inemit/commit/574cb051401d31639d10d32201ebc9a550e862ee))
+
 ## [2.4.4](https://github.com/kimbylr/inemit/compare/v2.4.3...v2.4.4) (2024-02-25)
 
 
