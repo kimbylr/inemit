@@ -57,11 +57,12 @@ export const EditableItemsList: FC<Props> = ({
       .filter((item) => typeof item.doubletOf === 'number');
   }
   if (search) {
+    const searchLowerCase = search.toLowerCase();
     filteredItems = filteredItems.filter(
       (item) =>
-        item.prompt.toLowerCase().includes(search) ||
-        item.promptAddition?.toLowerCase().includes(search) ||
-        item.solution.toLowerCase().includes(search),
+        item.prompt.toLowerCase().includes(searchLowerCase) ||
+        item.promptAddition?.toLowerCase().includes(searchLowerCase) ||
+        item.solution.toLowerCase().includes(searchLowerCase),
     );
   }
 
