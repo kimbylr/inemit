@@ -97,7 +97,7 @@ export const Learn: FC<{ list: List<'items'> }> = ({ list }) => {
   const revising = mode === 'revising' || mode === 'repeat-revising' || mode === 'end';
   const textSize =
     prompt.length + (promptAddition?.length || -10) < 30 &&
-    prompt.split(' ').every((word) => word.length < 10)
+    prompt.split(' ').every((word) => word.length < 12)
       ? 'large'
       : prompt.length + (promptAddition?.length || -20) < 60
       ? 'medium'
