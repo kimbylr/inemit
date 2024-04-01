@@ -1,3 +1,10 @@
+## [2.4.6](https://github.com/kimbylr/inemit/compare/v2.4.5...v2.4.6) (2024-04-01)
+
+
+### Bug Fixes
+
+* Display short prompts with larger font-size ([bca42b6](https://github.com/kimbylr/inemit/commit/bca42b63a4b22cec67abdf7420b5c936bf8495a4))
+
 ## [2.4.5](https://github.com/kimbylr/inemit/compare/v2.4.4...v2.4.5) (2024-02-26)
 
 
