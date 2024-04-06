@@ -5,7 +5,7 @@ import { FC } from 'react';
 const getIconsFromFiles = async () => {
   try {
     return (await readdir('src/elements/icons/'))
-      .map((filename) => require(`src/elements/icons/${filename}`))
+      .map((filename) => require(`../../elements/icons/${filename}`))
       .map((icon) => {
         const [name, Icon] = Object.entries(icon)[0];
         return { name, Icon: Icon as JSX.ElementType };
