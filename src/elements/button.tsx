@@ -12,7 +12,7 @@ export const Button: FC<
     small?: boolean;
     ref?: React.ForwardedRef<HTMLButtonElement>;
   } & ButtonHTMLAttributes<HTMLButtonElement>
-> = React.forwardRef(({ primary, caution, small, children, className = '', ...props }, ref) => {
+> = ({ primary, caution, small, children, className = '', ref, ...props }) => {
   const primaryClasses =
     'bg-primary-100 text-gray-98 shadow-button-primary hover:text-gray-25 active:text-gray-25 active:bg-primary-150 button-focus-primary';
   const secondaryAndCaution =
@@ -31,4 +31,4 @@ export const Button: FC<
       {children}
     </button>
   );
-});
+};
