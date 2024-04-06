@@ -6,7 +6,7 @@ export const TextField: FC<
     label?: string;
     ref?: React.LegacyRef<HTMLInputElement>;
   } & InputHTMLAttributes<HTMLInputElement>
-> = React.forwardRef(({ small, className, label, ref, ...props }) => {
+> = React.forwardRef(({ small, className, label, ...props }, ref) => {
   const input = (
     <input
       className={`text-black font-light border-2 border-gray-85 outline-none rounded w-full bg-white appearance-none ${
