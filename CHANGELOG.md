@@ -1,3 +1,10 @@
+## [2.4.7](https://github.com/kimbylr/inemit/compare/v2.4.6...v2.4.7) (2024-04-06)
+
+
+### Bug Fixes
+
+* Updated packages + use npm 20 ([c2f4343](https://github.com/kimbylr/inemit/commit/c2f4343eb398221052abceba31d596c1f458ca03))
+
 ## [2.4.6](https://github.com/kimbylr/inemit/compare/v2.4.5...v2.4.6) (2024-04-01)
 
 
