@@ -11,7 +11,7 @@ export const Switch: FC<Props> = ({ enabled, onToggle }) => (
   <button
     type="button"
     className={`relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full p-0.5 transition-colors duration-200 ease-in-out dotted-focus ${
-      enabled ? 'bg-primary-150' : 'bg-grey-85'
+      enabled ? 'bg-primary-150' : 'bg-gray-85'
     }`}
     role="switch"
     aria-checked="false"

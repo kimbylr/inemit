@@ -25,7 +25,7 @@ export const LearnSettings: FC<Props> = ({ list }) => {
   return (
     <div>
       <button
-        className="w-6 h-6 text-grey-75 hover:text-grey-50 dotted-focus dotted-focus-dark"
+        className="w-6 h-6 text-gray-75 hover:text-gray-50 dotted-focus dotted-focus-dark"
         onClick={() => setOpen(true)}
       >
         <IconSettings />

@@ -16,7 +16,7 @@ export const Layout: FC<{ children: ReactNode }> = async ({ children }) => {
   const lists = await getLists();
 
   return (
-    <div className="bg-grey-95 content-div">
+    <div className="bg-gray-95 content-div">
       <Header lists={lists} />
       <main className="py-8 px-6 mx-auto max-w-3xl">{children}</main>
     </div>

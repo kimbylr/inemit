@@ -13,7 +13,7 @@ export const Header: FC<{ lists: List[] }> = ({ lists }) => (
   >
     <Link
       href="/"
-      className="text-grey-98 leading-none my-1 flex justify-center dotted-focus dotted-focus-white"
+      className="text-gray-98 leading-none my-1 flex justify-center dotted-focus dotted-focus-white"
     >
       <IconLogo className="w-10" />
       <span className="font-massive text-xxl ml-4">inemit!</span>

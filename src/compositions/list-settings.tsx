@@ -27,7 +27,7 @@ export const ListSettings: FC<Props> = ({ list, toggleIcon: ToggleIcon }) => {
         aria-label="Liste bearbeiten"
         className="outline-none group"
       >
-        {ToggleIcon || <IconSettings className="w-6 h-6 text-grey-75 hover:text-grey-50" />}
+        {ToggleIcon || <IconSettings className="w-6 h-6 text-gray-75 hover:text-gray-50" />}
       </button>
 
       {show && (

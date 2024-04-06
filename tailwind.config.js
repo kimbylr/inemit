@@ -31,8 +31,7 @@ module.exports = {
         100: '#FFC15E',
         20: '#FFE0AD',
       },
-      grey: {
-        10: '#121212', // aka black
+      gray: {
         25: '#3e3e3e',
         35: '#5a5a5a',
         50: '#808080',
@@ -41,10 +40,10 @@ module.exports = {
         85: '#dadada',
         90: '#e5e5e5',
         95: '#f2f2f2',
-        98: '#fafafa', // aka white-ish
+        98: '#fafafa',
       },
       white: '#fff',
-      black: '#000',
+      black: '#121212',
       negative: {
         150: '#AD705F',
         100: '#FF8360',

@@ -70,14 +70,14 @@ export const FlagButton: FC<Props> = ({
         className={`leading-none dotted-focus aspect-square flex justify-center items-center dotted-focus-rounded ${
           loading ? 'cursor-not-allowed' : 'cursor-pointer'
         } ${
-          flagged ? 'text-primary-100 hover:text-primary-50' : 'text-grey-75 hover:text-grey-50'
+          flagged ? 'text-primary-100 hover:text-primary-50' : 'text-gray-75 hover:text-gray-50'
         }`}
       >
         {loading ? (
           <div
             title="speichern..."
             className={`animate-spin relative w-6 h-6 leading-none ${
-              flagged ? 'text-grey-75' : 'text-primary-100'
+              flagged ? 'text-gray-75' : 'text-primary-100'
             }`}
           >
             <IconSync className="w-6" />

@@ -8,12 +8,12 @@ export const Spinner: FC<{ white?: boolean; small?: boolean }> = ({ white, small
   >
     <div
       className={`animate-bounce w-full h-full rounded-full ${
-        white ? 'bg-grey-98' : 'bg-primary-100'
+        white ? 'bg-gray-98' : 'bg-primary-100'
       } opacity-60 absolute top-0 left-0`}
     />
     <div
       className={`animate-bounce w-full h-full rounded-full ${
-        white ? 'bg-grey-98' : 'bg-primary-100'
+        white ? 'bg-gray-98' : 'bg-primary-100'
       } opacity-60 absolute top-0 left-0`}
       style={{ animationDelay: '-1s' }}
     />

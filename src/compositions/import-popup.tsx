@@ -17,7 +17,7 @@ export const ImportPopup: FC<Props> = ({ listId, onItemsAdded, onClose }) => (
     <ul className="actual-list text-xs mb-4">
       <li>Pro Zeile ein Eintrag</li>
       <li>
-        Eintrag = Vokabel + Tab <span className="border border-grey-50 rounded-sm px-2">⇥</span> +
+        Eintrag = Vokabel + Tab <span className="border border-gray-50 rounded-sm px-2">⇥</span> +
         Abfrage
       </li>
     </ul>

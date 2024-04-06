@@ -3,7 +3,7 @@ import { User } from '@/elements/user';
 import Link from 'next/link';
 
 const LOGIN_BUTTON_STYLE =
-  'text-grey-25 font-bold text-xs+ -m-4 sm:m-0 bg-primary-25 sm:bg-grey-85 px-4 py-4 xs:py-2 block animate-slide-in sm:rounded-lg shadow-[0_0_12px_#333] dotted-focus dotted-focus-white';
+  'text-gray-25 font-bold text-xs+ -m-4 sm:m-0 bg-primary-25 sm:bg-gray-85 px-4 py-4 xs:py-2 block animate-slide-in sm:rounded-lg shadow-[0_0_12px_#333] dotted-focus dotted-focus-white';
 
 const Page = () => (
   <>
@@ -34,7 +34,7 @@ const Page = () => (
         />
       </div>
 
-      <h1 className="landing-page-title absolute top-[80vh] left-0 right-0 py-20 px-4 mx-auto text-center text-grey-98 font-massive break-words pointer-events-none z-10">
+      <h1 className="landing-page-title absolute top-[80vh] left-0 right-0 py-20 px-4 mx-auto text-center text-gray-98 font-massive break-words pointer-events-none z-10">
         inemit!
       </h1>
 
@@ -42,7 +42,7 @@ const Page = () => (
         {/* "shard" in light green */}
         <div className="absolute z-[-1] h-[max(500px,50vw)] w-screen bg-primary-100 before:content-[''] before:absolute before:w-0 before:h-0 before:top-[calc(1px-15vw)] before:left-0 before:border-l-[100vw] before:border-l-[transparent] before:border-b-[15vw] before:border-b-primary-100" />
         <div className="absolute top-[calc(40px-2vw)] w-screen flex justify-center">
-          <span className="text-grey-98 w-[calc(4rem+6vw)]">
+          <span className="text-gray-98 w-[calc(4rem+6vw)]">
             <IconLogo />
           </span>
         </div>
@@ -53,12 +53,12 @@ const Page = () => (
             <p className={PARAGRAPH_CLASSES}>
               Lernen heisst
               <br />
-              <strong className="font-massive text-grey-98">
+              <strong className="font-massive text-gray-98">
                 Wiederholen. <em className="text-secondary-50 not-italic">Wiederholen</em>
               </strong>
               <br />
               <em className="text-secondary-50 not-italic">braucht</em>{' '}
-              <strong className="font-massive text-grey-98">
+              <strong className="font-massive text-gray-98">
                 <em className="text-secondary-50 not-italic">Zeit.</em> Zeit
               </strong>{' '}
               spart,
@@ -66,13 +66,13 @@ const Page = () => (
               wer effizient lernt.
             </p>
             <p className={PARAGRAPH_CLASSES}>
-              <strong className="font-massive text-grey-98">inemit</strong>
+              <strong className="font-massive text-gray-98">inemit</strong>
               <br />
               hilft, effizient zu lernen.
               <br />
               <Link
                 href="/about"
-                className="underline text-grey-98 hover:text-secondary-50 dotted-focus-white"
+                className="underline text-gray-98 hover:text-secondary-50 dotted-focus-white"
               >
                 Wie das?
               </Link>
@@ -82,7 +82,7 @@ const Page = () => (
                 loggedOutComponent={
                   <a
                     href="/api/auth/login"
-                    className="leading-normal underline text-grey-98 hover:text-secondary-50 dotted-focus-white"
+                    className="leading-normal underline text-gray-98 hover:text-secondary-50 dotted-focus-white"
                   >
                     Anmelden oder registrieren
                   </a>
@@ -90,7 +90,7 @@ const Page = () => (
                 loggedInComponent={
                   <Link
                     href="/lists"
-                    className="leading-normal underline text-grey-98 hover:text-secondary-50 dotted-focus-white"
+                    className="leading-normal underline text-gray-98 hover:text-secondary-50 dotted-focus-white"
                   >
                     Anmelden oder registrieren
                   </Link>
@@ -108,4 +108,4 @@ export default Page;
 
 export const runtime = 'edge';
 
-const PARAGRAPH_CLASSES = 'leading-normal text-grey-98 my-[1em] text-md sm:text-lg md:text-xl';
+const PARAGRAPH_CLASSES = 'leading-normal text-gray-98 my-[1em] text-md sm:text-lg md:text-xl';

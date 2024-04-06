@@ -8,7 +8,7 @@ const Layout: FC<{ children: ReactNode }> = ({ children }) => {
 
   return (
     <div
-      className="w-[100vw] overflow-hidden fixed bg-grey-98 p-4"
+      className="w-[100vw] overflow-hidden fixed bg-gray-98 p-4"
       style={{ height: height + 'px' }}
     >
       {children}

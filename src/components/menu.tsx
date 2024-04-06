@@ -30,7 +30,7 @@ export const Menu: FC<{ lists: List[] }> = ({ lists }) => {
       </button>
 
       {open && (
-        <ul className="absolute right-0 top-10 bg-white shadow-md w-56 rounded-lg flex flex-col text-grey-35 overflow-hidden">
+        <ul className="absolute right-0 top-10 bg-white shadow-md w-56 rounded-lg flex flex-col text-gray-35 overflow-hidden">
           <li className="p-3">
             <User navigateOnSpace />
           </li>
@@ -64,7 +64,7 @@ type MenuLinkProps = {
 const MenuLink: FC<MenuLinkProps> = ({ href, children, closeMenu, noBorder }) => (
   <li
     className={merge(
-      'border-grey-85 hover:bg-grey-95',
+      'border-gray-85 hover:bg-gray-95',
       !noBorder && 'border-t',
       noBorder && 'relative -top-1.5',
     )}

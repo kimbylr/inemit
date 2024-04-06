@@ -33,5 +33,5 @@ export const LearnProgress: FC<LearnProgressProps> = ({ correct, incorrect, tota
 const getDotColor = (correct: boolean, incorrect: boolean) => {
   if (correct) return 'bg-primary-100';
   if (incorrect) return 'bg-negative-100';
-  return 'bg-grey-90';
+  return 'bg-gray-90';
 };

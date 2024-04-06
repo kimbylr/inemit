@@ -10,7 +10,7 @@ export const AddListButton: FC = () => {
 
   return (
     <button
-      className="py-2 px-2 flex gap-2 items-center text-primary-150 grow hover:text-grey-25 dotted-focus dotted-focus-unspaced"
+      className="py-2 px-2 flex gap-2 items-center text-primary-150 grow hover:text-gray-25 dotted-focus dotted-focus-unspaced"
       onClick={async () => {
         const name = prompt('Name der neuen Liste:');
         if (!name) return;

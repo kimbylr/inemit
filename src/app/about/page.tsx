@@ -85,7 +85,7 @@ const AboutPage = () => (
 
 const CircledNumber: FC<{ className: string; children: ReactNode }> = ({ className, children }) => (
   <span
-    className={`inline-flex justify-center items-center rounded-full w-7 h-7 mr-2 font-bold text-grey-98 text-xs+ ${className}`}
+    className={`inline-flex justify-center items-center rounded-full w-7 h-7 mr-2 font-bold text-gray-98 text-xs+ ${className}`}
   >
     {children}
   </span>

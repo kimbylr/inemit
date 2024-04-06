@@ -69,7 +69,7 @@ export const EditableItemsList: FC<Props> = ({
   return (
     <ul>
       {markDoublets(filteredItems).map((item, i) => (
-        <li key={item.id} className="border-t-4 border-dotted border-grey-85 pt-4 pb-1">
+        <li key={item.id} className="border-t-4 border-dotted border-gray-85 pt-4 pb-1">
           <EditableItem
             item={item}
             index={item.index || i + 1}
@@ -80,7 +80,7 @@ export const EditableItemsList: FC<Props> = ({
       ))}
 
       {unsavedItemIds.map((id) => (
-        <li key={id} className="border-t-4 border-dotted border-grey-85 pt-4 pb-1">
+        <li key={id} className="border-t-4 border-dotted border-gray-85 pt-4 pb-1">
           <EditableItem
             // TODO: hints
             // onDismissHint={showHint && (() => onDismissHint(Hints.editingIntro))}

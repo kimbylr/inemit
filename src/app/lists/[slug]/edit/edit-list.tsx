@@ -28,7 +28,7 @@ export const EditList: FC<{ list: List<'flaggedItems' | 'lastLearnt' | 'items'> 
   return (
     <>
       <div className="flex items-start justify-between gap-4">
-        <button className="text-xs mt-0 mb-6 text-grey-50" onClick={backToList}>
+        <button className="text-xs mt-0 mb-6 text-gray-50" onClick={backToList}>
           ← Zurück zur Übersicht
         </button>
         <ListSettings list={list} />
@@ -74,7 +74,7 @@ export const EditList: FC<{ list: List<'flaggedItems' | 'lastLearnt' | 'items'> 
             {flaggedItems.map((item, index) => (
               <li
                 key={item.id}
-                className="border-t-4 border-dotted border-grey-85 pt-4 pb-1 last:border-b-4"
+                className="border-t-4 border-dotted border-gray-85 pt-4 pb-1 last:border-b-4"
               >
                 <EditableItem item={item} index={index + 1} listId={list.id} />
               </li>
@@ -85,7 +85,7 @@ export const EditList: FC<{ list: List<'flaggedItems' | 'lastLearnt' | 'items'> 
       )}
 
       <div
-        className="flex gap-6 justify-between items-start sticky top-0 mt-8 p-2 pb-4 -mx-2 z-20 bg-grey-95"
+        className="flex gap-6 justify-between items-start sticky top-0 mt-8 p-2 pb-4 -mx-2 z-20 bg-gray-95"
         style={{ paddingTop: 'calc(env(safe-area-inset-top) + 8px)' }}
       >
         <div className="flex gap-4 flex-wrap items-center">

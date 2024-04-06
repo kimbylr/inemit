@@ -14,10 +14,10 @@ export const Button: FC<
   } & ButtonHTMLAttributes<HTMLButtonElement>
 > = React.forwardRef(({ primary, caution, small, children, className = '', ...props }, ref) => {
   const primaryClasses =
-    'bg-primary-100 text-grey-98 shadow-button-primary hover:text-grey-25 active:text-grey-25 active:bg-primary-150 button-focus-primary';
+    'bg-primary-100 text-gray-98 shadow-button-primary hover:text-gray-25 active:text-gray-25 active:bg-primary-150 button-focus-primary';
   const secondaryAndCaution =
-    'text-grey-25 hover:text-grey-98 active:text-grey-98 button-focus-secondary';
-  const secondaryClasses = `bg-grey-85 shadow-button-secondary active:bg-grey-85 ${secondaryAndCaution}`;
+    'text-gray-25 hover:text-gray-98 active:text-gray-98 button-focus-secondary';
+  const secondaryClasses = `bg-gray-85 shadow-button-secondary active:bg-gray-85 ${secondaryAndCaution}`;
   const cautionClasses = `bg-negative-75 shadow-button-caution active:bg-negative-150 ${secondaryAndCaution}`;
 
   return (

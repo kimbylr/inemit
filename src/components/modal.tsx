@@ -103,7 +103,7 @@ export const Modal: FC<Props> = ({ onClose, title, children, width = 'sm', heade
       >
         {/* modal panel */}
         <div
-          className={`relative bg-grey-98 overflow-hidden xs:rounded-lg shadow-modal transform transition-all w-full ${
+          className={`relative bg-gray-98 overflow-hidden xs:rounded-lg shadow-modal transform transition-all w-full ${
             width === 'sm' ? 'xs:max-w-sm' : 'xs:max-w-lg'
           } h-full max-h-screen xs:h-auto xs:max-h-[calc(100vh-2rem)] flex flex-col`}
           ref={modalRef}
@@ -111,7 +111,7 @@ export const Modal: FC<Props> = ({ onClose, title, children, width = 'sm', heade
           onTouchStart={(event) => event.stopPropagation()} // prevent propagation to parent div with close handler
         >
           <button
-            className="!absolute right-4 w-6 h-6 text-grey-25 dotted-focus dotted-focus-rounded"
+            className="!absolute right-4 w-6 h-6 text-gray-25 dotted-focus dotted-focus-rounded"
             style={{ top: 'max(env(safe-area-inset-top), 1rem)' }}
             onClick={onClose}
             type="button"
@@ -121,7 +121,7 @@ export const Modal: FC<Props> = ({ onClose, title, children, width = 'sm', heade
 
           <h1
             id="modal-title"
-            className="p-4 pb-5 xs:pl-6 sm:pl-8 text-grey-25 bg-grey-85 uppercase text-xs font-bold xs:rounded-t-lg flex-shrink-0"
+            className="p-4 pb-5 xs:pl-6 sm:pl-8 text-gray-25 bg-gray-85 uppercase text-xs font-bold xs:rounded-t-lg flex-shrink-0"
             style={{ paddingTop: 'max(env(safe-area-inset-top), 1rem)' }}
           >
             {title}
@@ -129,13 +129,13 @@ export const Modal: FC<Props> = ({ onClose, title, children, width = 'sm', heade
 
           {/* content */}
           {header && (
-            <div className="p-4 xs:p-6 sm:p-8 bg-grey-98 rounded-t-lg relative -top-2 -mb-2">
+            <div className="p-4 xs:p-6 sm:p-8 bg-gray-98 rounded-t-lg relative -top-2 -mb-2">
               {header}
             </div>
           )}
           <div
             className={merge(
-              'p-4 xs:p-6 sm:p-8 bg-grey-98 relative -top-2 -mb-2 overflow-y-auto',
+              'p-4 xs:p-6 sm:p-8 bg-gray-98 relative -top-2 -mb-2 overflow-y-auto',
               !!header && '!pt-0',
             )}
           >

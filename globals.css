@@ -20,7 +20,7 @@ textarea {
 
 strong {
   @apply font-bold;
-  @apply text-grey-25;
+  @apply text-gray-25;
 }
 
 ul.actual-list {
@@ -52,7 +52,7 @@ h3 {
 
 p {
   @apply leading-normal;
-  @apply text-grey-10;
+  @apply text-black;
   @apply font-light;
   @apply text-sm;
 }
@@ -61,12 +61,12 @@ p.spaced {
 }
 
 hr {
-  @apply text-grey-75;
+  @apply text-gray-75;
   @apply my-6;
 }
 
 p.hint em {
-  @apply text-grey-25;
+  @apply text-gray-25;
   @apply font-bold;
 }
 
@@ -83,7 +83,7 @@ p.hint em {
   @apply border-primary-100;
 }
 .button-focus-secondary:focus-visible:not(:active)::after {
-  @apply border-grey-75;
+  @apply border-gray-75;
 }
 .button-focus-caution:focus-visible:not(:active)::after {
   @apply border-negative-100;

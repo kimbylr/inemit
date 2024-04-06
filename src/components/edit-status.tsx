@@ -26,7 +26,7 @@ export const EditStatus: FC<Props> = ({ saving, saved, canSave, error, isNew, su
     return (
       <button
         type="submit"
-        className="h-6 w-6 flex-shrink-0 outline-none disabled:text-grey-85 text-negative-100"
+        className="h-6 w-6 flex-shrink-0 outline-none disabled:text-gray-85 text-negative-100"
         onClick={submit}
         tabIndex={-1}
         title={error}
@@ -51,7 +51,7 @@ export const EditStatus: FC<Props> = ({ saving, saved, canSave, error, isNew, su
       tabIndex={-1}
       title="speichern"
       disabled={!canSave} // new items
-      className="h-6 w-6 flex-shrink-0 outline-none disabled:text-grey-85 text-primary-100"
+      className="h-6 w-6 flex-shrink-0 outline-none disabled:text-gray-85 text-primary-100"
     >
       {isNew ? <IconItemEditUnsaved /> : <IconItemEditSaved />}
     </button>

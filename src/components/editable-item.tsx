@@ -156,11 +156,11 @@ export const EditableItem: FC<Props> = ({
               onFlagged={(flagged) => setSavedItem((item) => ({ ...item, flagged }))}
             />
           ) : (
-            <span className="text-xxs text-grey-75 flex justify-center">{index}</span>
+            <span className="text-xxs text-gray-75 flex justify-center">{index}</span>
           )}
           {!item.isNew && (
             <button
-              className="text-grey-75 hover:text-grey-25 dotted-focus dotted-focus-rounded"
+              className="text-gray-75 hover:text-gray-25 dotted-focus dotted-focus-rounded"
               onClick={() => setShowDetail(true)}
               type="button"
             >
@@ -216,7 +216,7 @@ export const EditableItem: FC<Props> = ({
                   <button
                     type="button"
                     onClick={() => setShowImagePicker((active) => !active)}
-                    className="text-grey-75 hover:text-grey-25 dotted-focus"
+                    className="text-gray-75 hover:text-gray-25 dotted-focus"
                     ref={imageButtonRef}
                   >
                     {currentItem.image ? (
@@ -226,7 +226,7 @@ export const EditableItem: FC<Props> = ({
                           alt=""
                           className="h-[38px] w-[38px] rounded-sm hover:opacity-75 object-cover"
                         />
-                        <span className="absolute top-2 text-grey-25 flex justify-center w-full">
+                        <span className="absolute top-2 text-gray-25 flex justify-center w-full">
                           <IconEdit className="w-5 drop-shadow-[0_0_4px_white] hidden group-hover:block" />
                         </span>
                       </div>
@@ -239,7 +239,7 @@ export const EditableItem: FC<Props> = ({
                       type="button"
                       onClick={() => onSetImage(null)}
                       title="Bild entfernen"
-                      className="!absolute -top-2 -left-2 bg-grey-95 text-negative-50 rounded-full leading-none p-0.5 hover:text-negative-100 focus:text-negative-100 dotted-focus dotted-focus-rounded button-focus-caution"
+                      className="!absolute -top-2 -left-2 bg-gray-95 text-negative-50 rounded-full leading-none p-0.5 hover:text-negative-100 focus:text-negative-100 dotted-focus dotted-focus-rounded button-focus-caution"
                     >
                       <IconCrossCircle className="w-4" />
                     </button>

@@ -20,12 +20,12 @@ export const Checkbox: FC<Props> = ({ children, checked, onCheck, small }) => (
     <div className={`pt-[1px] flex-shrink-0 relative ${small ? 'w-5' : 'w-7'}`}>
       <div
         className={`border-2 rounded-sm  ${small ? 'h-4 w-4' : 'h-5 w-5'} ${
-          checked ? 'border-primary-100 bg-primary-100' : 'border-grey-85 bg-white'
+          checked ? 'border-primary-100 bg-primary-100' : 'border-gray-85 bg-white'
         }`}
       />
       {checked && <CheckIcon small={small} />}
     </div>
-    <span className="text-grey-10">{children}</span>
+    <span className="text-black">{children}</span>
   </label>
 );
 

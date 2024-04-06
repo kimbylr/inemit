@@ -122,7 +122,7 @@ export const Learn: FC<{ list: List<'items'> }> = ({ list }) => {
         <button
           onClick={backToList}
           title="Zurück zur Übersicht"
-          className="text-grey-75 hover:text-grey-50 dotted-focus dotted-focus-rounded h-6 w-6 flex justify-center relative -right-0.5 shrink-0"
+          className="text-gray-75 hover:text-gray-50 dotted-focus dotted-focus-rounded h-6 w-6 flex justify-center relative -right-0.5 shrink-0"
         >
           <IconCrossThick className="w-5" />
         </button>
@@ -134,15 +134,15 @@ export const Learn: FC<{ list: List<'items'> }> = ({ list }) => {
       >
         <div
           className={merge(
-            'bg-white border border-grey-85 rounded-lg shadow-card my-8 mx-auto overflow-hidden flex flex-col-reverse',
+            'bg-white border border-gray-85 rounded-lg shadow-card my-8 mx-auto overflow-hidden flex flex-col-reverse',
             'min-h-[min(320px,50%)] max-h-[calc(100vh-200px)] w-full',
             image ? 'max-w-96' : 'max-w-lg',
           )}
         >
           <div className="flex flex-col gap-2 m-8 grow justify-center text-center break-when-needed text-balance">
-            <span className={merge('text-grey-10', TEXT_SIZES.prompt[textSize])}>{prompt}</span>
+            <span className={merge('text-black', TEXT_SIZES.prompt[textSize])}>{prompt}</span>
             {promptAddition && (
-              <span className={merge('text-grey-60', TEXT_SIZES.addition[textSize])}>
+              <span className={merge('text-gray-60', TEXT_SIZES.addition[textSize])}>
                 {promptAddition}
               </span>
             )}
@@ -252,12 +252,12 @@ const Image: FC<{ image: UnsplashImage }> = ({ image }) => (
       sizes="512px"
       className="absolute inset-0 aspect-square object-cover h-full"
     />
-    <div className="absolute bottom-0 left-0 leading-none p-1 rounded-tr bg-opacity-50 bg-grey-10 text-xxs text-grey-10 hidden group-hover:block">
+    <div className="absolute bottom-0 left-0 leading-none p-1 rounded-tr bg-opacity-50 bg-black text-xxs text-black hidden group-hover:block">
       <a
         href={`${image.user.link}?utm_source=inemit&utm_medium=referral`}
         target="_blank"
         rel="noopener noreferrer"
-        className="text-grey-85 hover:text-primary-100"
+        className="text-gray-85 hover:text-primary-100"
       >
         {image.user.name}
       </a>
@@ -298,7 +298,7 @@ const Correction: FC<{
         'min-w-[50%] max-w-full rounded p-2 break-when-needed leading-tight relative text-sm',
         onClick
           ? 'bg-primary-10 border-[3px] border-primary-100 text-primary-100 font-bold'
-          : 'bg-grey-95 border-2 border-grey-50 text-grey-25 font-light',
+          : 'bg-gray-95 border-2 border-gray-50 text-gray-25 font-light',
         'outline-none focus:shadow-blurry-focus disabled:opacity-50 disabled:cursor-not-allowed',
       )}
     >
@@ -308,7 +308,7 @@ const Correction: FC<{
           triangleClasses,
           onClick
             ? 'border-t-primary-100 border-[16px] -ml-4'
-            : 'border-t-grey-50 border-[15px] ml-[-15px]',
+            : 'border-t-gray-50 border-[15px] ml-[-15px]',
         )}
       />
       {/* triangle fill */}
@@ -316,7 +316,7 @@ const Correction: FC<{
         className={merge(
           triangleClasses,
           'border-[12px] -ml-3',
-          onClick ? 'border-t-primary-10' : 'border-t-grey-95',
+          onClick ? 'border-t-primary-10' : 'border-t-gray-95',
         )}
       />
       {children}

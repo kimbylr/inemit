@@ -161,14 +161,14 @@ const Image: FC<{ img: UnsplashImage; onSetImage: (img: UnsplashImage) => void }
     <div
       className={`hidden ${
         isMobileAppleDevice() ? '' : 'group-hover:block'
-      } absolute bottom-0 left-0 right-0 py-1 px-2 bg-[rgba(0,0,0,0.5)] text-xxs text-grey-10`}
+      } absolute bottom-0 left-0 right-0 py-1 px-2 bg-[rgba(0,0,0,0.5)] text-xxs text-black`}
     >
       <a
         href={`${img.user.link}?utm_source=inemit&utm_medium=referral`}
         onClick={(e) => e.stopPropagation()}
         target="_blank"
         rel="noopener noreferrer"
-        className="!text-grey-85 hover:!text-grey-75"
+        className="!text-gray-85 hover:!text-gray-75"
       >
         {img.user.name}
       </a>
