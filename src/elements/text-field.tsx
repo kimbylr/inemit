@@ -4,9 +4,9 @@ export const TextField: FC<
   {
     small?: boolean;
     label?: string;
-    ref?: React.ForwardedRef<HTMLInputElement>;
+    ref?: React.LegacyRef<HTMLInputElement>;
   } & InputHTMLAttributes<HTMLInputElement>
-> = React.forwardRef(({ small, className, label, ...props }, ref) => {
+> = React.forwardRef(({ small, className, label, ref, ...props }) => {
   const input = (
     <input
       className={`text-black font-light border-2 border-gray-85 outline-none rounded w-full bg-white appearance-none ${
