@@ -2,7 +2,7 @@
 
 import { renameList } from '@/db/actions';
 import { FC, useState } from 'react';
-import { experimental_useFormStatus as useFormStatus } from 'react-dom';
+import { useFormStatus } from 'react-dom';
 import { Button } from '../elements/button';
 import { TextField } from '../elements/text-field';
 

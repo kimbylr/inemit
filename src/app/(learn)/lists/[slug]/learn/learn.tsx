@@ -283,7 +283,7 @@ const Correction: FC<{
   disabled?: boolean;
   children: React.ReactNode;
   ref?: React.ForwardedRef<HTMLButtonElement | any>;
-}> = React.forwardRef(({ onClick, disabled, children }, ref) => {
+}> = ({ onClick, disabled, children, ref }) => {
   const Element = onClick ? 'button' : 'div';
   const triangleClasses =
     'absolute top-[100%] left-[50%] border-transparent border-solid h-0 w-0 pointer-events-none';
@@ -322,7 +322,7 @@ const Correction: FC<{
       {children}
     </Element>
   );
-});
+};
 
 const showRefinementHint = (answer: string, solution: string) =>
   answer.toLowerCase().trim() !==
