@@ -1,3 +1,10 @@
+## [2.4.8](https://github.com/kimbylr/inemit/compare/v2.4.7...v2.4.8) (2024-06-01)
+
+
+### Bug Fixes
+
+* Make sure DB is initialised in CUD operations ([4449f55](https://github.com/kimbylr/inemit/commit/4449f55ea0fc756a568903090914bc1d1ccfabf4))
+
 ## [2.4.7](https://github.com/kimbylr/inemit/compare/v2.4.6...v2.4.7) (2024-04-06)
 
 
