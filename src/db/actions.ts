@@ -139,6 +139,12 @@ export const addItem = async ({
 }) => {
   if (!listId || !prompt || !solution) return;
 
+  const list = await getListById(listId);
+  if (!list) {
+    console.error('addItem: List not found');
+    return;
+  }
+
   try {
     const item = new LearnItem({ prompt, solution, progress: getInitialProgress() });
     await List.updateOne(
@@ -164,6 +170,12 @@ export const addItems = async ({
   stage: 1 | 3;
 }) => {
   if (!listId || !items) return;
+
+  const list = await getListById(listId);
+  if (!list) {
+    console.error('addItems: List not found');
+    return;
+  }
 
   try {
     const progress = getInitialProgress(stage || 1);
@@ -232,6 +244,12 @@ export const editItem = async ({
 
 export const deleteItem = async ({ listId, itemId }: { listId: string; itemId: string }) => {
   if (!listId || !itemId) return;
+
+  const list = await getItem(listId, itemId);
+  if (!list) {
+    console.error('deleteItem: Item not found');
+    return;
+  }
 
   try {
     await List.updateOne(
