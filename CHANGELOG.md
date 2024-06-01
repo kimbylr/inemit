@@ -1,3 +1,10 @@
+## [2.4.9](https://github.com/kimbylr/inemit/compare/v2.4.8...v2.4.9) (2024-06-01)
+
+
+### Bug Fixes
+
+* Menu burger colors ([5879d82](https://github.com/kimbylr/inemit/commit/5879d82bd280847139ddfa7fb7fb59dfe80cb95e))
+
 ## [2.4.8](https://github.com/kimbylr/inemit/compare/v2.4.7...v2.4.8) (2024-06-01)
 
 
