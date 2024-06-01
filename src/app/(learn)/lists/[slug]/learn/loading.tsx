@@ -1,5 +1,5 @@
 import { Spinner } from '@/elements/spinner';
 
-const Loading = async () => <Spinner />;
+const Loading = () => <Spinner />;
 
 export default Loading;

@@ -21,9 +21,6 @@ const securityHeaders = [
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  experimental: {
-    serverActions: true,
-  },
   headers() {
     return [{ source: '/(.*)', headers: securityHeaders }];
   },
