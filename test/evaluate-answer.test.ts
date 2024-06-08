@@ -79,6 +79,24 @@ const tests = [
     correctAnswers: ['chiaro', 'sicuro', 'chiaro!', 'sicuro!'],
     wrongAnswers: ['!'],
   },
+  {
+    name: 'parenthesis with comma inside',
+    solution: '(la) pena (capitale, di morte)',
+    correctAnswers: ['la pena', 'pena'], // pena capitale, pena di morte: too complicated
+    wrongAnswers: ['la'],
+  },
+  {
+    name: 'parenthesis with comma inside and another solution',
+    solution: '(la) pena (capitale, di morte), (la) punizione',
+    correctAnswers: ['la pena', 'pena', 'punizione', 'la punizione'], // pena capitale, pena di morte: too complicated
+    wrongAnswers: ['la'],
+  },
+  {
+    name: 'empty is never a solution',
+    solution: 'A differenza di quel che si pensa, …',
+    correctAnswers: ['A differenza di quel che si pensa'],
+    wrongAnswers: [''],
+  },
 ];
 
 tests.map(({ name, solution, correctAnswers, wrongAnswers }) => {

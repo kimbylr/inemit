@@ -4,7 +4,7 @@ import { Menu } from '@/components/menu';
 import { IconLogo } from '@/elements/icons/logo';
 import { List } from '@/types/types';
 import Link from 'next/link';
-import { FC, useLayoutEffect } from 'react';
+import { FC } from 'react';
 
 export const Header: FC<{ lists: List[] }> = ({ lists }) => (
   <header
