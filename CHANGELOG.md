@@ -1,3 +1,10 @@
+## [2.4.10](https://github.com/kimbylr/inemit/compare/v2.4.9...v2.4.10) (2024-06-08)
+
+
+### Bug Fixes
+
+* Improve answer evalution for some edge cases ([28e7448](https://github.com/kimbylr/inemit/commit/28e7448035b23816dde6c45bdc00efdafedb3d4a))
+
 ## [2.4.9](https://github.com/kimbylr/inemit/compare/v2.4.8...v2.4.9) (2024-06-01)
 
 
