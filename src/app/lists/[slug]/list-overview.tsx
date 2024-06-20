@@ -4,10 +4,8 @@ import { ExpandableArea } from '@/components/expandable-area';
 import { ProgressBar } from '@/components/progress-bar';
 import { ProgressPie } from '@/components/progress-pie';
 import { EditableItemsList } from '@/compositions/editable-items-list';
-import { LearnSettings } from '@/compositions/learn-settings';
 import { Button } from '@/elements/button';
 import { DueDaysSummary } from '@/elements/due-days-summary';
-import { IconEdit } from '@/elements/icons/edit';
 import { IconFlag } from '@/elements/icons/flag';
 import { IconLogo } from '@/elements/icons/logo';
 import { List } from '@/types/types';
@@ -49,11 +47,6 @@ export const ListOverview: FC<Props> = ({ list }) => {
 
   return (
     <>
-      <div className="flex items-center justify-between gap-4">
-        <h1>{list.name}</h1>
-        <LearnSettings list={list} open={settingsOpen} setOpen={setSettingsOpen} />
-      </div>
-
       {list.itemsCount > 0 && (
         <>
           <div className="mt-8 hidden xs:block">
@@ -90,10 +83,6 @@ export const ListOverview: FC<Props> = ({ list }) => {
             Jetzt lernen!
           </Button>
         )}
-        <Button type="button" onClick={() => router.push(`${list.slug}/edit`)}>
-          <IconEdit className="w-3.5" />
-          bearbeiten
-        </Button>
       </div>
 
       {flaggedItems.length > 0 && (

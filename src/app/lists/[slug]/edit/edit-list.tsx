@@ -3,11 +3,9 @@
 import { EditableItem } from '@/components/editable-item';
 import { EditableItemsList } from '@/compositions/editable-items-list';
 import { ImportPopup } from '@/compositions/import-popup';
-import { ListSettings } from '@/compositions/list-settings';
 import { Button } from '@/elements/button';
 import { Checkbox } from '@/elements/checkbox';
 import { IconAdd } from '@/elements/icons/add';
-import { IconDone } from '@/elements/icons/done';
 import { IconFlag } from '@/elements/icons/flag';
 import { IconImport } from '@/elements/icons/import';
 import { TextField } from '@/elements/text-field';
@@ -16,8 +14,7 @@ import { useRouter } from 'next/navigation';
 import { FC, useState } from 'react';
 
 export const EditList: FC<{ list: List<'flaggedItems' | 'lastLearnt' | 'items'> }> = ({ list }) => {
-  const router = useRouter();
-  const backToList = () => router.push(`/lists/${list.slug}`);
+  const { refresh } = useRouter();
 
   const [showImport, setShowImport] = useState(false);
   const [search, setSearch] = useState('');
@@ -27,13 +24,6 @@ export const EditList: FC<{ list: List<'flaggedItems' | 'lastLearnt' | 'items'> 
 
   return (
     <>
-      <div className="flex items-start justify-between gap-4">
-        <button className="text-xs mt-0 mb-6 text-gray-50" onClick={backToList}>
-          ← Zurück zur Übersicht
-        </button>
-        <ListSettings list={list} />
-      </div>
-      <h1>{list.name}</h1>
       <p className="spaced">
         In dieser Liste {list.items.length === 1 ? 'befindet' : 'befinden'} sich{' '}
         <strong>
@@ -57,7 +47,7 @@ export const EditList: FC<{ list: List<'flaggedItems' | 'lastLearnt' | 'items'> 
             listId={list.id}
             onClose={() => setShowImport(false)}
             onItemsAdded={() => {
-              router.refresh();
+              refresh();
               setShowImport(false);
             }}
           />
@@ -85,7 +75,7 @@ export const EditList: FC<{ list: List<'flaggedItems' | 'lastLearnt' | 'items'> 
       )}
 
       <div
-        className="flex gap-6 justify-between items-start sticky top-0 mt-8 p-2 pb-4 -mx-2 z-20 bg-gray-95"
+        className="sticky top-0 mt-8 p-2 pb-4 -mx-2 z-30 bg-gray-95 h-14"
         style={{ paddingTop: 'calc(env(safe-area-inset-top) + 8px)' }}
       >
         <div className="flex gap-4 flex-wrap items-center">
@@ -98,14 +88,12 @@ export const EditList: FC<{ list: List<'flaggedItems' | 'lastLearnt' | 'items'> 
             type="search"
           />
           <Checkbox checked={showDoublets} onCheck={() => setShowDoublets((s) => !s)}>
-            Doppelte anzeigen
+            Doppelte<span className="hidden sm:inline"> anzeigen</span>
           </Checkbox>
         </div>
-
-        <Button small onClick={backToList}>
-          <IconDone className="h-3.5 w-3.5" /> fertig
-        </Button>
       </div>
+      <div className="sticky h-px w-full bg-gray-60 top-14 z-10" />
+      <div className="relative h-px w-full -top-px z-20 bg-gray-95" />
       <EditableItemsList
         items={list.items}
         listId={list.id}
@@ -125,14 +113,17 @@ const Explainer = () => {
         {expanded ? (
           'Das Ausdenken einer Aufgabe verankert das Wort ein erstes Mal. Und es verhindert, dass du Lernzeit mit Wörtern vergeudest, die du schon beherrschst.'
         ) : (
-          <Button small onClick={() => setExpanded(true)} className="relative -top-1">
+          <button
+            onClick={() => setExpanded(true)}
+            className="underline text-gray-50 hover:text-primary-150 font-bold"
+          >
             Wieso?
-          </Button>
+          </button>
         )}
       </p>
       {expanded && (
         <>
-          <p className="text-xs">Einige Tipps für grösseren Lerneffekt:</p>
+          <p className="text-xs">Einige Tipps für den grössten Lerneffekt:</p>
           <ul className="actual-list mb-8">
             <li>
               <strong>Kontext</strong>: Am besten funktionieren Aufgaben, die das Lernmaterial in
