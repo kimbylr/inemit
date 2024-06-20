@@ -1,3 +1,16 @@
+# [2.5.0](https://github.com/kimbylr/inemit/compare/v2.4.10...v2.5.0) (2024-06-20)
+
+
+### Bug Fixes
+
+* Mark doublets in items list ([bf58e3e](https://github.com/kimbylr/inemit/commit/bf58e3e62d11fb8cfb8177bd6fb63fc43c348af7))
+* Rename classNames, ListSettingsModal ([8b01ddf](https://github.com/kimbylr/inemit/commit/8b01ddf4b73b1a5b7078eeff7fc3f6aa08e81db4))
+
+
+### Features
+
+* Unify list actions ([2567e2f](https://github.com/kimbylr/inemit/commit/2567e2f71a4aa6b493def395b1f5f8b8ecc2cc9a))
+
 ## [2.4.10](https://github.com/kimbylr/inemit/compare/v2.4.9...v2.4.10) (2024-06-08)
 
 
