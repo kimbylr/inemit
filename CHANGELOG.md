@@ -1,3 +1,10 @@
+## [2.5.1](https://github.com/kimbylr/inemit/compare/v2.5.0...v2.5.1) (2024-06-20)
+
+
+### Bug Fixes
+
+* z-index menu ([2fe48bb](https://github.com/kimbylr/inemit/commit/2fe48bb06c98ad7f02395fb0f3b785f505324a88))
+
 # [2.5.0](https://github.com/kimbylr/inemit/compare/v2.4.10...v2.5.0) (2024-06-20)
 
 
