@@ -52,7 +52,7 @@ export const EditableItemsList: FC<Props> = ({
     ...newItems.filter(({ id }) => !items.find((item) => item.id === id)),
   ];
   if (doublets) {
-    filteredItems = filteredItems
+    filteredItems = markDoublets(filteredItems)
       .map((item, i) => ({ ...item, index: i + 1 }))
       .filter((item) => typeof item.doubletOf === 'number');
   }
@@ -68,7 +68,7 @@ export const EditableItemsList: FC<Props> = ({
 
   return (
     <ul>
-      {markDoublets(filteredItems).map((item, i) => (
+      {filteredItems.map((item, i) => (
         <li key={item.id} className="border-t-4 border-dotted border-gray-85 pt-4 pb-1">
           <EditableItem
             item={item}
