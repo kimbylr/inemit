@@ -23,7 +23,7 @@ export const Header: FC<{ lists: List[] }> = ({ lists }) => (
       <span className="font-massive text-xxl ml-4">inemit!</span>
     </Link>
 
-    <div className="absolute top-4 right-4 z-40">
+    <div className="absolute top-4 right-4 z-50">
       <Menu lists={lists} />
     </div>
   </header>
