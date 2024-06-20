@@ -9,8 +9,8 @@ import { IconDone } from '@/elements/icons/done';
 import { IconItemEditSaved } from '@/elements/icons/item-edit-saved';
 import { IconNext } from '@/elements/icons/next';
 import { TextField } from '@/elements/text-field';
+import { classNames } from '@/helpers/class-names';
 import { isMobileAppleDevice } from '@/helpers/is-mobile-apple-device';
-import { merge } from '@/helpers/merge';
 import { useHeight } from '@/hooks/use-height';
 import { List, UnsplashImage } from '@/types/types';
 import { useRouter } from 'next/navigation';
@@ -133,16 +133,16 @@ export const Learn: FC<{ list: List<'items'> }> = ({ list }) => {
         style={{ height: `${height - 72}px` /* header 40 + container 2 * 16 */ }}
       >
         <div
-          className={merge(
+          className={classNames(
             'bg-white border border-gray-85 rounded-lg shadow-card my-8 mx-auto overflow-hidden flex flex-col-reverse',
             'min-h-[min(320px,50%)] max-h-[calc(100vh-200px)] w-full',
             image ? 'max-w-96' : 'max-w-lg',
           )}
         >
           <div className="flex flex-col gap-2 m-8 grow justify-center text-center break-when-needed text-balance">
-            <span className={merge('text-black', TEXT_SIZES.prompt[textSize])}>{prompt}</span>
+            <span className={classNames('text-black', TEXT_SIZES.prompt[textSize])}>{prompt}</span>
             {promptAddition && (
-              <span className={merge('text-gray-60', TEXT_SIZES.addition[textSize])}>
+              <span className={classNames('text-gray-60', TEXT_SIZES.addition[textSize])}>
                 {promptAddition}
               </span>
             )}
@@ -167,7 +167,7 @@ export const Learn: FC<{ list: List<'items'> }> = ({ list }) => {
                 // prevent iOS from pushing content out of sight
                 setTimeout(() => window.scrollTo({ top: 0 }), 200);
               }}
-              className={merge(
+              className={classNames(
                 'disabled:!delay-0 max-w-[270px]',
                 revising && 'pr-8',
                 revising && isCorrect && '!text-primary-150 !border-primary-100 !bg-primary-10',
@@ -178,7 +178,7 @@ export const Learn: FC<{ list: List<'items'> }> = ({ list }) => {
             />
             {revising && (
               <div
-                className={merge(
+                className={classNames(
                   'absolute h-[calc(100%-4px)] w-5 right-2 top-[2px] py-0.5 pr-0.5 flex items-center pointer-events-none',
                   isCorrect ? 'text-primary-50' : 'text-negative-60',
                 )}
@@ -297,7 +297,7 @@ const Correction = React.forwardRef<HTMLButtonElement, CorrectionProps>(
         onClick={onClick}
         disabled={disabled}
         ref={ref as any}
-        className={merge(
+        className={classNames(
           'min-w-[50%] max-w-full rounded p-2 break-when-needed leading-tight relative text-sm',
           onClick
             ? 'bg-primary-10 border-[3px] border-primary-100 text-primary-100 font-bold'
@@ -307,7 +307,7 @@ const Correction = React.forwardRef<HTMLButtonElement, CorrectionProps>(
       >
         {/* triangle border */}
         <span
-          className={merge(
+          className={classNames(
             triangleClasses,
             onClick
               ? 'border-t-primary-100 border-[16px] -ml-4'
@@ -316,7 +316,7 @@ const Correction = React.forwardRef<HTMLButtonElement, CorrectionProps>(
         />
         {/* triangle fill */}
         <span
-          className={merge(
+          className={classNames(
             triangleClasses,
             'border-[12px] -ml-3',
             onClick ? 'border-t-primary-10' : 'border-t-gray-95',

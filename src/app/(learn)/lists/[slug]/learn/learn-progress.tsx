@@ -1,4 +1,4 @@
-import { merge } from '@/helpers/merge';
+import { classNames } from '@/helpers/class-names';
 import { FC } from 'react';
 
 const MAX_DOTS = 16;
@@ -20,7 +20,7 @@ export const LearnProgress: FC<LearnProgressProps> = ({ correct, incorrect, tota
       {Array.from({ length: totalDots }, (_, i) => (
         <span
           key={i}
-          className={merge(
+          className={classNames(
             'size-1.5 rounded-full transition-colors duration-500',
             getDotColor(i < correctDots, i >= totalDots - incorrectDots),
           )}

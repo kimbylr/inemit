@@ -16,7 +16,7 @@ type Props = {
   toggleIcon?: ReactNode;
 };
 
-export const ListSettings: FC<Props> = ({ list, toggleIcon: ToggleIcon }) => {
+export const ListSettingsModal: FC<Props> = ({ list, toggleIcon: ToggleIcon }) => {
   const [show, setShow] = useState(false);
   const router = useRouter();
 

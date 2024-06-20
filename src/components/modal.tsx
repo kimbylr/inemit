@@ -1,7 +1,7 @@
 'use client';
 
 import { IconCross } from '@/elements/icons/cross';
-import { merge } from '@/helpers/merge';
+import { classNames } from '@/helpers/class-names';
 import React, { FC, ReactNode, useEffect, useRef } from 'react';
 
 type Props = {
@@ -134,7 +134,7 @@ export const Modal: FC<Props> = ({ onClose, title, children, width = 'sm', heade
             </div>
           )}
           <div
-            className={merge(
+            className={classNames(
               'p-4 xs:p-6 sm:p-8 bg-gray-98 relative -top-2 -mb-2 overflow-y-auto',
               !!header && '!pt-0',
             )}

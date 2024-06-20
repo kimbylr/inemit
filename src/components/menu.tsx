@@ -1,7 +1,7 @@
 'use client';
 
 import { User } from '@/elements/user';
-import { merge } from '@/helpers/merge';
+import { classNames } from '@/helpers/class-names';
 import { List } from '@/types/types';
 import Link from 'next/link';
 import { FC, ReactNode, useRef, useState } from 'react';
@@ -63,7 +63,7 @@ type MenuLinkProps = {
 
 const MenuLink: FC<MenuLinkProps> = ({ href, children, closeMenu, noBorder }) => (
   <li
-    className={merge(
+    className={classNames(
       'border-gray-85 hover:bg-gray-95',
       !noBorder && 'border-t',
       noBorder && 'relative -top-1.5',
@@ -71,7 +71,7 @@ const MenuLink: FC<MenuLinkProps> = ({ href, children, closeMenu, noBorder }) =>
   >
     <Link
       href={href}
-      className={merge('p-3 block dotted-focus dotted-focus-unspaced', noBorder && 'py-2')}
+      className={classNames('p-3 block dotted-focus dotted-focus-unspaced', noBorder && 'py-2')}
       onClick={closeMenu}
     >
       {children}

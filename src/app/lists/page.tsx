@@ -1,4 +1,4 @@
-import { ListSettings } from '@/compositions/list-settings';
+import { ListSettingsModal } from '@/compositions/list-settings-modal';
 import { getListsSummary } from '@/db';
 import { sortByLastLearnt } from '@/db/helpers';
 import { IconEdit } from '@/elements/icons/edit';
@@ -34,7 +34,7 @@ const ListsPage = async () => {
             </Link>
 
             <div className="rounded-r-lg border-l border-gray-95 overflow-hidden flex bg-white">
-              <ListSettings
+              <ListSettingsModal
                 list={list}
                 toggleIcon={
                   <div className="p-3 text-gray-75 hover:text-gray-35">
