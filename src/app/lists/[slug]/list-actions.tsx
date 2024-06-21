@@ -34,12 +34,16 @@ export const ListActions: FC<{ slug: string }> = ({ slug }) => {
           href={`${baseUrl}/${path}`}
           key={name}
           className={classNames(
-            'text-xxs xs:rounded flex items-center justify-center size-8 font-bold group relative',
-            'max-xs:grow max-xs:w-auto max-xs:h-14 max-xs:flex-col max-xs:justify-evenly max-xs:py-0.5 flex-1 max-xs:pt-1',
+            // mobile + desktop
+            'text-xxs flex items-center justify-center size-8 font-bold group relative flex-1',
             path === currentPath && 'bg-gradient-to-br from-primary-100 to-primary-150 text-white',
-            path !== currentPath && 'xs:hover:bg-gray-95',
             path !== currentPath && !highlight && 'text-gray-60 hover:text-gray-25',
             path !== currentPath && highlight && 'text-primary-150',
+            // desktop
+            'xs:rounded',
+            path !== currentPath && 'xs:hover:bg-gray-95',
+            // mobile
+            'max-xs:grow max-xs:w-auto max-xs:h-16 max-xs:flex-col max-xs:justify-evenly max-xs:py-1',
           )}
         >
           {icon}
