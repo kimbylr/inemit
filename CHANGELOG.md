@@ -1,3 +1,10 @@
+## [2.5.2](https://github.com/kimbylr/inemit/compare/v2.5.1...v2.5.2) (2024-06-21)
+
+
+### Bug Fixes
+
+* Make list actions higher on mobile ([a466c93](https://github.com/kimbylr/inemit/commit/a466c930b415ba882b262e6ce211170056b66660))
+
 ## [2.5.1](https://github.com/kimbylr/inemit/compare/v2.5.0...v2.5.1) (2024-06-20)
 
 
