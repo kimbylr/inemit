@@ -18,21 +18,15 @@ const Layout: FC<Props> = async ({ children, params }) => {
 
   return (
     <>
-      <div
-        className={classNames(
-          'z-40 pointer-events-none',
-          'max-xs:w-screen max-xs:bottom-0 max-xs:fixed max-xs:-ml-6',
-          'xs:sticky xs:top-1.5 xs:text-right',
-        )}
-      >
-        <ListActions slug={params.slug!} />
-      </div>
+      <ListActions slug={params.slug!} />
 
       <h1 className="relative xs:-mb-8 xs:-top-11 truncate max-w-full xs:max-w-[calc(100%-192px)]">
         {list.name}
       </h1>
 
       {children}
+
+      <div className="max-xs:h-16" />
     </>
   );
 };
