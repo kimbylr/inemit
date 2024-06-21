@@ -1,3 +1,10 @@
+## [2.5.3](https://github.com/kimbylr/inemit/compare/v2.5.2...v2.5.3) (2024-06-21)
+
+
+### Bug Fixes
+
+* List actions mobile styling ([99d2c35](https://github.com/kimbylr/inemit/commit/99d2c35965d21429b94a19c1c86d504ffd139b0f))
+
 ## [2.5.2](https://github.com/kimbylr/inemit/compare/v2.5.1...v2.5.2) (2024-06-21)
 
 
