@@ -1,3 +1,10 @@
+## [2.6.1](https://github.com/kimbylr/inemit/compare/v2.6.0...v2.6.1) (2024-06-22)
+
+
+### Bug Fixes
+
+* Put script inside html ([852b301](https://github.com/kimbylr/inemit/commit/852b301e4b715a113c1c309e4574d3e45266f92c))
+
 # [2.6.0](https://github.com/kimbylr/inemit/compare/v2.5.3...v2.6.0) (2024-06-22)
 
 
