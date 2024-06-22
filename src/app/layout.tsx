@@ -179,12 +179,12 @@ const RootLayout: FC<{ children: ReactNode }> = ({ children }) => (
   <UserProvider>
     <html lang="de" className={workSans.variable}>
       <body className="min-h-screen bg-primary-100">{children}</body>
+      <Script
+        data-goatcounter="https://inemit.goatcounter.com/count"
+        src="//gc.zgo.at/count.js"
+        async
+      />
     </html>
-    <Script
-      data-goatcounter="https://inemit.goatcounter.com/count"
-      src="//gc.zgo.at/count.js"
-      async
-    />
   </UserProvider>
 );
 
