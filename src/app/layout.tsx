@@ -4,6 +4,7 @@ import { FC, ReactNode } from 'react';
 import '../../globals.css';
 
 import { Work_Sans } from 'next/font/google';
+import Script from 'next/script';
 const workSans = Work_Sans({
   weight: ['300', '600', '800'],
   style: ['normal'],
@@ -179,6 +180,11 @@ const RootLayout: FC<{ children: ReactNode }> = ({ children }) => (
     <html lang="de" className={workSans.variable}>
       <body className="min-h-screen bg-primary-100">{children}</body>
     </html>
+    <Script
+      data-goatcounter="https://inemit.goatcounter.com/count"
+      src="//gc.zgo.at/count.js"
+      async
+    />
   </UserProvider>
 );
 
