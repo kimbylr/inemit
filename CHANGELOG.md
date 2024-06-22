@@ -1,3 +1,10 @@
+## [2.6.3](https://github.com/kimbylr/inemit/compare/v2.6.2...v2.6.3) (2024-06-22)
+
+
+### Bug Fixes
+
+* Script CSP again ([18e6a5a](https://github.com/kimbylr/inemit/commit/18e6a5a329957f9db2929b91cda62290754d8712))
+
 ## [2.6.2](https://github.com/kimbylr/inemit/compare/v2.6.1...v2.6.2) (2024-06-22)
 
 
