@@ -1,3 +1,10 @@
+## [2.6.2](https://github.com/kimbylr/inemit/compare/v2.6.1...v2.6.2) (2024-06-22)
+
+
+### Bug Fixes
+
+* add script-src to CSP config ([18b8121](https://github.com/kimbylr/inemit/commit/18b8121a5f7d00efb25d342ef7604d5d4e449657))
+
 ## [2.6.1](https://github.com/kimbylr/inemit/compare/v2.6.0...v2.6.1) (2024-06-22)
 
 
