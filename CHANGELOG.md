@@ -1,3 +1,10 @@
+# [2.6.0](https://github.com/kimbylr/inemit/compare/v2.5.3...v2.6.0) (2024-06-22)
+
+
+### Features
+
+* Include goatcounter ([45d9f17](https://github.com/kimbylr/inemit/commit/45d9f172e57595e6a1eb1673c6c74b7503895b21))
+
 ## [2.5.3](https://github.com/kimbylr/inemit/compare/v2.5.2...v2.5.3) (2024-06-21)
 
 
