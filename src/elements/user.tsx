@@ -35,15 +35,7 @@ export const User: FC<Props> = ({ loggedInComponent, loggedOutComponent, navigat
   }
 
   if (!user) {
-    return (
-      <span ref={ref}>
-        {loggedOutComponent || (
-          <a href="/api/auth/login" className="dotted-focus">
-            Login
-          </a>
-        )}
-      </span>
-    );
+    return <span ref={ref}>{loggedOutComponent || <a href="/api/auth/login">Login</a>}</span>;
   }
 
   return (
@@ -51,12 +43,7 @@ export const User: FC<Props> = ({ loggedInComponent, loggedOutComponent, navigat
       {loggedInComponent || (
         <span className="flex gap-2 justify-between items-center text-gray-75 font-bold">
           <span className="truncate">{user.email}</span>
-          <a
-            href="/api/auth/logout"
-            aria-label="Logout"
-            title="Logout"
-            className="dotted-focus dotted-focus-rounded"
-          >
+          <a href="/api/auth/logout" aria-label="Logout" title="Logout">
             <IconLogout className="w-11 h-11 -m-3 p-3 hover:text-gray-35" />
           </a>
         </span>

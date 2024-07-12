@@ -4,6 +4,7 @@ import { editItem } from '@/db/actions';
 import { Hint } from '@/elements/hint';
 import { IconFlag } from '@/elements/icons/flag';
 import { IconSync } from '@/elements/icons/sync';
+import { classNames } from '@/helpers/class-names';
 import { FC, useEffect, useRef, useState } from 'react';
 
 interface Props {
@@ -67,18 +68,19 @@ export const FlagButton: FC<Props> = ({
         onClick={toggleFlagged}
         title="markieren"
         tabIndex={tabIndex}
-        className={`leading-none dotted-focus aspect-square flex justify-center items-center dotted-focus-rounded ${
-          loading ? 'cursor-not-allowed' : 'cursor-pointer'
-        } ${
-          flagged ? 'text-primary-100 hover:text-primary-50' : 'text-gray-75 hover:text-gray-50'
-        }`}
+        className={classNames(
+          'leading-none aspect-square flex justify-center items-center',
+          loading ? 'cursor-not-allowed' : 'cursor-pointer',
+          flagged ? 'text-primary-100 hover:text-primary-50' : 'text-gray-75 hover:text-gray-50',
+        )}
       >
         {loading ? (
           <div
             title="speichern..."
-            className={`animate-spin relative w-6 h-6 leading-none ${
-              flagged ? 'text-gray-75' : 'text-primary-100'
-            }`}
+            className={classNames(
+              'animate-spin relative w-6 h-6 leading-none',
+              flagged ? 'text-gray-75' : 'text-primary-100',
+            )}
           >
             <IconSync className="w-6" />
           </div>

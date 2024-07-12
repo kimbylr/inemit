@@ -111,7 +111,7 @@ export const Modal: FC<Props> = ({ onClose, title, children, width = 'sm', heade
           onTouchStart={(event) => event.stopPropagation()} // prevent propagation to parent div with close handler
         >
           <button
-            className="!absolute right-4 w-6 h-6 text-gray-25 dotted-focus dotted-focus-rounded"
+            className="!absolute right-4 w-6 h-6 text-gray-25 focus-dark !outline-offset-0"
             style={{ top: 'max(env(safe-area-inset-top), 1rem)' }}
             onClick={onClose}
             type="button"

@@ -3,7 +3,7 @@ import { User } from '@/elements/user';
 import Link from 'next/link';
 
 const LOGIN_BUTTON_STYLE =
-  'text-gray-25 font-bold text-xs+ -m-4 sm:m-0 bg-primary-25 sm:bg-gray-85 px-4 py-4 xs:py-2 block animate-slide-in sm:rounded-lg shadow-[0_0_12px_#333] dotted-focus dotted-focus-white';
+  'text-gray-25 font-bold text-xs+ -m-4 sm:m-0 bg-primary-25 sm:bg-gray-85 px-4 py-4 xs:py-2 block animate-slide-in sm:rounded-lg shadow-[0_0_12px_#333] focus-white';
 
 const Page = () => (
   <>
@@ -70,10 +70,7 @@ const Page = () => (
               <br />
               hilft, effizient zu lernen.
               <br />
-              <Link
-                href="/about"
-                className="underline text-gray-98 hover:text-secondary-50 dotted-focus-white"
-              >
+              <Link href="/about" className="underline text-gray-98 hover:text-secondary-50">
                 Wie das?
               </Link>
             </p>
@@ -82,7 +79,7 @@ const Page = () => (
                 loggedOutComponent={
                   <a
                     href="/api/auth/login"
-                    className="leading-normal underline text-gray-98 hover:text-secondary-50 dotted-focus-white"
+                    className="leading-normal underline text-gray-98 hover:text-secondary-50"
                   >
                     Anmelden oder registrieren
                   </a>
@@ -90,7 +87,7 @@ const Page = () => (
                 loggedInComponent={
                   <Link
                     href="/lists"
-                    className="leading-normal underline text-gray-98 hover:text-secondary-50 dotted-focus-white"
+                    className="leading-normal underline text-gray-98 hover:text-secondary-50"
                   >
                     Anmelden oder registrieren
                   </Link>

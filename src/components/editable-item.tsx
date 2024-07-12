@@ -160,7 +160,7 @@ export const EditableItem: FC<Props> = ({
           )}
           {!item.isNew && (
             <button
-              className="text-gray-75 hover:text-gray-25 dotted-focus dotted-focus-rounded"
+              className="text-gray-75 hover:text-gray-25 rounded-full"
               onClick={() => setShowDetail(true)}
               type="button"
             >
@@ -216,7 +216,7 @@ export const EditableItem: FC<Props> = ({
                   <button
                     type="button"
                     onClick={() => setShowImagePicker((active) => !active)}
-                    className="text-gray-75 hover:text-gray-25 dotted-focus"
+                    className="text-gray-75 hover:text-gray-25 rounded-sm"
                     ref={imageButtonRef}
                   >
                     {currentItem.image ? (
@@ -239,7 +239,7 @@ export const EditableItem: FC<Props> = ({
                       type="button"
                       onClick={() => onSetImage(null)}
                       title="Bild entfernen"
-                      className="!absolute -top-2 -left-2 bg-gray-95 text-negative-50 rounded-full leading-none p-0.5 hover:text-negative-100 focus:text-negative-100 dotted-focus dotted-focus-rounded button-focus-caution"
+                      className="!absolute -top-2 -left-2 bg-gray-95 text-negative-50 rounded-full leading-none p-0.5 hover:text-negative-100 focus:text-negative-100 focus-caution"
                     >
                       <IconCrossCircle className="w-4" />
                     </button>

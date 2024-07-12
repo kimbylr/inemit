@@ -72,45 +72,44 @@ p.hint em {
 
 /* focus styling */
 
+.button-focus:focus-visible {
+  @apply outline-none;
+}
 .button-focus:focus-visible:not(:active)::after {
   content: '';
   position: absolute;
   inset: -6px -6px -10px;
   border-radius: 8px;
-  border: 3px dotted;
+  border: 3px solid;
 }
 .button-focus-primary:focus-visible:not(:active)::after {
-  @apply border-primary-100;
+  @apply border-primary-25;
 }
 .button-focus-secondary:focus-visible:not(:active)::after {
-  @apply border-gray-75;
+  @apply border-gray-85;
 }
 .button-focus-caution:focus-visible:not(:active)::after {
-  @apply border-negative-100;
+  @apply border-negative-25;
 }
 
-.dotted-focus:focus-visible,
-a:focus-visible {
-  outline: none;
-  position: relative;
+.focus-primary:focus-visible,
+a:focus-visible,
+button:focus-visible,
+.focus-white:focus-visible,
+.focus-dark:focus-visible {
+  @apply outline;
+  @apply outline-[3px];
+  @apply outline-offset-[3px];
+  @apply outline-primary-25;
 }
-.dotted-focus:focus-visible::after,
-a:focus-visible::after {
-  content: '';
-  position: absolute;
-  inset: -6px;
-  border-radius: 8px;
-  border: 3px dotted;
-  @apply border-primary-100;
+.focus-white:focus-visible {
+  @apply !outline-primary-10;
 }
-.dotted-focus-white:focus-visible::after {
-  @apply border-white;
+.focus-dark:focus-visible {
+  @apply !outline-gray-60;
 }
-.dotted-focus-rounded:focus-visible::after {
-  @apply rounded-full;
-}
-.dotted-focus-unspaced:focus-visible::after {
-  inset: 0;
+.focus-caution:focus-visible {
+  @apply !outline-negative-25;
 }
 
 /* other styling */

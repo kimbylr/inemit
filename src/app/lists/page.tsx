@@ -19,7 +19,7 @@ const ListsPage = async () => {
           >
             <Link
               href={`/lists/${list.slug}`}
-              className="bg-white dotted-focus dotted-focus-unspaced py-2 px-4 rounded-l-lg flex-grow"
+              className="bg-white py-2 px-4 rounded-l-lg flex-grow !-outline-offset-[3px]"
             >
               <span className="font-bold text-primary-150 group-hover:text-gray-25">
                 {list.name}
@@ -37,8 +37,8 @@ const ListsPage = async () => {
               <ListSettingsModal
                 list={list}
                 toggleIcon={
-                  <div className="p-3 text-gray-75 hover:text-gray-35">
-                    <IconEdit className="h-7 w-7 p-1 group-focus-visible:outline-dotted group-focus-visible:outline-[3px] group-focus-visible:outline-primary-50 rounded" />
+                  <div className="p-2 text-gray-75 hover:text-gray-35">
+                    <IconEdit className="h-7 w-7 p-1 rounded" />
                   </div>
                 }
               />

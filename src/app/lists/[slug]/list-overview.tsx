@@ -18,7 +18,6 @@ type Props = {
 
 export const ListOverview: FC<Props> = ({ list }) => {
   const learnButtonRef = useRef<HTMLButtonElement>(null);
-  const [settingsOpen, setSettingsOpen] = useState(false);
   const [flaggedItems] = useState(list.flaggedItems); // kept "stale" on purpose
   const router = useRouter();
 
@@ -29,7 +28,7 @@ export const ListOverview: FC<Props> = ({ list }) => {
     }
 
     const onTabListener = (e: KeyboardEvent) => {
-      if (e.key !== 'Tab' || settingsOpen) {
+      if (e.key !== 'Tab') {
         return;
       }
 
@@ -41,7 +40,7 @@ export const ListOverview: FC<Props> = ({ list }) => {
 
     document.addEventListener('keydown', onTabListener);
     return () => document.removeEventListener('keydown', onTabListener);
-  }, [list?.id, settingsOpen]);
+  }, [list?.id]);
 
   const { dueToday, dueTomorrow, stages } = list.progress;
 

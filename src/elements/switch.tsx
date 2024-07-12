@@ -1,5 +1,6 @@
 'use client';
 
+import { classNames } from '@/helpers/class-names';
 import { FC } from 'react';
 
 type Props = {
@@ -10,19 +11,20 @@ type Props = {
 export const Switch: FC<Props> = ({ enabled, onToggle }) => (
   <button
     type="button"
-    className={`relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full p-0.5 transition-colors duration-200 ease-in-out dotted-focus ${
-      enabled ? 'bg-primary-150' : 'bg-gray-85'
-    }`}
+    className={classNames(
+      'relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full p-0.5 transition-colors duration-200 ease-in-out focus-primary',
+      enabled ? 'bg-primary-150' : 'bg-gray-85',
+    )}
     role="switch"
-    aria-checked="false"
+    aria-checked={enabled}
     onClick={onToggle}
   >
-    <span className="sr-only">Use setting</span>
     <span
       aria-hidden="true"
-      className={`pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow transition duration-200 ease-in-out ${
-        enabled ? 'translate-x-5' : 'translate-x-0'
-      }`}
+      className={classNames(
+        'pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow transition duration-200 ease-in-out',
+        enabled ? 'translate-x-5' : 'translate-x-0',
+      )}
     />
   </button>
 );

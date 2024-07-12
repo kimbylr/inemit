@@ -21,11 +21,11 @@ export const ListSettingsModal: FC<Props> = ({ list, toggleIcon: ToggleIcon }) =
   const router = useRouter();
 
   return (
-    <div className="flex items-center">
+    <div className="flex items-stretch">
       <button
         onClick={() => setShow(true)}
         aria-label="Liste bearbeiten"
-        className="outline-none group"
+        className="!-outline-offset-[3px] rounded-r-lg"
       >
         {ToggleIcon || <IconSettings className="w-6 h-6 text-gray-75 hover:text-gray-50" />}
       </button>

@@ -50,6 +50,7 @@ module.exports = {
         75: '#DD9F8D',
         60: '#FBAD97',
         50: '#DBB5AB',
+        25: '#EBD3CD',
         10: '#F9F0F0',
         5: '#FAF5F4',
       },

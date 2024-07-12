@@ -19,13 +19,13 @@ export const Menu: FC<{ lists: List[] }> = ({ lists }) => {
   return (
     <div ref={ref}>
       <button
-        className="h-12 w-12 rounded-full absolute -top-2 -right-2 p-2 dotted-focus dotted-focus-rounded dotted-focus-unspaced dotted-focus-white group"
+        className="h-12 w-12 rounded-full absolute -top-2 -right-2 p-2 focus:outline-none group"
         onClick={() => setOpen((o) => !o)}
       >
-        <div className="border-2 border-primary-25 group-hover:border-white h-8 w-8 rounded-full relative">
-          <span className="absolute w-3.5 h-0.5 rounded bg-primary-25 group-hover:bg-white top-[8px] left-[7px]" />
-          <span className="absolute w-3.5 h-0.5 rounded bg-primary-25 group-hover:bg-white top-[13px] left-[7px]" />
-          <span className="absolute w-3.5 h-0.5 rounded bg-primary-25 group-hover:bg-white top-[18px] left-[7px]" />
+        <div className="border-2 border-transparent group-focus-visible:border-primary-25 group-focus-visible:group-hover:border-white h-8 w-8 rounded-full relative">
+          <span className="absolute w-4 h-0.5 rounded bg-primary-25 group-hover:bg-white top-[8px] left-1.5" />
+          <span className="absolute w-4 h-0.5 rounded bg-primary-25 group-hover:bg-white top-[13px] left-1.5" />
+          <span className="absolute w-4 h-0.5 rounded bg-primary-25 group-hover:bg-white top-[18px] left-1.5" />
         </div>
       </button>
 
@@ -71,7 +71,7 @@ const MenuLink: FC<MenuLinkProps> = ({ href, children, closeMenu, noBorder }) =>
   >
     <Link
       href={href}
-      className={classNames('p-3 block dotted-focus dotted-focus-unspaced', noBorder && 'py-2')}
+      className={classNames('p-3 block !-outline-offset-2 rounded-lg', noBorder && 'py-2')}
       onClick={closeMenu}
     >
       {children}

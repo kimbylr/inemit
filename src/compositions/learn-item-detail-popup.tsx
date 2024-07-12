@@ -150,7 +150,7 @@ export const LearnItemDetailPopup: FC<Props> = ({ item, listId, onClose, onItemD
               type="button"
               disabled={saving}
               onClick={() => setShowImagePicker(true)}
-              className="text-gray-75 hover:text-gray-50 focus-visible:text-gray-60 flex items-start ml-2 dotted-focus"
+              className="text-gray-75 hover:text-gray-50 flex items-start ml-2 rounded-md"
             >
               <IconImagePortrait className="w-16" />
               <span className="sr-only">Bild hinzufügen</span>
@@ -187,7 +187,7 @@ const Image: FC<{
       type="button"
       onClick={onClick}
       disabled={disabled}
-      className="text-gray-75 hover:text-gray-25 dotted-focus"
+      className="text-gray-75 hover:text-gray-25"
     >
       <div className="relative">
         <img src={image?.urls.thumb} className="h-[77px] mb-0.5 rounded-sm w-auto opacity-50" />
@@ -202,7 +202,7 @@ const Image: FC<{
       onClick={onDelete}
       disabled={disabled}
       title="Bild entfernen"
-      className="!absolute -top-2 -left-2 bg-gray-98 text-negative-50 rounded-full leading-none p-0.5 hover:text-negative-100 focus:text-negative-100 dotted-focus dotted-focus-rounded button-focus-caution"
+      className="!absolute -top-2 -left-2 bg-gray-98 text-negative-50 rounded-full leading-none p-0.5 hover:text-negative-100 focus:text-negative-100 focus-caution"
     >
       <IconCrossCircle className="w-4" />
     </button>

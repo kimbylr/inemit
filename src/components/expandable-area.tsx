@@ -1,6 +1,7 @@
 'use client';
 
 import { IconChevronDown } from '@/elements/icons/chevron-down';
+import { classNames } from '@/helpers/class-names';
 import React, { FC, ReactNode, useEffect, useRef, useState } from 'react';
 import { Collapse } from 'react-collapse';
 
@@ -37,15 +38,16 @@ export const ExpandableArea: FC<Props> = ({
     return (
       <section>
         <button
-          className={`w-full flex justify-center items-center ${teaserStyles} dotted-focus dotted-focus-dark`}
+          className={classNames('w-full flex justify-center items-center', teaserStyles)}
           onClick={canExpand ? toggle : undefined}
         >
           {teaser}
           {canExpand && (
             <div
-              className={`ml-2 relative w-8 h-8 top-0.5 flex flex-col justify-center transition-transform ${
-                open ? '-rotate-180' : 'rotate-0'
-              }`}
+              className={classNames(
+                'ml-2 relative w-8 h-8 top-0.5 flex flex-col justify-center transition-transform',
+                open ? '-rotate-180' : 'rotate-0',
+              )}
             >
               <IconChevronDown />
             </div>
@@ -62,7 +64,7 @@ export const ExpandableArea: FC<Props> = ({
   return (
     <section>
       <button
-        className={`w-full flex justify-center items-center ${teaserStyles} dotted-focus dotted-focus-dark`}
+        className={classNames('w-full flex justify-center items-center', teaserStyles)}
         onClick={canExpand ? toggle : undefined}
       >
         {teaser}
