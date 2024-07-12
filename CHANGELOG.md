@@ -1,3 +1,11 @@
+# [2.7.0](https://github.com/kimbylr/inemit/compare/v2.6.3...v2.7.0) (2024-07-12)
+
+
+### Features
+
+* Cleaner focus outline style ([2077a8d](https://github.com/kimbylr/inemit/commit/2077a8d8878ab7467c2075af1fa6b97fbac6b809))
+* UI overview page ([f708fc0](https://github.com/kimbylr/inemit/commit/f708fc022bb734be2dd7f0a86cfd25b2caf26b8a))
+
 ## [2.6.3](https://github.com/kimbylr/inemit/compare/v2.6.2...v2.6.3) (2024-06-22)
 
 
