@@ -1,4 +1,3 @@
-import { withPageAuthRequired } from '@auth0/nextjs-auth0';
 import { readdir } from 'node:fs/promises';
 import { FC } from 'react';
 
@@ -45,4 +44,4 @@ const IconGrid: FC<{ icons: Awaited<ReturnType<typeof getIconsFromFiles>> }> = (
   </ul>
 );
 
-export default withPageAuthRequired(Page, { returnTo: '/icons' });
+export default Page;
