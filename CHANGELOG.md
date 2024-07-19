@@ -1,3 +1,10 @@
+## [2.7.1](https://github.com/kimbylr/inemit/compare/v2.7.0...v2.7.1) (2024-07-19)
+
+
+### Bug Fixes
+
+* Correction button focus styling ([88356cd](https://github.com/kimbylr/inemit/commit/88356cd4d2992f6c3fcbdca72588034eaa796506))
+
 # [2.7.0](https://github.com/kimbylr/inemit/compare/v2.6.3...v2.7.0) (2024-07-12)
 
 
