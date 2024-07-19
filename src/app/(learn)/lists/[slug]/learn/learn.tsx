@@ -302,7 +302,7 @@ const Correction = React.forwardRef<HTMLButtonElement, CorrectionProps>(
           onClick
             ? 'bg-primary-10 border-[3px] border-primary-100 text-primary-100 font-bold'
             : 'bg-gray-95 border-2 border-gray-50 text-gray-25 font-light',
-          'outline-none focus:shadow-blurry-focus disabled:opacity-50 disabled:cursor-not-allowed',
+          'outline-none disabled:opacity-50 disabled:cursor-not-allowed',
         )}
       >
         {/* triangle border */}
