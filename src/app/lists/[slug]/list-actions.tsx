@@ -1,12 +1,13 @@
 'use client';
 
-import { classNames } from '@/helpers/class-names';
-import { usePathname } from 'next/navigation';
-import { FC, ReactNode } from 'react';
 import { IconEdit } from '@/elements/icons/edit';
 import { IconLogo } from '@/elements/icons/logo';
 import { IconSettings } from '@/elements/icons/settings';
 import { IconStats } from '@/elements/icons/stats';
+import { classNames } from '@/helpers/class-names';
+import { usePathname, useRouter } from 'next/navigation';
+import { FC, ReactNode } from 'react';
+import { useKey } from 'react-use';
 
 type Tab = {
   name: string;
@@ -26,6 +27,12 @@ export const ListActions: FC<{ slug: string }> = ({ slug }) => {
   const path = usePathname();
   const baseUrl = `/lists/${slug}`;
   const currentPath = path.replace(`${baseUrl}/`, '').replace(baseUrl, '');
+
+  const { push } = useRouter();
+  useKey('Enter', (e) => e.metaKey && push(`${baseUrl}/learn`));
+  useKey('e', (e) => {
+    !(e.target instanceof HTMLInputElement) && currentPath !== 'edit' && push(`${baseUrl}/edit`);
+  });
 
   return (
     <div
