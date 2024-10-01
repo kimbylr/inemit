@@ -3,7 +3,7 @@ import { User } from '@/elements/user';
 import Link from 'next/link';
 
 const LOGIN_BUTTON_STYLE =
-  'text-gray-25 font-bold text-xs+ -m-4 sm:m-0 bg-primary-25 sm:bg-gray-85 px-4 py-4 xs:py-2 block animate-slide-in sm:rounded-lg shadow-[0_0_12px_#333] focus-white';
+  'text-gray-25 font-bold text-xs+ -m-4 xs:m-0 bg-primary-25 xs:bg-gray-85 px-4 py-4 xs:py-2 block animate-slide-in xs:rounded-lg shadow-[0_0_12px_#333] focus-white';
 
 const Page = () => (
   <>
