@@ -63,7 +63,7 @@ export const ListActions: FC<{ slug: string }> = ({ slug }) => {
           >
             {icon}
             {/* desktop */}
-            <span className="hidden xs:group-hover:flex absolute top-24 -left-14 text-gray-35 rotate-90 w-36">
+            <span className="hidden xs:group-focus-visible:flex xs:group-hover:flex absolute top-24 -left-14 text-gray-35 rotate-90 w-36">
               <span className="ml-0.5 bg-gray-90 text-left py-1 px-2 rounded">{name}</span>
             </span>
             {/* mobile */}

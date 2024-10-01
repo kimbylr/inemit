@@ -15,9 +15,12 @@ export const Header: FC<{ lists: List[] }> = ({ lists }) => (
       <IconLogo className="w-10" />
     </div>
 
-    <Link href="/" className="text-gray-98 leading-none my-1 flex justify-center focus-primary">
+    <Link
+      href="/"
+      className="text-gray-98 leading-none my-1 flex justify-center focus-primary rounded"
+    >
       <IconLogo className="w-10 hidden sm:block" />
-      <span className="font-massive text-xxl ml-4">inemit!</span>
+      <span className="font-massive text-xxl sm:ml-4">inemit!</span>
     </Link>
 
     <div className="absolute top-4 right-4 z-50">

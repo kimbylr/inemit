@@ -122,7 +122,7 @@ export const Learn: FC<{ list: List<'items'> }> = ({ list }) => {
         <button
           onClick={backToList}
           title="Zurück zur Übersicht"
-          className="text-gray-75 hover:text-gray-50 h-6 w-6 flex justify-center relative -right-0.5 shrink-0"
+          className="text-gray-75 hover:text-gray-50 h-6 w-6 flex justify-center relative -right-0.5 shrink-0 rounded"
         >
           <IconCrossThick className="w-5" />
         </button>

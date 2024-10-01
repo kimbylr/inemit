@@ -43,7 +43,7 @@ export const User: FC<Props> = ({ loggedInComponent, loggedOutComponent, navigat
       {loggedInComponent || (
         <span className="flex gap-2 justify-between items-center text-gray-75 font-bold">
           <span className="truncate">{user.email}</span>
-          <a href="/api/auth/logout" aria-label="Logout" title="Logout">
+          <a href="/api/auth/logout" aria-label="Logout" title="Logout" className="rounded-sm">
             <IconLogout className="w-11 h-11 -m-3 p-3 hover:text-gray-35" />
           </a>
         </span>

@@ -69,7 +69,7 @@ export const FlagButton: FC<Props> = ({
         title="markieren"
         tabIndex={tabIndex}
         className={classNames(
-          'leading-none aspect-square flex justify-center items-center',
+          'leading-none aspect-square flex justify-center items-center rounded',
           loading ? 'cursor-not-allowed' : 'cursor-pointer',
           flagged ? 'text-primary-100 hover:text-primary-50' : 'text-gray-75 hover:text-gray-50',
         )}

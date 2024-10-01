@@ -19,10 +19,10 @@ export const Menu: FC<{ lists: List[] }> = ({ lists }) => {
   return (
     <div ref={ref}>
       <button
-        className="h-12 w-12 rounded-full absolute -top-2 -right-2 p-2 focus:outline-none group"
+        className="h-12 w-12 absolute -top-2 -right-2 p-2 focus:outline-none group"
         onClick={() => setOpen((o) => !o)}
       >
-        <div className="border-2 border-transparent group-focus-visible:border-primary-25 group-focus-visible:group-hover:border-white h-8 w-8 rounded-full relative">
+        <div className="border-2 border-transparent group-focus-visible:border-primary-25 group-focus-visible:group-hover:border-white h-8 w-8 rounded-lg relative">
           <span className="absolute w-4 h-0.5 rounded bg-primary-25 group-hover:bg-white top-[8px] left-1.5" />
           <span className="absolute w-4 h-0.5 rounded bg-primary-25 group-hover:bg-white top-[13px] left-1.5" />
           <span className="absolute w-4 h-0.5 rounded bg-primary-25 group-hover:bg-white top-[18px] left-1.5" />
