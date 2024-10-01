@@ -140,7 +140,17 @@ export const Learn: FC<{ list: List<'items'> }> = ({ list }) => {
           )}
         >
           <div className="flex flex-col gap-2 m-8 grow justify-center text-center break-when-needed text-balance">
-            <span className={classNames('text-black', TEXT_SIZES.prompt[textSize])}>{prompt}</span>
+            <span className={classNames('text-black', TEXT_SIZES.prompt[textSize])}>
+              {prompt
+                .split(', ')
+                .flatMap((part, i) =>
+                  i === 0 ? (
+                    <span key={i}>part,</span>
+                  ) : (
+                    [<br key={i} />, <span key={i}>{part},</span>]
+                  ),
+                )}
+            </span>
             {promptAddition && (
               <span className={classNames('text-gray-60', TEXT_SIZES.addition[textSize])}>
                 {promptAddition}
@@ -257,7 +267,7 @@ const Image: FC<{ image: UnsplashImage }> = ({ image }) => (
         href={`${image.user.link}?utm_source=inemit&utm_medium=referral`}
         target="_blank"
         rel="noopener noreferrer"
-        className="text-gray-85 hover:text-primary-100"
+        className="text-gray-85 hover:text-primary-100 "
       >
         {image.user.name}
       </a>
@@ -267,9 +277,9 @@ const Image: FC<{ image: UnsplashImage }> = ({ image }) => (
 
 const TEXT_SIZES: Record<'prompt' | 'addition', Record<'small' | 'medium' | 'large', string>> = {
   prompt: {
-    large: 'text-xl sm:text-xxl',
-    medium: 'text-lg sm:text-xl',
-    small: 'text-md sm:text-lg',
+    large: 'text-xl sm:text-xxl leading-[1.3]',
+    medium: 'text-lg sm:text-xl leading-[1.3]',
+    small: 'text-md sm:text-lg leading-[1.3]',
   },
   addition: {
     large: 'text-md sm:text-lg',
