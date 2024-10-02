@@ -141,15 +141,7 @@ export const Learn: FC<{ list: List<'items'> }> = ({ list }) => {
         >
           <div className="flex flex-col gap-2 m-8 grow justify-center text-center break-when-needed text-balance">
             <span className={classNames('text-black', TEXT_SIZES.prompt[textSize])}>
-              {prompt
-                .split(', ')
-                .flatMap((part, i) =>
-                  i === 0 ? (
-                    <span key={i}>part,</span>
-                  ) : (
-                    [<br key={i} />, <span key={i}>{part},</span>]
-                  ),
-                )}
+              <TextWithBreaks>{prompt}</TextWithBreaks>
             </span>
             {promptAddition && (
               <span className={classNames('text-gray-60', TEXT_SIZES.addition[textSize])}>
@@ -291,7 +283,7 @@ const TEXT_SIZES: Record<'prompt' | 'addition', Record<'small' | 'medium' | 'lar
 type CorrectionProps = {
   onClick?: (event: React.MouseEvent) => Promise<void>;
   disabled?: boolean;
-  children: React.ReactNode;
+  children: string;
   ref?: React.ForwardedRef<HTMLButtonElement | any>;
 };
 
@@ -332,7 +324,7 @@ const Correction = React.forwardRef<HTMLButtonElement, CorrectionProps>(
             onClick ? 'border-t-primary-10' : 'border-t-gray-95',
           )}
         />
-        {children}
+        <TextWithBreaks>{children}</TextWithBreaks>
       </Element>
     );
   },
@@ -344,3 +336,16 @@ const showRefinementHint = (answer: string, solution: string) =>
     .toLowerCase()
     .trim()
     .replaceAll(/[\(\)]/g, ''); // no refinement hint if answer included optional part in brackets
+
+// Add line breaks for long text with commas (2+ separate meanings)
+const TextWithBreaks: FC<{ children: string }> = ({ children }) => {
+  const parts = children.split(', ');
+
+  if (parts.every((part) => part.length < 12)) {
+    return children;
+  }
+
+  return parts.flatMap((part, i) =>
+    i === 0 ? <span key={i}>part, </span> : [<br key={i} />, <span key={i}>{part},</span>],
+  );
+};
