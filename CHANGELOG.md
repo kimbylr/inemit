@@ -1,3 +1,19 @@
+# [2.8.0](https://github.com/kimbylr/inemit/compare/v2.7.1...v2.8.0) (2024-10-03)
+
+
+### Bug Fixes
+
+* "Anmelden" button styling on small tablets ([e342f92](https://github.com/kimbylr/inemit/commit/e342f9258c774b2788b36fe310d13b7f04e6938b))
+* Better line breaking for long prompts/corrections ([1b3de83](https://github.com/kimbylr/inemit/commit/1b3de835ff9fb1d8c121d6c1252444d827594353))
+* Focus border rounding ([0c92b17](https://github.com/kimbylr/inemit/commit/0c92b1768bb838b534f779ca93fa8d5e01650ae3))
+
+
+### Features
+
+* Display prompt parts separated by commas on new line; less line-height ([79047ea](https://github.com/kimbylr/inemit/commit/79047eadc9d206f38400c9d4f8a1f7d7400e20af))
+* Shortcuts for editing and learning ([a14db1f](https://github.com/kimbylr/inemit/commit/a14db1f4edf19d7fa97d30f5c863f669b46f7ead))
+* Welcome screen ([693ffb4](https://github.com/kimbylr/inemit/commit/693ffb4101d66f193a542390d4a89c2c126c0fbe))
+
 ## [2.7.1](https://github.com/kimbylr/inemit/compare/v2.7.0...v2.7.1) (2024-07-19)
 
 
