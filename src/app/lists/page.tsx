@@ -8,7 +8,7 @@ import { AddListButton } from './add-list-button';
 const ListsPage = async () => {
   const lists = sortByLastLearnt(await getListsSummary());
 
-  if (lists.length === 3) {
+  if (lists.length === 0) {
     return (
       <div className="max-w-lg mx-auto flex flex-col gap-8">
         <div className="relative">
