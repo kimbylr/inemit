@@ -8,6 +8,34 @@ import { AddListButton } from './add-list-button';
 const ListsPage = async () => {
   const lists = sortByLastLearnt(await getListsSummary());
 
+  if (lists.length === 3) {
+    return (
+      <div className="max-w-lg mx-auto flex flex-col gap-8">
+        <div className="relative">
+          <img src="/assets/welcome.svg" className="w-[512px] max-w-full mx-auto" alt="" />
+          <span className="absolute bottom-0 min-[400px]:bottom-[4%] right-[4%] min-[400px]:right-[10%] min-[480px]:right-[14%] text-[10px] text-gray-60">
+            Illustration:
+            <br />
+            <a href="https://storyset.com/online" target="_blank" rel="noopener noreferrer">
+              Storyset
+            </a>
+          </span>
+        </div>
+
+        <div className="flex flex-col gap-3">
+          <p className="text-xs+">
+            <strong>Neu hier?</strong> Aller Anfang ist einfach: Leg deine erste Liste an, füll
+            deine Lerninhalte ab, und dann rein damit ins Köpfchen!
+          </p>
+        </div>
+
+        <div className="bg-primary-5 rounded-lg flex shadow hover:shadow-gray-75">
+          <AddListButton />
+        </div>
+      </div>
+    );
+  }
+
   return (
     <>
       <h1 className="mb-4">Meine Listen</h1>
