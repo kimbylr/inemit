@@ -1,3 +1,10 @@
+## [2.8.1](https://github.com/kimbylr/inemit/compare/v2.8.0...v2.8.1) (2024-10-03)
+
+
+### Bug Fixes
+
+* Welcome screen only for new users ([e0784a5](https://github.com/kimbylr/inemit/commit/e0784a5a021053e568cf0fef1dbad1701393f462))
+
 # [2.8.0](https://github.com/kimbylr/inemit/compare/v2.7.1...v2.8.0) (2024-10-03)
 
 
