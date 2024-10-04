@@ -1,3 +1,10 @@
+## [2.8.4](https://github.com/kimbylr/inemit/compare/v2.8.3...v2.8.4) (2024-10-04)
+
+
+### Bug Fixes
+
+* Font in welcome image ([eb32f71](https://github.com/kimbylr/inemit/commit/eb32f7178afd923321be5d3928c1ec24ab395817))
+
 ## [2.8.3](https://github.com/kimbylr/inemit/compare/v2.8.2...v2.8.3) (2024-10-04)
 
 
