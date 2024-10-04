@@ -1,3 +1,10 @@
+## [2.8.2](https://github.com/kimbylr/inemit/compare/v2.8.1...v2.8.2) (2024-10-04)
+
+
+### Bug Fixes
+
+* Text with breaks ([cb3354e](https://github.com/kimbylr/inemit/commit/cb3354e79016dd33c8052ba0a5e8f098335e8563))
+
 ## [2.8.1](https://github.com/kimbylr/inemit/compare/v2.8.0...v2.8.1) (2024-10-03)
 
 
