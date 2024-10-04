@@ -346,6 +346,6 @@ const TextWithBreaks: FC<{ children: string }> = ({ children }) => {
   }
 
   return parts.flatMap((part, i) =>
-    i === 0 ? <span key={i}>part, </span> : [<br key={i} />, <span key={i}>{part},</span>],
+    i === 0 ? <span key={i}>{part}, </span> : [<br key={i} />, <span key={i}>{part}, </span>],
   );
 };
