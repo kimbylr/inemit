@@ -1,3 +1,10 @@
+## [2.8.3](https://github.com/kimbylr/inemit/compare/v2.8.2...v2.8.3) (2024-10-04)
+
+
+### Bug Fixes
+
+* Break text into parts with breaks correctly ([478c71b](https://github.com/kimbylr/inemit/commit/478c71be534d6b6bc9d30197b1932a26cc35bb76))
+
 ## [2.8.2](https://github.com/kimbylr/inemit/compare/v2.8.1...v2.8.2) (2024-10-04)
 
 
