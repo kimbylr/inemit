@@ -12,12 +12,14 @@ import { TextField } from '@/elements/text-field';
 import { classNames } from '@/helpers/class-names';
 import { isMobileAppleDevice } from '@/helpers/is-mobile-apple-device';
 import { useHeight } from '@/hooks/use-height';
-import { List, UnsplashImage } from '@/types/types';
+import { List } from '@/types/types';
 import { useRouter } from 'next/navigation';
-import React, { FC, useEffect, useReducer, useRef, useState } from 'react';
-import { Blurhash } from 'react-blurhash';
+import { FC, useEffect, useReducer, useRef, useState } from 'react';
+import { Correction } from './correction';
+import { LearnImage } from './image';
 import { LearnProgress } from './learn-progress';
 import { LearnAction, getInitialLearnMachineData, learnMachine } from './state-machine';
+import { TextWithBreaks } from './text-with-breaks';
 
 export const Learn: FC<{ list: List<'items'> }> = ({ list }) => {
   const height = useHeight();
@@ -149,7 +151,7 @@ export const Learn: FC<{ list: List<'items'> }> = ({ list }) => {
               </span>
             )}
           </div>
-          {image && <Image image={image} />}
+          {image && <LearnImage image={image} />}
         </div>
 
         <form
@@ -242,31 +244,6 @@ export const Learn: FC<{ list: List<'items'> }> = ({ list }) => {
   );
 };
 
-const Image: FC<{ image: UnsplashImage }> = ({ image }) => (
-  <div className="leading-[0] group relative w-full aspect-square">
-    {image.blurHash && (
-      <div className="absolute inset-0">
-        <Blurhash hash={image.blurHash} height="100%" width="100%" />
-      </div>
-    )}
-    <img
-      srcSet={`${image.urls.small} 400w, ${image.urls.regular} 1080w`}
-      sizes="512px"
-      className="absolute inset-0 aspect-square object-cover h-full"
-    />
-    <div className="absolute bottom-0 left-0 leading-none p-1 rounded-tr bg-opacity-50 bg-black text-xxs text-black hidden group-hover:block">
-      <a
-        href={`${image.user.link}?utm_source=inemit&utm_medium=referral`}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="text-gray-85 hover:text-primary-100 "
-      >
-        {image.user.name}
-      </a>
-    </div>
-  </div>
-);
-
 const TEXT_SIZES: Record<'prompt' | 'addition', Record<'small' | 'medium' | 'large', string>> = {
   prompt: {
     large: 'text-xl sm:text-xxl leading-[1.3]',
@@ -280,79 +257,9 @@ const TEXT_SIZES: Record<'prompt' | 'addition', Record<'small' | 'medium' | 'lar
   },
 };
 
-type CorrectionProps = {
-  onClick?: (event: React.MouseEvent) => Promise<void>;
-  disabled?: boolean;
-  children: string;
-  ref?: React.ForwardedRef<HTMLButtonElement | any>;
-};
-
-const Correction = React.forwardRef<HTMLButtonElement, CorrectionProps>(
-  ({ onClick, disabled, children }, ref) => {
-    const Element = onClick ? 'button' : 'div';
-    const triangleClasses =
-      'absolute top-[100%] left-[50%] border-transparent border-solid h-0 w-0 pointer-events-none';
-
-    return (
-      <Element
-        type={onClick ? 'button' : undefined}
-        onClick={onClick}
-        disabled={disabled}
-        ref={ref as any}
-        className={classNames(
-          'min-w-[50%] max-w-full rounded p-2 break-when-needed leading-tight relative text-sm',
-          onClick
-            ? 'bg-primary-10 border-[3px] border-primary-100 text-primary-100 font-bold'
-            : 'bg-gray-95 border-2 border-gray-50 text-gray-25 font-light',
-          'outline-none disabled:opacity-50 disabled:cursor-not-allowed',
-        )}
-      >
-        {/* triangle border */}
-        <span
-          className={classNames(
-            triangleClasses,
-            onClick
-              ? 'border-t-primary-100 border-[16px] -ml-4'
-              : 'border-t-gray-50 border-[15px] ml-[-15px]',
-          )}
-        />
-        {/* triangle fill */}
-        <span
-          className={classNames(
-            triangleClasses,
-            'border-[12px] -ml-3',
-            onClick ? 'border-t-primary-10' : 'border-t-gray-95',
-          )}
-        />
-        <TextWithBreaks>{children}</TextWithBreaks>
-      </Element>
-    );
-  },
-);
-
 const showRefinementHint = (answer: string, solution: string) =>
   answer.toLowerCase().trim() !==
   solution
     .toLowerCase()
     .trim()
     .replaceAll(/[\(\)]/g, ''); // no refinement hint if answer included optional part in brackets
-
-// Add line breaks for long text with commas (2+ separate meanings)
-const TextWithBreaks: FC<{ children: string }> = ({ children }) => {
-  const parts = children.split(', ');
-
-  if (parts.every((part) => part.length < 12)) {
-    return children;
-  }
-
-  return parts.flatMap((part, i) => (
-    <React.Fragment key={i}>
-      {i !== 0 && (
-        <>
-          ,<br />
-        </>
-      )}
-      {part}
-    </React.Fragment>
-  ));
-};
