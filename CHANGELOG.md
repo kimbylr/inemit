@@ -1,3 +1,10 @@
+## [2.8.5](https://github.com/kimbylr/inemit/compare/v2.8.4...v2.8.5) (2024-10-28)
+
+
+### Bug Fixes
+
+* Menu styling ([d59cff1](https://github.com/kimbylr/inemit/commit/d59cff1bf4bd77200b730fea05e4f0d2242e0eba))
+
 ## [2.8.4](https://github.com/kimbylr/inemit/compare/v2.8.3...v2.8.4) (2024-10-04)
 
 
