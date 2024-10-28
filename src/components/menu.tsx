@@ -39,10 +39,7 @@ export const Menu: FC<{ lists: List[] }> = ({ lists }) => {
           </MenuLink>
           {lists.map(({ id, name, slug }) => (
             <MenuLink key={id} href={`/lists/${slug}`} closeMenu={closeMenu} noBorder>
-              <span className="flex items-center">
-                <span className="text-[10px] relative -top-1 mx-2">∟</span>
-                <span className="truncate w-48 inline-block">{name}</span>
-              </span>
+              <span className="truncate w-full">{name}</span>
             </MenuLink>
           ))}
           <MenuLink href="/about" closeMenu={closeMenu}>
@@ -62,13 +59,7 @@ type MenuLinkProps = {
 };
 
 const MenuLink: FC<MenuLinkProps> = ({ href, children, closeMenu, noBorder }) => (
-  <li
-    className={classNames(
-      'border-gray-85 hover:bg-gray-95',
-      !noBorder && 'border-t',
-      noBorder && 'relative -top-1.5',
-    )}
-  >
+  <li className={classNames('border-gray-85 hover:bg-gray-95', !noBorder && 'border-t')}>
     <Link
       href={href}
       className={classNames('p-3 block !-outline-offset-2 rounded-lg', noBorder && 'py-2')}
