@@ -8,5 +8,9 @@ export const TextWithBreaks: FC<{ children: string }> = ({ children }) => {
     return children;
   }
 
-  <span className="whitespace-pre">{children.replace(', ', ',\n').replace('; ', ';\n')}</span>;
+  return (
+    <span className="whitespace-pre">
+      {children.replaceAll(', ', ',\n').replaceAll('; ', ';\n')}
+    </span>
+  );
 };
