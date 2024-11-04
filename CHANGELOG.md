@@ -1,3 +1,10 @@
+## [2.8.6](https://github.com/kimbylr/inemit/compare/v2.8.5...v2.8.6) (2024-11-04)
+
+
+### Bug Fixes
+
+* text with breaks also for semicolons ([6067093](https://github.com/kimbylr/inemit/commit/60670939336230bd47b51413a9438e950a630375))
+
 ## [2.8.5](https://github.com/kimbylr/inemit/compare/v2.8.4...v2.8.5) (2024-10-28)
 
 
