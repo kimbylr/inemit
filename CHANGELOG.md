@@ -1,3 +1,10 @@
+## [2.8.8](https://github.com/kimbylr/inemit/compare/v2.8.7...v2.8.8) (2024-11-04)
+
+
+### Bug Fixes
+
+* Undo redo text with breaks ([ecfe884](https://github.com/kimbylr/inemit/commit/ecfe884edaf9110d205c044f1979cdcdc30ed19a))
+
 ## [2.8.7](https://github.com/kimbylr/inemit/compare/v2.8.6...v2.8.7) (2024-11-04)
 
 
