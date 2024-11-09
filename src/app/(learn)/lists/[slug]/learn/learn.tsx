@@ -95,8 +95,11 @@ export const Learn: FC<{ list: List<'items'> }> = ({ list }) => {
     dispatch({ type: LearnAction.NEXT, correct: answerQuality >= 3 });
   };
 
-  const { id: itemId, prompt, promptAddition, solution, flagged, image } = item;
   const revising = mode === 'revising' || mode === 'repeat-revising' || mode === 'end';
+
+  const { id: itemId, promptAddition, solution, flagged, image } = item;
+  const isSynonym = item.prompt.startsWith('= ');
+  const prompt = item.prompt.replace(/^= /, '');
   const textSize =
     prompt.length + (promptAddition?.length || -10) < 30 &&
     prompt.split(' ').every((word) => word.length < 12)
@@ -136,11 +139,19 @@ export const Learn: FC<{ list: List<'items'> }> = ({ list }) => {
       >
         <div
           className={classNames(
-            'bg-white border border-gray-85 rounded-lg shadow-card my-8 mx-auto overflow-hidden flex flex-col-reverse',
+            'bg-white border border-gray-85 rounded-lg shadow-card my-8 mx-auto overflow-hidden flex flex-col-reverse relative',
             'min-h-[min(320px,50%)] max-h-[calc(100vh-200px)] w-full',
             image ? 'max-w-96' : 'max-w-lg',
           )}
         >
+          {isSynonym && (
+            <div
+              className="absolute -top-2 -right-2 size-10 border-2 bg-orange-5 border-orange-100 rounded-md text-lg flex items-center justify-center select-none cursor-help z-10 ring-2 ring-white"
+              title="Synonym"
+            >
+              <span className="relative -left-[3px] top-[3px] text-orange-150">=</span>
+            </div>
+          )}
           <div className="flex flex-col gap-2 m-8 grow justify-center text-center break-when-needed text-balance">
             <span
               className={classNames(
