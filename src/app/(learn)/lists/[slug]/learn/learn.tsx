@@ -142,7 +142,13 @@ export const Learn: FC<{ list: List<'items'> }> = ({ list }) => {
           )}
         >
           <div className="flex flex-col gap-2 m-8 grow justify-center text-center break-when-needed text-balance">
-            <span className={classNames('text-black', TEXT_SIZES.prompt[textSize])}>
+            <span
+              className={classNames(
+                'text-black',
+                TEXT_SIZES.prompt[textSize],
+                image ? 'leading-tight' : 'leading-normal',
+              )}
+            >
               <TextWithBreaks>{prompt}</TextWithBreaks>
             </span>
             {promptAddition && (
@@ -246,9 +252,9 @@ export const Learn: FC<{ list: List<'items'> }> = ({ list }) => {
 
 const TEXT_SIZES: Record<'prompt' | 'addition', Record<'small' | 'medium' | 'large', string>> = {
   prompt: {
-    large: 'text-xl sm:text-xxl leading-[1.3]',
-    medium: 'text-lg sm:text-xl leading-[1.3]',
-    small: 'text-md sm:text-lg leading-[1.3]',
+    large: 'text-xl sm:text-xxl',
+    medium: 'text-lg sm:text-xl',
+    small: 'text-md sm:text-lg',
   },
   addition: {
     large: 'text-md sm:text-lg',
