@@ -1,3 +1,10 @@
+## [2.8.9](https://github.com/kimbylr/inemit/compare/v2.8.8...v2.8.9) (2024-11-09)
+
+
+### Bug Fixes
+
+* Add line breaks for semicolos in prompt ([e02ecc7](https://github.com/kimbylr/inemit/commit/e02ecc74f3c8ca36e7729595b2f3287d358c2482))
+
 ## [2.8.8](https://github.com/kimbylr/inemit/compare/v2.8.7...v2.8.8) (2024-11-04)
 
 
