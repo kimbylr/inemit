@@ -1,3 +1,15 @@
+# [2.9.0](https://github.com/kimbylr/inemit/compare/v2.8.9...v2.9.0) (2024-11-09)
+
+
+### Bug Fixes
+
+* Apply more line-height in prompt if no image ([538dc3e](https://github.com/kimbylr/inemit/commit/538dc3ee5591fee23f0a643ac9321ee9f9903d60))
+
+
+### Features
+
+* Display synonyms with badge ([a3fe3f4](https://github.com/kimbylr/inemit/commit/a3fe3f433b876f1e571694d925c5e504cd1849a7))
+
 ## [2.8.9](https://github.com/kimbylr/inemit/compare/v2.8.8...v2.8.9) (2024-11-09)
 
 
