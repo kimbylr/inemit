@@ -1,5 +1,4 @@
-import { classNames } from '@/helpers/class-names';
-import React, { Fragment, FC } from 'react';
+import { FC, Fragment } from 'react';
 
 // Add line breaks for long text with semicolons/commas (2+ meanings)
 export const TextWithBreaks: FC<{ children: string; splitBy?: string[] }> = ({
@@ -16,7 +15,7 @@ export const TextWithBreaks: FC<{ children: string; splitBy?: string[] }> = ({
     return children;
   }
 
-  if (parts.every((part) => part.length < 12)) {
+  if (parts.every((part) => part.length < 12 || part.includes('(') || part.includes('.'))) {
     return children;
   }
 
