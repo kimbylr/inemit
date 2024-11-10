@@ -1,3 +1,11 @@
+## [2.9.1](https://github.com/kimbylr/inemit/compare/v2.9.0...v2.9.1) (2024-11-10)
+
+
+### Bug Fixes
+
+* Add synonym card background and near synonyms ([c08710e](https://github.com/kimbylr/inemit/commit/c08710ea08261f98642dd09a7ad2bf2dd3b126b6))
+* Better text with breaks ([a08fce8](https://github.com/kimbylr/inemit/commit/a08fce83a295b0fd3666954a07db45b062e58397))
+
 # [2.9.0](https://github.com/kimbylr/inemit/compare/v2.8.9...v2.9.0) (2024-11-09)
 
 
