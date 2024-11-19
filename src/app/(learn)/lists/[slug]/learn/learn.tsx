@@ -148,17 +148,17 @@ export const Learn: FC<{ list: List<'items'> }> = ({ list }) => {
             isSynonym || isNearSynonym
               ? {
                   backgroundImage:
-                    'repeating-linear-gradient(40deg,#FFFAF1,#FFFAF1 15px,#fff 15px,#fff 35px)',
+                    'repeating-linear-gradient(40deg,#f9f2ff,#f9f2ff 15px,#fff 15px,#fff 35px)',
                 }
               : {}
           }
         >
           {(isSynonym || isNearSynonym) && (
             <div
-              className="absolute -top-2 -right-2 size-10 border-2 bg-orange-5 border-orange-100 rounded-md text-lg flex items-center justify-center select-none cursor-help z-10 ring-2 ring-white"
+              className="absolute -top-2 -right-2 size-10 bg-[#b95eff] rounded-md text-lg flex items-center justify-center select-none cursor-help z-10 ring-2 ring-white"
               title="Synonym"
             >
-              <span className="relative -left-[3px] top-[3px] text-orange-150">
+              <span className="relative -left-[3px] top-[3px] text-white">
                 {isNearSynonym ? <span className=" font-[Helvetica]">≈</span> : '='}
               </span>
             </div>
