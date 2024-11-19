@@ -1,3 +1,10 @@
+## [2.9.2](https://github.com/kimbylr/inemit/compare/v2.9.1...v2.9.2) (2024-11-19)
+
+
+### Bug Fixes
+
+* Use purple for synonyms ([de868f0](https://github.com/kimbylr/inemit/commit/de868f01359e3a3b143c4c2d2488b6698cab81ba))
+
 ## [2.9.1](https://github.com/kimbylr/inemit/compare/v2.9.0...v2.9.1) (2024-11-10)
 
 
