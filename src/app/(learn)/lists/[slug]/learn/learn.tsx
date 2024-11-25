@@ -148,7 +148,7 @@ export const Learn: FC<{ list: List<'items'> }> = ({ list }) => {
             isSynonym || isNearSynonym
               ? {
                   backgroundImage:
-                    'repeating-linear-gradient(40deg,#f9f2ff,#f9f2ff 15px,#fff 15px,#fff 35px)',
+                    'repeating-linear-gradient(40deg,#faf5ff,#faf5ff 15px,#fff 15px,#fff 35px)',
                 }
               : {}
           }
