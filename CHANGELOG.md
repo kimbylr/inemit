@@ -1,3 +1,10 @@
+## [2.9.3](https://github.com/kimbylr/inemit/compare/v2.9.2...v2.9.3) (2024-11-25)
+
+
+### Bug Fixes
+
+* Lighter purle stripes for synonyms ([368e940](https://github.com/kimbylr/inemit/commit/368e94062cc9ec7a689c642bc9b5dec9ce252ff6))
+
 ## [2.9.2](https://github.com/kimbylr/inemit/compare/v2.9.1...v2.9.2) (2024-11-19)
 
 
