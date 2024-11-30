@@ -92,6 +92,12 @@ const tests = [
     wrongAnswers: ['la'],
   },
   {
+    name: 'parenthesis with comma inside in second solution',
+    solution: 'häkta (1), anhålla (-höll, -hållit)',
+    correctAnswers: ['häkta', 'anhålla'],
+    wrongAnswers: [],
+  },
+  {
     name: 'empty is never a solution',
     solution: 'A differenza di quel che si pensa, …',
     correctAnswers: ['A differenza di quel che si pensa'],
