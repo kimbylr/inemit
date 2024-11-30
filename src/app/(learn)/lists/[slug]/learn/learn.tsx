@@ -37,6 +37,11 @@ export const Learn: FC<{ list: List<'items'> }> = ({ list }) => {
   const submitButtonRef = useRef<HTMLButtonElement>(null);
   const correctionButtonRef = useRef<HTMLButtonElement>(null);
 
+  // TODO: Add to element directly once the API is updated
+  useEffect(() => {
+    answerFieldRef.current?.setAttribute('writingsuggestions', 'false');
+  }, []);
+
   useEffect(() => {
     if (isMobileAppleDevice() && currentIndex === 0 && mode === 'answering') {
       // let user click initially, otherwise soft keyboard does not come up
@@ -191,6 +196,7 @@ export const Learn: FC<{ list: List<'items'> }> = ({ list }) => {
             <TextField
               id="solution"
               autoCapitalize="none"
+              autoComplete="off"
               ref={answerFieldRef}
               value={answer}
               disabled={revising}
