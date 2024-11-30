@@ -1,3 +1,11 @@
+## [2.9.4](https://github.com/kimbylr/inemit/compare/v2.9.3...v2.9.4) (2024-11-30)
+
+
+### Bug Fixes
+
+* Disable writing suggestions in answer field ([6f72c09](https://github.com/kimbylr/inemit/commit/6f72c09b6f7555f30ec56f4329d975592b0ac34f))
+* Evaluate complex answer with parenthesis and commas correctly ([33dcdbd](https://github.com/kimbylr/inemit/commit/33dcdbdc6a136af9e2aecf1f7e30a485134988e4))
+
 ## [2.9.3](https://github.com/kimbylr/inemit/compare/v2.9.2...v2.9.3) (2024-11-25)
 
 
