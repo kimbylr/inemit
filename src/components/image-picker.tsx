@@ -45,8 +45,7 @@ export const ImagePicker: FC<Props> = ({ searchTerm: initialSearchTerm, onSetIma
     setError('');
     setSearching(true);
     try {
-      const translatedSearchString = await translate(searchString);
-      const imgs = await searchUnsplash(translatedSearchString, 1);
+      const imgs = await searchUnsplash(await translate(searchString), 1);
       if (imgs.length === 0) {
         return setError('Keine Bilder gefunden');
       }

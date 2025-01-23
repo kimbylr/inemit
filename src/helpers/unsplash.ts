@@ -19,7 +19,6 @@ export const searchUnsplash = async (searchString: string, page: number) => {
     { headers },
   );
   const { results } = await res.json();
-  console.log(results);
   return results.map(mapUnsplashImage);
 };
 
