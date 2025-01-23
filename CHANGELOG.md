@@ -1,3 +1,16 @@
+# [2.10.0](https://github.com/kimbylr/inemit/compare/v2.9.4...v2.10.0) (2025-01-23)
+
+
+### Bug Fixes
+
+* Use updated spec of DeepL API ([d69c487](https://github.com/kimbylr/inemit/commit/d69c4871683a94370f850b7db045dddad2e8ade7))
+* wording "in a day" ([162e368](https://github.com/kimbylr/inemit/commit/162e3683cc3605040412f06d4003cba0a6841d52))
+
+
+### Features
+
+* Show percentages by stage in list progress ([a99efa9](https://github.com/kimbylr/inemit/commit/a99efa9243f5658db19399b43e6f1a528168a552))
+
 ## [2.9.4](https://github.com/kimbylr/inemit/compare/v2.9.3...v2.9.4) (2024-11-30)
 
 
