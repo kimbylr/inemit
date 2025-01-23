@@ -1,7 +1,7 @@
 'use client';
 
 import { ExpandableArea } from '@/components/expandable-area';
-import { ProgressBar } from '@/components/progress-bar';
+import { ListProgress } from '@/components/list-progress';
 import { ProgressPie } from '@/components/progress-pie';
 import { EditableItemsList } from '@/compositions/editable-items-list';
 import { Button } from '@/elements/button';
@@ -49,13 +49,13 @@ export const ListOverview: FC<Props> = ({ list }) => {
       {list.itemsCount > 0 && (
         <>
           <div className="mt-8 hidden xs:block">
-            <ProgressBar stages={stages} showCountOnClick />
+            <ListProgress stages={stages} modes={['legend', 'count', 'percentage']} />
           </div>
 
           <div className="mt-4 xs:hidden">
             <ExpandableArea teaser={<ProgressPie stages={stages} />} showChevronButton={false}>
               <div className="pt-2">
-                <ProgressBar stages={stages} showCountPerStage />
+                <ListProgress stages={stages} modes={['count', 'percentage']} />
               </div>
             </ExpandableArea>
           </div>

@@ -2,7 +2,7 @@ import { Button } from '@/elements/button';
 import { withPageAuthRequired } from '@auth0/nextjs-auth0';
 import { FC, ReactNode } from 'react';
 import Icons from './icons';
-import { ProgressBar } from '@/components/progress-bar';
+import { ListProgress } from '@/components/list-progress';
 import { TextField } from '@/elements/text-field';
 import { Checkbox } from '@/elements/checkbox';
 import { RadioButton } from '@/elements/radio-button';
@@ -74,8 +74,11 @@ const Page = async () => {
 
       <h1 className="text-gray-25  mt-20 mb-6">UI Components</h1>
       <Section title="Progress Bar">
-        <ProgressBar stages={{ 1: 23, 2: 34, 3: 45, 4: 56 }} showCountOnClick />
-        <ProgressBar stages={{ 1: 23, 2: 34, 3: 45, 4: 56 }} showCountPerStage />
+        <ListProgress
+          stages={{ 1: 23, 2: 34, 3: 45, 4: 56 }}
+          modes={['legend', 'count', 'percentage']}
+        />
+        <ListProgress stages={{ 1: 23, 2: 34, 3: 45, 4: 56 }} modes={['count', 'percentage']} />
       </Section>
 
       <h1 className="text-gray-25 mt-20 mb-6">Icons</h1>
