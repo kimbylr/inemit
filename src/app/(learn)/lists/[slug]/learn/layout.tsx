@@ -1,7 +1,7 @@
 'use client';
 
 import { useHeight } from '@/hooks/use-height';
-import { FC, ReactNode, useLayoutEffect } from 'react';
+import { FC, ReactNode } from 'react';
 
 const Layout: FC<{ children: ReactNode }> = ({ children }) => {
   const height = useHeight();

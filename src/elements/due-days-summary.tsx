@@ -16,8 +16,8 @@ export const DueDaysSummary: FC<Props> = ({ dueToday, dueTomorrow }) => {
   if (dueTomorrow) {
     return (
       <>
-        Im Moment gibt&apos;s <strong>nichts zu lernen</strong> 😎 Schau morgen nochmals vorbei,
-        dann
+        Im Moment gibt&apos;s <strong>nichts zu lernen</strong> 😎 Schau in einem Tag nochmals
+        vorbei, dann
         {dueTomorrow === 1 ? ` ist 1 Vokabel dran.` : ` sind ${dueTomorrow} Vokabeln dran.`}
       </>
     );
