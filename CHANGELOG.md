@@ -1,3 +1,10 @@
+## [2.10.1](https://github.com/kimbylr/inemit/compare/v2.10.0...v2.10.1) (2025-04-18)
+
+
+### Bug Fixes
+
+* Revise about page ([05850af](https://github.com/kimbylr/inemit/commit/05850afc34c645af8a8d171d2668e13ecfb7c1ba))
+
 # [2.10.0](https://github.com/kimbylr/inemit/compare/v2.9.4...v2.10.0) (2025-01-23)
 
 
