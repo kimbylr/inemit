@@ -160,10 +160,10 @@ export const Learn: FC<{ list: List<'items'> }> = ({ list }) => {
         >
           {(isSynonym || isNearSynonym) && (
             <div
-              className="absolute -top-2 -right-2 size-10 bg-[#b95eff] rounded-md text-lg flex items-center justify-center select-none cursor-help z-10 ring-2 ring-white"
+              className="absolute -top-2 -right-2 size-12 bg-[#b95eff] rounded-md text-lg flex items-center justify-center select-none cursor-help z-10 ring-2 ring-white"
               title="Synonym"
             >
-              <span className="relative -left-[3px] top-[3px] text-white">
+              <span className="relative -left-[3px] top-[3px] text-white text-xl">
                 {isNearSynonym ? <span className=" font-[Helvetica]">≈</span> : '='}
               </span>
             </div>

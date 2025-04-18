@@ -3,18 +3,18 @@ import { version } from '../../../package.json';
 
 const AboutPage = () => (
   <>
-    <h1>Die Idee: inemit statt Bullshit.</h1>
-    <p className="spaced">
+    <h1 className="my-4">Die Idee: inemit statt Bullshit.</h1>
+    <p className="my-4">
       Die <Highlight color="yellow">beste Methode</Highlight> für{' '}
       <Highlight color="green">effizientes Lernen</Highlight> als{' '}
       <Highlight color="orange">moderne App</Highlight>.
     </p>
 
-    <h3 className="text-yellow-150 flex items-center mt-8">
+    <h2 className="text-yellow-150 flex items-center mt-14 mb-4">
       <CircledNumber className="bg-yellow-150">1</CircledNumber>
       Hat Methode
-    </h3>
-    <p className="mt-2">
+    </h2>
+    <p className="mt-2 leading-[1.7]">
       <strong>Yay science!</strong> Analoge Lernkarteien machen sich den Effekt schon lange zunutze
       und die Lernforschung hat ihn bestätigt: <Highlight color="yellow">Wiederholung</Highlight>{' '}
       ist zentral, um Vokabeln zu lernen. Ich wiederhole: Wiederholung. Wiederholung? Genau,
@@ -23,14 +23,14 @@ const AboutPage = () => (
       ist die raffinierte Version davon.
     </p>
 
-    <h3 className="text-orange-150 flex items-center mt-8">
+    <h2 className="text-orange-150 flex items-center mt-14 mb-4">
       <CircledNumber className="bg-orange-150">2</CircledNumber>
       Computer says yes
-    </h3>
-    <p className="mt-2">
-      Eine App nicht (nur), weil digital = toll, sondern weil digital = ideale Voraussetzung für{' '}
-      <Highlight color="orange">systematisches Lernen</Highlight>. Die App kümmert sich darum, dass
-      gut verankerte Vokabeln seltener abgefragt werden – und falsch beantwortete häufiger (
+    </h2>
+    <p className="mt-2 leading-[1.7]">
+      <Highlight color="orange">Systematisches Lernen</Highlight> ist am Computer viel leichter als
+      von Hand. Die App kümmert sich darum, dass gut verankerte Vokabeln seltener abgefragt werden –
+      und falsch beantwortete häufiger (
       <ExtLink href="https://supermemo.guru/wiki/SuperMemo_1.0_for_DOS_(1987)#Algorithm_SM-2">
         <em>SM-2</em>-Algorithmus
       </ExtLink>
@@ -38,29 +38,27 @@ const AboutPage = () => (
       nächsten Abfrage und garantiert so, dass du deine Lernzeit effizient nutzt.
     </p>
 
-    <h3 className="text-secondary-150 flex items-center mt-8">
+    <h2 className="text-secondary-150 flex items-center mt-14 mb-4">
       <CircledNumber className="bg-secondary-150">3</CircledNumber>
       Ohne Schnickschnack
-    </h3>
-    <p className="mt-2">
+    </h2>
+    <p className="mt-2 leading-[1.7]">
       <Inemit>Inemit</Inemit> stellt die Basis für{' '}
       <Highlight color="green">sinnvolles Lernen</Highlight> bereit. Lernen musst du selbst. Und die
       Lerninhalte machst du am besten auch selbst. Denn neben regelmässiger Wiederholung sind{' '}
-      <Highlight color="green">passende Lerninhalte</Highlight> entscheidend (vgl.{' '}
+      <Highlight color="green">passende Lerninhalte</Highlight> entscheidend (
       <ExtLink href="https://universeofmemory.com/spaced-repetition-apps-dont-work/">
         Why Most Spaced Repetition Apps Don&apos;t Work
       </ExtLink>
       ).
     </p>
 
-    <hr className="my-12" />
-
-    <p className="spaced text-xs">
+    <p className="my-4 text-xs mt-24">
       <strong>Version</strong>: {version} •{' '}
       <ExtLink href="https://github.com/kimbylr/inemit/blob/main/CHANGELOG.md">Changelog</ExtLink> •{' '}
       <ExtLink href="https://github.com/kimbylr/inemit/">Quellcode auf Github</ExtLink>
     </p>
-    <p className="spaced text-xs !mb-0">
+    <p className="my-4 text-xs !mb-0">
       <strong>Datenschutz</strong>: <Inemit>Inemit</Inemit> ist ein Hobby-Projekt von{' '}
       <ExtLink href="https://bylr.ch">mir</ExtLink>. Die Daten, die du eingibst, müssen gespeichert
       werden, damit die App funktioniert. Und fürs Login braucht&apos;s ein Cookie. Du wirst nicht
@@ -76,8 +74,8 @@ const AboutPage = () => (
         Datenbank entfernt.
       </li>
     </ul>
-    <p className="spaced text-xs">
-      <strong>Kontakt</strong>: Um deinen Account zu löschen (und für weitere Anliegen), wende dich
+    <p className="my-4 text-xs">
+      <strong>Kontakt</strong>: Um deinen Account zu löschen und alle weiteren Anliegen, wende dich
       an <ExtLink href="mailto:kontakt@inem.it">kontakt@inem.it</ExtLink>.{' '}
     </p>
   </>
@@ -85,7 +83,7 @@ const AboutPage = () => (
 
 const CircledNumber: FC<{ className: string; children: ReactNode }> = ({ className, children }) => (
   <span
-    className={`inline-flex justify-center items-center rounded-full w-7 h-7 mr-2 font-bold text-gray-98 text-xs+ ${className}`}
+    className={`inline-flex justify-center items-center rounded-full w-7 h-7 mr-3 font-bold text-gray-98 text-xs+ ${className}`}
   >
     {children}
   </span>
@@ -97,7 +95,8 @@ const Highlight: FC<{ color: 'orange' | 'yellow' | 'green'; children: ReactNode 
 }) => (
   <strong
     className={
-      color === 'green' ? 'bg-secondary-20' : color === 'yellow' ? 'bg-yellow-50' : 'bg-orange-20'
+      'inline-block px-1 ' +
+      (color === 'green' ? 'bg-secondary-20' : color === 'yellow' ? 'bg-yellow-50' : 'bg-orange-20')
     }
   >
     {children}
