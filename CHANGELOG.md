@@ -1,3 +1,10 @@
+## [2.10.2](https://github.com/kimbylr/inemit/compare/v2.10.1...v2.10.2) (2025-08-21)
+
+
+### Bug Fixes
+
+* Redirect to overview if nothing to learn ([e70519e](https://github.com/kimbylr/inemit/commit/e70519ea8675d2ef2781e56dbd8b89968e8f3f21))
+
 ## [2.10.1](https://github.com/kimbylr/inemit/compare/v2.10.0...v2.10.1) (2025-04-18)
 
 
