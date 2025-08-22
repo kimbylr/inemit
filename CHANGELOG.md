@@ -1,3 +1,10 @@
+## [2.10.3](https://github.com/kimbylr/inemit/compare/v2.10.2...v2.10.3) (2025-08-22)
+
+
+### Bug Fixes
+
+* Redirect to overview if nothing to learn client-side ([38742a7](https://github.com/kimbylr/inemit/commit/38742a770ed00fbcd23f6a79463f07de67b28d2d))
+
 ## [2.10.2](https://github.com/kimbylr/inemit/compare/v2.10.1...v2.10.2) (2025-08-21)
 
 
