@@ -83,6 +83,12 @@ export const Learn: FC<{ list: List<'items'> }> = ({ list }) => {
     }
   }, [mode, saving]); // eslint-disable-line react-hooks/exhaustive-deps
 
+  if (!item) {
+    // redirect if no items to learn
+    backToList();
+    return '...';
+  }
+
   const next = async (overruleCorrect?: boolean) => {
     const answerQuality = overruleCorrect ? 3 : isCorrect ? 5 : 1; // TODO: more fine-grained?
     const save = async () => {

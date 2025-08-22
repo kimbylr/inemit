@@ -11,10 +11,6 @@ const ListPage: AppRouterPageRoute = async ({ params }) => {
     return <ListNotFound />;
   }
 
-  if (list.itemsCount === 0) {
-    redirect(`/lists/${params.slug}`);
-  }
-
   return <Learn list={list} />;
 };
 
