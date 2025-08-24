@@ -1,3 +1,10 @@
+## [2.10.4](https://github.com/kimbylr/inemit/compare/v2.10.3...v2.10.4) (2025-08-24)
+
+
+### Bug Fixes
+
+* use node 22 ([1fe815a](https://github.com/kimbylr/inemit/commit/1fe815a8bed3386aac0d2bbb05514d394be585ec))
+
 ## [2.10.3](https://github.com/kimbylr/inemit/compare/v2.10.2...v2.10.3) (2025-08-22)
 
 
