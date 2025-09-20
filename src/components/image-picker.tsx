@@ -96,7 +96,7 @@ export const ImagePicker: FC<Props> = ({ searchTerm: initialSearchTerm, onSetIma
             e.preventDefault();
             search(searchTerm);
           }}
-          className="flex justify-between items-start"
+          className="flex justify-between items-center"
         >
           <TextField
             small
@@ -107,7 +107,7 @@ export const ImagePicker: FC<Props> = ({ searchTerm: initialSearchTerm, onSetIma
             className="max-w-[250px] mb-1"
             autoFocus
           />
-          <div className="flex ml-4 mt-1 text-right max-h-[30px]">
+          <div className="flex ml-4 text-right leading-tight -mt-1 text-xxs max-h-[30px]">
             {error}
             {searching && (
               <div className="relative -top-5 ml-2">
