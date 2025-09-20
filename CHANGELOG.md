@@ -1,3 +1,16 @@
+# [2.11.0](https://github.com/kimbylr/inemit/compare/v2.10.4...v2.11.0) (2025-09-20)
+
+
+### Bug Fixes
+
+* "no images found" on mobile ([d421b09](https://github.com/kimbylr/inemit/commit/d421b0948a81a969c3e11875ad153b1779b64e54))
+* Hyphenate long prompts on mobile ([b467feb](https://github.com/kimbylr/inemit/commit/b467febd8900717db10602f5eda633b0a18a770b))
+
+
+### Features
+
+* Show current menu item, use esc to close menu ([88730ee](https://github.com/kimbylr/inemit/commit/88730eeb72aaa84d222a768a67b2f063b6706835))
+
 ## [2.10.4](https://github.com/kimbylr/inemit/compare/v2.10.3...v2.10.4) (2025-08-24)
 
 
