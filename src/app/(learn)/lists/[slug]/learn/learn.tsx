@@ -180,6 +180,8 @@ export const Learn: FC<{ list: List<'items'> }> = ({ list }) => {
                 'text-black',
                 TEXT_SIZES.prompt[textSize],
                 image ? 'leading-tight' : 'leading-normal',
+                prompt.split(' ').filter((word) => word.length > 16).length > 0 &&
+                  'max-sm:hyphens-auto',
               )}
             >
               <TextWithBreaks>{prompt}</TextWithBreaks>
