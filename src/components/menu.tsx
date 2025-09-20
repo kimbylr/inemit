@@ -4,12 +4,22 @@ import { User } from '@/elements/user';
 import { classNames } from '@/helpers/class-names';
 import { List } from '@/types/types';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { FC, ReactNode, useRef, useState } from 'react';
-import { useClickAway } from 'react-use';
+import { useClickAway, useKey } from 'react-use';
 
 export const Menu: FC<{ lists: List[] }> = ({ lists }) => {
   const [open, setOpen] = useState(false);
   const closeMenu = () => setOpen(false);
+
+  const buttonRef = useRef<HTMLButtonElement>(null);
+  useKey('Escape', () => {
+    setOpen(false);
+    buttonRef.current?.focus();
+  });
+
+  const path = usePathname();
+  const currentSlug = path.split('/').at(2);
 
   const ref = useRef(null);
   useClickAway(ref, () => {
@@ -21,6 +31,7 @@ export const Menu: FC<{ lists: List[] }> = ({ lists }) => {
       <button
         className="h-12 w-12 absolute -top-2 -right-2 p-2 focus:outline-none group"
         onClick={() => setOpen((o) => !o)}
+        ref={buttonRef}
       >
         <div className="border-2 border-transparent group-focus-visible:border-primary-25 group-focus-visible:group-hover:border-white h-8 w-8 rounded-lg relative">
           <span className="absolute w-4 h-0.5 rounded bg-primary-25 group-hover:bg-white top-[8px] left-1.5" />
@@ -39,7 +50,10 @@ export const Menu: FC<{ lists: List[] }> = ({ lists }) => {
           </MenuLink>
           {lists.map(({ id, name, slug }) => (
             <MenuLink key={id} href={`/lists/${slug}`} closeMenu={closeMenu} noBorder>
-              <span className="truncate w-full">{name}</span>
+              <span className="truncate w-full flex gap-1.5 items-center">
+                {slug === currentSlug && <span className="bg-primary-100 rounded-full size-1.5" />}
+                {name}
+              </span>
             </MenuLink>
           ))}
           <MenuLink href="/about" closeMenu={closeMenu}>
