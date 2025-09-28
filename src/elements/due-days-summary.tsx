@@ -9,6 +9,13 @@ export const DueDaysSummary: FC<Props> = ({ dueToday, dueTomorrow }) => {
     return (
       <>
         Davon {dueToday === 1 ? 'steht' : 'stehen'} <strong>{dueToday}</strong> zum Lernen an.
+        {dueTomorrow && (
+          <span>
+            {' '}
+            Morgen {dueTomorrow === 1 ? `kommt` : `kommen`}{' '}
+            <strong className="text-gray-60">{dueTomorrow}</strong> dazu.
+          </span>
+        )}
       </>
     );
   }
