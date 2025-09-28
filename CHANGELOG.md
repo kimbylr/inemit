@@ -1,3 +1,11 @@
+# [2.12.0](https://github.com/kimbylr/inemit/compare/v2.11.0...v2.12.0) (2025-09-28)
+
+
+### Features
+
+* Always show amount of due items tomorrow in overview ([7bdb8d1](https://github.com/kimbylr/inemit/commit/7bdb8d11530fe8f769d35755310d9f3825199d69))
+* Show amount to be learned in menu ([eb63fd5](https://github.com/kimbylr/inemit/commit/eb63fd510f88c3b84afb9c925a837a045d90ab19))
+
 # [2.11.0](https://github.com/kimbylr/inemit/compare/v2.10.4...v2.11.0) (2025-09-20)
 
 
