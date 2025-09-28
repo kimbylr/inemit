@@ -1,3 +1,10 @@
+## [2.12.2](https://github.com/kimbylr/inemit/compare/v2.12.1...v2.12.2) (2025-09-28)
+
+
+### Bug Fixes
+
+* Due days styling… again ([872d4aa](https://github.com/kimbylr/inemit/commit/872d4aa8c7fabcc4d94ac0e329cb1bdb63344d7f))
+
 ## [2.12.1](https://github.com/kimbylr/inemit/compare/v2.12.0...v2.12.1) (2025-09-28)
 
 
