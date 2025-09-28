@@ -12,7 +12,8 @@ export const DueDaysSummary: FC<Props> = ({ dueToday, dueTomorrow }) => {
         {dueTomorrow && (
           <span className="text-gray-60">
             {' '}
-            Morgen {dueTomorrow === 1 ? `kommt` : `kommen`} <strong>{dueTomorrow}</strong> dazu.
+            Morgen {dueTomorrow === 1 ? `kommt` : `kommen`}{' '}
+            <strong className="text-gray-60">{dueTomorrow}</strong> dazu.
           </span>
         )}
       </>
