@@ -8,7 +8,7 @@ import { usePathname } from 'next/navigation';
 import { FC, ReactNode, useRef, useState } from 'react';
 import { useClickAway, useKey } from 'react-use';
 
-export const Menu: FC<{ lists: List[] }> = ({ lists }) => {
+export const Menu: FC<{ lists: List<'lastLearnt' | 'progress'>[] }> = ({ lists }) => {
   const [open, setOpen] = useState(false);
   const closeMenu = () => setOpen(false);
 
@@ -48,11 +48,21 @@ export const Menu: FC<{ lists: List[] }> = ({ lists }) => {
           <MenuLink href="/lists" closeMenu={closeMenu}>
             <span className="font-bold">Meine Listen</span>
           </MenuLink>
-          {lists.map(({ id, name, slug }) => (
-            <MenuLink key={id} href={`/lists/${slug}`} closeMenu={closeMenu} noBorder>
-              <span className="truncate w-full flex gap-1.5 items-center">
-                {slug === currentSlug && <span className="bg-primary-100 rounded-full size-1.5" />}
+          {lists.map(({ id, name, slug, progress }) => (
+            <MenuLink
+              key={id}
+              href={`/lists/${slug}`}
+              closeMenu={closeMenu}
+              isCurrent={slug === currentSlug}
+              noBorder
+            >
+              <span className="truncate w-full flex gap-2 items-center">
                 {name}
+                {progress.dueToday && (
+                  <span className="bg-primary-150 text-white text-[12px] flex rounded-full items-center justify-center px-2 py-px">
+                    {progress.dueToday}
+                  </span>
+                )}
               </span>
             </MenuLink>
           ))}
@@ -70,16 +80,27 @@ type MenuLinkProps = {
   href: string;
   closeMenu: () => void;
   noBorder?: boolean;
+  isCurrent?: boolean;
 };
 
-const MenuLink: FC<MenuLinkProps> = ({ href, children, closeMenu, noBorder }) => (
-  <li className={classNames('border-gray-85 hover:bg-gray-95', !noBorder && 'border-t')}>
-    <Link
-      href={href}
-      className={classNames('p-3 block !-outline-offset-2 rounded-lg', noBorder && 'py-2')}
-      onClick={closeMenu}
+const MenuLink: FC<MenuLinkProps> = ({ href, children, closeMenu, noBorder, isCurrent }) => {
+  const className = classNames('p-3 block !-outline-offset-2 rounded-lg', noBorder && 'py-2');
+
+  return (
+    <li
+      className={classNames(
+        'border-gray-85',
+        !noBorder && 'border-t',
+        isCurrent ? 'bg-primary-5' : 'hover:bg-primary-5',
+      )}
     >
-      {children}
-    </Link>
-  </li>
-);
+      {isCurrent ? (
+        <span className={className}>{children}</span>
+      ) : (
+        <Link href={href} className={className} onClick={closeMenu}>
+          {children}
+        </Link>
+      )}
+    </li>
+  );
+};
