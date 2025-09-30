@@ -1,3 +1,10 @@
+## [2.12.3](https://github.com/kimbylr/inemit/compare/v2.12.2...v2.12.3) (2025-09-30)
+
+
+### Bug Fixes
+
+* Styling fixes ([72ba8fa](https://github.com/kimbylr/inemit/commit/72ba8fa617f3d017337ab0a672f61bae35555386))
+
 ## [2.12.2](https://github.com/kimbylr/inemit/compare/v2.12.1...v2.12.2) (2025-09-28)
 
 
