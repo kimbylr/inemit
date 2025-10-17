@@ -9,9 +9,10 @@ import { IconAdd } from '@/elements/icons/add';
 import { IconFlag } from '@/elements/icons/flag';
 import { IconImport } from '@/elements/icons/import';
 import { TextField } from '@/elements/text-field';
+import { classNames } from '@/helpers/class-names';
 import { List } from '@/types/types';
 import { useRouter } from 'next/navigation';
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 
 export const EditList: FC<{ list: List<'flaggedItems' | 'lastLearnt' | 'items'> }> = ({ list }) => {
   const { refresh } = useRouter();
@@ -21,6 +22,20 @@ export const EditList: FC<{ list: List<'flaggedItems' | 'lastLearnt' | 'items'> 
   const [showDoublets, setShowDoublets] = useState(false);
 
   const flaggedItems = list.items.filter(({ flagged }) => flagged);
+
+  const [isSticky, setIsSticky] = useState(false);
+  useEffect(() => {
+    const el = document.getElementById('sticky-search-container');
+    const observer = new IntersectionObserver(
+      ([e]) => setIsSticky(e.intersectionRect.top === e.rootBounds?.top),
+      { threshold: 1 },
+    );
+    el && observer.observe(el);
+
+    return () => {
+      el && observer.unobserve(el);
+    };
+  }, []);
 
   return (
     <>
@@ -75,8 +90,12 @@ export const EditList: FC<{ list: List<'flaggedItems' | 'lastLearnt' | 'items'> 
       )}
 
       <div
-        className="sticky top-0 mt-8 p-2 pb-4 -mx-2 z-30 bg-gray-95 h-14"
-        style={{ paddingTop: 'calc(env(safe-area-inset-top) + 8px)' }}
+        id="sticky-search-container"
+        className={classNames(
+          'sticky -top-px mt-8 px-2 py-3 -mx-2 z-30 bg-gray-95 h-14 transition-all',
+          isSticky &&
+            'max-xs:bg-white/60 max-xs:-mx-4 max-xs:rounded-full max-xs:px-4 max-xs:backdrop-blur-lg',
+        )}
       >
         <div className="flex gap-4 flex-wrap items-center">
           <TextField
@@ -92,7 +111,7 @@ export const EditList: FC<{ list: List<'flaggedItems' | 'lastLearnt' | 'items'> 
           </Checkbox>
         </div>
       </div>
-      <div className="sticky h-px w-full bg-gray-85 top-14 z-10" />
+      <div className="sticky max-xs:hidden h-px w-full bg-gray-85 top-14 z-10" />
       <div className="relative h-px w-full -top-px z-20 bg-gray-95" />
       <EditableItemsList
         items={list.items}
