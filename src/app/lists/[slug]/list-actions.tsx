@@ -35,42 +35,51 @@ export const ListActions: FC<{ slug: string }> = ({ slug }) => {
   });
 
   return (
-    <div
-      className={classNames(
-        'z-40 pointer-events-none',
-        'max-xs:w-screen max-xs:bottom-0 max-xs:fixed max-xs:-ml-6',
-        'xs:sticky xs:top-1.5 xs:text-right',
-      )}
-    >
-      <nav className="bg-white xs:rounded-lg inline-flex p-0 gap-0 justify-evenly xs:p-1 xs:gap-1 shadow max-xs:w-full pointer-events-auto">
-        {TABS.map(({ name, path, icon, highlight }) => (
-          <a
-            href={`${baseUrl}/${path}`}
-            key={name}
-            className={classNames(
-              // mobile + desktop
-              'text-xxs flex items-center justify-center size-8 font-bold group relative flex-1',
-              path === currentPath &&
-                'bg-gradient-to-br from-primary-100 to-primary-150 text-white',
-              path !== currentPath && !highlight && 'text-gray-60 hover:text-gray-25',
-              path !== currentPath && highlight && 'text-primary-150',
-              // desktop
-              'xs:rounded',
-              path !== currentPath && 'xs:hover:bg-gray-95',
-              // mobile
-              'max-xs:grow max-xs:w-auto max-xs:h-20 max-xs:flex-col max-xs:justify-evenly max-xs:pb-4 max-xs:pt-2',
-            )}
-          >
-            {icon}
-            {/* desktop */}
-            <span className="hidden xs:group-focus-visible:flex xs:group-hover:flex absolute top-24 -left-14 text-gray-35 rotate-90 w-36">
-              <span className="ml-0.5 bg-gray-90 text-left py-1 px-2 rounded">{name}</span>
-            </span>
-            {/* mobile */}
-            <span className="xs:hidden text-[12px]">{name}</span>
-          </a>
-        ))}
-      </nav>
-    </div>
+    <nav className="pointer-events-none">
+      {/* desktop */}
+      <div className="max-xs:hidden sticky top-1.5 text-right">
+        <div className="bg-white rounded-lg inline-flex justify-evenly p-1 gap-1 shadow max-xs:w-full pointer-events-auto">
+          {TABS.map(({ name, path, icon, highlight }) => (
+            <a
+              href={`${baseUrl}/${path}`}
+              key={name}
+              className={classNames(
+                'text-xxs flex items-center justify-center size-8 font-bold group relative flex-1 rounded',
+                path === currentPath &&
+                  'bg-gradient-to-br from-primary-100 to-primary-150 text-white',
+                path !== currentPath && 'hover:bg-gray-95',
+                path !== currentPath && !highlight && 'text-gray-60 hover:text-gray-25',
+                path !== currentPath && highlight && 'text-primary-150',
+              )}
+            >
+              {icon}
+              <span className="hidden group-focus-visible:flex group-hover:flex absolute top-24 -left-14 text-gray-35 rotate-90 w-36">
+                <span className="ml-0.5 bg-gray-90 text-left py-1 px-2 rounded">{name}</span>
+              </span>
+            </a>
+          ))}
+        </div>
+      </div>
+
+      {/* mobile */}
+      <div className="xs:hidden w-screen bottom-0 fixed -ml-6 z-40">
+        <div className="bg-white inline-flex p-0 gap-0 justify-evenly shadow w-full pointer-events-auto border-t border-gray-85">
+          {TABS.map(({ name, path, icon }) => (
+            <a
+              href={`${baseUrl}/${path}`}
+              key={name}
+              className={classNames(
+                'text-xxs flex items-center size-8 font-bold group relative flex-1 grow w-auto h-24 flex-col justify-evenly pb-8 pt-2',
+                path === currentPath && 'text-primary-150',
+                path !== currentPath && 'text-gray-50',
+              )}
+            >
+              {icon}
+              <span className="xs:hidden text-[12px]">{name}</span>
+            </a>
+          ))}
+        </div>
+      </div>
+    </nav>
   );
 };

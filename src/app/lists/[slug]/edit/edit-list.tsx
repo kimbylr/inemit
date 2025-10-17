@@ -92,7 +92,7 @@ export const EditList: FC<{ list: List<'flaggedItems' | 'lastLearnt' | 'items'> 
           </Checkbox>
         </div>
       </div>
-      <div className="sticky h-px w-full bg-gray-60 top-14 z-10" />
+      <div className="sticky h-px w-full bg-gray-85 top-14 z-10" />
       <div className="relative h-px w-full -top-px z-20 bg-gray-95" />
       <EditableItemsList
         items={list.items}
