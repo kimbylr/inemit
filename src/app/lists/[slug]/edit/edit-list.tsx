@@ -26,15 +26,16 @@ export const EditList: FC<{ list: List<'flaggedItems' | 'lastLearnt' | 'items'> 
   const [isSticky, setIsSticky] = useState(false);
   useEffect(() => {
     const el = document.getElementById('sticky-search-container');
-    const observer = new IntersectionObserver(
-      ([e]) => setIsSticky(e.intersectionRect.top === e.rootBounds?.top),
-      { threshold: 1 },
-    );
-    el && observer.observe(el);
+    // const observer = new IntersectionObserver(
+    //   ([e]) => setIsSticky(e.intersectionRect.top === e.rootBounds?.top),
+    //   { threshold: 1 },
+    // );
+    // el && observer.observe(el);
 
-    return () => {
-      el && observer.unobserve(el);
-    };
+    const onScroll = () => setIsSticky(!!el && el.getBoundingClientRect().top <= 0);
+    window.addEventListener('scroll', onScroll);
+
+    return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
   return (
@@ -92,7 +93,7 @@ export const EditList: FC<{ list: List<'flaggedItems' | 'lastLearnt' | 'items'> 
       <div
         id="sticky-search-container"
         className={classNames(
-          'sticky -top-px mt-8 px-2 py-3 -mx-2 z-30 bg-gray-95 h-14 transition-all',
+          'sticky top-0 mt-8 px-2 py-3 -mx-2 z-30 bg-gray-95 h-14 transition-all',
           isSticky &&
             'max-xs:bg-white/60 max-xs:-mx-4 max-xs:rounded-full max-xs:px-4 max-xs:backdrop-blur-lg',
         )}
