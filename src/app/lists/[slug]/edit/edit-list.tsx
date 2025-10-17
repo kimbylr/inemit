@@ -26,15 +26,9 @@ export const EditList: FC<{ list: List<'flaggedItems' | 'lastLearnt' | 'items'> 
   const [isSticky, setIsSticky] = useState(false);
   useEffect(() => {
     const el = document.getElementById('sticky-search-container');
-    // const observer = new IntersectionObserver(
-    //   ([e]) => setIsSticky(e.intersectionRect.top === e.rootBounds?.top),
-    //   { threshold: 1 },
-    // );
-    // el && observer.observe(el);
-
     const onScroll = () => setIsSticky(!!el && el.getBoundingClientRect().top <= 0);
-    window.addEventListener('scroll', onScroll);
 
+    window.addEventListener('scroll', onScroll);
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
