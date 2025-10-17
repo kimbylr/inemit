@@ -1,3 +1,10 @@
+## [2.12.4](https://github.com/kimbylr/inemit/compare/v2.12.3...v2.12.4) (2025-10-17)
+
+
+### Bug Fixes
+
+* Search bar styling in edit mode on mobile ([0823b22](https://github.com/kimbylr/inemit/commit/0823b22328eaf1ed461437ef6e3be35158cddd48))
+
 ## [2.12.3](https://github.com/kimbylr/inemit/compare/v2.12.2...v2.12.3) (2025-09-30)
 
 
