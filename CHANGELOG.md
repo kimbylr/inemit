@@ -1,3 +1,10 @@
+## [2.12.5](https://github.com/kimbylr/inemit/compare/v2.12.4...v2.12.5) (2025-10-17)
+
+
+### Bug Fixes
+
+* Search bar styling sticky detection ([d9c2f6e](https://github.com/kimbylr/inemit/commit/d9c2f6e0c13493cccf8677e4d17569c0a785fdfb))
+
 ## [2.12.4](https://github.com/kimbylr/inemit/compare/v2.12.3...v2.12.4) (2025-10-17)
 
 
