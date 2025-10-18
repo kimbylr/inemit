@@ -26,7 +26,7 @@ export const EditList: FC<{ list: List<'flaggedItems' | 'lastLearnt' | 'items'> 
   const [isSticky, setIsSticky] = useState(false);
   useEffect(() => {
     const el = document.getElementById('sticky-search-container');
-    const onScroll = () => setIsSticky(!!el && el.getBoundingClientRect().top <= 0);
+    const onScroll = () => setIsSticky(!!el && el.getBoundingClientRect().top <= 8);
 
     window.addEventListener('scroll', onScroll);
     return () => window.removeEventListener('scroll', onScroll);
@@ -87,9 +87,9 @@ export const EditList: FC<{ list: List<'flaggedItems' | 'lastLearnt' | 'items'> 
       <div
         id="sticky-search-container"
         className={classNames(
-          'sticky top-0 mt-8 px-2 py-3 -mx-2 z-30 bg-gray-95 h-14 transition-all',
+          'sticky top-2 xs:top-0 mt-8 px-2 py-3 -mx-2 z-30 bg-gray-95 h-14 transition-all',
           isSticky &&
-            'max-xs:bg-white/60 max-xs:-mx-4 max-xs:rounded-full max-xs:px-4 max-xs:backdrop-blur-lg',
+            'max-xs:bg-white/60 max-xs:-mx-[17px] max-xs:px-4 max-xs:rounded-full max-xs:flex max-xs:items-center max-xs:backdrop-blur-lg max-xs:border max-xs:border-gray-85',
         )}
       >
         <div className="flex gap-4 flex-wrap items-center">
