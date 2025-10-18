@@ -4,12 +4,13 @@ interface Props {
   dueToday: number;
   dueTomorrow: number;
 }
+
 export const DueDaysSummary: FC<Props> = ({ dueToday, dueTomorrow }) => {
   if (dueToday) {
     return (
       <>
         Davon {dueToday === 1 ? 'steht' : 'stehen'} <strong>{dueToday}</strong> zum Lernen an.
-        {dueTomorrow && (
+        {!!dueTomorrow && (
           <span>
             {' '}
             Morgen {dueTomorrow === 1 ? 'kommt' : 'kommen'} {dueTomorrow} dazu.
