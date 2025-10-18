@@ -1,3 +1,11 @@
+## [2.12.6](https://github.com/kimbylr/inemit/compare/v2.12.5...v2.12.6) (2025-10-18)
+
+
+### Bug Fixes
+
+* Due tomorrow when zero ([9e81535](https://github.com/kimbylr/inemit/commit/9e81535ea819c6c988ee420117da5cefc859fab5))
+* Mobile search bar styling ([f1c3a94](https://github.com/kimbylr/inemit/commit/f1c3a942195425ea050b44f207fc8dc80976e1eb))
+
 ## [2.12.5](https://github.com/kimbylr/inemit/compare/v2.12.4...v2.12.5) (2025-10-17)
 
 
