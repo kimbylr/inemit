@@ -1,3 +1,10 @@
+## [2.12.7](https://github.com/kimbylr/inemit/compare/v2.12.6...v2.12.7) (2025-10-19)
+
+
+### Bug Fixes
+
+* Improve edit mode on mobile ([98b143a](https://github.com/kimbylr/inemit/commit/98b143aec6ebcaa700eb5df83afc5efb042f0208))
+
 ## [2.12.6](https://github.com/kimbylr/inemit/compare/v2.12.5...v2.12.6) (2025-10-18)
 
 
