@@ -50,7 +50,7 @@ export const EditList: FC<{ list: List<'flaggedItems' | 'lastLearnt' | 'items'> 
           Erfassen
         </Button>
         <Button onClick={() => setShowImport(true)}>
-          <IconImport className="h-4 w-4" /> Importieren…
+          <IconImport className="h-4 w-4" /> Import…
         </Button>
         {showImport && (
           <ImportPopup
@@ -92,13 +92,13 @@ export const EditList: FC<{ list: List<'flaggedItems' | 'lastLearnt' | 'items'> 
             'max-xs:bg-white/60 max-xs:-mx-[17px] max-xs:px-4 max-xs:rounded-full max-xs:flex max-xs:items-center max-xs:backdrop-blur-lg max-xs:border max-xs:border-gray-85',
         )}
       >
-        <div className="flex gap-4 flex-wrap items-center">
+        <div className="flex gap-4 items-center">
           <TextField
             small
             value={search}
             placeholder="Suchen…"
             onChange={(e) => setSearch(e.target.value)}
-            className="!w-44"
+            className="!max-w-44"
             type="search"
           />
           <Checkbox checked={showDoublets} onCheck={() => setShowDoublets((s) => !s)}>
