@@ -1,3 +1,10 @@
+## [2.12.8](https://github.com/kimbylr/inemit/compare/v2.12.7...v2.12.8) (2025-10-20)
+
+
+### Bug Fixes
+
+* Show action menu on top when scrolling in edit mode on desktop ([d982bc8](https://github.com/kimbylr/inemit/commit/d982bc8f16f9f807d09e84e984816f7a77b6e881))
+
 ## [2.12.7](https://github.com/kimbylr/inemit/compare/v2.12.6...v2.12.7) (2025-10-19)
 
 
