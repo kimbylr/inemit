@@ -23,7 +23,7 @@ const TABS: Tab[] = [
   { name: 'Lernen', path: 'learn', icon: <IconLogo className="size-6" />, highlight: true },
 ];
 
-export const ListActions: FC<{ slug: string }> = ({ slug }) => {
+export const ListActions: FC<{ slug: string; small?: boolean }> = ({ slug, small }) => {
   const path = usePathname();
   const baseUrl = `/lists/${slug}`;
   const currentPath = path.replace(`${baseUrl}/`, '').replace(baseUrl, '');
@@ -44,16 +44,22 @@ export const ListActions: FC<{ slug: string }> = ({ slug }) => {
               href={`${baseUrl}/${path}`}
               key={name}
               className={classNames(
-                'text-xxs flex items-center justify-center size-8 font-bold group relative flex-1 rounded',
+                'text-xxs flex items-center justify-center font-bold group relative flex-1 rounded',
                 path === currentPath &&
                   'bg-gradient-to-br from-primary-100 to-primary-150 text-white',
                 path !== currentPath && 'hover:bg-gray-95',
                 path !== currentPath && !highlight && 'text-gray-60 hover:text-gray-25',
                 path !== currentPath && highlight && 'text-primary-150',
+                small ? 'size-7' : 'size-8',
               )}
             >
               {icon}
-              <span className="hidden group-focus-visible:flex group-hover:flex absolute top-24 -left-14 text-gray-35 rotate-90 w-36">
+              <span
+                className={classNames(
+                  'hidden group-focus-visible:flex group-hover:flex absolute -left-14 text-gray-25 rotate-90 w-36',
+                  small ? 'top-[91px]' : 'top-24',
+                )}
+              >
                 <span className="ml-0.5 bg-gray-90 text-left py-1 px-2 rounded">{name}</span>
               </span>
             </a>

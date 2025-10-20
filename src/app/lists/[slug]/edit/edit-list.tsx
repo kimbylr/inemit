@@ -13,6 +13,7 @@ import { classNames } from '@/helpers/class-names';
 import { List } from '@/types/types';
 import { useRouter } from 'next/navigation';
 import { FC, useEffect, useState } from 'react';
+import { ListActions } from '../list-actions';
 
 export const EditList: FC<{ list: List<'flaggedItems' | 'lastLearnt' | 'items'> }> = ({ list }) => {
   const { refresh } = useRouter();
@@ -104,6 +105,14 @@ export const EditList: FC<{ list: List<'flaggedItems' | 'lastLearnt' | 'items'> 
           <Checkbox checked={showDoublets} onCheck={() => setShowDoublets((s) => !s)}>
             Doppelte<span className="hidden sm:inline"> anzeigen</span>
           </Checkbox>
+          {isSticky && (
+            <>
+              <div className="grow" />
+              <div className="max-[540px]:hidden">
+                <ListActions slug={list.slug} small />
+              </div>
+            </>
+          )}
         </div>
       </div>
       <div className="sticky max-xs:hidden h-px w-full bg-gray-85 top-14 z-10" />
