@@ -35,15 +35,15 @@ export const User: FC<Props> = ({ loggedInComponent, loggedOutComponent, navigat
   }
 
   if (!user) {
-    return <span ref={ref}>{loggedOutComponent || <a href="/api/auth/login">Login</a>}</span>;
+    return <span ref={ref}>{loggedOutComponent || <a href={LOGIN_ROUTE}>Login</a>}</span>;
   }
 
   return (
     <span ref={ref}>
       {loggedInComponent || (
-        <span className="flex gap-2 justify-between items-center text-gray-75 font-bold">
+        <span className="flex gap-2 justify-between items-center text-gray-75 font-bold h-6">
           <span className="truncate">{user.email}</span>
-          <a href="/api/auth/logout" aria-label="Logout" title="Logout" className="rounded-sm">
+          <a href={LOGOUT_ROUTE} aria-label="Logout" title="Logout" className="rounded-sm">
             <IconLogout className="w-11 h-11 -m-3 p-3 hover:text-gray-35" />
           </a>
         </span>
@@ -51,3 +51,6 @@ export const User: FC<Props> = ({ loggedInComponent, loggedOutComponent, navigat
     </span>
   );
 };
+
+export const LOGIN_ROUTE = '/auth/login?returnTo=/lists';
+export const LOGOUT_ROUTE = '/auth/logout';

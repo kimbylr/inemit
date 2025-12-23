@@ -1,16 +1,16 @@
-import { ListActions } from './list-actions';
 import { getList } from '@/db/actions';
-import { classNames } from '@/helpers/class-names';
 import { notFound } from 'next/navigation';
 import { FC, ReactNode } from 'react';
+import { ListActions } from './list-actions';
 
 type Props = {
   children: ReactNode;
-  params?: { slug?: string };
+  params?: Promise<{ slug?: string }>;
 };
 
 const Layout: FC<Props> = async ({ children, params }) => {
-  const list = typeof params?.slug === 'string' && (await getList(params?.slug));
+  const slug = (await params)?.slug;
+  const list = typeof slug === 'string' && (await getList(slug));
 
   if (!list) {
     notFound();
@@ -18,7 +18,7 @@ const Layout: FC<Props> = async ({ children, params }) => {
 
   return (
     <>
-      <ListActions slug={params.slug!} />
+      <ListActions slug={slug} />
 
       <h1 className="relative xs:-mb-8 xs:-top-11 truncate max-w-full xs:max-w-[calc(100%-192px)]">
         {list.name}

@@ -1,10 +1,15 @@
 import { getList } from '@/db/actions';
-import { AppRouterPageRoute } from '@auth0/nextjs-auth0';
 import { notFound } from 'next/navigation';
+import { FC } from 'react';
 import { ListOverview } from './list-overview';
 
-const ListPage: AppRouterPageRoute = async ({ params }) => {
-  const list = typeof params?.slug === 'string' && (await getList(params?.slug));
+type Props = {
+  params?: Promise<{ slug?: string }>;
+};
+
+const ListPage: FC<Props> = async ({ params }) => {
+  const slug = await params;
+  const list = typeof slug === 'string' && (await getList(slug));
 
   if (!list) {
     notFound();

@@ -12,7 +12,7 @@ const getLists = async () => {
   }
 };
 
-export const Layout: FC<{ children: ReactNode }> = async ({ children }) => {
+const Layout: FC<{ children: ReactNode }> = async ({ children }) => {
   const lists = await getLists();
 
   return (

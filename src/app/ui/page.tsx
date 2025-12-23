@@ -1,17 +1,23 @@
-import { Button } from '@/elements/button';
-import { withPageAuthRequired } from '@auth0/nextjs-auth0';
-import { FC, ReactNode } from 'react';
-import Icons from './icons';
 import { ListProgress } from '@/components/list-progress';
-import { TextField } from '@/elements/text-field';
+import { Button } from '@/elements/button';
 import { Checkbox } from '@/elements/checkbox';
-import { RadioButton } from '@/elements/radio-button';
 import { Hint } from '@/elements/hint';
+import { RadioButton } from '@/elements/radio-button';
 import { Spinner } from '@/elements/spinner';
 import { Switch } from '@/elements/switch';
+import { TextField } from '@/elements/text-field';
 import { Textarea } from '@/elements/textarea';
+import { auth0 } from '@/services/auth0';
+import { redirect } from 'next/navigation';
+import { FC, ReactNode } from 'react';
+import Icons from './icons';
 
 const Page = async () => {
+  const session = await auth0.getSession();
+  if (!session) {
+    redirect('/auth/login');
+  }
+
   return (
     <>
       <h1 className="text-gray-25">UI Elements</h1>
@@ -94,4 +100,4 @@ const Section: FC<{ title: string; children: ReactNode | ReactNode[] }> = ({ tit
   </section>
 );
 
-export default withPageAuthRequired(Page, { returnTo: '/ui' });
+export default Page;

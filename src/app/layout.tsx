@@ -1,4 +1,4 @@
-import { UserProvider } from '@auth0/nextjs-auth0/client';
+import { Auth0Provider } from '@auth0/nextjs-auth0/client';
 import { FC, ReactNode } from 'react';
 
 import '../../globals.css';
@@ -176,7 +176,7 @@ export const metadata = {
 };
 
 const RootLayout: FC<{ children: ReactNode }> = ({ children }) => (
-  <UserProvider>
+  <Auth0Provider>
     <html lang="de" className={workSans.variable}>
       <body className="min-h-screen bg-primary-100">{children}</body>
       <Script
@@ -185,7 +185,7 @@ const RootLayout: FC<{ children: ReactNode }> = ({ children }) => (
         async
       />
     </html>
-  </UserProvider>
+  </Auth0Provider>
 );
 
 export default RootLayout;

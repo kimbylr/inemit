@@ -1,5 +1,5 @@
 import { IconLogo } from '@/elements/icons/logo';
-import { User } from '@/elements/user';
+import { LOGIN_ROUTE, User } from '@/elements/user';
 import Link from 'next/link';
 
 const LOGIN_BUTTON_STYLE =
@@ -10,7 +10,7 @@ const Page = () => (
     <nav className="fixed top-4 right-4 z-10 left-4 text-center xs:left-auto">
       <User
         loggedOutComponent={
-          <a href="/api/auth/login" className={LOGIN_BUTTON_STYLE}>
+          <a href={LOGIN_ROUTE} className={LOGIN_BUTTON_STYLE}>
             anmelden ➔
           </a>
         }
@@ -78,7 +78,7 @@ const Page = () => (
               <User
                 loggedOutComponent={
                   <a
-                    href="/api/auth/login"
+                    href={LOGIN_ROUTE}
                     className="leading-normal underline text-gray-98 hover:text-secondary-50"
                   >
                     Anmelden oder registrieren

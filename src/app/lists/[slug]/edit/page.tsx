@@ -1,10 +1,15 @@
 import { getListToEdit } from '@/db/actions';
-import { AppRouterPageRoute } from '@auth0/nextjs-auth0';
 import { notFound } from 'next/navigation';
+import { FC } from 'react';
 import { EditList } from './edit-list';
 
-const EditListPage: AppRouterPageRoute = async ({ params }) => {
-  const list = typeof params?.slug === 'string' && (await getListToEdit(params?.slug));
+type Props = {
+  params?: Promise<{ slug?: string }>;
+};
+
+const EditListPage: FC<Props> = async ({ params }) => {
+  const slug = await params;
+  const list = typeof slug === 'string' && (await getListToEdit(slug));
 
   if (!list) {
     notFound();

@@ -1,11 +1,15 @@
 import ListNotFound from '@/app/lists/[slug]/not-found';
 import { getListToLearn } from '@/db/actions';
-import { AppRouterPageRoute } from '@auth0/nextjs-auth0';
-import { redirect } from 'next/navigation';
 import { Learn } from './learn';
+import { FC } from 'react';
 
-const ListPage: AppRouterPageRoute = async ({ params }) => {
-  const list = typeof params?.slug === 'string' && (await getListToLearn(params?.slug));
+type Props = {
+  params?: Promise<{ slug?: string }>;
+};
+
+const LearnPage: FC<Props> = async ({ params }) => {
+  const slug = await params;
+  const list = typeof slug === 'string' && (await getListToLearn(slug));
 
   if (!list) {
     return <ListNotFound />;
@@ -14,4 +18,4 @@ const ListPage: AppRouterPageRoute = async ({ params }) => {
   return <Learn list={list} />;
 };
 
-export default ListPage;
+export default LearnPage;

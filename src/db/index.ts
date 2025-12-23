@@ -1,7 +1,8 @@
 import 'server-only';
 
-import { getSession } from '@auth0/nextjs-auth0';
+import { auth0 } from '@/services/auth0';
 import mongoose from 'mongoose';
+import { redirect } from 'next/navigation';
 import { mapList } from './helpers';
 import { List } from './models';
 
@@ -17,9 +18,9 @@ const initDB = async () => {
 };
 
 const getUserId = async () => {
-  const session = await getSession();
+  const session = await auth0.getSession();
   if (!session) {
-    throw new Error('not logged in');
+    redirect('/auth/login');
   }
   return session?.user.sub;
 };

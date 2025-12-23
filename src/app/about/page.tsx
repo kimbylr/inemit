@@ -1,5 +1,5 @@
 import { AnchorHTMLAttributes, FC, ReactNode } from 'react';
-import { version } from '../../../package.json';
+import pkg from '../../../package.json';
 
 const AboutPage = () => (
   <>
@@ -54,7 +54,7 @@ const AboutPage = () => (
     </p>
 
     <p className="my-4 text-xs mt-24">
-      <strong>Version</strong>: {version} •{' '}
+      <strong>Version</strong>: {pkg.version} •{' '}
       <ExtLink href="https://github.com/kimbylr/inemit/blob/main/CHANGELOG.md">Changelog</ExtLink> •{' '}
       <ExtLink href="https://github.com/kimbylr/inemit/">Quellcode auf Github</ExtLink>
     </p>

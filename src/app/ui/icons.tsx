@@ -1,5 +1,5 @@
 import { readdir } from 'node:fs/promises';
-import { FC } from 'react';
+import { ElementType, FC } from 'react';
 
 const getIconsFromFiles = async () => {
   try {
@@ -7,7 +7,7 @@ const getIconsFromFiles = async () => {
       .map((filename) => require(`../../elements/icons/${filename}`))
       .map((icon) => {
         const [name, Icon] = Object.entries(icon)[0];
-        return { name, Icon: Icon as JSX.ElementType };
+        return { name, Icon: Icon as ElementType };
       });
   } catch (error) {
     return [];
