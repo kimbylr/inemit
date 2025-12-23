@@ -1,3 +1,10 @@
+## [2.12.9](https://github.com/kimbylr/inemit/compare/v2.12.8...v2.12.9) (2025-12-23)
+
+
+### Bug Fixes
+
+* List slug in SSR ([bb8eed0](https://github.com/kimbylr/inemit/commit/bb8eed029f3d2a754a5dc2d05d19422b12b96c9a))
+
 ## [2.12.8](https://github.com/kimbylr/inemit/compare/v2.12.7...v2.12.8) (2025-10-20)
 
 
