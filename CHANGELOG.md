@@ -1,3 +1,10 @@
+## [2.13.1](https://github.com/kimbylr/inemit/compare/v2.13.0...v2.13.1) (2025-12-26)
+
+
+### Bug Fixes
+
+* Statistics cleanup ([8da7291](https://github.com/kimbylr/inemit/commit/8da729125ddca0bd65a5faebcb616b4e2a3d1e72))
+
 # [2.13.0](https://github.com/kimbylr/inemit/compare/v2.12.10...v2.13.0) (2025-12-26)
 
 
