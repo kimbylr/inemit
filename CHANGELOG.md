@@ -1,3 +1,10 @@
+## [2.12.10](https://github.com/kimbylr/inemit/compare/v2.12.9...v2.12.10) (2025-12-26)
+
+
+### Bug Fixes
+
+* Prevent menu layout shift when user not loaded ([fe053dd](https://github.com/kimbylr/inemit/commit/fe053dd5857fd9ef62566c62bbb1c0a185c940a0))
+
 ## [2.12.9](https://github.com/kimbylr/inemit/compare/v2.12.8...v2.12.9) (2025-12-23)
 
 
