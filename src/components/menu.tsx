@@ -42,7 +42,7 @@ export const Menu: FC<{ lists: List<'lastLearnt' | 'progress'>[] }> = ({ lists }
 
       {open && (
         <ul className="absolute right-0 top-10 bg-white shadow-md w-56 rounded-lg flex flex-col text-gray-35 overflow-hidden">
-          <li className="p-3">
+          <li className="p-3 h-12">
             <User navigateOnSpace />
           </li>
           <MenuLink href="/lists" closeMenu={closeMenu}>
