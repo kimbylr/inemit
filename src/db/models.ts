@@ -1,4 +1,4 @@
-import { UnsplashImage } from '@/types/types';
+import { Stage, UnsplashImage } from '@/types/types';
 import { Document, Model, ObjectId, Schema, model } from 'mongoose';
 
 // prevent double compilation during development
@@ -27,7 +27,7 @@ let cached = (global as any).models as {
 
 export interface ProgressType extends Document {
   due: Date;
-  stage: number;
+  stage: Stage;
   interval: number;
   easiness: number;
   timesCorrect: number;

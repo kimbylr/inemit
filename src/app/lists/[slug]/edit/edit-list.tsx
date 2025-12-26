@@ -8,6 +8,7 @@ import { Checkbox } from '@/elements/checkbox';
 import { IconAdd } from '@/elements/icons/add';
 import { IconFlag } from '@/elements/icons/flag';
 import { IconImport } from '@/elements/icons/import';
+import { LinkButton } from '@/elements/link-button';
 import { TextField } from '@/elements/text-field';
 import { classNames } from '@/helpers/class-names';
 import { List } from '@/types/types';
@@ -136,12 +137,7 @@ const Explainer = () => {
         {expanded ? (
           'Das Ausdenken einer Aufgabe verankert das Wort ein erstes Mal. Und es verhindert, dass du Lernzeit mit Wörtern vergeudest, die du schon beherrschst.'
         ) : (
-          <button
-            onClick={() => setExpanded(true)}
-            className="underline text-gray-50 hover:text-primary-150 font-bold"
-          >
-            Wieso?
-          </button>
+          <LinkButton onClick={() => setExpanded(true)}>Wieso?</LinkButton>
         )}
       </p>
       {expanded && (

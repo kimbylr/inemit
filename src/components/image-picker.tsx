@@ -111,7 +111,7 @@ export const ImagePicker: FC<Props> = ({ searchTerm: initialSearchTerm, onSetIma
             {error}
             {searching && (
               <div className="relative -top-5 ml-2">
-                <Spinner small />
+                <Spinner size="sm" />
               </div>
             )}
           </div>

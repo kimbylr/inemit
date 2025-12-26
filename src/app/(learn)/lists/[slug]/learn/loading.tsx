@@ -1,5 +1,3 @@
-import { Spinner } from '@/elements/spinner';
-
-const Loading = () => <Spinner />;
+import Loading from '@/app/lists/loading';
 
 export default Loading;

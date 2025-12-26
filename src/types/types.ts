@@ -2,7 +2,9 @@ import { getProgressSummary, mapItem } from '@/db/helpers';
 
 export type ISODate = string; // e.g. "2020-02-22T17:34:46.822Z"
 
-export type ListProgressSummary = Record<1 | 2 | 3 | 4, number>;
+export type Stage = 1 | 2 | 3 | 4;
+
+export type ListProgressSummary = Record<Stage, number>;
 
 export type UnsplashImage = {
   id: string;
@@ -15,15 +17,18 @@ export type UnsplashImage = {
   onChooseImgUrl?: string;
 };
 
-export interface LearnItemProgress extends Document {
+export interface LearnItemProgress {
   due: ISODate;
-  stage: number;
+  stage: Stage;
   interval: number;
   easiness: number;
   timesCorrect: number;
   timesWrong: number;
   updated: ISODate;
 }
+export type StatisticsItemProgress = Omit<LearnItemProgress, 'updated'> & {
+  timesTotal: number;
+};
 
 export type LearnItem = {
   id: string;

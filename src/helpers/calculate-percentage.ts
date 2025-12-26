@@ -31,3 +31,8 @@ export const getPercentages = (stages: ListProgressSummary) => {
     {} as any,
   );
 };
+
+export const getExactPercentages = (stages: ListProgressSummary) => {
+  const divisor = Object.values(stages).reduce((sum, count) => sum + count, 0) / 100;
+  return Object.values(stages).map((count) => count / divisor);
+};

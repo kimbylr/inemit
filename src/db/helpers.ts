@@ -1,4 +1,13 @@
-import { IncludeListOptions, LearnItem, LearnItemWithProgress, MappedList } from '@/types/types';
+import {
+  IncludeListOptions,
+  ISODate,
+  LearnItem,
+  LearnItemProgress,
+  LearnItemWithProgress,
+  MappedList,
+  Stage,
+  StatisticsItemProgress,
+} from '@/types/types';
 import dayjs from 'dayjs';
 import { LearnItemType, ListType, Progress } from './models';
 
@@ -27,6 +36,53 @@ export const getProgressSummary = (items: LearnItemType[]) => {
   );
 
   return { stages, ...due };
+};
+
+export const getStatistics = (
+  items: {
+    created: Date | ISODate;
+    progress: Omit<LearnItemProgress, 'due' | 'updated'> & {
+      _id?: any;
+      updated?: any;
+      due: Date | ISODate;
+    };
+  }[],
+) => {
+  const itemsPerStage = items.reduce<Record<Stage | 'total', StatisticsItemProgress[]>>(
+    (acc, { progress: { _id, updated, due, ...rest } }) => {
+      const progress = {
+        ...rest,
+        due: due as ISODate,
+        timesTotal: rest.timesCorrect + rest.timesWrong,
+      };
+      return {
+        ...acc,
+        [progress.stage]: [...acc[progress.stage], progress],
+        total: [...acc.total, progress],
+      };
+    },
+    { 1: [], 2: [], 3: [], 4: [], total: [] },
+  );
+
+  const yesterday = dayjs().subtract(1, 'day');
+  const perDay = Object.values(itemsPerStage.total)
+    .filter(({ due }) => dayjs(due).isBefore(dayjs().add(30, 'days')))
+    .reduce((acc, cur) => {
+      const daysFromToday = Math.abs(yesterday.diff(cur.due, 'day'));
+      const stages = acc[daysFromToday] ?? { 1: 0, 2: 0, 3: 0, 4: 0, total: 0 };
+      stages[cur.stage]++;
+      stages.total++;
+      acc[daysFromToday] = stages;
+
+      return acc;
+    }, [] as Record<Stage | 'total', number>[]);
+
+  const firstItemDate = items
+    .map(({ created }) => created)
+    .toSorted((a, b) => dayjs(a).unix() - dayjs(b).unix())
+    .at(0);
+
+  return { itemsPerStage, perDay, firstItemDate };
 };
 
 const getLastLearnt = (items: LearnItemType[]) =>

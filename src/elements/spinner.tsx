@@ -1,21 +1,34 @@
+import { classNames } from '@/helpers/class-names';
 import { FC } from 'react';
 
-export const Spinner: FC<{ white?: boolean; small?: boolean }> = ({ white, small }) => (
-  <div
-    className={`relative my-4 mx-auto opacity-0 animate-fade-in ${
-      small ? 'w-8 h-8 min-w-[32px]' : 'w-12 h-12 min-w-[48px]'
-    }  `}
+type Props = {
+  white?: boolean;
+  size: 'xs' | 'sm' | 'md';
+  padding?: boolean;
+};
+
+export const Spinner: FC<Props> = ({ white, size = 'md', padding = true }) => (
+  <span
+    className={classNames(
+      'relative mx-auto opacity-0 animate-fade-in block',
+      size === 'xs' && 'size-5 min-w-[20px]',
+      size === 'sm' && 'size-8 min-w-[32px]',
+      size === 'md' && 'size-12 min-w-[32px]',
+      padding && 'my-4',
+    )}
   >
-    <div
-      className={`animate-bounce w-full h-full rounded-full ${
-        white ? 'bg-gray-98' : 'bg-primary-100'
-      } opacity-60 absolute top-0 left-0`}
+    <span
+      className={classNames(
+        'animate-bounce w-full h-full rounded-full opacity-60 absolute top-0 left-0 block',
+        white ? 'bg-gray-98' : 'bg-primary-100',
+      )}
     />
-    <div
-      className={`animate-bounce w-full h-full rounded-full ${
-        white ? 'bg-gray-98' : 'bg-primary-100'
-      } opacity-60 absolute top-0 left-0`}
+    <span
+      className={classNames(
+        'animate-bounce w-full h-full rounded-full opacity-60 absolute top-0 left-0 block',
+        white ? 'bg-gray-98' : 'bg-primary-100',
+      )}
       style={{ animationDelay: '-1s' }}
     />
-  </div>
+  </span>
 );

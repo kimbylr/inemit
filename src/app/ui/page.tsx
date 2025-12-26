@@ -75,7 +75,11 @@ const Page = async () => {
         </div>
       </Section>
       <Section title="Spinner">
-        <Spinner />
+        <div className="flex gap-4 items-center">
+          <Spinner size="md" />
+          <Spinner size="sm" />
+          <Spinner size="xs" />
+        </div>
       </Section>
 
       <h1 className="text-gray-25  mt-20 mb-6">UI Components</h1>

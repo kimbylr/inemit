@@ -8,6 +8,7 @@ import {
   getDue,
   getInitialProgress,
   getLearnCount,
+  getStatistics,
   mapItem,
   mapItems,
   mapList,
@@ -300,4 +301,9 @@ export const updateItemProgress = async ({
   } catch (error) {
     console.error('Error in updateItemProgress:', error);
   }
+};
+
+export const getListStatistics = async (id: string) => {
+  const list = await getListById(id, true);
+  return list ? getStatistics(list?.items) : null;
 };
