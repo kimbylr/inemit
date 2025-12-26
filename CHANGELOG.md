@@ -1,3 +1,10 @@
+## [2.13.2](https://github.com/kimbylr/inemit/compare/v2.13.1...v2.13.2) (2025-12-26)
+
+
+### Bug Fixes
+
+* Statistics when nothing due ([30fe78f](https://github.com/kimbylr/inemit/commit/30fe78f835651a64379932baa10f7917171cd69d))
+
 ## [2.13.1](https://github.com/kimbylr/inemit/compare/v2.13.0...v2.13.1) (2025-12-26)
 
 
