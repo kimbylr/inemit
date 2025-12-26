@@ -1,3 +1,10 @@
+# [2.13.0](https://github.com/kimbylr/inemit/compare/v2.12.10...v2.13.0) (2025-12-26)
+
+
+### Features
+
+* Statistics ([cd8b60b](https://github.com/kimbylr/inemit/commit/cd8b60b5a9642cb50edd11499879e6c649b1f10b))
+
 ## [2.12.10](https://github.com/kimbylr/inemit/compare/v2.12.9...v2.12.10) (2025-12-26)
 
 
