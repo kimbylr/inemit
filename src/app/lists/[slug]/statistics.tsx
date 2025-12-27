@@ -91,7 +91,7 @@ export const Statistics: FC<Props> = ({ itemsPerStage, perDay, firstItemDate }) 
                       <div
                         key={i}
                         className={classNames('bg-opacity-50 px-1 min-w-4', getColor(`${i + 1}`))}
-                        style={{ width: baseWidth * count + '%' }}
+                        style={{ width: baseWidth * count + '%', order: 4 - i }}
                       >
                         {stages[(i + 1) as Stage]}
                       </div>
