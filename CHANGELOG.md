@@ -1,3 +1,10 @@
+## [2.13.3](https://github.com/kimbylr/inemit/compare/v2.13.2...v2.13.3) (2025-12-27)
+
+
+### Bug Fixes
+
+* Stats Ausblick order ([f20952d](https://github.com/kimbylr/inemit/commit/f20952dc2103da89d5192cd5472bb280cbc26be9))
+
 ## [2.13.2](https://github.com/kimbylr/inemit/compare/v2.13.1...v2.13.2) (2025-12-26)
 
 
