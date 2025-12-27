@@ -1,3 +1,10 @@
+## [2.13.4](https://github.com/kimbylr/inemit/compare/v2.13.3...v2.13.4) (2025-12-27)
+
+
+### Bug Fixes
+
+* Ausblick stats calculations ([94c855d](https://github.com/kimbylr/inemit/commit/94c855d6f0b1a7b9cb337ae24b4f538950fbc9c5))
+
 ## [2.13.3](https://github.com/kimbylr/inemit/compare/v2.13.2...v2.13.3) (2025-12-27)
 
 
