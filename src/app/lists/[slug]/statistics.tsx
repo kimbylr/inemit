@@ -14,7 +14,7 @@ type Props = ReturnType<typeof getStatistics>;
 
 export const Statistics: FC<Props> = ({ itemsPerStage, perDay, firstItemDate }) => {
   const perDayTotals = perDay.map(({ total }) => total);
-  const dueUntilTomorrow = perDayTotals?.at(0) ?? 0 + perDayTotals[1];
+  const dueUntilTomorrow = (perDayTotals?.at(0) ?? 0) + perDayTotals[1];
   const perDayMaxCount = perDayTotals.reduce((acc, cur) => Math.max(cur, acc), dueUntilTomorrow);
 
   const totalTries = itemsPerStage.total.map(({ timesTotal }) => timesTotal).reduce(sum, 0);
