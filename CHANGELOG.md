@@ -1,3 +1,10 @@
+## [2.13.5](https://github.com/kimbylr/inemit/compare/v2.13.4...v2.13.5) (2026-01-01)
+
+
+### Bug Fixes
+
+* Add learnt per day to statistics ([d3ba876](https://github.com/kimbylr/inemit/commit/d3ba8768c8dfe3baa6179f828d1deffd2407ad11))
+
 ## [2.13.4](https://github.com/kimbylr/inemit/compare/v2.13.3...v2.13.4) (2025-12-27)
 
 
