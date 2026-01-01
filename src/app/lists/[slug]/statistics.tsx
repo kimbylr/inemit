@@ -8,7 +8,7 @@ import { percent, sum } from '@/helpers/math';
 import { getColor } from '@/helpers/progress-mappers';
 import { Stage } from '@/types/types';
 import dayjs from 'dayjs';
-import React, { FC } from 'react';
+import React, { FC, ReactNode } from 'react';
 
 type Props = ReturnType<typeof getStatistics>;
 
@@ -28,16 +28,40 @@ export const Statistics: FC<Props> = ({ itemsPerStage, perDay, firstItemDate }) 
     <section className="mt-8">
       <h2 className="mb-2">Statistik</h2>
       <dl className="grid grid-cols-[1fr,4rem] gap-1 text-xs+ max-w-sm">
-        <dt>Älteste Vokabel:</dt>
-        <dd className="mb-4 text-right">{dayjs(firstItemDate).format('D.M.YY')}</dd>
-        <dt>Abfragen (gewertet):</dt>
-        <dd className="text-right">{new Intl.NumberFormat('de-CH').format(totalTries)}</dd>
-        <dt>Abfragen pro Vokabel Ø:</dt>
-        <dd className="mb-4 text-right">{Math.round(totalTries / itemsPerStage.total.length)}</dd>
-        <dt>Beherrschte (seltener als jährlich):</dt>
-        <dd className="text-right">{masteredCount}</dd>
-        <dt>% Beherrschte:</dt>
-        <dd className="mb-4 text-right">{percent(totalCount, masteredCount)}</dd>
+        {[
+          {
+            description: 'Älteste Vokabel',
+            content: dayjs(firstItemDate).format('D.M.YY'),
+            marginBottom: true,
+          },
+          {
+            description: 'Abfragen (gewertet)',
+            content: new Intl.NumberFormat('de-CH').format(totalTries),
+            marginBottom: false,
+          },
+          {
+            description: 'Abfragen pro Vokabel Ø',
+            content: Math.round(totalTries / itemsPerStage.total.length),
+            marginBottom: false,
+          },
+          {
+            description: 'Abfragen pro Tag Ø',
+            content: Math.round(totalTries / dayjs(dayjs()).diff(firstItemDate, 'days')),
+            marginBottom: true,
+          },
+          {
+            description: 'Beherrschte (seltener als jährlich)',
+            content: masteredCount,
+            marginBottom: false,
+          },
+          {
+            description: '% Beherrschte',
+            content: percent(totalCount, masteredCount),
+            marginBottom: true,
+          },
+        ].map((props) => (
+          <StatsPair {...props} key={props.description} />
+        ))}
 
         {Object.entries(itemsPerStage)
           .slice(0, 4)
@@ -48,10 +72,11 @@ export const Statistics: FC<Props> = ({ itemsPerStage, perDay, firstItemDate }) 
                 .reduce(sum, 0) / progress.length;
 
             return (
-              <React.Fragment key={stage}>
-                <dt>% korrekt (Fach {stage}):</dt>
-                <dd className="text-right">{Math.round(100 * percentage)} %</dd>
-              </React.Fragment>
+              <StatsPair
+                description={`% korrekt (Fach ${stage})`}
+                content={`${Math.round(100 * percentage)} %`}
+                key={stage}
+              />
             );
           })}
       </dl>
@@ -105,3 +130,14 @@ export const Statistics: FC<Props> = ({ itemsPerStage, perDay, firstItemDate }) 
     </section>
   );
 };
+
+const StatsPair: FC<{ description: string; content: ReactNode; marginBottom?: boolean }> = ({
+  description,
+  content,
+  marginBottom,
+}) => (
+  <>
+    <dt>{description}:</dt>
+    <dd className={classNames('text-right', marginBottom && 'mb-4')}>{content}</dd>
+  </>
+);
