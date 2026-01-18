@@ -24,6 +24,12 @@ export const Statistics: FC<Props> = ({ itemsPerStage, perDay, firstItemDate }) 
     dayjs(due).isBefore(dayjs().add(1, 'year')),
   ).length;
 
+  console.log(
+    Object.entries(itemsPerStage).map(([stage, progress]) =>
+      progress.map(({ timesCorrect, timesTotal }) => timesCorrect / timesTotal || 0),
+    ),
+  );
+
   return (
     <section className="mt-8">
       <h2 className="mb-2">Statistik</h2>
@@ -74,7 +80,7 @@ export const Statistics: FC<Props> = ({ itemsPerStage, perDay, firstItemDate }) 
             return (
               <StatsPair
                 description={`% korrekt (Fach ${stage})`}
-                content={`${Math.round(100 * percentage)} %`}
+                content={progress.length ? `${Math.round(100 * percentage)} %` : '-'}
                 key={stage}
               />
             );
