@@ -1,3 +1,10 @@
+## [2.13.6](https://github.com/kimbylr/inemit/compare/v2.13.5...v2.13.6) (2026-01-18)
+
+
+### Bug Fixes
+
+* Don't display percentage for empty box in statistics ([22db5db](https://github.com/kimbylr/inemit/commit/22db5db1afefec02615cb20da30f6687d542e6b3))
+
 ## [2.13.5](https://github.com/kimbylr/inemit/compare/v2.13.4...v2.13.5) (2026-01-01)
 
 
