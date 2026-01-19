@@ -56,10 +56,10 @@ export const Menu: FC<{ lists: List<'lastLearnt' | 'progress'>[] }> = ({ lists }
               isCurrent={slug === currentSlug}
               noBorder
             >
-              <span className="truncate w-full flex gap-2.5 items-center">
+              <span className="truncate w-full flex gap-2.5 items-center justify-between">
                 {name}
                 {progress.dueToday > 0 && (
-                  <span className="bg-primary-150 text-white text-[12px] flex rounded-full items-center justify-center px-2 py-px">
+                  <span className="bg-primary-150 text-white text-[12px] flex rounded-full items-center justify-center px-2 py-px font-bold">
                     {progress.dueToday}
                   </span>
                 )}
