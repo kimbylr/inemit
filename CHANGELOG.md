@@ -1,3 +1,10 @@
+## [2.13.7](https://github.com/kimbylr/inemit/compare/v2.13.6...v2.13.7) (2026-01-19)
+
+
+### Bug Fixes
+
+* Improve menu layout ([67c6af5](https://github.com/kimbylr/inemit/commit/67c6af5a471b96a3ba4655fabd2b138ebae499b8))
+
 ## [2.13.6](https://github.com/kimbylr/inemit/compare/v2.13.5...v2.13.6) (2026-01-18)
 
 
