@@ -35,7 +35,9 @@ export const getProgressSummary = (items: LearnItemType[]) => {
     { dueToday: 0, dueTomorrow: 0 },
   );
 
-  return { stages, ...due };
+  const mastered = items.filter(({ progress: { interval } }) => interval > 365).length;
+
+  return { stages, ...due, mastered };
 };
 
 export const getStatistics = (

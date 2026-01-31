@@ -6,6 +6,7 @@ module.exports = {
       transparent: 'transparent',
       current: 'currentColor',
       primary: {
+        200: '#0E7054', // only used in ListProgress
         150: '#00A878',
         100: '#6CC17A', // green = primary
         75: '#86CC92',

@@ -47,20 +47,24 @@ export const ListOverview: FC<Props> = ({ list }) => {
     return () => document.removeEventListener('keydown', onTabListener);
   }, [list?.id]);
 
-  const { dueToday, stages } = list.progress;
+  const { dueToday, stages, mastered } = list.progress;
 
   return (
     <>
       {list.itemsCount > 0 && (
         <>
           <div className="mt-8 hidden xs:block">
-            <ListProgress stages={stages} modes={['legend', 'count', 'percentage']} />
+            <ListProgress
+              stages={stages}
+              mastered={mastered}
+              modes={['legend', 'count', 'percentage']}
+            />
           </div>
 
           <div className="mt-4 xs:hidden">
             <ExpandableArea teaser={<ProgressPie stages={stages} />} showChevronButton={false}>
               <div className="pt-2">
-                <ListProgress stages={stages} modes={['count', 'percentage']} />
+                <ListProgress stages={stages} mastered={mastered} modes={['count', 'percentage']} />
               </div>
             </ExpandableArea>
           </div>

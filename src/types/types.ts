@@ -4,7 +4,7 @@ export type ISODate = string; // e.g. "2020-02-22T17:34:46.822Z"
 
 export type Stage = 1 | 2 | 3 | 4;
 
-export type ListProgressSummary = Record<Stage, number>;
+export type ListProgressSummary = Record<Stage, number> & { mastered?: number };
 
 export type UnsplashImage = {
   id: string;

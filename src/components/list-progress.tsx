@@ -9,36 +9,51 @@ import { FC, useState } from 'react';
 type Modes = 'legend' | 'count' | 'percentage';
 
 type Props = {
-  stages: ListProgressSummary;
+  stages: Omit<ListProgressSummary, 'mastered'>;
+  mastered: number;
   modes: Modes[];
 };
 
-export const ListProgress: FC<Props> = ({ stages, modes }) => {
+export const ListProgress: FC<Props> = ({ stages, modes, mastered }) => {
   const [activeModeIndex, setActiveModeIndex] = useState(0);
   const activeMode = modes[activeModeIndex];
-  const percentages = getPercentages(stages);
+  const stagesWithMastered = { ...stages, 4: stages[4] - mastered, mastered };
+  const percentages = getPercentages(stagesWithMastered);
 
   return (
     <button
       onClick={() => setActiveModeIndex((i) => (i + 1) % modes.length)}
       className="w-full h-10 flex text-xs focus-primary"
     >
-      {Object.entries(stages).map(([stage, count]) => (
-        <div
-          key={stage}
-          className={classNames(
-            'h-10 px-2 flex items-center justify-center pointer-events-none',
-            getColor(stage),
-          )}
-          style={{ flexGrow: count }}
-        >
-          <span className="inline-block min-w-[40px] text-center">
-            {activeMode === 'legend' && getLegend(stage)}
-            {activeMode === 'count' && count}
-            {activeMode === 'percentage' && percentages[stage as unknown as 1 | 2 | 3 | 4]}{' '}
-          </span>
-        </div>
-      ))}
+      {activeMode === 'legend'
+        ? Object.entries(stages).map(([stage, count]) => (
+            <div
+              key={stage}
+              className={classNames(
+                'h-10 px-2 flex items-center justify-center pointer-events-none',
+                getColor(stage),
+              )}
+              style={{ flexGrow: count }}
+            >
+              <span className="inline-block min-w-[40px] text-center">{getLegend(stage)}</span>
+            </div>
+          ))
+        : Object.entries(stagesWithMastered).map(([stage, count]) => (
+            <div
+              key={stage}
+              className={classNames(
+                'h-10 px-2 flex items-center justify-center pointer-events-none',
+                getColor(stage),
+              )}
+              style={{ flexGrow: count }}
+            >
+              <span className="inline-block min-w-[40px] text-center">
+                {activeMode === 'count' && count}
+                {activeMode === 'percentage' &&
+                  percentages[stage as keyof ListProgressSummary]}{' '}
+              </span>
+            </div>
+          ))}
     </button>
   );
 };
