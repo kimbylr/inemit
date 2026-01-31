@@ -1,3 +1,15 @@
+# [2.14.0](https://github.com/kimbylr/inemit/compare/v2.13.8...v2.14.0) (2026-01-31)
+
+
+### Bug Fixes
+
+* Display stats as prose ([050e472](https://github.com/kimbylr/inemit/commit/050e4722fc3febb424888fd930d7a23c22e16a82))
+
+
+### Features
+
+* Display mastered count in list progress bar ([92c7c11](https://github.com/kimbylr/inemit/commit/92c7c11da4a08fc1fb538e054ec5beef790f2af9))
+
 ## [2.13.8](https://github.com/kimbylr/inemit/compare/v2.13.7...v2.13.8) (2026-01-31)
 
 
