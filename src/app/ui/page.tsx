@@ -86,9 +86,14 @@ const Page = async () => {
       <Section title="Progress Bar">
         <ListProgress
           stages={{ 1: 23, 2: 34, 3: 45, 4: 56 }}
+          mastered={32}
           modes={['legend', 'count', 'percentage']}
         />
-        <ListProgress stages={{ 1: 23, 2: 34, 3: 45, 4: 56 }} modes={['count', 'percentage']} />
+        <ListProgress
+          stages={{ 1: 23, 2: 34, 3: 45, 4: 56 }}
+          mastered={32}
+          modes={['count', 'percentage']}
+        />
       </Section>
 
       <h1 className="text-gray-25 mt-20 mb-6">Icons</h1>
