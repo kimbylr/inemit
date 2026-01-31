@@ -1,3 +1,10 @@
+## [2.14.1](https://github.com/kimbylr/inemit/compare/v2.14.0...v2.14.1) (2026-01-31)
+
+
+### Bug Fixes
+
+* Missing prop in UI example ([c8fd5c8](https://github.com/kimbylr/inemit/commit/c8fd5c837da41b2331ecc1d9b331d46f0b604501))
+
 # [2.14.0](https://github.com/kimbylr/inemit/compare/v2.13.8...v2.14.0) (2026-01-31)
 
 
