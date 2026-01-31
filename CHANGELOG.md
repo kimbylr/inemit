@@ -1,3 +1,10 @@
+## [2.13.8](https://github.com/kimbylr/inemit/compare/v2.13.7...v2.13.8) (2026-01-31)
+
+
+### Bug Fixes
+
+* Integrate due items correctly into Ausblick, show gap days where 0 due ([73d19aa](https://github.com/kimbylr/inemit/commit/73d19aab4d22e601add54fd4c3b5a735add69896))
+
 ## [2.13.7](https://github.com/kimbylr/inemit/compare/v2.13.6...v2.13.7) (2026-01-19)
 
 
