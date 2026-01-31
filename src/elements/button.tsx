@@ -26,7 +26,7 @@ export const Button = React.forwardRef<HTMLButtonElement, Props>(
         !primary && 'text-gray-25 hover:text-gray-98 active:text-gray-98',
         !primary &&
           (caution
-            ? 'bg-negative-75 active:bg-negative-150 button-focus-caution shadow-button-caution'
+            ? 'bg-negative-75 active:bg-negative-200 button-focus-caution shadow-button-caution'
             : 'bg-gray-85 active:bg-gray-85 button-focus-secondary shadow-button-secondary'),
         className,
       )}

@@ -4,7 +4,7 @@ import { getStatistics } from '@/db/helpers';
 import { getExactPercentages } from '@/helpers/calculate-percentage';
 import { classNames } from '@/helpers/class-names';
 import { isWeekend } from '@/helpers/date';
-import { percent, sum } from '@/helpers/math';
+import { formatLargeNumber, percent, sum } from '@/helpers/math';
 import { getColor } from '@/helpers/progress-mappers';
 import { Stage } from '@/types/types';
 import dayjs from 'dayjs';
@@ -20,6 +20,11 @@ export const Statistics: FC<Props> = ({ itemsPerStage, perDay, firstItemDate }) 
   );
 
   const totalTries = itemsPerStage.total.map(({ timesTotal }) => timesTotal).reduce(sum, 0);
+  const totalTriesCorrect = itemsPerStage.total
+    .map(({ timesCorrect }) => timesCorrect)
+    .reduce(sum, 0);
+  const totalTriesWrong = itemsPerStage.total.map(({ timesWrong }) => timesWrong).reduce(sum, 0);
+
   const totalCount = itemsPerStage.total.length;
   const masteredCount = itemsPerStage.total.filter(({ interval }) => interval > 365).length;
   const withinYearCount = itemsPerStage.total.filter(({ due }) =>
@@ -29,59 +34,37 @@ export const Statistics: FC<Props> = ({ itemsPerStage, perDay, firstItemDate }) 
   return (
     <section className="mt-8">
       <h2 className="mb-2">Statistik</h2>
-      <dl className="grid grid-cols-[1fr,4rem] gap-1 text-xs+ max-w-sm">
-        {[
-          {
-            description: 'Älteste Vokabel',
-            content: dayjs(firstItemDate).format('D.M.YY'),
-            marginBottom: true,
-          },
-          {
-            description: 'Abfragen (gewertet)',
-            content: new Intl.NumberFormat('de-CH').format(totalTries),
-            marginBottom: false,
-          },
-          {
-            description: 'Abfragen pro Vokabel Ø',
-            content: Math.round(totalTries / itemsPerStage.total.length),
-            marginBottom: false,
-          },
-          {
-            description: 'Abfragen pro Tag Ø',
-            content: Math.round(totalTries / dayjs(dayjs()).diff(firstItemDate, 'days')),
-            marginBottom: true,
-          },
-          {
-            description: 'Beherrschte (seltener als jährlich)',
-            content: masteredCount,
-            marginBottom: false,
-          },
-          {
-            description: '% Beherrschte',
-            content: percent(totalCount, masteredCount),
-            marginBottom: true,
-          },
-        ].map((props) => (
-          <StatsPair {...props} key={props.description} />
-        ))}
-
-        {Object.entries(itemsPerStage)
-          .slice(0, 4)
-          .map(([stage, progress]) => {
-            const percentage =
-              progress
-                .map(({ timesCorrect, timesTotal }) => timesCorrect / timesTotal || 0)
-                .reduce(sum, 0) / progress.length;
-
-            return (
-              <StatsPair
-                description={`% korrekt (Fach ${stage})`}
-                content={progress.length ? `${Math.round(100 * percentage)} %` : '-'}
-                key={stage}
-              />
-            );
-          })}
-      </dl>
+      <p>
+        Die erste Vokabel wurde am <strong>{dayjs(firstItemDate).format('D.M.YYYY')}</strong>{' '}
+        erfasst – also{' '}
+        <strong className="text-gray-50">vor {dayjs().diff(firstItemDate, 'days')} Tagen</strong>.
+      </p>
+      <p className="mt-[1em]">
+        Seit da wurden <strong>{formatLargeNumber(totalTries)} Vokabeln abgefragt</strong> (ohne
+        ungewertete Wiederholungen), das sind durchschnittlich{' '}
+        <strong className="text-gray-50">
+          {Math.round(totalTries / dayjs().diff(firstItemDate, 'days'))} pro Tag
+        </strong>{' '}
+        bzw.{' '}
+        <strong className="text-gray-50">
+          {Math.round(totalTries / itemsPerStage.total.length)} pro Vokabel
+        </strong>
+        .{' '}
+        <strong className="text-primary-150">
+          {formatLargeNumber(totalTriesCorrect)} Mal ({percent(totalTries, totalTriesCorrect)})
+        </strong>{' '}
+        hast du richtig geantwortet,{' '}
+        <strong className="text-negative-150">
+          {formatLargeNumber(totalTriesWrong)} Mal ({percent(totalTries, totalTriesWrong)})
+        </strong>{' '}
+        falsch.
+      </p>
+      <p className="mt-[1em]">
+        <strong className="bg-[repeating-linear-gradient(-40deg,#0E7054,#0E7054_2px,#00A878_2px,#00A878_6px)] bg-clip-text text-transparent">
+          {masteredCount} Vokabeln ({percent(totalCount, masteredCount)})
+        </strong>{' '}
+        beherrschst du so gut, dass sie seltener als einmal pro Jahr abgefragt werden 💪
+      </p>
 
       <h2 className="mt-8 mb-2">Ausblick</h2>
       <p className="mb-[0.75em] text-xs+">
@@ -144,14 +127,3 @@ const fillEmptySlots = (days: Record<Stage | 'total', number>[]) => {
   }
   return days;
 };
-
-const StatsPair: FC<{ description: string; content: ReactNode; marginBottom?: boolean }> = ({
-  description,
-  content,
-  marginBottom,
-}) => (
-  <>
-    <dt>{description}:</dt>
-    <dd className={classNames('text-right', marginBottom && 'mb-4')}>{content}</dd>
-  </>
-);

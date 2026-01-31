@@ -48,7 +48,8 @@ module.exports = {
       white: '#fff',
       black: '#121212',
       negative: {
-        150: '#AD705F',
+        200: '#AD705F',
+        150: '#D75B38',
         100: '#FF8360',
         75: '#DD9F8D',
         60: '#FBAD97',
