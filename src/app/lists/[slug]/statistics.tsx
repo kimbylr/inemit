@@ -8,14 +8,16 @@ import { percent, sum } from '@/helpers/math';
 import { getColor } from '@/helpers/progress-mappers';
 import { Stage } from '@/types/types';
 import dayjs from 'dayjs';
-import React, { FC, ReactNode } from 'react';
+import { FC, ReactNode } from 'react';
 
 type Props = ReturnType<typeof getStatistics>;
 
 export const Statistics: FC<Props> = ({ itemsPerStage, perDay, firstItemDate }) => {
   const perDayTotals = perDay.map(({ total }) => total);
-  const dueUntilTomorrow = (perDayTotals?.at(0) ?? 0) + perDayTotals[1];
-  const perDayMaxCount = perDayTotals.reduce((acc, cur) => Math.max(cur, acc), dueUntilTomorrow);
+  const perDayMaxCount = perDayTotals.reduce(
+    (acc, cur) => Math.max(cur, acc),
+    (perDayTotals[0] ?? 0) + (perDayTotals[1] ?? 0),
+  );
 
   const totalTries = itemsPerStage.total.map(({ timesTotal }) => timesTotal).reduce(sum, 0);
   const totalCount = itemsPerStage.total.length;
@@ -23,12 +25,6 @@ export const Statistics: FC<Props> = ({ itemsPerStage, perDay, firstItemDate }) 
   const withinYearCount = itemsPerStage.total.filter(({ due }) =>
     dayjs(due).isBefore(dayjs().add(1, 'year')),
   ).length;
-
-  console.log(
-    Object.entries(itemsPerStage).map(([stage, progress]) =>
-      progress.map(({ timesCorrect, timesTotal }) => timesCorrect / timesTotal || 0),
-    ),
-  );
 
   return (
     <section className="mt-8">
@@ -94,21 +90,9 @@ export const Statistics: FC<Props> = ({ itemsPerStage, perDay, firstItemDate }) 
         einem Jahr <strong>{withinYearCount} Vokabeln</strong>.
       </p>
       <ol>
-        {perDay.map(({ total, ...stages }, day, [due]) => {
-          if (day === 0) {
-            return null;
-          }
-
-          if (day === 1 && due) {
-            stages[1] += due[1];
-            stages[2] += due[2];
-            stages[3] += due[3];
-            stages[4] += due[4];
-            total = Object.values(stages).reduce(sum, 0);
-          }
-
+        {fillEmptySlots(mergeDueAndDay1(perDay)).map(({ total, ...stages }, day) => {
           const baseWidth = total / perDayMaxCount;
-          const date = dayjs().add(day, 'days');
+          const date = dayjs().add(day + 1, 'days');
 
           return (
             <li key={day} className="w-full flex mb-0.5 h-5 text-xxs items-stretch">
@@ -116,17 +100,21 @@ export const Statistics: FC<Props> = ({ itemsPerStage, perDay, firstItemDate }) 
                 {date.format('D.M.')}
               </span>
               <span className="grow flex">
-                {getExactPercentages(stages).map(
-                  (count, i) =>
-                    count > 0 && (
-                      <div
-                        key={i}
-                        className={classNames('bg-opacity-50 px-1 min-w-4', getColor(`${i + 1}`))}
-                        style={{ width: baseWidth * count + '%', order: 4 - i }}
-                      >
-                        {stages[(i + 1) as Stage]}
-                      </div>
-                    ),
+                {total === 0 ? (
+                  <div className="px-0.5">0</div>
+                ) : (
+                  getExactPercentages(stages!).map(
+                    (count, i) =>
+                      count > 0 && (
+                        <div
+                          key={i}
+                          className={classNames('bg-opacity-50 px-1 min-w-4', getColor(`${i + 1}`))}
+                          style={{ width: baseWidth * count + '%', order: 4 - i }}
+                        >
+                          {stages[(i + 1) as Stage]}
+                        </div>
+                      ),
+                  )
                 )}
               </span>
             </li>
@@ -135,6 +123,26 @@ export const Statistics: FC<Props> = ({ itemsPerStage, perDay, firstItemDate }) 
       </ol>
     </section>
   );
+};
+
+const mergeDueAndDay1 = ([due, day1, ...perDay]: Record<Stage | 'total', number>[]) => [
+  {
+    1: (due?.[1] ?? 0) + (day1?.[1] ?? 0),
+    2: (due?.[2] ?? 0) + (day1?.[2] ?? 0),
+    3: (due?.[3] ?? 0) + (day1?.[3] ?? 0),
+    4: (due?.[4] ?? 0) + (day1?.[4] ?? 0),
+    total: (due?.total ?? 0) + (day1?.total ?? 0),
+  },
+  ...perDay,
+];
+
+const fillEmptySlots = (days: Record<Stage | 'total', number>[]) => {
+  for (let index = 0; index < days.length; index++) {
+    if (!days[index]) {
+      days[index] = { total: 0, 1: 0, 2: 0, 3: 0, 4: 0 };
+    }
+  }
+  return days;
 };
 
 const StatsPair: FC<{ description: string; content: ReactNode; marginBottom?: boolean }> = ({

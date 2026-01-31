@@ -67,15 +67,18 @@ export const getStatistics = (
   const yesterday = dayjs().subtract(1, 'day');
   const perDay = Object.values(itemsPerStage.total)
     .filter(({ due }) => dayjs(due).isBefore(dayjs().add(30, 'days')))
-    .reduce((acc, cur) => {
-      const daysFromToday = Math.abs(yesterday.diff(cur.due, 'day'));
-      const stages = acc[daysFromToday] ?? { 1: 0, 2: 0, 3: 0, 4: 0, total: 0 };
-      stages[cur.stage]++;
-      stages.total++;
-      acc[daysFromToday] = stages;
+    .reduce(
+      (acc, cur) => {
+        const daysFromToday = Math.max(dayjs(cur.due).diff(yesterday, 'day'), 0);
+        const stages = acc[daysFromToday] ?? { 1: 0, 2: 0, 3: 0, 4: 0, total: 0 };
+        stages[cur.stage]++;
+        stages.total++;
+        acc[daysFromToday] = stages;
 
-      return acc;
-    }, [] as Record<Stage | 'total', number>[]);
+        return acc;
+      },
+      [] as Record<Stage | 'total', number>[], // those in [0] are same as due
+    );
 
   const firstItemDate = items
     .map(({ created }) => created)
@@ -109,7 +112,7 @@ export const mapList = <T extends IncludeListOptions>(
       ? items.filter(({ flagged }) => flagged).map((item) => mapItem(item, true))
       : undefined,
     lastLearnt: options.lastLearnt ? getLastLearnt(items) : undefined,
-  } as any);
+  }) as any;
 
 export const mapItem = (
   {
@@ -135,7 +138,7 @@ export const mapItem = (
     flagged,
     image: (image && normaliseId(image)) || undefined,
     progress: includeProgress ? normaliseId(progress) : undefined,
-  } as any);
+  }) as any;
 
 const normaliseId = ({ _id, ...rest }: object & { _id?: String }) => ({
   id: _id?.toString(),
