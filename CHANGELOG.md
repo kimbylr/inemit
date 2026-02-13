@@ -1,3 +1,10 @@
+## [2.14.2](https://github.com/kimbylr/inemit/compare/v2.14.1...v2.14.2) (2026-02-13)
+
+
+### Bug Fixes
+
+* Stats copy (clarify week/month) ([b79c262](https://github.com/kimbylr/inemit/commit/b79c262aa0c2fd172845d4d38f5c272e0b9758a6))
+
 ## [2.14.1](https://github.com/kimbylr/inemit/compare/v2.14.0...v2.14.1) (2026-01-31)
 
 
