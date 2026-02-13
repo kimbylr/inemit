@@ -68,9 +68,9 @@ export const Statistics: FC<Props> = ({ itemsPerStage, perDay, firstItemDate }) 
 
       <h2 className="mt-8 mb-2">Ausblick</h2>
       <p className="mb-[0.75em] text-xs+">
-        Diese Woche sind <strong>{perDayTotals.slice(0, 7).reduce(sum, 0)} Vokabeln</strong>{' '}
-        eingeplant, im ganzen Monat <strong>{perDayTotals.reduce(sum, 0)} Vokabeln</strong>, bis in
-        einem Jahr <strong>{withinYearCount} Vokabeln</strong>.
+        Bis in einer Woche sind <strong>{perDayTotals.slice(0, 7).reduce(sum, 0)} Vokabeln</strong>{' '}
+        eingeplant, bis in einem Monat <strong>{perDayTotals.reduce(sum, 0)} Vokabeln</strong> und
+        bis in einem Jahr <strong>{withinYearCount} Vokabeln</strong>.
       </p>
       <ol>
         {fillEmptySlots(mergeDueAndDay1(perDay)).map(({ total, ...stages }, day) => {
