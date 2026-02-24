@@ -1,3 +1,10 @@
+## [2.14.3](https://github.com/kimbylr/inemit/compare/v2.14.2...v2.14.3) (2026-02-24)
+
+
+### Bug Fixes
+
+* Copy "bis in einem Tag" ([b099bec](https://github.com/kimbylr/inemit/commit/b099bece49aea108016194ad6046fc6ba69bad10))
+
 ## [2.14.2](https://github.com/kimbylr/inemit/compare/v2.14.1...v2.14.2) (2026-02-13)
 
 
