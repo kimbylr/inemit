@@ -13,7 +13,7 @@ export const DueDaysSummary: FC<Props> = ({ dueToday, dueTomorrow }) => {
         {!!dueTomorrow && (
           <span>
             {' '}
-            Morgen {dueTomorrow === 1 ? 'kommt' : 'kommen'} {dueTomorrow} dazu.
+            Bis in einem Tag {dueTomorrow === 1 ? 'kommt' : 'kommen'} {dueTomorrow} dazu.
           </span>
         )}
       </>
