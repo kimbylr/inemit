@@ -75,13 +75,13 @@ export const ListActions: FC<{ slug: string; small?: boolean }> = ({ slug, small
               href={`${baseUrl}/${path}`}
               key={name}
               className={classNames(
-                'text-xxs flex items-center size-8 font-bold group relative flex-1 grow w-auto h-24 flex-col justify-evenly pb-8 pt-2',
+                'text-xxs flex items-center font-bold group relative flex-1 grow w-auto h-20 flex-col justify-evenly pb-7 pt-2',
                 path === currentPath && 'text-primary-150',
                 path !== currentPath && 'text-gray-50',
               )}
             >
-              {icon}
-              <span className="xs:hidden text-[12px]">{name}</span>
+              <span className="h-6 flex items-center">{icon}</span>
+              <span className="text-[12px] h-4">{name}</span>
             </a>
           ))}
         </div>
