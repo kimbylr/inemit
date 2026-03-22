@@ -3,6 +3,21 @@
 
 ### Bug Fixes
 
+* release.yml again ([53ec4d0](https://github.com/kimbylr/inemit/commit/53ec4d0182369c1d56d2644e80fd97817e9c16fd))
+* Search details (0 matches, reset icon, position) ([27999be](https://github.com/kimbylr/inemit/commit/27999beb91cd7ab005746b5e5b3334f7f665bf07))
+* Update release.yml ([28291ce](https://github.com/kimbylr/inemit/commit/28291cedda4503c05ab5df5d0e38b32232c9abed))
+
+
+### Features
+
+* Add search ([e685676](https://github.com/kimbylr/inemit/commit/e685676aaafb6d9ad42d83c8514810d2c2b7525d))
+* Mobile bottom menu styling ([adb1620](https://github.com/kimbylr/inemit/commit/adb1620ddc285f90c5c80be0160fcd738370158c))
+
+# [2.15.0](https://github.com/kimbylr/inemit/compare/v2.14.3...v2.15.0) (2026-03-22)
+
+
+### Bug Fixes
+
 * Search details (0 matches, reset icon, position) ([27999be](https://github.com/kimbylr/inemit/commit/27999beb91cd7ab005746b5e5b3334f7f665bf07))
 * Update release.yml ([28291ce](https://github.com/kimbylr/inemit/commit/28291cedda4503c05ab5df5d0e38b32232c9abed))
 
