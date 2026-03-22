@@ -10,16 +10,21 @@ import { FC, useEffect, useRef, useState } from 'react';
 type SearchResult = {
   items: LearnItem[];
   totalCount: number;
+  isResult: boolean;
 };
 
-const initialResult: SearchResult = { items: [], totalCount: 0 };
+const initialResult: SearchResult = {
+  items: [],
+  totalCount: 0,
+  isResult: false,
+};
 
 export const ListOverviewSeach: FC<{ list: List }> = ({ list }) => {
   const ref = useRef<HTMLDivElement>(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [error, setError] = useState(false);
   const debouncedSearchTerm = useDebounce(searchTerm, 300);
-  const [{ totalCount, items }, setSearchResult] = useState<SearchResult>(initialResult);
+  const [{ totalCount, items, isResult }, setSearchResult] = useState<SearchResult>(initialResult);
   const [searching, setSearching] = useState(false);
 
   const search = async () => {
@@ -30,8 +35,8 @@ export const ListOverviewSeach: FC<{ list: List }> = ({ list }) => {
     setError(false);
     setSearching(true);
     try {
-      const results = await getFilteredListItems(list.slug, searchTerm);
-      results && setSearchResult(results);
+      const result = await getFilteredListItems(list.slug, searchTerm);
+      result && setSearchResult({ ...result, isResult: true });
       setTimeout(() => ref.current?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 200);
     } catch {
       setError(true);
@@ -47,8 +52,9 @@ export const ListOverviewSeach: FC<{ list: List }> = ({ list }) => {
     searchTerm === '' && setSearchResult(initialResult);
   }, [searchTerm]);
 
-  const hasItems = items.length > 0;
   const hasMore = totalCount > items.length;
+  const debouncedHint = useDebounce(searchTerm, 1000);
+  const showHint = !searching && debouncedSearchTerm.length === 1 && debouncedHint.length === 1;
 
   return (
     <>
@@ -68,8 +74,9 @@ export const ListOverviewSeach: FC<{ list: List }> = ({ list }) => {
         />
         <span className="grow" />
         {searching && <Spinner size="xs" padding={false} />}
-        {error && 'Fehler'}
-        {hasItems && (
+        {error && !showHint && 'Fehler'}
+        {showHint && 'mind. 2 Buchstaben'}
+        {isResult && !showHint && (
           <span>
             {items.length}
             {hasMore && <span className="text-gray-75">/{totalCount}</span>} Treffer
@@ -77,7 +84,7 @@ export const ListOverviewSeach: FC<{ list: List }> = ({ list }) => {
         )}
       </div>
       <AnimatePresence>
-        {hasItems && (
+        {items.length > 0 && (
           <motion.div
             key="list"
             initial={{ height: 0 }}

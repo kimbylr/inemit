@@ -1,5 +1,6 @@
 'use client';
 
+import { classNames } from '@/helpers/class-names';
 import React, { FC, InputHTMLAttributes, useRef } from 'react';
 import { IconCrossCircle } from './icons/cross-circle';
 
@@ -17,11 +18,13 @@ export const TextField: FC<
 
   const input = (
     <input
-      className={`text-black font-light border-2 border-gray-85 outline-none rounded w-full bg-white appearance-none ${
-        small ? 'text-xs p-1' : 'text-sm p-1.5'
-      } ${
-        label ? 'mb-1' : ''
-      } focus:border-gray-50 transition-opacity duration-200 disabled:opacity-50 disabled:delay-200 disabled:cursor-not-allowed placeholder:text-gray-85 ${className}`}
+      className={classNames(
+        'text-black font-light border-2 border-gray-85 outline-none rounded w-full bg-white appearance-none',
+        small ? 'text-xs p-1' : 'text-sm p-1.5',
+        label && 'mb-1',
+        'focus:border-gray-50 transition-opacity duration-200 disabled:opacity-50 disabled:delay-200 disabled:cursor-not-allowed placeholder:text-gray-85',
+        className,
+      )}
       {...props}
       ref={ref}
       name={`1pw-escape-hatch--search`}

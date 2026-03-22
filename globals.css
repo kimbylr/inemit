@@ -3,7 +3,12 @@
 @tailwind utilities;
 
 html {
-  font-family: var(--font-work-sans), -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+  font-family:
+    var(--font-work-sans),
+    -apple-system,
+    BlinkMacSystemFont,
+    Roboto,
+    sans-serif;
 }
 .content-div {
   min-height: calc(100vh + env(safe-area-inset-top));
@@ -141,4 +146,11 @@ button:focus-visible,
 .break-when-needed {
   word-break: break-word; /* ohai Safari */
   overflow-wrap: anywhere;
+}
+
+input[type='search']::-webkit-search-decoration,
+input[type='search']::-webkit-search-cancel-button,
+input[type='search']::-webkit-search-results-button,
+input[type='search']::-webkit-search-results-decoration {
+  display: none;
 }

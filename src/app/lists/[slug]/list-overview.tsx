@@ -95,13 +95,13 @@ export const ListOverview: FC<Props> = ({ list }) => {
       )}
 
       <section className="mt-12">
-        <h2>Suchen</h2>
-        <ListOverviewSeach list={list} />
+        <h2>Hinzufügen</h2>
+        <EditableItemsList listId={list.id} />
       </section>
 
       <section className="mt-12">
-        <h2>Hinzufügen</h2>
-        <EditableItemsList listId={list.id} />
+        <h2>Suchen</h2>
+        <ListOverviewSeach list={list} />
       </section>
     </>
   );
