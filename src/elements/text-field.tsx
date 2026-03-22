@@ -1,12 +1,20 @@
-import React, { FC, InputHTMLAttributes } from 'react';
+'use client';
+
+import React, { FC, InputHTMLAttributes, useRef } from 'react';
+import { IconCrossCircle } from './icons/cross-circle';
 
 export const TextField: FC<
   {
     small?: boolean;
     label?: string;
-    ref?: React.LegacyRef<HTMLInputElement>;
+    clearable?: boolean;
+    onClear?: () => void;
+    ref?: React.RefObject<HTMLInputElement | null>;
   } & InputHTMLAttributes<HTMLInputElement>
-> = React.forwardRef(({ small, className, label, ...props }, ref) => {
+> = ({ small, className, label, clearable, onClear, ref: propsRef, ...props }) => {
+  const inputRef = useRef<HTMLInputElement>(null);
+  const ref = propsRef || inputRef;
+
   const input = (
     <input
       className={`text-black font-light border-2 border-gray-85 outline-none rounded w-full bg-white appearance-none ${
@@ -20,14 +28,26 @@ export const TextField: FC<
     />
   );
 
-  if (!label) {
+  if (!label && !clearable) {
     return input;
   }
 
   return (
-    <label className="block font-bold text-xxs text-gray-60 uppercase">
+    <label className="block font-bold text-xxs text-gray-60 uppercase relative">
       {input}
       {label}
+      {clearable && props.value !== '' && (
+        <button
+          className="absolute right-1 w-6 inset-y-1 p-1 text-gray-85 hover:text-gray-60"
+          type="reset"
+          onClick={() => {
+            onClear?.();
+            ref.current?.focus();
+          }}
+        >
+          <IconCrossCircle />
+        </button>
+      )}
     </label>
   );
-});
+};

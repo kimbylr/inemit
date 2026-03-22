@@ -8,13 +8,13 @@ import { getListStatistics } from '@/db/actions';
 import { getStatistics } from '@/db/helpers';
 import { Button } from '@/elements/button';
 import { DueDaysSummary } from '@/elements/due-days-summary';
-import { IconFlag } from '@/elements/icons/flag';
 import { IconLogo } from '@/elements/icons/logo';
 import { LinkButton } from '@/elements/link-button';
 import { Spinner } from '@/elements/spinner';
 import { List } from '@/types/types';
 import { useRouter } from 'next/navigation';
 import { FC, PropsWithChildren, useEffect, useRef, useState } from 'react';
+import { ListOverviewSeach } from './search';
 import { Statistics } from './statistics';
 
 type Props = {
@@ -89,18 +89,20 @@ export const ListOverview: FC<Props> = ({ list }) => {
 
       {flaggedItems.length > 0 && (
         <div className="mt-12">
-          <h2 className="flex gap-3 items-center">
-            Markiert
-            <IconFlag className="h-4" />
-          </h2>
+          <h2 className="flex gap-3 items-center">Markiert</h2>
           <EditableItemsList listId={list.id} canAdd={false} items={flaggedItems} />
         </div>
       )}
 
-      <div className="mt-12">
+      <section className="mt-12">
+        <h2>Suchen</h2>
+        <ListOverviewSeach list={list} />
+      </section>
+
+      <section className="mt-12">
         <h2>Hinzufügen</h2>
         <EditableItemsList listId={list.id} />
-      </div>
+      </section>
     </>
   );
 };

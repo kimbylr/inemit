@@ -51,6 +51,20 @@ export const getListToEdit = async (slug: string) => {
   return mapList(list, { flaggedItems: true, lastLearnt: true, items: true });
 };
 
+export const getFilteredListItems = async (slug: string, search: string) => {
+  if (!slug) return;
+  if (!search || search.length < 2) return;
+
+  const list = await getListBySlug(slug, true);
+  if (!list) return;
+
+  const items = list.items.filter(
+    ({ solution, prompt }) => solution.includes(search) || prompt.includes(search),
+  );
+
+  return { items: mapItems(items.slice(0, 10)), totalCount: items.length };
+};
+
 export const getListToLearn = async (slug: string) => {
   if (!slug) return;
 
