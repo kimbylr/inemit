@@ -1,3 +1,10 @@
+## [2.15.1](https://github.com/kimbylr/inemit/compare/v2.15.0...v2.15.1) (2026-03-22)
+
+
+### Bug Fixes
+
+* Cleanup changelog ([ad073d4](https://github.com/kimbylr/inemit/commit/ad073d40c59ce8d9cf9b17654ce6e5aaf967d755))
+
 # [2.15.0](https://github.com/kimbylr/inemit/compare/v2.14.3...v2.15.0) (2026-03-22)
 
 
