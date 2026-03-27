@@ -58,8 +58,11 @@ export const getFilteredListItems = async (slug: string, search: string) => {
   const list = await getListBySlug(slug, true);
   if (!list) return;
 
+  const lowerCaseSearch = search.toLowerCase();
   const items = list.items.filter(
-    ({ solution, prompt }) => solution.includes(search) || prompt.includes(search),
+    ({ solution, prompt }) =>
+      solution.toLowerCase().includes(lowerCaseSearch) ||
+      prompt.toLowerCase().includes(lowerCaseSearch),
   );
 
   return { items: mapItems(items.slice(0, 10)), totalCount: items.length };
