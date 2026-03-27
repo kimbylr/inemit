@@ -1,3 +1,12 @@
+## [2.15.2](https://github.com/kimbylr/inemit/compare/v2.15.1...v2.15.2) (2026-03-27)
+
+
+### Bug Fixes
+
+* Disable hotkeys for page switching when modal is open ([56256a1](https://github.com/kimbylr/inemit/commit/56256a198d5afd9cd344423d91783e424e3fc9c5))
+* Dynamic search result transition duration (longer when more items) ([3be70c8](https://github.com/kimbylr/inemit/commit/3be70c8da1cd9890a19ea2685387f275e4ba2c4f))
+* Make search case-insensitive ([eafd6b5](https://github.com/kimbylr/inemit/commit/eafd6b5226b459e4ba92208402f8d186c8f17a65))
+
 ## [2.15.1](https://github.com/kimbylr/inemit/compare/v2.15.0...v2.15.1) (2026-03-22)
 
 
