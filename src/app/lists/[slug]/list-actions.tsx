@@ -29,9 +29,12 @@ export const ListActions: FC<{ slug: string; small?: boolean }> = ({ slug, small
   const currentPath = path.replace(`${baseUrl}/`, '').replace(baseUrl, '');
 
   const { push } = useRouter();
-  useKey('Enter', (e) => e.metaKey && push(`${baseUrl}/learn`));
+  useKey('Enter', (e) => !isModalOpen() && e.metaKey && push(`${baseUrl}/learn`));
   useKey('e', (e) => {
-    !(e.target instanceof HTMLInputElement) && currentPath !== 'edit' && push(`${baseUrl}/edit`);
+    !isModalOpen() &&
+      !(e.target instanceof HTMLInputElement) &&
+      currentPath !== 'edit' &&
+      push(`${baseUrl}/edit`);
   });
 
   return (
@@ -89,3 +92,5 @@ export const ListActions: FC<{ slug: string; small?: boolean }> = ({ slug, small
     </nav>
   );
 };
+
+const isModalOpen = () => document.body.classList.contains('fixed');
