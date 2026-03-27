@@ -89,6 +89,7 @@ export const ListOverviewSeach: FC<{ list: List }> = ({ list }) => {
             key="list"
             initial={{ height: 0 }}
             animate={{ height: 'auto' }}
+            transition={{ duration: Math.min(0.1 * items.length, 0.5) }}
             exit={{ height: 0 }}
             style={{ overflow: 'hidden' }}
           >
