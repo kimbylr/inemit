@@ -98,6 +98,12 @@ const tests = [
     wrongAnswers: [],
   },
   {
+    name: 'double parenthesis',
+    solution: "gratuitous ([gra't(ʃ)u:-])",
+    correctAnswers: ['gratuitous'],
+    wrongAnswers: [],
+  },
+  {
     name: 'empty is never a solution',
     solution: 'A differenza di quel che si pensa, …',
     correctAnswers: ['A differenza di quel che si pensa'],

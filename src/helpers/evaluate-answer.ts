@@ -2,12 +2,16 @@ export const evaluateAnswer = (answer: string, solution: string): boolean => {
   const bareSolution = solution.replace(/[.…?!]/g, ''); // remove punctuation (also stripped for answer)
   const splitSolutions = bareSolution.split(/[,;]+/); // NB: solution phrases with commas are split up
   const solutionsWithoutParentheses = solution.replace(/\(.*?\)/g, '').split(/[,;]+/);
+  const solutionsWithoutDoubleParentheses = solution
+    .replace(/\(.*?\(.*?\).*?\)/g, '')
+    .split(/[,;]+/);
   const splitSolutionsCommaInParentheses = bareSolution.split(/\([^)]*,(?=[^()]*\))/); // cuts " (da," in "bla (da, bli), blo"
   const allSolutionApproaches = Array.from(
     new Set([
       bareSolution,
       ...splitSolutions,
       ...solutionsWithoutParentheses,
+      ...solutionsWithoutDoubleParentheses,
       ...splitSolutionsCommaInParentheses,
     ]),
   );
