@@ -116,9 +116,9 @@ export const Learn: FC<{ list: List<'items'> }> = ({ list }) => {
     prompt.length + (promptAddition?.length || -10) < 30 &&
     prompt.split(' ').every((word) => word.length < 12)
       ? 'large'
-      : prompt.length + (promptAddition?.length || -20) < 60
-      ? 'medium'
-      : 'small';
+      : prompt.length + (promptAddition?.length || -20) < 60 && !image
+        ? 'medium'
+        : 'small';
 
   return (
     <>
