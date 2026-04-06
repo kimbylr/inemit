@@ -1,3 +1,11 @@
+## [2.15.3](https://github.com/kimbylr/inemit/compare/v2.15.2...v2.15.3) (2026-04-06)
+
+
+### Bug Fixes
+
+* Smaller prompt text when image ([e46c149](https://github.com/kimbylr/inemit/commit/e46c14947583e1e36fd5d99809cfcb0d75eeba0e))
+* Strip out double parenthesis in solution ([9f31841](https://github.com/kimbylr/inemit/commit/9f31841055d7e5a55c812ec3179ea3969cc5863d))
+
 ## [2.15.2](https://github.com/kimbylr/inemit/compare/v2.15.1...v2.15.2) (2026-03-27)
 
 
