@@ -1,3 +1,10 @@
+## [2.15.4](https://github.com/kimbylr/inemit/compare/v2.15.3...v2.15.4) (2026-08-08)
+
+
+### Bug Fixes
+
+* Search box spacing ([2096f94](https://github.com/kimbylr/inemit/commit/2096f94d029f005725429369b6d0ad1bd9acfdf4))
+
 ## [2.15.3](https://github.com/kimbylr/inemit/compare/v2.15.2...v2.15.3) (2026-04-06)
 
 
