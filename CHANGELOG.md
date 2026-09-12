@@ -1,3 +1,10 @@
+# [2.16.0](https://github.com/kimbylr/inemit/compare/v2.15.4...v2.16.0) (2026-09-12)
+
+
+### Features
+
+* Give second chance if missed by only 1 letter ([7027270](https://github.com/kimbylr/inemit/commit/70272701c7c7e81a23308edabeb6d473328cafb8))
+
 ## [2.15.4](https://github.com/kimbylr/inemit/compare/v2.15.3...v2.15.4) (2026-08-08)
 
 
