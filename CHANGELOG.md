@@ -1,3 +1,10 @@
+## [2.16.1](https://github.com/kimbylr/inemit/compare/v2.16.0...v2.16.1) (2026-09-12)
+
+
+### Bug Fixes
+
+* Extend search to prompt addition ([5a4d3df](https://github.com/kimbylr/inemit/commit/5a4d3df19c1adf4ed67da9f6aa9fc90471b7aaa5))
+
 # [2.16.0](https://github.com/kimbylr/inemit/compare/v2.15.4...v2.16.0) (2026-09-12)
 
 
