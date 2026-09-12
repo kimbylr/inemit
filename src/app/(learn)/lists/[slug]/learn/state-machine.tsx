@@ -2,13 +2,21 @@ import { evaluateAnswer } from '@/helpers/evaluate-answer';
 import { LearnItem, List } from '@/types/types';
 
 export type State = {
-  mode: 'answering' | 'revising' | 'repeat-answering' | 'repeat-revising' | 'end';
+  mode:
+    | 'answering'
+    | 'answering-hint'
+    | 'revising'
+    | 'repeat-answering'
+    | 'repeat-answering-hint'
+    | 'repeat-revising'
+    | 'end';
   data: {
     items: LearnItem[];
     item: LearnItem;
     repeat: boolean;
     repeatItems: LearnItem[];
     answer: string;
+    hint: { answer: string; count: number };
     currentIndex: number;
     isCorrect: boolean;
     count: { correct: number; incorrect: number };
@@ -22,6 +30,7 @@ export const getInitialLearnMachineData = (list: List<'items'>): State => ({
     repeat: list?.repeat || false,
     repeatItems: [],
     answer: '',
+    hint: { answer: '', count: 0 },
     currentIndex: 0,
     isCorrect: false,
     count: { correct: 0, incorrect: 0 },
@@ -53,10 +62,16 @@ export const learnMachine = (state: State, action: Actions): State => {
 
     case LearnAction.CHECK:
       if (!state.mode.includes('answering')) return state;
-      return {
-        mode: state.mode === 'answering' ? 'revising' : 'repeat-revising',
-        data: { ...state.data, isCorrect: evaluateAnswer(answer, item.solution) },
-      };
+      const { isCorrect, steps } = evaluateAnswer(answer, item.solution);
+      return !canTryAgain(steps, answer, state)
+        ? {
+            mode: state.mode.startsWith('answering') ? 'revising' : 'repeat-revising',
+            data: { ...state.data, isCorrect, hint: { answer: '', count: 0 } },
+          }
+        : {
+            mode: state.mode === 'answering' ? 'answering-hint' : 'repeat-answering-hint',
+            data: { ...state.data, hint: { answer, count: state.data.hint.count + 1 } },
+          };
 
     case LearnAction.NEXT:
       if (!state.mode.includes('revising')) return state;
@@ -86,6 +101,11 @@ export const learnMachine = (state: State, action: Actions): State => {
       return state;
   }
 };
+
+const MAX_TRIES = 3;
+const canTryAgain = (steps: number, answer: string, { mode, data }: State) =>
+  steps === 1 &&
+  (!mode.includes('hint') || (answer !== data.hint.answer && data.hint.count < MAX_TRIES - 1));
 
 const getCount = (
   count: { correct: number; incorrect: number },

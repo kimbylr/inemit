@@ -114,10 +114,10 @@ const tests = [
 tests.map(({ name, solution, correctAnswers, wrongAnswers }) => {
   test(name, () => {
     for (const answer of correctAnswers) {
-      expect(evaluateAnswer(answer, solution)).toBe(true);
+      expect(evaluateAnswer(answer, solution).isCorrect).toBe(true);
     }
     for (const answer of wrongAnswers) {
-      expect(evaluateAnswer(answer, solution)).toBe(false);
+      expect(evaluateAnswer(answer, solution).isCorrect).toBe(false);
     }
   });
 });

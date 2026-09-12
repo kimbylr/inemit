@@ -28,8 +28,10 @@ module.exports = {
         20: '#F1EDA7',
       },
       orange: {
+        200: '#A16300',
         150: '#F59700',
         100: '#FFC15E',
+        50: '#FFD694',
         20: '#FFE0AD',
         10: '#FFEED2',
         5: '#FFF7E9',

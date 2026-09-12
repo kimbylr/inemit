@@ -1,4 +1,11 @@
-export const evaluateAnswer = (answer: string, solution: string): boolean => {
+import distance from 'damerau-levenshtein';
+
+type Evaluation = {
+  isCorrect: boolean;
+  steps: number;
+};
+
+export const evaluateAnswer = (answer: string, solution: string): Evaluation => {
   const bareSolution = solution.replace(/[.…?!]/g, ''); // remove punctuation (also stripped for answer)
   const splitSolutions = bareSolution.split(/[,;]+/); // NB: solution phrases with commas are split up
   const solutionsWithoutParentheses = solution.replace(/\(.*?\)/g, '').split(/[,;]+/);
@@ -18,7 +25,13 @@ export const evaluateAnswer = (answer: string, solution: string): boolean => {
 
   const solutions = allSolutionApproaches.flatMap(getSolutions).map(normalise).filter(Boolean);
   const normalisedAnswer = normalise(answer.replace(/[.?!()]/g, ''));
-  return solutions.includes(normalisedAnswer);
+  const distances = solutions.map((solution) => distance(solution, normalisedAnswer).steps);
+  const nearest = distances.toSorted()[0];
+
+  return {
+    isCorrect: nearest === 0,
+    steps: nearest,
+  };
 };
 
 const getSolutions = (solutionWithBrackets: string): string[] => {

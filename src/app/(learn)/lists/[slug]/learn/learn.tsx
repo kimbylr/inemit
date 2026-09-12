@@ -106,7 +106,9 @@ export const Learn: FC<{ list: List<'items'> }> = ({ list }) => {
     dispatch({ type: LearnAction.NEXT, correct: answerQuality >= 3 });
   };
 
-  const revising = mode === 'revising' || mode === 'repeat-revising' || mode === 'end';
+  const revising = mode.includes('revising') || mode === 'end';
+  const showHint = mode.includes('hint');
+  const showAltHint = data.hint.count % 2 === 0;
 
   const { id: itemId, promptAddition, solution, flagged, image } = item;
   const isSynonym = item.prompt.startsWith('= ');
@@ -233,6 +235,14 @@ export const Learn: FC<{ list: List<'items'> }> = ({ list }) => {
               </div>
             )}
 
+            {showHint && (
+              <div className="leading-[1.125] absolute text-center bottom-[60px] left-0 w-full">
+                <Correction variant="warning">
+                  {showAltHint ? 'Noch ein Versuch…' : 'Knapp daneben!'}
+                </Correction>
+              </div>
+            )}
+
             {revising && !isCorrect && (
               <div className="leading-[1.125] absolute text-center bottom-[60px] left-0 w-full">
                 {/* TODO {showFalseNegativeHint && (
@@ -242,6 +252,7 @@ export const Learn: FC<{ list: List<'items'> }> = ({ list }) => {
                   </Hint>
                 )} */}
                 <Correction
+                  variant="correct"
                   onClick={async (event) => {
                     event.preventDefault();
                     await next(true);
@@ -256,7 +267,7 @@ export const Learn: FC<{ list: List<'items'> }> = ({ list }) => {
             )}
             {revising && isCorrect && showRefinementHint(answer, solution) && (
               <div className="leading-[1.125] absolute text-center bottom-[60px] left-0 w-full">
-                <Correction>{solution}</Correction>
+                <Correction variant="neutral">{solution}</Correction>
               </div>
             )}
           </div>

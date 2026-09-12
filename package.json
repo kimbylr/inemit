@@ -13,6 +13,7 @@
     "@auth0/nextjs-auth0": "^4.14.0",
     "autoprefixer": "^10.4.23",
     "blurhash": "^2.0.5",
+    "damerau-levenshtein": "^1.0.8",
     "dayjs": "^1.11.19",
     "eslint": "^9.39.2",
     "eslint-config-next": "16.1.1",
@@ -33,6 +34,7 @@
   "devDependencies": {
     "@semantic-release/changelog": "^6.0.3",
     "@semantic-release/git": "^10.0.1",
+    "@types/damerau-levenshtein": "^1.0.2",
     "@types/jest": "^30.0.0",
     "@types/node": "^25.0.3",
     "@types/react": "19.2.7",
