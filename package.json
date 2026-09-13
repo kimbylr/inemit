@@ -1,6 +1,6 @@
 {
   "name": "inemit",
-  "version": "2.16.1",
+  "version": "2.16.2",
   "scripts": {
     "dev": "next dev",
     "build": "next build",

@@ -1,3 +1,10 @@
+## [2.16.2](https://github.com/kimbylr/inemit/compare/v2.16.1...v2.16.2) (2026-09-13)
+
+
+### Bug Fixes
+
+* Improve second chance flow ([83ec4ac](https://github.com/kimbylr/inemit/commit/83ec4ac692695286b35d3b2d313508f57c0e6970))
+
 ## [2.16.1](https://github.com/kimbylr/inemit/compare/v2.16.0...v2.16.1) (2026-09-12)
 
 
