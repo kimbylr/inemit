@@ -89,8 +89,8 @@ export const Learn: FC<{ list: List<'items'> }> = ({ list }) => {
     return '...';
   }
 
-  const next = async (overruleCorrect?: boolean) => {
-    const answerQuality = overruleCorrect ? 3 : isCorrect ? 5 : 1; // TODO: more fine-grained?
+  const next = async (forceCorrect?: boolean) => {
+    const answerQuality = forceCorrect ? 3 : isCorrect ? ((5 - data.hint.count) as 3 | 4 | 5) : 1;
     const save = async () => {
       setSaving(true);
       try {
@@ -107,7 +107,7 @@ export const Learn: FC<{ list: List<'items'> }> = ({ list }) => {
   };
 
   const revising = mode.includes('revising') || mode === 'end';
-  const showHint = mode.includes('hint');
+  const showHint = mode.includes('hint') && !data.hint.hidden;
   const showAltHint = data.hint.count % 2 === 0;
 
   const { id: itemId, promptAddition, solution, flagged, image } = item;

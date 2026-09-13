@@ -16,7 +16,7 @@ export type State = {
     repeat: boolean;
     repeatItems: LearnItem[];
     answer: string;
-    hint: { answer: string; count: number };
+    hint: { answer: string; count: number; hidden: boolean };
     currentIndex: number;
     isCorrect: boolean;
     count: { correct: number; incorrect: number };
@@ -30,7 +30,7 @@ export const getInitialLearnMachineData = (list: List<'items'>): State => ({
     repeat: list?.repeat || false,
     repeatItems: [],
     answer: '',
-    hint: { answer: '', count: 0 },
+    hint: { answer: '', count: 0, hidden: true },
     currentIndex: 0,
     isCorrect: false,
     count: { correct: 0, incorrect: 0 },
@@ -55,23 +55,30 @@ export const learnMachine = (state: State, action: Actions): State => {
   switch (action.type) {
     case LearnAction.TYPE:
       if (!state.mode.includes('answering')) return state;
-      return { mode: state.mode, data: { ...state.data, answer: action.answer } };
+      return {
+        mode: state.mode,
+        data: { ...state.data, answer: action.answer, hint: { ...state.data.hint, hidden: true } },
+      };
 
     case LearnAction.FLAG:
       return { ...state, data: { ...state.data, item: { ...item, flagged: action.flagged } } };
 
-    case LearnAction.CHECK:
+    case LearnAction.CHECK: {
+      const { mode, data } = state;
       if (!state.mode.includes('answering')) return state;
       const { isCorrect, steps } = evaluateAnswer(answer, item.solution);
-      return !canTryAgain(steps, answer, state)
+      const count = data.hint.count;
+
+      return canTryAgain(steps, state)
         ? {
-            mode: state.mode.startsWith('answering') ? 'revising' : 'repeat-revising',
-            data: { ...state.data, isCorrect, hint: { answer: '', count: 0 } },
+            mode: mode.startsWith('answering') ? 'answering-hint' : 'repeat-answering-hint',
+            data: { ...data, hint: { answer, count: count + 1, hidden: false } },
           }
         : {
-            mode: state.mode === 'answering' ? 'answering-hint' : 'repeat-answering-hint',
-            data: { ...state.data, hint: { answer, count: state.data.hint.count + 1 } },
+            mode: mode.startsWith('answering') ? 'revising' : 'repeat-revising',
+            data: { ...data, isCorrect, hint: { answer: '', count, hidden: true } },
           };
+    }
 
     case LearnAction.NEXT:
       if (!state.mode.includes('revising')) return state;
@@ -94,6 +101,7 @@ export const learnMachine = (state: State, action: Actions): State => {
           count: newCount,
           answer: '',
           repeatItems: newRepeatItems,
+          hint: { answer: '', count: 0, hidden: true },
         },
       };
 
@@ -103,9 +111,8 @@ export const learnMachine = (state: State, action: Actions): State => {
 };
 
 const MAX_TRIES = 3;
-const canTryAgain = (steps: number, answer: string, { mode, data }: State) =>
-  steps === 1 &&
-  (!mode.includes('hint') || (answer !== data.hint.answer && data.hint.count < MAX_TRIES - 1));
+const canTryAgain = (steps: number, { mode, data }: State) =>
+  steps === 1 && (!mode.includes('hint') || (data.hint.hidden && data.hint.count < MAX_TRIES - 1));
 
 const getCount = (
   count: { correct: number; incorrect: number },

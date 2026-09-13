@@ -27,10 +27,11 @@ export const Correction = React.forwardRef<HTMLButtonElement, CorrectionProps>(
           'outline-none disabled:opacity-50 disabled:cursor-not-allowed',
           variant === 'warning' ? 'text-xs' : 'text-sm',
           variant === 'neutral' ? 'font-light' : 'font-bold',
+          variant === 'correct' ? 'border-[3px]' : 'border-2',
 
-          variant === 'correct' && 'bg-primary-10 border-[3px] border-primary-100 text-primary-100',
-          variant === 'neutral' && 'bg-gray-95 border-2 border-gray-50 text-gray-25',
-          variant === 'warning' && 'bg-orange-10 border-orange-100 border-2 text-orange-200',
+          variant === 'correct' && 'bg-primary-10 border-primary-100 text-primary-100',
+          variant === 'neutral' && 'bg-gray-95 border-gray-50 text-gray-25',
+          variant === 'warning' && 'bg-orange-5 border-orange-100 text-orange-200',
         )}
       >
         {/* triangle border */}
@@ -49,7 +50,7 @@ export const Correction = React.forwardRef<HTMLButtonElement, CorrectionProps>(
             'border-[12px] -ml-3',
             variant === 'correct' && 'border-t-primary-10',
             variant === 'neutral' && 'border-t-gray-95',
-            variant === 'warning' && 'border-t-orange-10',
+            variant === 'warning' && 'border-t-orange-5',
           )}
         />
         <TextWithBreaks>{children}</TextWithBreaks>
